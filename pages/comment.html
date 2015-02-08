@@ -1,0 +1,4 @@
+<div ng-class="post.thumbnail != null ? 'eleven columns omega' : 'sixteen columns omega'">
+<span quote-box ng-if="post.quote_link != ''" hover-tmpl-url="pages/box.html" thread="thread" ids="post.quote_id" links="post.quote_link"></span>
+<p ng-bind-html="::post.comment | linky:'_blank'"></p>
+</div> 

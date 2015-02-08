@@ -1,0 +1,50 @@
+<top-box></top-box>
+<div class="container">
+
+<div class="sixteen columns tag_bar">
+<div class="three columns">
+&nbsp;
+</div>
+<div class="ten columns">
+
+<div ng-if="error != undefined" class="alert alert-danger" role="alert" ng-bind="error.error_message"></div>
+
+<form role="form" class="form-inline" ng-submit="newTag()">
+<div class="form-group">
+
+<select ng-init="selected=1" ng-options="tag.id as tag.type for tag in tagTypes" ng-model="selected" class="form-control"></select>
+<input type="text" maxlength="20" id="name" ng-minlength="3" ng-maxlength="20" placeholder="New Tag" ng-required="true" ng-model="name" class="form-control">
+<button class="btn btn-primary" type="submit">New</button>
+
+</div>
+</form>
+
+</div>
+</div>
+
+<div class="sixteen columns thread_list">
+
+<table class="table_list">
+
+<thead>
+<tr class="table_header">
+<th align="left"><a href="" ng-click="predicate = 'tag'; reverse=!reverse">Tag</a></th>
+<th width="10%"><a href="" ng-click="predicate = 'total'; reverse=!reverse">Total</a></th>
+</tr>
+</thead>
+
+<tbody>
+<tr class="table_item" ng-repeat="tag in data.tags track by tag.id | orderBy:predicate:!reverse">
+
+<td ng-switch="tag.type">
+
+<a ng-switch-when="1" ng-href="tag/{{tag.id}}/1" rel="nofollow" href ng-bind="::tag.tag"></a>
+<a ng-switch-when="2" style="color:#0A0;" ng-href="tag/{{tag.id}}/1" rel="nofollow" href ng-bind="::tag.tag"></a>
+<a ng-switch-when="3" style="color:#A00;" ng-href="tag/{{tag.id}}/1" rel="nofollow" href ng-bind="::tag.tag"></a>
+</td>
+<td align="center" ng-bind="::tag.total"></td>
+
+</tr>
+</tbody></table>
+
+</div>

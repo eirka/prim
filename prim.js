@@ -1,16 +1,12 @@
 /*global angular:true */
-/*
-               __                
- _____   _ __ /\_\    ___ ___    
-/\ '__`\/\`'__\/\ \ /' __` __`\  
-\ \ \L\ \ \ \/ \ \ \/\ \/\ \/\ \ 
- \ \ ,__/\ \_\  \ \_\ \_\ \_\ \_\
-  \ \ \/  \/_/   \/_/\/_/\/_/\/_/
-   \ \_\                         
-    \/_/                         
-           Prim 1.1.8
-*/
-var prim = angular.module('Prim', ['ngSanitize', 'ngRoute', 'ngResource']);
+
+var prim = angular.module('Prim', ['ngSanitize', 'ngRoute', 'ngResource', 'ngMessages']);
+
+// Internal constants
+prim.constant('internal', {
+  // Set antispam key
+  as_key: 'antispam'
+});
 
 prim.config(['$routeProvider', '$locationProvider', '$compileProvider',
   function($routeProvider, $locationProvider, $compileProvider) {
@@ -106,8 +102,7 @@ prim.service('TagList', ['$resource', 'config',
       ib: config.ib_id
     }, {
       get: {
-        method: 'GET',
-        cache: true
+        method: 'GET'
       }
     });
   }
@@ -181,7 +176,7 @@ prim.service('TagTypes', ['$resource',
 ]);
 
 // Single tag json
-prim.service('Tag', ['$resource',  'config',
+prim.service('Tag', ['$resource', 'config',
   function($resource, config) {
     return $resource('/api/get/tag/:id/:page', {
       id: '@id',
@@ -342,10 +337,10 @@ prim.directive('commentHandler', [
 ]);
 
 // Get a thread
-prim.controller('getThread', ['config', 'Thread', '$window', '$location', '$scope', '$routeParams',
-  function(config, Thread, $window, $location, $scope, $routeParams) {
+prim.controller('getThread', ['config', 'internal', 'Thread', '$window', '$location', '$scope', '$routeParams',
+  function(config, internal, Thread, $window, $location, $scope, $routeParams) {
 
-    $scope.as_key = config.as_key;
+    $scope.as_key = internal.as_key;
     $scope.ib_id = config.ib_id;
     // Variable for grid or list view as default
     $scope.layout = 'list';
@@ -376,14 +371,14 @@ prim.controller('getThread', ['config', 'Thread', '$window', '$location', '$scop
     // add post num to comment box
     $scope.replyQuote = function(id) {
       $scope.reply.setQuote(id);
-      $window.scrollTo(0,0);
+      $window.scrollTo(0, 0);
     };
 
   }
 ]);
 
 // Gets the thread directory
-prim.controller('getDirectory', ['Directory', '$scope', 
+prim.controller('getDirectory', ['Directory', '$scope',
   function(Directory, $scope) {
 
     $scope.data = Directory.get();
@@ -398,7 +393,7 @@ prim.controller('getDirectory', ['Directory', '$scope',
 prim.controller('getPost', ['Post', '$location', '$routeParams', '$scope',
   function(Post, $location, $routeParams, $scope) {
 
-  // Get tag page json
+    // Get tag page json
     Post.get({
       thread: $routeParams.id,
       id: $routeParams.post
@@ -420,8 +415,8 @@ prim.controller('getPost', ['Post', '$location', '$routeParams', '$scope',
 ]);
 
 // Gets tag list
-prim.controller('getTagList', ['config', 'TagList', 'TagTypes', 'NewTag', '$scope',
-  function(config, TagList, TagTypes, NewTag, $scope) {
+prim.controller('getTagList', ['config', 'internal', 'TagList', 'TagTypes', 'NewTag', '$scope',
+  function(config, internal, TagList, TagTypes, NewTag, $scope) {
 
     // Get tag types for selector
     TagTypes.get(function(data) {
@@ -442,7 +437,7 @@ prim.controller('getTagList', ['config', 'TagList', 'TagTypes', 'NewTag', '$scop
         name: $scope.name,
         type: $scope.selected,
         ib: config.ib_id,
-        askey: config.as_key
+        askey: internal.as_key
       }, function() {
         $scope.updateTags();
       }, function(error) {
@@ -457,8 +452,8 @@ prim.controller('getTagList', ['config', 'TagList', 'TagTypes', 'NewTag', '$scop
 ]);
 
 // Get single image
-prim.controller('getImage', ['config', 'Image', 'TagList', 'AddTag', '$routeParams', '$scope',
-  function(config, Image, TagList, AddTag, $routeParams, $scope) {
+prim.controller('getImage', ['config', 'internal', 'Image', 'TagList', 'AddTag', '$routeParams', '$scope',
+  function(config, internal, Image, TagList, AddTag, $routeParams, $scope) {
 
     // Get the image json
     Image.get({
@@ -466,7 +461,6 @@ prim.controller('getImage', ['config', 'Image', 'TagList', 'AddTag', '$routePara
     }, function(data) {
       $scope.data = data;
       $scope.image = data.image;
-      $scope.site_addr = config.site_addr;
       // Set page title from image id
       $scope.page.setTitle('Image ' + $scope.image.id);
       $scope.tags = data.image.tags;
@@ -480,18 +474,18 @@ prim.controller('getImage', ['config', 'Image', 'TagList', 'AddTag', '$routePara
       $scope.tagList = data.tags;
     });
 
-$scope.tagList = {};
+    $scope.tagList = {};
 
-  // handles the input for the typeahead, its broken otherwise
-  function inputFormat(model) {
-    for (var i=0; i< $scope.tagList.length; i++) {
-      if (model === $scope.tagList[i].id) {
-        return $scope.tagList[i].tag;
+    // handles the input for the typeahead, its broken otherwise
+    function inputFormat(model) {
+      for (var i = 0; i < $scope.tagList.length; i++) {
+        if (model === $scope.tagList[i].id) {
+          return $scope.tagList[i].tag;
+        }
       }
     }
-  };
 
-$scope.formatLabel = inputFormat;
+    $scope.formatLabel = inputFormat;
 
     // Update image tags json
     $scope.updateTags = function() {
@@ -500,27 +494,28 @@ $scope.formatLabel = inputFormat;
       }, function(data) {
         $scope.tags = data.image.tags;
         $scope.error = null;
+        $scope.selected = null;
       });
     };
 
     // Add a tag to the image and update list
     $scope.addTag = function() {
 
-if (typeof $scope.selected==='number' && ($scope.selected%1)===0) {
-      AddTag.save({
-        tag: $scope.selected,
-        image: $scope.image.id,
-        ib: config.ib_id,
-        askey: config.as_key
-      }, function() {
-        $scope.updateTags();
-      }, function(error) {
-        $scope.error = error.data;
-      });
-} else {
-$scope.data.error_message = 'Input error';
-$scope.error = $scope.data;
-}
+      if (typeof $scope.selected === 'number' && ($scope.selected % 1) === 0) {
+        AddTag.save({
+          tag: $scope.selected,
+          image: $scope.image.id,
+          ib: config.ib_id,
+          askey: internal.as_key
+        }, function() {
+          $scope.updateTags();
+        }, function(error) {
+          $scope.error = error.data;
+        });
+      } else {
+        $scope.data.error_message = 'Tag does not exist';
+        $scope.error = $scope.data;
+      }
 
     };
 
@@ -555,10 +550,10 @@ prim.controller('getTag', ['$scope', 'Tag', '$routeParams',
 ]);
 
 // Get index page 
-prim.controller('getIndex', ['config', '$scope', '$location', 'Index', '$routeParams',
-  function(config, $scope, $location, Index, $routeParams) {
+prim.controller('getIndex', ['config', 'internal', '$scope', '$location', 'Index', '$routeParams',
+  function(config, internal, $scope, $location, Index, $routeParams) {
 
-    $scope.as_key = config.as_key;
+    $scope.as_key = internal.as_key;
     // Set imageboard id
     $scope.ib_id = config.ib_id;
 
@@ -571,7 +566,7 @@ prim.controller('getIndex', ['config', '$scope', '$location', 'Index', '$routePa
     Index.get({
       id: $routeParams.id
     }, function(data) {
-      $scope.data = data
+      $scope.data = data;
 
       // Pagination items from json
       $scope.totalItems = data.index.total;

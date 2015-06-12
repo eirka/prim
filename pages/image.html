@@ -22,8 +22,8 @@
 	</div>
 
 	<div class="sixteen columns image_box_middle" ng-if="ext != 'webm'">
-		<a target="_self" ng-href="//{{ site_addr }}/src/{{image.filename}}" href>
-			<img class="scale-with-grid" ng-src="//{{ site_addr }}/src/{{image.filename}}" height="{{image.height}}" width="{{image.width}}">
+		<a target="_self" ng-href="/src/{{image.filename}}" href>
+			<img class="scale-with-grid" ng-src="/src/{{image.filename}}" height="{{image.height}}" width="{{image.width}}">
 		</a>
 	</div>
 
@@ -53,6 +53,7 @@
 			<div ng-if="error != undefined" class="alert alert-danger tag_error" role="alert" ng-bind="error.error_message"></div>
 			<form ng-submit="addTag()">
 				<div class="input-group">
+
 					<input ng-required="true" type="text" class="form-control" typeahead-input-formatter="formatLabel($model)" ng-model="selected" typeahead-editable="false" placeholder="Add Tag" typeahead="tag.id as tag.tag for tag in tagList | filter:$viewValue | limitTo:8">
 					<span class="input-group-btn">
 						<button class="btn btn-primary" type="submit">Add</button>
@@ -62,9 +63,9 @@
 		</div>
 
 		<div class="eight columns omega source_links">
-			<a type="button" class="btn btn-default" target="_blank" ng-href="http://saucenao.com/search.php?url=http://{{ site_addr }}/src/{{image.filename}}" href>SauceNao</a>
-			<a type="button" class="btn btn-default" target="_blank" ng-href="http://google.com/searchbyimage?image_url=http://{{ site_addr }}/src/{{image.filename}}" href>Google</a>
-			<a type="button" class="btn btn-default" target="_blank" ng-href="http://iqdb.org/?url=http://{{ site_addr }}/src/{{image.filename}}" href>iqdb</a>
+			<a type="button" class="btn btn-default" target="_blank" ng-href="http://saucenao.com/search.php?url=http:/src/{{image.filename}}" href>SauceNao</a>
+			<a type="button" class="btn btn-default" target="_blank" ng-href="http://google.com/searchbyimage?image_url=http:/src/{{image.filename}}" href>Google</a>
+			<a type="button" class="btn btn-default" target="_blank" ng-href="http://iqdb.org/?url=http:/src/{{image.filename}}" href>iqdb</a>
 		</div>
 
 	</div>

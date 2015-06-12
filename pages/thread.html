@@ -16,7 +16,7 @@
 <input type="text" id="name" name="name" class="form-control" ng-maxlength="20" placeholder="Anonymous">
 </div>
   <div class="form-group">
-<textarea id="comment" name="comment" ng-model="reply.quote" class="form-control" rows="3" ng-maxlength="1000" placeholder="Comment"></textarea>
+<textarea id="comment" name="comment" ng-model="quote" class="form-control" rows="3" ng-maxlength="1000" placeholder="Comment"></textarea>
 </div>
  <div class="form-group">
  <input id="file" type="file" name="file">
@@ -41,6 +41,8 @@
 <div class="sixteen columns clearfix header_body">
 <div class="fourteen columns alpha thread_title">
 <span ng-bind="::thread.title"></span>
+<i ng-if="thread.closed" title="Closed" class="fa fa-lock"></i>
+<i ng-if="thread.sticky" title="Sticky" class="fa fa-thumb-tack"></i>
 </div>
 <div class="two columns omega list_grid">
 <div class="btn-group">
@@ -52,7 +54,7 @@
 
 <div ng-if="layout == 'list'" ng-repeat="post in thread.posts track by post.id" class="sixteen columns clearfix reply_body">
  <div class="five columns alpha reply_image" ng-if="post.thumbnail != null" >
-<a ng-href="image/{{post.img_id}}" href><img class="reply_image scale-with-grid" ng-src="thumb/{{post.thumbnail}}" height="{{post.tn_height}}" width="{{post.tn_width}}"> </a>
+<a ng-href="image/{{post.img_id}}" href><img class="reply_image scale-with-grid" ng-src="/thumb/{{post.thumbnail}}" height="{{post.tn_height}}" width="{{post.tn_width}}"> </a>
 </div>
 <div class="eleven columns omega clearfix reply_content">
  <div class="eleven columns alpha reply_info">
@@ -61,13 +63,13 @@
 <span class="replytitle" ng-bind="::post.time"></span>
         <span class="replytitle">#<a href ng-click="replyQuote(post.num)" id="reply{{post.num}}" ng-bind="::post.num"></a></span>
 </div>
-<div comment-handler post="post" thread="thread"></div>
+<div ng-if="post.comment" comment-handler post="post" thread="thread"></div>
 </div>
 </div>
 
 <div class="sixteen columns tagpage" ng-if="layout == 'grid'" id="photos">
 <a ng-if="post.thumbnail != null" ng-repeat="post in thread.posts track by post.id" ng-href="image/{{post.img_id}}" href>
-<img class="reply_image scale-with-grid" ng-src="thumb/{{post.thumbnail}}" height="{{post.tn_height}}" width="{{post.tn_width}}">
+<img class="reply_image scale-with-grid" ng-src="/thumb/{{post.thumbnail}}" height="{{post.tn_height}}" width="{{post.tn_width}}">
 </a>
 </div>
 

@@ -25,7 +25,7 @@
 
 <div ng-if="totalItems != 0" class="sixteen columns clearfix tagpage" id="photos">
 <a ng-repeat="image in tag.images track by image.id" ng-href="image/{{image.id}}" href>
-<img class="reply_image scale-with-grid" ng-src="thumb/{{image.thumbnail}}" height="{{image.tn_height}}" width="{{image.tn_width}}">
+<img class="reply_image scale-with-grid" ng-src="/thumb/{{image.thumbnail}}" height="{{image.tn_height}}" width="{{image.tn_width}}">
 </a>
 </div>
 

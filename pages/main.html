@@ -36,13 +36,15 @@
 <div class="sixteen columns header_body">
 <div class="fourteen columns alpha thread_title">
 <span ng-bind="::thread.title"></span>
+<i ng-if="thread.closed" title="Closed" class="fa fa-lock"></i>
+<i ng-if="thread.sticky" title="Sticky" class="fa fa-thumb-tack"></i>
 </div>
 <div class="two columns omega reply_button"> <a class="btn btn-default" ng-href="thread/{{thread.id}}/{{thread.last_page}}" href>Reply</a>
 </div>
 
  <div class="five columns alpha reply_image" ng-if="thread.posts[0].thumbnail != null" >
 <a ng-href="image/{{thread.posts[0].img_id}}" href>
-	<img class="reply_image scale-with-grid" ng-src="thumb/{{thread.posts[0].thumbnail}}" height="{{thread.posts[0].tn_height}}" width="{{thread.posts[0].tn_width}}"> </a>
+	<img class="reply_image scale-with-grid" ng-src="/thumb/{{thread.posts[0].thumbnail}}" height="{{thread.posts[0].tn_height}}" width="{{thread.posts[0].tn_width}}"> </a>
 </div>
   <div class="eleven columns omega reply_info"> 
   	<span class="postername" ng-bind="::thread.posts[0].name"></span>     
@@ -57,7 +59,7 @@
 
 <div ng-repeat="post in thread.posts track by post.id" ng-if="!$first" class="sixteen columns clearfix reply_body">
  <div class="five columns alpha reply_image" ng-if="post.thumbnail != null" >
-<a ng-href="image/{{post.img_id}}" href><img class="reply_image scale-with-grid" ng-src="thumb/{{post.thumbnail}}" height="{{post.tn_height}}" width="{{post.tn_width}}"> </a> 
+<a ng-href="image/{{post.img_id}}" href><img class="reply_image scale-with-grid" ng-src="/thumb/{{post.thumbnail}}" height="{{post.tn_height}}" width="{{post.tn_width}}"> </a> 
 </div> 
 <div class="eleven columns omega clearfix reply_content">
  <div class="eleven columns alpha reply_info"> 
@@ -66,7 +68,7 @@
         <span class="replytitle">#<a ng-bind="::post.num" ng-click="replyQuote(post.num,thread.id,thread.last_page)" href></a></span>
 </div>
 
-<div comment-handler post="post" thread="thread"></div>
+<div ng-if="post.comment" comment-handler post="post" thread="thread"></div>
 
 </div> 
 </div>

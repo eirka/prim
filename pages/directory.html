@@ -19,12 +19,8 @@
 
 <td>
 <a ng-href="thread/{{thread.id}}/1" rel="nofollow" href ng-bind="::thread.title"></a>
-<span ng-switch="thread.closed">
-<strong ng-switch-when="true"><small>(closed)</small></strong>
-</span>
-<span ng-switch="thread.sticky">
-<strong ng-switch-when="true"><small>(sticky)</small></strong>
-</span>
+<i ng-if="thread.closed" title="Closed" class="fa fa-lock"></i>
+<i ng-if="thread.sticky" title="Sticky" class="fa fa-thumb-tack"></i>
 </td>
 
 <td align="center" ng-bind="::thread.postcount"></td>

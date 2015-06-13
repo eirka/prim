@@ -118,9 +118,10 @@ prim.service('Directory', ['$resource', 'config',
 ]);
 
 // Thread json
-prim.service('Thread', ['$resource',
-    function($resource) {
-        return $resource('/api/get/thread/:id/:page', {
+prim.service('Thread', ['$resource', 'config',
+    function($resource, config) {
+        return $resource('/api/get/thread/:ib/:id/:page', {
+            ib: config.ib_id,
             id: '@id',
             page: '@page'
         }, {
@@ -132,9 +133,10 @@ prim.service('Thread', ['$resource',
 ]);
 
 // Single post json
-prim.service('Post', ['$resource',
-    function($resource) {
-        return $resource('/api/get/post/:thread/:id', {
+prim.service('Post', ['$resource', 'config',
+    function($resource, config) {
+        return $resource('/api/get/post/:ib/:thread/:id', {
+            ib: config.ib_id,
             thread: '@thread',
             id: '@id'
         }, {
@@ -147,9 +149,10 @@ prim.service('Post', ['$resource',
 ]);
 
 // Single image json
-prim.service('Image', ['$resource',
-    function($resource) {
-        return $resource('/api/get/image/:id', {
+prim.service('Image', ['$resource', 'config',
+    function($resource, config) {
+        return $resource('/api/get/image/:ib/:id', {
+            ib: config.ib_id,
             id: '@id'
         }, {
             get: {
@@ -174,7 +177,8 @@ prim.service('TagTypes', ['$resource',
 // Single tag json
 prim.service('Tag', ['$resource', 'config',
     function($resource, config) {
-        return $resource('/api/get/tag/:id/:page', {
+        return $resource('/api/get/tag/:ib/:id/:page', {
+            ib: config.ib_id,
             id: '@id',
             page: '@page'
         }, {
@@ -337,9 +341,9 @@ prim.factory('MessageHandler', ['$location',
     function($location) {
 
         // holds the quote text
-        var commentQuote = ""
-            // holds the error code
-        var errorCode = ""
+        var commentQuote = "";
+        // holds the error code
+        var errorCode = "";
 
         return {
             // sets the quote
@@ -372,7 +376,7 @@ prim.controller('errorHandler', ['$scope', 'MessageHandler',
 
         $scope.errorcode = MessageHandler.getError()
 
-        if ($scope.errorcode == "") {
+        if ($scope.errorcode === "") {
             $scope.errorcode = "???"
         }
 
@@ -385,6 +389,7 @@ prim.controller('errorHandler', ['$scope', 'MessageHandler',
                 break;
             default:
                 $scope.page.setTitle("Error");
+                break;
         }
 
     }

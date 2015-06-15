@@ -74,7 +74,7 @@ prim.run(['config', '$rootScope', function(config, $rootScope) {
 
 // Index json
 prim.service('Index', ['$resource', 'config', function($resource, config) {
-    return $resource('/api/get/index/:ib/:id', {
+    return $resource(config.api_srv + '/get/index/:ib/:id', {
         ib: config.ib_id,
         id: '@id'
     }, {
@@ -87,7 +87,7 @@ prim.service('Index', ['$resource', 'config', function($resource, config) {
 
 // Taglist json
 prim.service('TagList', ['$resource', 'config', function($resource, config) {
-    return $resource('/api/get/tags/:ib', {
+    return $resource(config.api_srv + '/get/tags/:ib', {
         ib: config.ib_id
     }, {
         get: {
@@ -98,7 +98,7 @@ prim.service('TagList', ['$resource', 'config', function($resource, config) {
 
 // Directory json
 prim.service('Directory', ['$resource', 'config', function($resource, config) {
-    return $resource('/api/get/directory/:ib', {
+    return $resource(config.api_srv + '/get/directory/:ib', {
         ib: config.ib_id
     }, {
         get: {
@@ -109,7 +109,7 @@ prim.service('Directory', ['$resource', 'config', function($resource, config) {
 
 // Thread json
 prim.service('Thread', ['$resource', 'config', function($resource, config) {
-    return $resource('/api/get/thread/:ib/:id/:page', {
+    return $resource(config.api_srv + '/get/thread/:ib/:id/:page', {
         ib: config.ib_id,
         id: '@id',
         page: '@page'
@@ -122,7 +122,7 @@ prim.service('Thread', ['$resource', 'config', function($resource, config) {
 
 // Single post json
 prim.service('Post', ['$resource', 'config', function($resource, config) {
-    return $resource('/api/get/post/:ib/:thread/:id', {
+    return $resource(config.api_srv + '/get/post/:ib/:thread/:id', {
         ib: config.ib_id,
         thread: '@thread',
         id: '@id'
@@ -136,7 +136,7 @@ prim.service('Post', ['$resource', 'config', function($resource, config) {
 
 // Single image json
 prim.service('Image', ['$resource', 'config', function($resource, config) {
-    return $resource('/api/get/image/:ib/:id', {
+    return $resource(config.api_srv + '/get/image/:ib/:id', {
         ib: config.ib_id,
         id: '@id'
     }, {
@@ -147,8 +147,8 @@ prim.service('Image', ['$resource', 'config', function($resource, config) {
 }]);
 
 // Tag types list json
-prim.service('TagTypes', ['$resource', function($resource) {
-    return $resource('/api/get/tagtypes', {}, {
+prim.service('TagTypes', ['$resource', 'config', function($resource, config) {
+    return $resource(config.api_srv + '/get/tagtypes', {}, {
         get: {
             method: 'GET',
             cache: true
@@ -158,7 +158,7 @@ prim.service('TagTypes', ['$resource', function($resource) {
 
 // Single tag json
 prim.service('Tag', ['$resource', 'config', function($resource, config) {
-    return $resource('/api/get/tag/:ib/:id/:page', {
+    return $resource(config.api_srv + '/get/tag/:ib/:id/:page', {
         ib: config.ib_id,
         id: '@id',
         page: '@page'
@@ -170,8 +170,8 @@ prim.service('Tag', ['$resource', 'config', function($resource, config) {
 }]);
 
 // Add tag to image
-prim.service('AddTag', ['$resource', function($resource) {
-    return $resource('/api/post/tag/add', {}, {
+prim.service('AddTag', ['$resource', 'config', function($resource, config) {
+    return $resource(config.api_srv + '/post/tag/add', {}, {
         save: {
             method: 'POST'
         }
@@ -179,8 +179,8 @@ prim.service('AddTag', ['$resource', function($resource) {
 }]);
 
 // Create tag
-prim.service('NewTag', ['$resource', function($resource) {
-    return $resource('/api/post/tag/new', {}, {
+prim.service('NewTag', ['$resource', 'config', function($resource, config) {
+    return $resource(config.api_srv + '/post/tag/new', {}, {
         save: {
             method: 'POST'
         }
@@ -487,7 +487,7 @@ prim.controller('getTagList', ['config', 'internal', 'TagList', 'TagTypes', 'New
 }]);
 
 // Get single image
-prim.controller('getImage', ['config', 'internal', 'Image', 'TagList', 'AddTag', '$routeParams', '$scope', 'MessageHandler', function(config, internal, Image, TagList, AddTag, $routeParams, $scope, MessageHandler) {
+prim.controller('getImage', ['config', 'internal', 'Image', 'TagList', 'AddTag', '$routeParams', '$scope', 'MessageHandler', '$sce', function(config, internal, Image, TagList, AddTag, $routeParams, $scope, MessageHandler, $sce) {
 
         // Get the image json
         Image.get({
@@ -500,7 +500,11 @@ prim.controller('getImage', ['config', 'internal', 'Image', 'TagList', 'AddTag',
             $scope.tags = data.image.tags;
             $scope.ext = data.image.filename.split('.').pop();
 
-            $scope.webm = '/src/' + $scope.image.filename;
+            // create webm url for video 
+            $scope.getWebm = function(filename) {
+                return $sce.trustAsResourceUrl(config.img_srv + '/src/' + filename);
+            };
+
         }, function(error) {
             MessageHandler.apiError(error.status)
         });

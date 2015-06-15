@@ -8,8 +8,7 @@ prim.constant('internal', {
     as_key: 'j5ebMACL'
 });
 
-prim.config(['$routeProvider', '$locationProvider', '$compileProvider',
-    function($routeProvider, $locationProvider, $compileProvider) {
+prim.config(['$routeProvider', '$locationProvider', '$compileProvider', function($routeProvider, $locationProvider, $compileProvider) {
         $routeProvider
             .when('/', {
                 title: 'Index',
@@ -60,8 +59,7 @@ prim.config(['$routeProvider', '$locationProvider', '$compileProvider',
     }
 ]);
 
-prim.run(['config', '$rootScope',
-    function(config, $rootScope) {
+prim.run(['config', '$rootScope', function(config, $rootScope) {
         // Add page.title scope for dynamic page titles
         $rootScope.page = {
             setTitle: function(title) {
@@ -77,8 +75,7 @@ prim.run(['config', '$rootScope',
 ]);
 
 // Index json
-prim.service('Index', ['$resource', 'config',
-    function($resource, config) {
+prim.service('Index', ['$resource', 'config', function($resource, config) {
         return $resource('/api/get/index/:ib/:id', {
             ib: config.ib_id,
             id: '@id'
@@ -92,8 +89,7 @@ prim.service('Index', ['$resource', 'config',
 
 
 // Taglist json
-prim.service('TagList', ['$resource', 'config',
-    function($resource, config) {
+prim.service('TagList', ['$resource', 'config', function($resource, config) {
         return $resource('/api/get/tags/:ib', {
             ib: config.ib_id
         }, {
@@ -105,8 +101,7 @@ prim.service('TagList', ['$resource', 'config',
 ]);
 
 // Directory json
-prim.service('Directory', ['$resource', 'config',
-    function($resource, config) {
+prim.service('Directory', ['$resource', 'config', function($resource, config) {
         return $resource('/api/get/directory/:ib', {
             ib: config.ib_id
         }, {
@@ -118,8 +113,7 @@ prim.service('Directory', ['$resource', 'config',
 ]);
 
 // Thread json
-prim.service('Thread', ['$resource', 'config',
-    function($resource, config) {
+prim.service('Thread', ['$resource', 'config', function($resource, config) {
         return $resource('/api/get/thread/:ib/:id/:page', {
             ib: config.ib_id,
             id: '@id',
@@ -133,8 +127,7 @@ prim.service('Thread', ['$resource', 'config',
 ]);
 
 // Single post json
-prim.service('Post', ['$resource', 'config',
-    function($resource, config) {
+prim.service('Post', ['$resource', 'config', function($resource, config) {
         return $resource('/api/get/post/:ib/:thread/:id', {
             ib: config.ib_id,
             thread: '@thread',
@@ -149,8 +142,7 @@ prim.service('Post', ['$resource', 'config',
 ]);
 
 // Single image json
-prim.service('Image', ['$resource', 'config',
-    function($resource, config) {
+prim.service('Image', ['$resource', 'config', function($resource, config) {
         return $resource('/api/get/image/:ib/:id', {
             ib: config.ib_id,
             id: '@id'
@@ -163,8 +155,7 @@ prim.service('Image', ['$resource', 'config',
 ]);
 
 // Tag types list json
-prim.service('TagTypes', ['$resource',
-    function($resource) {
+prim.service('TagTypes', ['$resource', function($resource) {
         return $resource('/api/get/tagtypes', {}, {
             get: {
                 method: 'GET',
@@ -175,8 +166,7 @@ prim.service('TagTypes', ['$resource',
 ]);
 
 // Single tag json
-prim.service('Tag', ['$resource', 'config',
-    function($resource, config) {
+prim.service('Tag', ['$resource', 'config', function($resource, config) {
         return $resource('/api/get/tag/:ib/:id/:page', {
             ib: config.ib_id,
             id: '@id',
@@ -190,8 +180,7 @@ prim.service('Tag', ['$resource', 'config',
 ]);
 
 // Add tag to image
-prim.service('AddTag', ['$resource',
-    function($resource) {
+prim.service('AddTag', ['$resource', function($resource) {
         return $resource('/api/post/tag/add', {}, {
             save: {
                 method: 'POST'
@@ -201,8 +190,7 @@ prim.service('AddTag', ['$resource',
 ]);
 
 // Create tag
-prim.service('NewTag', ['$resource',
-    function($resource) {
+prim.service('NewTag', ['$resource', function($resource) {
         return $resource('/api/post/tag/new', {}, {
             save: {
                 method: 'POST'
@@ -212,13 +200,12 @@ prim.service('NewTag', ['$resource',
 ]);
 
 // Add to top button
-prim.directive('topBox', [
-    function() {
+prim.directive('topBox', function() {
         return {
             restrict: 'E',
             scope: {},
             templateUrl: 'pages/totop.html',
-            controller: function($scope, $window) {
+            controller: ['$scope', '$window', function($scope, $window) {
                 angular.element($window).bind("scroll", function() {
                     $scope.showbox = false;
 
@@ -238,14 +225,12 @@ prim.directive('topBox', [
 
                 };
 
-            }
+            }]
         };
-    }
-]);
+    });
 
 // Compiles quote links and adds hover box
-prim.directive('quoteBox', ['Post', '$compile',
-    function(Post, $compile) {
+prim.directive('quoteBox', ['Post', '$compile', function(Post, $compile) {
         return {
             restrict: 'A',
             transclude: true,
@@ -284,8 +269,7 @@ prim.directive('quoteBox', ['Post', '$compile',
 ]);
 
 // Uses regex to grab quote from comment
-prim.directive('commentHandler', [
-    function() {
+prim.directive('commentHandler', function() {
         return {
             restrict: 'A',
             scope: {
@@ -293,7 +277,7 @@ prim.directive('commentHandler', [
                 thread: '='
             },
             templateUrl: "pages/comment.html",
-            controller: function($scope) {
+            controller: ['$scope', function($scope) {
                 // Match quote format
                 var re = /(>>(\d{1,4}))/;
                 var raw = $scope.post.comment;
@@ -331,14 +315,12 @@ prim.directive('commentHandler', [
                 // add post num to scope
                 $scope.post.quote_id = id;
 
-            }
+            }]
         };
-    }
-]);
+    });
 
 // Handles passing messages between controllers
-prim.factory('MessageHandler', ['$location',
-    function($location) {
+prim.factory('MessageHandler', ['$location', function($location) {
 
         // holds the quote text
         var commentQuote = "";
@@ -371,8 +353,7 @@ prim.factory('MessageHandler', ['$location',
 ]);
 
 // Handle errors
-prim.controller('errorHandler', ['$scope', 'MessageHandler',
-    function($scope, MessageHandler) {
+prim.controller('errorHandler', ['$scope', 'MessageHandler', function($scope, MessageHandler) {
 
         $scope.errorcode = MessageHandler.getError()
 
@@ -396,8 +377,7 @@ prim.controller('errorHandler', ['$scope', 'MessageHandler',
 ]);
 
 // Get a thread
-prim.controller('getThread', ['config', 'internal', 'Thread', '$window', '$location', '$scope', '$routeParams', 'MessageHandler',
-    function(config, internal, Thread, $window, $location, $scope, $routeParams, MessageHandler) {
+prim.controller('getThread', ['config', 'internal', 'Thread', '$window', '$location', '$scope', '$routeParams', 'MessageHandler', function(config, internal, Thread, $window, $location, $scope, $routeParams, MessageHandler) {
 
         $scope.as_key = internal.as_key;
         $scope.ib_id = config.ib_id;
@@ -447,8 +427,7 @@ prim.controller('getThread', ['config', 'internal', 'Thread', '$window', '$locat
 ]);
 
 // Gets the thread directory
-prim.controller('getDirectory', ['Directory', '$scope', 'MessageHandler',
-    function(Directory, $scope, MessageHandler) {
+prim.controller('getDirectory', ['Directory', '$scope', 'MessageHandler', function(Directory, $scope, MessageHandler) {
 
         Directory.get(function(data) {
             $scope.data = data;
@@ -463,8 +442,7 @@ prim.controller('getDirectory', ['Directory', '$scope', 'MessageHandler',
 ]);
 
 // Gets a post
-prim.controller('getPost', ['Post', '$location', '$routeParams', '$scope', 'MessageHandler',
-    function(Post, $location, $routeParams, $scope, MessageHandler) {
+prim.controller('getPost', ['Post', '$location', '$routeParams', '$scope', 'MessageHandler', function(Post, $location, $routeParams, $scope, MessageHandler) {
 
         // Get tag page json
         Post.get({
@@ -490,8 +468,7 @@ prim.controller('getPost', ['Post', '$location', '$routeParams', '$scope', 'Mess
 ]);
 
 // Gets tag list
-prim.controller('getTagList', ['config', 'internal', 'TagList', 'TagTypes', 'NewTag', '$scope', 'MessageHandler',
-    function(config, internal, TagList, TagTypes, NewTag, $scope, MessageHandler) {
+prim.controller('getTagList', ['config', 'internal', 'TagList', 'TagTypes', 'NewTag', '$scope', 'MessageHandler', function(config, internal, TagList, TagTypes, NewTag, $scope, MessageHandler) {
 
         // Get tag types for selector
         TagTypes.get(function(data) {
@@ -529,8 +506,7 @@ prim.controller('getTagList', ['config', 'internal', 'TagList', 'TagTypes', 'New
 ]);
 
 // Get single image
-prim.controller('getImage', ['config', 'internal', 'Image', 'TagList', 'AddTag', '$routeParams', '$scope', 'MessageHandler',
-    function(config, internal, Image, TagList, AddTag, $routeParams, $scope, MessageHandler) {
+prim.controller('getImage', ['config', 'internal', 'Image', 'TagList', 'AddTag', '$routeParams', '$scope', 'MessageHandler', function(config, internal, Image, TagList, AddTag, $routeParams, $scope, MessageHandler) {
 
         // Get the image json
         Image.get({
@@ -603,8 +579,7 @@ prim.controller('getImage', ['config', 'internal', 'Image', 'TagList', 'AddTag',
 ]);
 
 // Gets tag page
-prim.controller('getTag', ['$scope', 'Tag', '$routeParams', 'MessageHandler',
-    function($scope, Tag, $routeParams, MessageHandler) {
+prim.controller('getTag', ['$scope', 'Tag', '$routeParams', 'MessageHandler', function($scope, Tag, $routeParams, MessageHandler) {
 
         // Get tag page json
         Tag.get({
@@ -631,8 +606,7 @@ prim.controller('getTag', ['$scope', 'Tag', '$routeParams', 'MessageHandler',
 ]);
 
 // Get index page 
-prim.controller('getIndex', ['config', 'internal', '$scope', '$location', 'Index', '$routeParams', 'MessageHandler',
-    function(config, internal, $scope, $location, Index, $routeParams, MessageHandler) {
+prim.controller('getIndex', ['config', 'internal', '$scope', '$location', 'Index', '$routeParams', 'MessageHandler', function(config, internal, $scope, $location, Index, $routeParams, MessageHandler) {
 
         $scope.as_key = internal.as_key;
         // Set imageboard id

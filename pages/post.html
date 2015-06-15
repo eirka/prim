@@ -1,27 +1,20 @@
 <div class="container">
-
-
-<div class="sixteen columns clearfix reply_body">
- <div class="five columns alpha reply_image" ng-if="post.thumbnail != null" >
-<a ng-href="image/{{post.img_id}}" href><img class="reply_image scale-with-grid" ng-src="/thumb/{{post.thumbnail}}" height="{{post.tn_height}}" width="{{post.tn_width}}"></a>
+    <div class="sixteen columns clearfix reply_body">
+        <div class="five columns alpha reply_image" ng-if="post.thumbnail != null">
+            <a ng-href="image/{{post.img_id}}" href><img class="reply_image scale-with-grid" ng-src="/thumb/{{post.thumbnail}}" height="{{post.tn_height}}" width="{{post.tn_width}}"></a>
+        </div>
+        <div class="eleven columns omega clearfix reply_content">
+            <div class="eleven columns alpha reply_info">
+                <span class="postername" ng-bind="::post.name"></span>
+                <span class="replytitle" ng-bind="::post.time"></span>
+                <span class="replytitle">#<a href ng-click="replyQuote(post.num,post.thread_id,1)" ng-bind="::post.num"></a></span>
+            </div>
+        </div>
+        <div class="eleven columns omega">
+            <p ng-bind-html="::post.comment | linky:'_blank'"></p>
+        </div>
+    </div>
+    <div class="sixteen columns image_bar">
+        <a type="button" class="btn btn-default" ng-href="thread/{{post.thread_id}}/1" href>Thread</a>
+    </div>
 </div>
-<div class="eleven columns omega clearfix reply_content">
- <div class="eleven columns alpha reply_info">
-
-  <span class="postername" ng-bind="::post.name"></span>
-<span class="replytitle" ng-bind="::post.time"></span>
-        <span class="replytitle">#<a href ng-click="replyQuote(post.num,post.thread_id,1)" ng-bind="::post.num"></a></span>
-</div>
-</div>
-<div class="eleven columns omega">
-<p ng-bind-html="::post.comment | linky:'_blank'"></p>
-</div>
-</div>
-
-
-<div class="sixteen columns image_bar">
-<a type="button" class="btn btn-default" ng-href="thread/{{post.thread_id}}/1" href>Thread</a>
-</div>
-
-</div>
-

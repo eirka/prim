@@ -1,33 +1,26 @@
 <top-box></top-box>
 <div class="container">
-
-<div class="sixteen columns thread_list">
-
-<table class="table_list">
-
-<thead>
-<tr class="table_header">
-<th align="left"><a href="" ng-click="predicate = 'title'; reverse=!reverse">Title</a></th>
-<th width="10%"><a href="" ng-click="predicate = 'postcount'; reverse=!reverse">Posts</a></th>
-<th width="10%"><a href="" ng-click="predicate = 'images'; reverse=!reverse">Images</a></th>
-<th width="20%"><a href="" ng-click="predicate = 'last_post'; reverse=!reverse">Last Post</a></th>
-</tr>
-</thead>
-
-<tbody>
-<tr class="table_item" ng-repeat="thread in data.directory track by thread.id | orderBy:predicate:reverse">
-
-<td>
-<a ng-href="thread/{{thread.id}}/1" rel="nofollow" href ng-bind="::thread.title"></a>
-<i ng-if="thread.closed" title="Closed" class="fa fa-lock"></i>
-<i ng-if="thread.sticky" title="Sticky" class="fa fa-thumb-tack"></i>
-</td>
-
-<td align="center" ng-bind="::thread.postcount"></td>
-<td align="center" ng-bind="::thread.images"></td>
-<td align="center" ng-bind="::thread.last_post"></td>
-
-</tr>
-</tbody></table>
-
-</div>
+    <div class="sixteen columns thread_list">
+        <table class="table_list">
+            <thead>
+                <tr class="table_header">
+                    <th align="left"><a href="" ng-click="predicate = 'title'; reverse=!reverse">Title</a></th>
+                    <th width="10%"><a href="" ng-click="predicate = 'postcount'; reverse=!reverse">Posts</a></th>
+                    <th width="10%"><a href="" ng-click="predicate = 'images'; reverse=!reverse">Images</a></th>
+                    <th width="20%"><a href="" ng-click="predicate = 'last_post'; reverse=!reverse">Last Post</a></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="table_item" ng-repeat="thread in data.directory track by thread.id | orderBy:predicate:reverse">
+                    <td>
+                        <a ng-href="thread/{{thread.id}}/1" rel="nofollow" href ng-bind="::thread.title"></a>
+                        <i ng-if="thread.closed" title="Closed" class="fa fa-lock"></i>
+                        <i ng-if="thread.sticky" title="Sticky" class="fa fa-thumb-tack"></i>
+                    </td>
+                    <td align="center" ng-bind="::thread.postcount"></td>
+                    <td align="center" ng-bind="::thread.images"></td>
+                    <td align="center" ng-bind="::thread.last_post"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>

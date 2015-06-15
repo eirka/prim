@@ -1,1 +1,1 @@
-<span ng-repeat="link in links" ng-bind-html="::link"></span>
+<span ng-repeat="link in links track by $index" ng-bind-html="::link"></span>

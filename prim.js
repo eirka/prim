@@ -1,14 +1,13 @@
 /*global angular:true */
 
-var prim = angular.module('Prim', ['ui.bootstrap', 'ngSanitize', 'ngRoute', 'ngResource', 'ngMessages', 'ngCookies']);
+var prim = angular.module('Prim', ['ui.bootstrap', 'ngSanitize', 'ngRoute', 'ngResource', 'ngMessages']);
 
-// Internal constants
 prim.constant('internal', {
     // Set antispam key
     as_key: 'j5ebMACL'
 });
 
-prim.config(['$routeProvider', '$locationProvider', '$compileProvider', function($routeProvider, $locationProvider, $compileProvider) {
+prim.config(['$routeProvider', '$locationProvider', '$compileProvider', '$httpProvider', function($routeProvider, $locationProvider, $compileProvider, $httpProvider) {
     $routeProvider
         .when('/', {
             title: 'Index',
@@ -56,6 +55,7 @@ prim.config(['$routeProvider', '$locationProvider', '$compileProvider', function
 
     $compileProvider.debugInfoEnabled(false);
     $locationProvider.html5Mode(true);
+    $httpProvider.defaults.withCredentials = true;
 }]);
 
 prim.run(['config', '$rootScope', function(config, $rootScope) {
@@ -307,16 +307,13 @@ prim.directive('commentHandler', function() {
 });
 
 // Handles passing messages between controllers
-prim.factory('Utils', ['$location', '$cookies', function($location, $cookies) {
+prim.factory('Utils', ['$location', function($location) {
 
     // holds the quote text
     var commentQuote = "";
 
     // holds the error code
     var errorCode = "";
-
-    // set expiry date for cookies
-    var expire = new Date(new Date().setYear(new Date().getFullYear() + 1));
 
     return {
         // sets the quote
@@ -338,12 +335,6 @@ prim.factory('Utils', ['$location', '$cookies', function($location, $cookies) {
         // gets the error code
         getError: function() {
             return errorCode;
-        },
-        // sets the antispam cookie
-        antispamCookie: function() {
-            $cookies.put('pram_antispam', 'not_a_bot', {
-                'expires': expire
-            });
         }
     };
 }]);
@@ -383,9 +374,6 @@ prim.controller('getThread', ['config', 'internal', 'Thread', '$window', '$locat
     if (!$routeParams.page) {
         $routeParams.page = 1;
     }
-
-    // Set antispam cookie
-    Utils.antispamCookie();
 
     $scope.quote = Utils.getQuote();
 
@@ -459,14 +447,10 @@ prim.controller('getPost', ['Post', '$location', '$routeParams', '$scope', 'Util
         Utils.apiError(error.status);
     });
 
-
 }]);
 
 // Gets tag list
 prim.controller('getTagList', ['config', 'internal', 'TagList', 'TagTypes', 'NewTag', '$scope', 'Utils', function(config, internal, TagList, TagTypes, NewTag, $scope, Utils) {
-
-    // Set antispam cookie
-    Utils.antispamCookie();
 
     // Get tag types for selector
     TagTypes.get(function(data) {
@@ -504,9 +488,6 @@ prim.controller('getTagList', ['config', 'internal', 'TagList', 'TagTypes', 'New
 
 // Get single image
 prim.controller('getImage', ['config', 'internal', 'Image', 'TagList', 'AddTag', '$routeParams', '$scope', 'Utils', '$sce', function(config, internal, Image, TagList, AddTag, $routeParams, $scope, Utils, $sce) {
-
-    // Set antispam cookie
-    Utils.antispamCookie();
 
     // Get the image json
     Image.get({
@@ -612,9 +593,6 @@ prim.controller('getIndex', ['config', 'internal', '$scope', '$location', 'Index
     $scope.as_key = internal.as_key;
     // Set imageboard id
     $scope.ib_id = config.ib_id;
-
-    // Set antispam cookie
-    Utils.antispamCookie();
 
     // if there is no page number go to page 1
     if (!$routeParams.id) {

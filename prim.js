@@ -307,7 +307,7 @@ prim.directive('commentHandler', function() {
 });
 
 // Handles passing messages between controllers
-prim.factory('Utils', ['$location', function($location) {
+prim.factory('Utils', ['$location', '$sce', 'config', function($location, $sce, config) {
 
     // holds the quote text
     var commentQuote = "";
@@ -335,6 +335,14 @@ prim.factory('Utils', ['$location', function($location) {
         // gets the error code
         getError: function() {
             return errorCode;
+        },
+        // generates the action for the post/reply form
+        getFormAction: function() {
+            return $sce.trustAsResourceUrl(config.api_srv + '/post/thread/new');
+        },
+        // generates the src link for an image with the img server from the config
+        getImgSrc: function(filename) {
+            return $sce.trustAsResourceUrl(config.img_srv + '/src/' + filename);
         }
     };
 }]);
@@ -369,6 +377,9 @@ prim.controller('getThread', ['config', 'internal', 'Thread', '$window', '$locat
     $scope.ib_id = config.ib_id;
     // Variable for grid or list view as default
     $scope.layout = 'list';
+
+    // generate post form action
+    $scope.apiaddr = Utils.getFormAction();
 
     // if there is no page number go to page 1
     if (!$routeParams.page) {
@@ -487,7 +498,10 @@ prim.controller('getTagList', ['config', 'internal', 'TagList', 'TagTypes', 'New
 }]);
 
 // Get single image
-prim.controller('getImage', ['config', 'internal', 'Image', 'TagList', 'AddTag', '$routeParams', '$scope', 'Utils', '$sce', function(config, internal, Image, TagList, AddTag, $routeParams, $scope, Utils, $sce) {
+prim.controller('getImage', ['config', 'internal', 'Image', 'TagList', 'AddTag', '$routeParams', '$scope', 'Utils', function(config, internal, Image, TagList, AddTag, $routeParams, $scope, Utils) {
+
+    // generate image src link
+    $scope.getImgSrc = Utils.getImgSrc;
 
     // Get the image json
     Image.get({
@@ -499,11 +513,6 @@ prim.controller('getImage', ['config', 'internal', 'Image', 'TagList', 'AddTag',
         $scope.page.setTitle('Image ' + $scope.image.id);
         $scope.tags = data.image.tags;
         $scope.ext = data.image.filename.split('.').pop();
-
-        // create webm url for video 
-        $scope.getWebm = function(filename) {
-            return $sce.trustAsResourceUrl(config.img_srv + '/src/' + filename);
-        };
 
     }, function(error) {
         Utils.apiError(error.status);
@@ -593,6 +602,9 @@ prim.controller('getIndex', ['config', 'internal', '$scope', '$location', 'Index
     $scope.as_key = internal.as_key;
     // Set imageboard id
     $scope.ib_id = config.ib_id;
+
+    // generate post form action
+    $scope.apiaddr = Utils.getFormAction();
 
     // if there is no page number go to page 1
     if (!$routeParams.id) {

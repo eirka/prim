@@ -1,6 +1,6 @@
 /*global angular:true */
 
-var prim = angular.module('Prim', ['ui.bootstrap', 'ngSanitize', 'ngRoute', 'ngResource', 'ngMessages']);
+var prim = angular.module('Prim', ['ui.bootstrap', 'ngSanitize', 'ngRoute', 'ngResource', 'ngMessages', 'ngCookies']);
 
 // Internal constants
 prim.constant('internal', {
@@ -307,12 +307,16 @@ prim.directive('commentHandler', function() {
 });
 
 // Handles passing messages between controllers
-prim.factory('MessageHandler', ['$location', function($location) {
+prim.factory('Utils', ['$location', '$cookies', function($location, $cookies) {
 
     // holds the quote text
     var commentQuote = "";
+
     // holds the error code
     var errorCode = "";
+
+    // set expiry date for cookies
+    var expire = new Date(new Date().setYear(new Date().getFullYear() + 1));
 
     return {
         // sets the quote
@@ -321,30 +325,36 @@ prim.factory('MessageHandler', ['$location', function($location) {
         },
         // gets the quote
         getQuote: function() {
-            return commentQuote
+            return commentQuote;
         },
         clearQuote: function() {
-            commentQuote = ""
+            commentQuote = "";
         },
         // sets the error code from the request and forwards to error page
         apiError: function(code) {
-            errorCode = code
+            errorCode = code;
             $location.path('/error');
         },
         // gets the error code
         getError: function() {
-            return errorCode
+            return errorCode;
+        },
+        // sets the antispam cookie
+        antispamCookie: function() {
+            $cookies.put('pram_antispam', 'not_a_bot', {
+                'expires': expire
+            });
         }
-    }
+    };
 }]);
 
 // Handle errors
-prim.controller('errorHandler', ['$scope', 'MessageHandler', function($scope, MessageHandler) {
+prim.controller('errorHandler', ['$scope', 'Utils', function($scope, Utils) {
 
-    $scope.errorcode = MessageHandler.getError()
+    $scope.errorcode = Utils.getError();
 
     if ($scope.errorcode === "") {
-        $scope.errorcode = "???"
+        $scope.errorcode = "???";
     }
 
     switch ($scope.errorcode) {
@@ -362,7 +372,7 @@ prim.controller('errorHandler', ['$scope', 'MessageHandler', function($scope, Me
 }]);
 
 // Get a thread
-prim.controller('getThread', ['config', 'internal', 'Thread', '$window', '$location', '$scope', '$routeParams', 'MessageHandler', function(config, internal, Thread, $window, $location, $scope, $routeParams, MessageHandler) {
+prim.controller('getThread', ['config', 'internal', 'Thread', '$window', '$location', '$scope', '$routeParams', 'Utils', function(config, internal, Thread, $window, $location, $scope, $routeParams, Utils) {
 
     $scope.as_key = internal.as_key;
     $scope.ib_id = config.ib_id;
@@ -374,11 +384,14 @@ prim.controller('getThread', ['config', 'internal', 'Thread', '$window', '$locat
         $routeParams.page = 1;
     }
 
-    $scope.quote = MessageHandler.getQuote()
+    // Set antispam cookie
+    Utils.antispamCookie();
+
+    $scope.quote = Utils.getQuote();
 
     // clear the quote if page change
     $scope.$on('$locationChangeStart', function() {
-        MessageHandler.clearQuote();
+        Utils.clearQuote();
     });
 
     // Get thread json and set scope
@@ -398,25 +411,25 @@ prim.controller('getThread', ['config', 'internal', 'Thread', '$window', '$locat
         $scope.maxSize = 3;
 
     }, function(error) {
-        MessageHandler.apiError(error.status)
+        Utils.apiError(error.status);
     });
 
     // add post num to comment box
     $scope.replyQuote = function(id) {
-        MessageHandler.setQuote(id);
-        $scope.quote = MessageHandler.getQuote()
+        Utils.setQuote(id);
+        $scope.quote = Utils.getQuote();
         $window.scrollTo(0, 0);
     };
 
 }]);
 
 // Gets the thread directory
-prim.controller('getDirectory', ['Directory', '$scope', 'MessageHandler', function(Directory, $scope, MessageHandler) {
+prim.controller('getDirectory', ['Directory', '$scope', 'Utils', function(Directory, $scope, Utils) {
 
     Directory.get(function(data) {
         $scope.data = data;
     }, function(error) {
-        MessageHandler.apiError(error.status)
+        Utils.apiError(error.status);
     });
 
     // predicate for sorting
@@ -425,7 +438,7 @@ prim.controller('getDirectory', ['Directory', '$scope', 'MessageHandler', functi
 }]);
 
 // Gets a post
-prim.controller('getPost', ['Post', '$location', '$routeParams', '$scope', 'MessageHandler', function(Post, $location, $routeParams, $scope, MessageHandler) {
+prim.controller('getPost', ['Post', '$location', '$routeParams', '$scope', 'Utils', function(Post, $location, $routeParams, $scope, Utils) {
 
     // Get tag page json
     Post.get({
@@ -438,25 +451,28 @@ prim.controller('getPost', ['Post', '$location', '$routeParams', '$scope', 'Mess
         $scope.page.setTitle('Post ' + $scope.post.thread_id + '/' + $scope.post.num);
 
         $scope.replyQuote = function(id, thread, last) {
-            MessageHandler.setQuote(id);
+            Utils.setQuote(id);
             $location.path('/thread/' + thread + '/' + last);
         };
 
     }, function(error) {
-        MessageHandler.apiError(error.status)
+        Utils.apiError(error.status);
     });
 
 
 }]);
 
 // Gets tag list
-prim.controller('getTagList', ['config', 'internal', 'TagList', 'TagTypes', 'NewTag', '$scope', 'MessageHandler', function(config, internal, TagList, TagTypes, NewTag, $scope, MessageHandler) {
+prim.controller('getTagList', ['config', 'internal', 'TagList', 'TagTypes', 'NewTag', '$scope', 'Utils', function(config, internal, TagList, TagTypes, NewTag, $scope, Utils) {
+
+    // Set antispam cookie
+    Utils.antispamCookie();
 
     // Get tag types for selector
     TagTypes.get(function(data) {
         $scope.tagTypes = data.tagtypes;
     }, function(error) {
-        MessageHandler.apiError(error.status)
+        Utils.apiError(error.status);
     });
 
     // get taglist json
@@ -487,84 +503,85 @@ prim.controller('getTagList', ['config', 'internal', 'TagList', 'TagTypes', 'New
 }]);
 
 // Get single image
-prim.controller('getImage', ['config', 'internal', 'Image', 'TagList', 'AddTag', '$routeParams', '$scope', 'MessageHandler', '$sce', function(config, internal, Image, TagList, AddTag, $routeParams, $scope, MessageHandler, $sce) {
+prim.controller('getImage', ['config', 'internal', 'Image', 'TagList', 'AddTag', '$routeParams', '$scope', 'Utils', '$sce', function(config, internal, Image, TagList, AddTag, $routeParams, $scope, Utils, $sce) {
 
-        // Get the image json
+    // Set antispam cookie
+    Utils.antispamCookie();
+
+    // Get the image json
+    Image.get({
+        id: $routeParams.id
+    }, function(data) {
+        $scope.data = data;
+        $scope.image = data.image;
+        // Set page title from image id
+        $scope.page.setTitle('Image ' + $scope.image.id);
+        $scope.tags = data.image.tags;
+        $scope.ext = data.image.filename.split('.').pop();
+
+        // create webm url for video 
+        $scope.getWebm = function(filename) {
+            return $sce.trustAsResourceUrl(config.img_srv + '/src/' + filename);
+        };
+
+    }, function(error) {
+        Utils.apiError(error.status);
+    });
+
+    // Get taglist
+    TagList.get(function(data) {
+        $scope.tagList = data.tags;
+    });
+
+    $scope.tagList = {};
+
+    // handles the input for the typeahead, its broken otherwise
+    function inputFormat(model) {
+        for (var i = 0; i < $scope.tagList.length; i++) {
+            if (model === $scope.tagList[i].id) {
+                return $scope.tagList[i].tag;
+            }
+        }
+    }
+
+    $scope.formatLabel = inputFormat;
+
+    // Update image tags json
+    $scope.updateTags = function() {
         Image.get({
             id: $routeParams.id
         }, function(data) {
-            $scope.data = data;
-            $scope.image = data.image;
-            // Set page title from image id
-            $scope.page.setTitle('Image ' + $scope.image.id);
             $scope.tags = data.image.tags;
-            $scope.ext = data.image.filename.split('.').pop();
-
-            // create webm url for video 
-            $scope.getWebm = function(filename) {
-                return $sce.trustAsResourceUrl(config.img_srv + '/src/' + filename);
-            };
-
-        }, function(error) {
-            MessageHandler.apiError(error.status)
+            $scope.error = null;
+            $scope.selected = null;
         });
+    };
 
-        // Get taglist
-        TagList.get(function(data) {
-            $scope.tagList = data.tags;
-        });
+    // Add a tag to the image and update list
+    $scope.addTag = function() {
 
-        $scope.tagList = {};
-
-        // handles the input for the typeahead, its broken otherwise
-        function inputFormat(model) {
-            for (var i = 0; i < $scope.tagList.length; i++) {
-                if (model === $scope.tagList[i].id) {
-                    return $scope.tagList[i].tag;
-                }
-            }
+        if (typeof $scope.selected === 'number' && ($scope.selected % 1) === 0) {
+            AddTag.save({
+                tag: $scope.selected,
+                image: $scope.image.id,
+                ib: config.ib_id,
+                askey: internal.as_key
+            }, function() {
+                $scope.updateTags();
+            }, function(error) {
+                $scope.error = error.data;
+            });
+        } else {
+            $scope.data.error_message = 'Tag does not exist';
+            $scope.error = $scope.data;
         }
 
-        $scope.formatLabel = inputFormat;
+    };
 
-        // Update image tags json
-        $scope.updateTags = function() {
-            Image.get({
-                id: $routeParams.id
-            }, function(data) {
-                $scope.tags = data.image.tags;
-                $scope.error = null;
-                $scope.selected = null;
-            });
-        };
-
-        // Add a tag to the image and update list
-        $scope.addTag = function() {
-
-            if (typeof $scope.selected === 'number' && ($scope.selected % 1) === 0) {
-                AddTag.save({
-                    tag: $scope.selected,
-                    image: $scope.image.id,
-                    ib: config.ib_id,
-                    askey: internal.as_key
-                }, function() {
-                    $scope.updateTags();
-                }, function(error) {
-                    $scope.error = error.data;
-                });
-            } else {
-                $scope.data.error_message = 'Tag does not exist';
-                $scope.error = $scope.data;
-            }
-
-        };
-
-    }
-
-]);
+}]);
 
 // Gets tag page
-prim.controller('getTag', ['$scope', 'Tag', '$routeParams', 'MessageHandler', function($scope, Tag, $routeParams, MessageHandler) {
+prim.controller('getTag', ['$scope', 'Tag', '$routeParams', 'Utils', function($scope, Tag, $routeParams, Utils) {
 
     // Get tag page json
     Tag.get({
@@ -584,17 +601,20 @@ prim.controller('getTag', ['$scope', 'Tag', '$routeParams', 'MessageHandler', fu
         // Set page title with tag name
         $scope.page.setTitle($scope.tag.tag);
     }, function(error) {
-        MessageHandler.apiError(error.status)
+        Utils.apiError(error.status);
     });
 
 }]);
 
 // Get index page 
-prim.controller('getIndex', ['config', 'internal', '$scope', '$location', 'Index', '$routeParams', 'MessageHandler', function(config, internal, $scope, $location, Index, $routeParams, MessageHandler) {
+prim.controller('getIndex', ['config', 'internal', '$scope', '$location', 'Index', '$routeParams', 'Utils', function(config, internal, $scope, $location, Index, $routeParams, Utils) {
 
     $scope.as_key = internal.as_key;
     // Set imageboard id
     $scope.ib_id = config.ib_id;
+
+    // Set antispam cookie
+    Utils.antispamCookie();
 
     // if there is no page number go to page 1
     if (!$routeParams.id) {
@@ -616,12 +636,12 @@ prim.controller('getIndex', ['config', 'internal', '$scope', '$location', 'Index
 
         // Add quote post num to scope and forward to threads last page
         $scope.replyQuote = function(id, thread, last) {
-            MessageHandler.setQuote(id);
+            Utils.setQuote(id);
             $location.path('/thread/' + thread + '/' + last);
         };
 
     }, function(error) {
-        MessageHandler.apiError(error.status)
+        Utils.apiError(error.status);
     });
 
 }]);

@@ -337,8 +337,8 @@ prim.factory('Utils', ['$location', '$sce', 'config', function($location, $sce, 
             return errorCode;
         },
         // generates the action for the post/reply form
-        getFormAction: function() {
-            return $sce.trustAsResourceUrl(config.api_srv + '/post/thread/new');
+        getFormAction: function(addr) {
+            return $sce.trustAsResourceUrl(config.api_srv + addr);
         },
         // generates the src link for an image with the img server from the config
         getImgSrc: function(filename) {
@@ -379,7 +379,7 @@ prim.controller('getThread', ['config', 'internal', 'Thread', '$window', '$locat
     $scope.layout = 'list';
 
     // generate post form action
-    $scope.apiaddr = Utils.getFormAction();
+    $scope.getFormAction = Utils.getFormAction;
 
     // if there is no page number go to page 1
     if (!$routeParams.page) {
@@ -604,7 +604,7 @@ prim.controller('getIndex', ['config', 'internal', '$scope', '$location', 'Index
     $scope.ib_id = config.ib_id;
 
     // generate post form action
-    $scope.apiaddr = Utils.getFormAction();
+    $scope.getFormAction = Utils.getFormAction;
 
     // if there is no page number go to page 1
     if (!$routeParams.id) {

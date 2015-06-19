@@ -12,11 +12,10 @@ gulp.task('default', function() {
         ])
         .pipe(ngAnnotate())
         .pipe(concat('prim.js'))
-        .pipe(gulp.dest('build'))
+        .pipe(gulp.dest('dist'))
         .pipe(size())
         .pipe(rename("prim.min.js"))
         .pipe(uglify())
-        .pipe(gulp.dest('build'))
+        .pipe(gulp.dest('dist'))
         .pipe(size())
 });
-

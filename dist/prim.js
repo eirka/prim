@@ -494,61 +494,6 @@ angular.module('prim').service('NewTag', ["$resource", "config", function($resou
     });
 }]);
 
-angular.module('prim').controller('getTagList', ["config", "internal", "TagList", "TagTypes", "NewTag", "$scope", "Utils", function(config, internal, TagList, TagTypes, NewTag, $scope, Utils) {
-
-    // Get tag types for selector
-    TagTypes.get(function(data) {
-        $scope.tagTypes = data.tagtypes;
-    }, function(error) {
-        Utils.apiError(error.status);
-    });
-
-    // get taglist json
-    $scope.updateTags = function() {
-        $scope.data = TagList.get();
-        $scope.error = null;
-    };
-
-    $scope.updateTags();
-
-    // Function for adding a tag, updates tag list on success
-    $scope.newTag = function() {
-        NewTag.save({
-            name: $scope.name,
-            type: $scope.selected,
-            ib: config.ib_id,
-            askey: internal.as_key
-        }, function() {
-            $scope.updateTags();
-        }, function(error) {
-            $scope.error = error.data;
-        });
-    };
-
-    // predicate for sorting
-    $scope.predicate = 'total';
-
-}]);
-
-angular.module('prim').service('TagList', ["$resource", "config", function($resource, config) {
-    return $resource(config.api_srv + '/get/tags/:ib', {
-        ib: config.ib_id
-    }, {
-        get: {
-            method: 'GET'
-        }
-    });
-}]);
-
-angular.module('prim').service('TagTypes', ["$resource", "config", function($resource, config) {
-    return $resource(config.api_srv + '/get/tagtypes', {}, {
-        get: {
-            method: 'GET',
-            cache: true
-        }
-    });
-}]);
-
 angular.module('prim').controller('getThread', ["config", "internal", "Thread", "$window", "$location", "$scope", "$routeParams", "Utils", function(config, internal, Thread, $window, $location, $scope, $routeParams, Utils) {
 
     $scope.as_key = internal.as_key;
@@ -608,6 +553,61 @@ angular.module('prim').service('Thread', ["$resource", "config", function($resou
     }, {
         get: {
             method: 'GET'
+        }
+    });
+}]);
+
+angular.module('prim').controller('getTagList', ["config", "internal", "TagList", "TagTypes", "NewTag", "$scope", "Utils", function(config, internal, TagList, TagTypes, NewTag, $scope, Utils) {
+
+    // Get tag types for selector
+    TagTypes.get(function(data) {
+        $scope.tagTypes = data.tagtypes;
+    }, function(error) {
+        Utils.apiError(error.status);
+    });
+
+    // get taglist json
+    $scope.updateTags = function() {
+        $scope.data = TagList.get();
+        $scope.error = null;
+    };
+
+    $scope.updateTags();
+
+    // Function for adding a tag, updates tag list on success
+    $scope.newTag = function() {
+        NewTag.save({
+            name: $scope.name,
+            type: $scope.selected,
+            ib: config.ib_id,
+            askey: internal.as_key
+        }, function() {
+            $scope.updateTags();
+        }, function(error) {
+            $scope.error = error.data;
+        });
+    };
+
+    // predicate for sorting
+    $scope.predicate = 'total';
+
+}]);
+
+angular.module('prim').service('TagList', ["$resource", "config", function($resource, config) {
+    return $resource(config.api_srv + '/get/tags/:ib', {
+        ib: config.ib_id
+    }, {
+        get: {
+            method: 'GET'
+        }
+    });
+}]);
+
+angular.module('prim').service('TagTypes', ["$resource", "config", function($resource, config) {
+    return $resource(config.api_srv + '/get/tagtypes', {}, {
+        get: {
+            method: 'GET',
+            cache: true
         }
     });
 }]);

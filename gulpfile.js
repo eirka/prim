@@ -72,7 +72,11 @@ gulp.task('browserify', function() {
 });
 
 gulp.task('css', function() {
-    return gulp.src('./src/css/*.css')
+    return gulp.src([
+            './src/css/skeleton.css',
+            './src/css/bootstrap.css',
+            './src/css/macroboard.css'
+        ])
         .pipe(concat('prim.css'))
         .pipe(csso())
         .pipe(gulp.dest('./dist'));

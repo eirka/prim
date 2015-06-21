@@ -118,6 +118,10 @@ body {
     border-radius: 6px 6px 0 0;
 }
 
+.header_single {
+    border-radius: 6px;
+}
+
 .omittedposts {
     text-align: center;
     padding-top: 5px;
@@ -160,7 +164,7 @@ body {
     text-decoration: none;
     color: #fff;
     line-height: 29px;
-    padding: 0px 10px;
+    padding: 0px 5px;
 }
 
 #nav li.n1 a:hover {

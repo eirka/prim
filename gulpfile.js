@@ -8,9 +8,10 @@ var runSequence = require('run-sequence');
 var del = require('del');
 var ngHtml2Js = require("gulp-ng-html2js");
 var htmlmin = require('gulp-htmlmin');
+var csso = require('gulp-csso');
 
 gulp.task('default', function(callback) {
-    runSequence('clean', 'prim', 'templates', 'ui-bootstrap', 'app', 'browserify', callback);
+    runSequence('clean', 'prim', 'templates', 'ui-bootstrap', 'app', 'browserify', 'css', callback);
 });
 
 // clean env
@@ -27,7 +28,7 @@ gulp.task('prim', function() {
         .pipe(ngAnnotate())
         .pipe(concat('prim.min.js'))
         .pipe(uglify())
-        .pipe(gulp.dest('./build'))
+        .pipe(gulp.dest('./build'));
 });
 
 // build and minify templates
@@ -44,7 +45,7 @@ gulp.task('templates', function() {
         .pipe(ngAnnotate())
         .pipe(concat('templates.js'))
         .pipe(uglify())
-        .pipe(gulp.dest('./build'))
+        .pipe(gulp.dest('./build'));
 });
 
 // build and minify ui-bootstrap
@@ -52,14 +53,14 @@ gulp.task('ui-bootstrap', function() {
     return gulp.src(['./ui-bootstrap.0.13.js'])
         .pipe(ngAnnotate())
         .pipe(uglify())
-        .pipe(gulp.dest('./build'))
+        .pipe(gulp.dest('./build'));
 });
 
 // concat the build dir
 gulp.task('app', function() {
     return gulp.src(['./build/*.js'])
         .pipe(concat('app.js'))
-        .pipe(gulp.dest('./build'))
+        .pipe(gulp.dest('./build'));
 });
 
 // browserify the app and place in dist
@@ -68,4 +69,11 @@ gulp.task('browserify', function() {
         .bundle()
         .pipe(source('prim.js'))
         .pipe(gulp.dest('./dist'))
+});
+
+gulp.task('css', function() {
+    return gulp.src('./src/css/*.css')
+        .pipe(concat('prim.css'))
+        .pipe(csso())
+        .pipe(gulp.dest('./dist'));
 });

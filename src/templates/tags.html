@@ -1,4 +1,3 @@
-<top-box></top-box>
 <div class="container">
     <div class="sixteen columns tag_bar">
         <div class="two columns">
@@ -35,10 +34,10 @@
                         <i ng-switch-when="4" title="Copyright" style="color:#A0A;" class="fa fa-copyright"></i>
                     </td>
                     <td ng-switch="tag.type">
-                        <a ng-switch-when="1" ng-href="tag/{{tag.id}}/1" rel="nofollow" href ng-bind="::tag.tag"></a>
-                        <a ng-switch-when="2" style="color:#A00;" ng-href="tag/{{tag.id}}/1" rel="nofollow" href ng-bind="::tag.tag"></a>
-                        <a ng-switch-when="3" style="color:#0A0;" ng-href="tag/{{tag.id}}/1" rel="nofollow" href ng-bind="::tag.tag"></a>
-                        <a ng-switch-when="4" style="color:#A0A;" ng-href="tag/{{tag.id}}/1" rel="nofollow" href ng-bind="::tag.tag"></a>
+                        <a ng-switch-when="1" ng-href="tag/{{::tag.id}}/1" rel="nofollow" href ng-bind="::tag.tag"></a>
+                        <a ng-switch-when="2" style="color:#A00;" ng-href="tag/{{::tag.id}}/1" rel="nofollow" href ng-bind="::tag.tag"></a>
+                        <a ng-switch-when="3" style="color:#0A0;" ng-href="tag/{{::tag.id}}/1" rel="nofollow" href ng-bind="::tag.tag"></a>
+                        <a ng-switch-when="4" style="color:#A0A;" ng-href="tag/{{::tag.id}}/1" rel="nofollow" href ng-bind="::tag.tag"></a>
                     </td>
                     <td align="center" ng-bind="::tag.total"></td>
                 </tr>

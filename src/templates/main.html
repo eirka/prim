@@ -1,11 +1,10 @@
-<top-box></top-box>
 <div class="container">
     <div class="sixteen columns top">
         <div class="eleven columns alpha">
             &nbsp;
         </div>
         <div class="five columns omega postform">
-            <form role="form" action="/api/post/thread/new" method="post" enctype="multipart/form-data">
+            <form role="form" action="{{getFormAction('/post/thread/new')}}" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="ib" ng-value="ib_id" />
                 <input type="hidden" name="askey" ng-value="as_key" />
                 <div class="form-group">
@@ -27,18 +26,18 @@
         </div>
     </div>
 </div>
-<div ng-repeat="thread in data.index.items track by thread.id" class="container thread">
-    <div class="sixteen columns header_body">
+<div ng-repeat="thread in data.index.items track by thread.id" id="thread-{{::thread.id}}" class="container thread">
+    <div ng-class="{'header_single': thread.posts.length == 1}" class="sixteen columns header_body">
         <div class="fourteen columns alpha thread_title">
             <span ng-bind="::thread.title"></span>
             <i ng-if="thread.closed" title="Closed" class="fa fa-lock"></i>
             <i ng-if="thread.sticky" title="Sticky" class="fa fa-thumb-tack"></i>
         </div>
-        <div class="two columns omega reply_button"> <a class="btn btn-default" ng-href="thread/{{thread.id}}/{{thread.last_page}}" href>Reply</a>
+        <div class="two columns omega reply_button"> <a class="btn btn-default" ng-href="thread/{{::thread.id}}/{{::thread.last_page}}" href>Reply</a>
         </div>
         <div class="five columns alpha reply_image" ng-if="thread.posts[0].thumbnail != null">
-            <a ng-href="image/{{thread.posts[0].img_id}}" href>
-                <img class="reply_image scale-with-grid" ng-src="/thumb/{{thread.posts[0].thumbnail}}" height="{{thread.posts[0].tn_height}}" width="{{thread.posts[0].tn_width}}"> </a>
+            <a ng-href="image/{{::thread.posts[0].img_id}}" href>
+                <img class="reply_image scale-with-grid" ng-src="/thumb/{{::thread.posts[0].thumbnail}}" height="{{::thread.posts[0].tn_height}}" width="{{::thread.posts[0].tn_width}}"> </a>
         </div>
         <div class="eleven columns omega reply_info">
             <span class="postername" ng-bind="::thread.posts[0].name"></span>
@@ -48,11 +47,11 @@
         <div class="eleven columns omega thread_reply">
             <p ng-bind-html="::thread.posts[0].comment | linky:'_blank'"></p>
         </div>
-        <div class="sixteen columns alpha omittedposts" ng-if="thread.omit_posts != 0"> {{ thread.omit_posts }} posts omitted. Click <a ng-href="thread/{{thread.id}}/{{thread.last_page}}" href>Reply</a> to view. </div>
+        <div class="sixteen columns alpha omittedposts" ng-if="thread.omit_posts != 0"> {{ ::thread.omit_posts }} posts omitted. Click <a ng-href="thread/{{::thread.id}}/{{::thread.last_page}}" href>Reply</a> to view. </div>
     </div>
     <div ng-repeat="post in thread.posts track by post.id" ng-if="!$first" class="sixteen columns clearfix reply_body">
         <div class="five columns alpha reply_image" ng-if="post.thumbnail != null">
-            <a ng-href="image/{{post.img_id}}" href><img class="reply_image scale-with-grid" ng-src="/thumb/{{post.thumbnail}}" height="{{post.tn_height}}" width="{{post.tn_width}}"> </a>
+            <a ng-href="image/{{::post.img_id}}" href><img class="reply_image scale-with-grid" ng-src="/thumb/{{::post.thumbnail}}" height="{{::post.tn_height}}" width="{{::post.tn_width}}"> </a>
         </div>
         <div class="eleven columns omega clearfix reply_content">
             <div class="eleven columns alpha reply_info">

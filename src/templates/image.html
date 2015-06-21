@@ -1,0 +1,69 @@
+<div class="container image_box">
+    <div class="sixteen columns image_box_top">
+        <ul class="pagination">
+            <li ng-if="image.prev">
+                <a class="fa fa-arrow-left" ng-href="image/{{::image.prev}}" href></a>
+            </li>
+            <li>
+                <a class="fa fa-align-justify" ng-href="thread/{{::image.thread}}/1" href></a>
+            </li>
+            <li ng-if="image.next">
+                <a class="fa fa-arrow-right" ng-href="image/{{::image.next}}" href></a>
+            </li>
+        </ul>
+    </div>
+    <div class="sixteen columns image_box_middle" ng-if="ext == 'webm'">
+        <video ng-src="{{getImgSrc(image.filename)}}" height="{{::image.height}}" width="{{::image.width}}" autoplay loop controls>
+        </video>
+    </div>
+    <div class="sixteen columns image_box_middle" ng-if="ext != 'webm'">
+        <a target="_self" ng-href="/src/{{::image.filename}}" href>
+            <img class="scale-with-grid" ng-src="/src/{{::image.filename}}" height="{{::image.height}}" width="{{::image.width}}">
+        </a>
+    </div>
+    <div class="sixteen columns image_box_bottom">
+        <ul class="pagination">
+            <li ng-if="image.prev">
+                <a class="fa fa-arrow-left" ng-href="image/{{::image.prev}}" href></a>
+            </li>
+            <li>
+                <a class="fa fa-align-justify" ng-href="thread/{{::image.thread}}/1" href></a>
+            </li>
+            <li ng-if="image.next">
+                <a class="fa fa-arrow-right" ng-href="image/{{::image.next}}" href></a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="container image_info">
+    <div class="sixteen columns image_box_top">
+        <div class="eight columns alpha tag_input">
+            <div ng-if="error != undefined" class="alert alert-danger tag_error" role="alert" ng-bind="error.error_message"></div>
+            <form ng-submit="addTag()">
+                <div class="input-group">
+                    <input ng-required="true" type="text" class="form-control" typeahead-input-formatter="formatLabel($model)" ng-model="selected" typeahead-editable="false" placeholder="Add Tag" typeahead="tag.id as tag.tag for tag in tagList | filter:$viewValue | limitTo:8">
+                    <span class="input-group-btn">
+						<button class="btn btn-primary" type="submit">Add</button>
+					</span>
+                </div>
+            </form>
+        </div>
+        <div class="eight columns omega source_links">
+            <a type="button" class="btn btn-default" target="_blank" ng-href="http://saucenao.com/search.php?url=http:/src/{{::image.filename}}" href>SauceNao</a>
+            <a type="button" class="btn btn-default" target="_blank" ng-href="http://google.com/searchbyimage?image_url=http:/src/{{::image.filename}}" href>Google</a>
+            <a type="button" class="btn btn-default" target="_blank" ng-href="http://iqdb.org/?url=http:/src/{{::image.filename}}" href>iqdb</a>
+        </div>
+    </div>
+    <div class="sixteen columns image_box_bottom">
+        <div ng-if="tags" class="image_tags">
+            <span ng-repeat="tag in tags track by tag.id">
+				<span ng-switch="tag.type">
+					<a class="btn btn-default" ng-switch-when="1" ng-href="tag/{{::tag.id}}/1" rel="nofollow" href ng-bind="::tag.tag"></a>
+					<a class="btn btn-success" ng-switch-when="3" style="color:#fff;" ng-href="tag/{{::tag.id}}/1" rel="nofollow" href ng-bind="::tag.tag"></a>
+					<a class="btn btn-danger" ng-switch-when="2" style="color:#fff;" ng-href="tag/{{::tag.id}}/1" rel="nofollow" href ng-bind="::tag.tag"></a>
+					<a class="btn btn-copyright" ng-switch-when="4" style="color:#ddd;" ng-href="tag/{{::tag.id}}/1" rel="nofollow" href ng-bind="::tag.tag"></a>
+				</span>
+            </span>
+        </div>
+    </div>
+</div>

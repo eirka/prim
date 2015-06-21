@@ -1,4 +1,3 @@
-<top-box></top-box>
 <div class="container">
     <div class="sixteen columns thread_list">
         <table class="table_list">
@@ -13,7 +12,7 @@
             <tbody>
                 <tr class="table_item" ng-repeat="thread in data.directory track by thread.id | orderBy:predicate:reverse">
                     <td>
-                        <a ng-href="thread/{{thread.id}}/1" rel="nofollow" href ng-bind="::thread.title"></a>
+                        <a ng-href="thread/{{::thread.id}}/1" rel="nofollow" href ng-bind="::thread.title"></a>
                         <i ng-if="thread.closed" title="Closed" class="fa fa-lock"></i>
                         <i ng-if="thread.sticky" title="Sticky" class="fa fa-thumb-tack"></i>
                     </td>

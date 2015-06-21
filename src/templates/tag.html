@@ -1,8 +1,7 @@
-<top-box></top-box>
 <div class="container">
     <div class="sixteen columns image_bar">
         <div class="btn-group">
-            <pagination all-link="true" boundary-links="true" rotate="true" direction-links="false" page-name="tag/{{tag.id}}" total-items="totalItems" max-size="maxSize" ng-model="currentPage" items-per-page="itemsPerPage" num-pages="numPages">
+            <pagination all-link="true" boundary-links="true" rotate="true" direction-links="false" page-name="tag/{{::tag.id}}" total-items="totalItems" max-size="maxSize" ng-model="currentPage" items-per-page="itemsPerPage" num-pages="numPages">
         </div>
     </div>
 </div>
@@ -18,8 +17,8 @@
         </div>
     </div>
     <div ng-if="totalItems != 0" class="sixteen columns clearfix tagpage" id="photos">
-        <a ng-repeat="image in tag.images track by image.id" ng-href="image/{{image.id}}" href>
-            <img class="reply_image scale-with-grid" ng-src="/thumb/{{image.thumbnail}}" height="{{image.tn_height}}" width="{{image.tn_width}}">
+        <a ng-repeat="image in tag.images track by image.id" ng-href="image/{{::image.id}}" href>
+            <img class="reply_image scale-with-grid" ng-src="/thumb/{{::image.thumbnail}}" height="{{::image.tn_height}}" width="{{::image.tn_width}}">
         </a>
     </div>
     <div ng-if="totalItems == 0" style="text-align:center;" class="sixteen columns clearfix reply_body">
@@ -29,7 +28,7 @@
 <div class="container">
     <div class="sixteen columns footer">
         <div class="btn-group">
-            <pagination all-link="true" boundary-links="true" rotate="true" direction-links="false" page-name="tag/{{tag.id}}" total-items="totalItems" max-size="maxSize" ng-model="currentPage" items-per-page="itemsPerPage" num-pages="numPages">
+            <pagination all-link="true" boundary-links="true" rotate="true" direction-links="false" page-name="tag/{{::tag.id}}" total-items="totalItems" max-size="maxSize" ng-model="currentPage" items-per-page="itemsPerPage" num-pages="numPages">
         </div>
     </div>
 </div>

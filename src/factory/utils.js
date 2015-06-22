@@ -30,10 +30,6 @@ angular.module('prim').factory('Utils', function($location, $sce, config) {
         // generates the action for the post/reply form
         getFormAction: function(addr) {
             return $sce.trustAsResourceUrl(config.api_srv + addr);
-        },
-        // generates the src link for an image with the img server from the config
-        getImgSrc: function(filename) {
-            return $sce.trustAsResourceUrl(config.img_srv + '/src/' + filename);
         }
     };
 });

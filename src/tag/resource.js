@@ -10,14 +10,6 @@ angular.module('prim').service('Tag', function($resource, config) {
     });
 });
 
-angular.module('prim').service('AddTag', function($resource, config) {
-    return $resource(config.api_srv + '/post/tag/add', {}, {
-        save: {
-            method: 'POST'
-        }
-    });
-});
-
 angular.module('prim').service('NewTag', function($resource, config) {
     return $resource(config.api_srv + '/post/tag/new', {}, {
         save: {

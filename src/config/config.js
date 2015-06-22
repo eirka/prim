@@ -25,7 +25,8 @@ angular.module('prim').config(function($routeProvider, $locationProvider, $compi
         })
         .when('/image/:id', {
             templateUrl: 'pages/image.html',
-            controller: 'getImage'
+            controller: 'ImageCtrl',
+            controllerAs: 'image'
         })
         .when('/tags', {
             title: 'Tags',
@@ -44,7 +45,7 @@ angular.module('prim').config(function($routeProvider, $locationProvider, $compi
             redirectTo: '/error'
         });
 
-    $compileProvider.debugInfoEnabled(false);
+    $compileProvider.debugInfoEnabled(true);
     $locationProvider.html5Mode(true);
     $httpProvider.defaults.withCredentials = true;
 });

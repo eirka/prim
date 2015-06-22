@@ -1,6 +1,6 @@
 <div style="margin-top:5px;text-align: center;">
     <div ng-if="quotebox.post.thumbnail != null">
-        <a ng-href="image/{{::quotebox.post.img_id}}" href><img class="reply_image" ng-src="/thumb/{{::quotebox.post.thumbnail}}" height="{{::quotebox.post.tn_height}}" width="{{::quotebox.post.tn_width}}"></a>
+        <a ng-href="image/{{quotebox.post.img_id}}" href><img class="reply_image" ng-src="//images.chounyuu.com/thumb/{{quotebox.post.thumbnail}}" height="{{quotebox.post.tn_height}}" width="{{quotebox.post.tn_width}}"></a>
     </div>
     <span class="postername" ng-bind="quotebox.post.name"></span>
     <span class="replytitle" ng-bind="quotebox.post.time"></span>

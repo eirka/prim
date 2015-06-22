@@ -44,7 +44,7 @@
     </div>
     <div ng-if="layout == 'list'" ng-repeat="post in thread.posts track by post.id" id="reply-{{::post.num}}" class="sixteen columns clearfix reply_body">
         <div class="five columns alpha reply_image" ng-if="post.thumbnail != null">
-            <a ng-href="image/{{::post.img_id}}" href><img class="reply_image scale-with-grid" ng-src="/thumb/{{::post.thumbnail}}" height="{{::post.tn_height}}" width="{{::post.tn_width}}"> </a>
+            <a ng-href="image/{{::post.img_id}}" href><img class="reply_image scale-with-grid" ng-src="//images.chounyuu.com/thumb/{{::post.thumbnail}}" height="{{::post.tn_height}}" width="{{::post.tn_width}}"> </a>
         </div>
         <div class="eleven columns omega clearfix reply_content">
             <div class="eleven columns alpha reply_info">
@@ -57,7 +57,7 @@
     </div>
     <div class="sixteen columns tagpage" ng-if="layout == 'grid'" id="photos">
         <a ng-if="post.thumbnail != null" ng-repeat="post in thread.posts track by post.id" ng-href="image/{{::post.img_id}}" href>
-            <img class="reply_image scale-with-grid" ng-src="/thumb/{{::post.thumbnail}}" height="{{::post.tn_height}}" width="{{::post.tn_width}}">
+            <img class="reply_image scale-with-grid" ng-src="//images.chounyuu.com/thumb/{{::post.thumbnail}}" height="{{::post.tn_height}}" width="{{::post.tn_width}}">
         </a>
     </div>
 </div>

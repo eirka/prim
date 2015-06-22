@@ -1,69 +1,71 @@
-angular.module('prim').controller('getImage', function(config, internal, Image, TagList, AddTag, $routeParams, $scope, Utils) {
+angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, ImageHandler, ImageAddTag, ImageService, TagList, Utils, config, internal) {
 
-    // generate image src link
-    $scope.getImgSrc = Utils.getImgSrc;
+    // using controllerAs
+    var self = this;
 
     // Get the image json
-    Image.get({
+    ImageHandler.get({
         id: $routeParams.id
     }, function(data) {
-        $scope.data = data;
-        $scope.image = data.image;
+        self.data = data;
         // Set page title from image id
-        $scope.page.setTitle('Image ' + $scope.image.id);
-        $scope.tags = data.image.tags;
-        $scope.ext = data.image.filename.split('.').pop();
-
+        $scope.page.setTitle('Image ' + self.data.image.id);
+        self.tags = data.image.tags;
+        // generate image src link
+        self.src = ImageService.getImgSrc(data.image.filename);
+        // get file ext to check if video or image
+        self.ext = data.image.filename.split('.').pop();
     }, function(error) {
         Utils.apiError(error.status);
     });
 
-    // Get taglist
+    self.tagList = {};
+
+    // Get taglist for typeahead
     TagList.get(function(data) {
-        $scope.tagList = data.tags;
+        self.tagList = data.tags;
+    }, function(error) {
+        self.error = error.data;
     });
 
-    $scope.tagList = {};
-
-    // handles the input for the typeahead, its broken otherwise
-    function inputFormat(model) {
-        for (var i = 0; i < $scope.tagList.length; i++) {
-            if (model === $scope.tagList[i].id) {
-                return $scope.tagList[i].tag;
+    // handles the input for ui-bootstrap typeahead, its broken otherwise
+    self.formatLabel = function(model) {
+        for (var i = 0; i < self.tagList.length; i++) {
+            if (model === self.tagList[i].id) {
+                return self.tagList[i].tag;
             }
         }
-    }
+    };
 
-    $scope.formatLabel = inputFormat;
-
-    // Update image tags json
-    $scope.updateTags = function() {
-        Image.get({
+    // Update image json
+    self.updateTags = function() {
+        ImageHandler.get({
             id: $routeParams.id
         }, function(data) {
-            $scope.tags = data.image.tags;
-            $scope.error = null;
-            $scope.selected = null;
+            self.tags = data.image.tags;
+            self.error = null;
+            self.selected = null;
+        }, function(error) {
+            self.error = error.data;
         });
     };
 
     // Add a tag to the image and update list
-    $scope.addTag = function() {
-
-        if (typeof $scope.selected === 'number' && ($scope.selected % 1) === 0) {
-            AddTag.save({
-                tag: $scope.selected,
-                image: $scope.image.id,
+    self.addTag = function() {
+        if (typeof self.selected === 'number' && (self.selected % 1) === 0) {
+            ImageAddTag.save({
+                tag: self.selected,
+                image: self.data.image.id,
                 ib: config.ib_id,
                 askey: internal.as_key
             }, function() {
-                $scope.updateTags();
+                self.updateTags();
             }, function(error) {
-                $scope.error = error.data;
+                self.error = error.data;
             });
         } else {
-            $scope.data.error_message = 'Tag does not exist';
-            $scope.error = $scope.data;
+            self.data.error_message = 'Tag does not exist';
+            self.error = self.data;
         }
 
     };

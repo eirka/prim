@@ -45,7 +45,7 @@ angular.module('prim').config(function($routeProvider, $locationProvider, $compi
             redirectTo: '/error'
         });
 
-    $compileProvider.debugInfoEnabled(true);
+    $compileProvider.debugInfoEnabled(false);
     $locationProvider.html5Mode(true);
     $httpProvider.defaults.withCredentials = true;
 });

@@ -4,9 +4,9 @@
             &nbsp;
         </div>
         <div class="five columns omega postform">
-            <form role="form" action="{{getFormAction('/post/thread/new')}}" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="ib" ng-value="ib_id" />
-                <input type="hidden" name="askey" ng-value="as_key" />
+            <form role="form" action="{{index.getFormAction('/post/thread/new')}}" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="ib" ng-value="index.ib_id" />
+                <input type="hidden" name="askey" ng-value="index.as_key" />
                 <div class="form-group">
                     <input type="text" id="name" name="name" class="form-control" ng-maxlength="20" placeholder="Anonymous">
                 </div>
@@ -26,7 +26,7 @@
         </div>
     </div>
 </div>
-<div ng-repeat="thread in data.index.items track by thread.id" id="thread-{{::thread.id}}" class="container thread">
+<div ng-repeat="thread in index.data track by thread.id" id="thread-{{::thread.id}}" class="container thread">
     <div ng-class="{'header_single': thread.posts.length == 1}" class="sixteen columns header_body">
         <div class="fourteen columns alpha thread_title">
             <span ng-bind="::thread.title"></span>
@@ -37,12 +37,12 @@
         </div>
         <div class="five columns alpha reply_image" ng-if="thread.posts[0].thumbnail != null">
             <a ng-href="image/{{::thread.posts[0].img_id}}" href>
-                <img class="reply_image scale-with-grid" ng-src="//images.chounyuu.com/thumb/{{::thread.posts[0].thumbnail}}" height="{{::thread.posts[0].tn_height}}" width="{{::thread.posts[0].tn_width}}"> </a>
+                <img class="reply_image scale-with-grid" ng-src="{{::index.thumb(thread.posts[0].thumbnail)}}" height="{{::thread.posts[0].tn_height}}" width="{{::thread.posts[0].tn_width}}"> </a>
         </div>
         <div class="eleven columns omega reply_info">
             <span class="postername" ng-bind="::thread.posts[0].name"></span>
             <span class="replytitle" ng-bind="::thread.posts[0].time"></span>
-            <span class="replytitle">#<a ng-bind="::thread.posts[0].num" ng-click="replyQuote(thread.posts[0].num,thread.id,thread.last_page)" href></a></span>
+            <span class="replytitle">#<a ng-bind="::thread.posts[0].num" ng-click="index.replyQuote(thread.posts[0].num,thread.id,thread.last_page)" href></a></span>
         </div>
         <div class="eleven columns omega thread_reply">
             <p ng-bind-html="::thread.posts[0].comment | linky:'_blank'"></p>
@@ -51,13 +51,13 @@
     </div>
     <div ng-repeat="post in thread.posts track by post.id" ng-if="!$first" class="sixteen columns clearfix reply_body">
         <div class="five columns alpha reply_image" ng-if="post.thumbnail != null">
-            <a ng-href="image/{{::post.img_id}}" href><img class="reply_image scale-with-grid" ng-src="//images.chounyuu.com/thumb/{{::post.thumbnail}}" height="{{::post.tn_height}}" width="{{::post.tn_width}}"> </a>
+            <a ng-href="image/{{::post.img_id}}" href><img class="reply_image scale-with-grid" ng-src="{{::index.thumb(post.thumbnail)}}" height="{{::post.tn_height}}" width="{{::post.tn_width}}"> </a>
         </div>
         <div class="eleven columns omega clearfix reply_content">
             <div class="eleven columns alpha reply_info">
                 <span class="postername" ng-bind="::post.name"></span>
                 <span class="replytitle" ng-bind="::post.time"></span>
-                <span class="replytitle">#<a ng-bind="::post.num" ng-click="replyQuote(post.num,thread.id,thread.last_page)" href></a></span>
+                <span class="replytitle">#<a ng-bind="::post.num" ng-click="index.replyQuote(post.num,thread.id,thread.last_page)" href></a></span>
             </div>
             <div ng-if="post.comment" comment-handler post="post" thread="thread"></div>
         </div>
@@ -65,6 +65,6 @@
 </div>
 <div class="container">
     <div class="sixteen columns footer">
-        <pagination boundary-links="true" rotate="true" direction-links="false" page-name="page" total-items="totalItems" max-size="maxSize" ng-model="currentPage" items-per-page="itemsPerPage" num-pages="numPages">
+        <pagination boundary-links="true" rotate="true" direction-links="false" page-name="page" total-items="index.pagination.totalItems" max-size="index.pagination.maxSize" ng-model="index.pagination.currentPage" items-per-page="index.pagination.itemsPerPage" num-pages="index.pagination.numPages">
     </div>
 </div>

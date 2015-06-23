@@ -1,49 +1,57 @@
-angular.module('prim').controller('getThread', function(config, internal, Thread, $window, $location, $scope, $routeParams, Utils) {
+angular.module('prim').controller('ThreadCtrl', function($window, $location, $scope, $routeParams, config, internal, ThreadHandler, Utils) {
 
-    $scope.as_key = internal.as_key;
-    $scope.ib_id = config.ib_id;
+    // using controllerAs
+    var self = this;
+
+    // set antispam key 
+    self.as_key = internal.as_key;
+
     // Variable for grid or list view as default
-    $scope.layout = 'list';
+    self.layout = 'list';
+
+    // get the thumb address
+    self.thumb = Utils.getThumbSrc;
 
     // generate post form action
-    $scope.getFormAction = Utils.getFormAction;
+    self.getFormAction = Utils.getFormAction;
 
-    // if there is no page number go to page 1
-    if (!$routeParams.page) {
-        $routeParams.page = 1;
-    }
-
-    $scope.quote = Utils.getQuote();
+    // get quote if there is one
+    self.quote = Utils.getQuote();
 
     // clear the quote if page change
     $scope.$on('$locationChangeStart', function() {
         Utils.clearQuote();
     });
 
+    // if there is no page number go to page 1
+    if (!$routeParams.page) {
+        $routeParams.page = 1;
+    }
+
     // Get thread json and set scope
-    Thread.get({
+    ThreadHandler.get({
         id: $routeParams.id,
         page: $routeParams.page
     }, function(data) {
-        $scope.data = data;
-        $scope.thread = data.thread.items;
+        self.data = data.thread.items;
         // Set page title from thread title
-        $scope.page.setTitle($scope.thread.title);
+        $scope.page.setTitle(self.data.title);
         // Pagination items from json
-        $scope.totalItems = data.thread.total;
-        $scope.currentPage = data.thread.current_page;
-        $scope.numPages = data.thread.pages;
-        $scope.itemsPerPage = data.thread.per_page;
-        $scope.maxSize = 3;
-
+        self.pagination = {
+            totalItems: data.thread.total,
+            currentPage: data.thread.current_page,
+            numPages: data.thread.pages,
+            itemsPerPage: data.thread.per_page,
+            maxSize: 5
+        };
     }, function(error) {
         Utils.apiError(error.status);
     });
 
     // add post num to comment box
-    $scope.replyQuote = function(id) {
+    self.replyQuote = function(id) {
         Utils.setQuote(id);
-        $scope.quote = Utils.getQuote();
+        self.quote = Utils.getQuote();
         $window.scrollTo(0, 0);
     };
 

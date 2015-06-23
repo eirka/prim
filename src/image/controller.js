@@ -1,9 +1,9 @@
-angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, ImageHandler, ImageAddTag, ImageService, TagList, Utils, config, internal) {
+angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, ImageHandler, ImageAddTag, TagsHandler, Utils, config, internal) {
 
     // using controllerAs
     var self = this;
 
-    // Get the image json
+    // Get the image json from pram
     ImageHandler.get({
         id: $routeParams.id
     }, function(data) {
@@ -12,7 +12,7 @@ angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, Im
         $scope.page.setTitle('Image ' + self.data.image.id);
         self.tags = data.image.tags;
         // generate image src link
-        self.src = ImageService.getImgSrc(data.image.filename);
+        self.src = Utils.getImgSrc(data.image.filename);
         // get file ext to check if video or image
         self.ext = data.image.filename.split('.').pop();
     }, function(error) {
@@ -22,7 +22,7 @@ angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, Im
     self.tagList = {};
 
     // Get taglist for typeahead
-    TagList.get(function(data) {
+    TagsHandler.get(function(data) {
         self.tagList = data.tags;
     }, function(error) {
         self.error = error.data;

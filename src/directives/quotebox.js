@@ -1,4 +1,5 @@
-angular.module('prim').directive('quoteBox', function(Post, $compile) {
+// quotebox takes the quotes from comment-handler and 
+angular.module('prim').directive('quoteBox', function($compile, PostHandler, Utils) {
     return {
         restrict: 'A',
         transclude: true,
@@ -20,13 +21,18 @@ angular.module('prim').directive('quoteBox', function(Post, $compile) {
             $scope.onHoverIn = $scope.$eval($attrs.onHoverIn);
             $scope.onHoverOut = $scope.$eval($attrs.onHoverOut);
 
+            // get the thumb address
+            $scope.thumb = Utils.getThumbSrc;
+
             // Get single post on hover
             $scope.getPost = function(post_id) {
-                Post.get({
+                PostHandler.get({
                     thread: $scope.thread.id,
                     id: post_id
                 }, function(data) {
                     $scope.quotebox = data;
+                }, function(error) {
+                    $scope.error = error.data;
                 });
             };
 

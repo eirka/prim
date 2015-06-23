@@ -1,3 +1,5 @@
+// comment-handler uses a regex to parse out quotes from a post starting with >> and adds them to an array
+// it then sends the generated quotes to the quotebox directive which will create a popup with the posts
 angular.module('prim').directive('commentHandler', function() {
     return {
         restrict: 'A',
@@ -8,7 +10,7 @@ angular.module('prim').directive('commentHandler', function() {
         templateUrl: "pages/comment.html",
         controller: function($scope) {
             // Match quote format
-            var re = /(>>(\d{1,4}))/;
+            var re = /(>>(\d{1,5}))/;
             var raw = $scope.post.comment;
             var html = [];
             var id = [];
@@ -20,7 +22,6 @@ angular.module('prim').directive('commentHandler', function() {
 
             // makes a link
             function addLink(url) {
-                //link.push('<a href="post/' + $scope.thread.id + '/' + url + '">' + text + '</a> ');
                 id.push(url);
             }
 
@@ -39,8 +40,6 @@ angular.module('prim').directive('commentHandler', function() {
             addText(raw);
             // join the html array and sanitize
             $scope.post.comment = html.join('');
-            // add link to scope
-            //$scope.post.quote_link = link;
             // add post num to scope
             $scope.post.quote_id = id;
 

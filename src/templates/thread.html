@@ -4,14 +4,14 @@
             &nbsp;
         </div>
         <div class="five columns omega postform">
-            <form role="form" action="{{getFormAction('/post/thread/reply')}}" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="askey" ng-value="as_key" />
-                <input type="hidden" name="thread" ng-value="thread.id" />
+            <form role="form" action="{{thread.getFormAction('/post/thread/reply')}}" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="askey" ng-value="thread.as_key" />
+                <input type="hidden" name="thread" ng-value="thread.data.id" />
                 <div class="form-group">
                     <input type="text" id="name" name="name" class="form-control" ng-maxlength="20" placeholder="Anonymous">
                 </div>
                 <div class="form-group">
-                    <textarea id="comment" name="comment" ng-model="quote" class="form-control" rows="3" ng-maxlength="1000" placeholder="Comment"></textarea>
+                    <textarea id="comment" name="comment" ng-model="thread.quote" class="form-control" rows="3" ng-maxlength="1000" placeholder="Comment"></textarea>
                 </div>
                 <div class="form-group">
                     <input id="file" type="file" name="file">
@@ -23,7 +23,7 @@
         </div>
         <div class="sixteen columns pagenav">
             <div class="btn-group">
-                <pagination all-link="true" boundary-links="true" rotate="true" direction-links="false" page-name="thread/{{::thread.id}}" total-items="totalItems" max-size="maxSize" ng-model="currentPage" items-per-page="itemsPerPage" num-pages="numPages">
+                <pagination all-link="true" boundary-links="true" rotate="true" direction-links="false" page-name="thread/{{::thread.data.id}}" total-items="thread.pagination.totalItems" max-size="thread.pagination.maxSize" ng-model="thread.pagination.currentPage" items-per-page="thread.pagination.itemsPerPage" num-pages="thread.pagination.numPages">
             </div>
         </div>
     </div>
@@ -31,33 +31,33 @@
 <div class="container thread">
     <div class="sixteen columns clearfix header_body">
         <div class="fourteen columns alpha thread_title">
-            <span ng-bind="::thread.title"></span>
-            <i ng-if="thread.closed" title="Closed" class="fa fa-lock"></i>
-            <i ng-if="thread.sticky" title="Sticky" class="fa fa-thumb-tack"></i>
+            <span ng-bind="::thread.data.title"></span>
+            <i ng-if="thread.data.closed" title="Closed" class="fa fa-lock"></i>
+            <i ng-if="thread.data.sticky" title="Sticky" class="fa fa-thumb-tack"></i>
         </div>
         <div class="two columns omega list_grid">
             <div class="btn-group">
-                <a type="button" class="btn btn-default fa fa-align-justify" ng-class="{active: layout == 'list'}" ng-click="layout = 'list'"></a>
-                <a type="button" class="btn btn-default fa fa-th" ng-class="{active: layout == 'grid'}" ng-click="layout = 'grid'"></a>
+                <a type="button" class="btn btn-default fa fa-align-justify" ng-class="{active: layout == 'list'}" ng-click="thread.layout = 'list'"></a>
+                <a type="button" class="btn btn-default fa fa-th" ng-class="{active: layout == 'grid'}" ng-click="thread.layout = 'grid'"></a>
             </div>
         </div>
     </div>
-    <div ng-if="layout == 'list'" ng-repeat="post in thread.posts track by post.id" id="reply-{{::post.num}}" class="sixteen columns clearfix reply_body">
+    <div ng-if="thread.layout == 'list'" ng-repeat="post in thread.data.posts track by post.id" id="reply-{{::post.num}}" class="sixteen columns clearfix reply_body">
         <div class="five columns alpha reply_image" ng-if="post.thumbnail != null">
-            <a ng-href="image/{{::post.img_id}}" href><img class="reply_image scale-with-grid" ng-src="//images.chounyuu.com/thumb/{{::post.thumbnail}}" height="{{::post.tn_height}}" width="{{::post.tn_width}}"> </a>
+            <a ng-href="image/{{::post.img_id}}" href><img class="reply_image scale-with-grid" ng-src="{{::thread.thumb(post.thumbnail)}}" height="{{::post.tn_height}}" width="{{::post.tn_width}}"> </a>
         </div>
         <div class="eleven columns omega clearfix reply_content">
             <div class="eleven columns alpha reply_info">
                 <span class="postername" ng-bind="::post.name"></span>
                 <span class="replytitle" ng-bind="::post.time"></span>
-                <span class="replytitle">#<a href ng-click="replyQuote(post.num)" ng-bind="::post.num"></a></span>
+                <span class="replytitle">#<a href ng-click="thread.replyQuote(post.num)" ng-bind="::post.num"></a></span>
             </div>
-            <div ng-if="post.comment" comment-handler post="post" thread="thread"></div>
+            <div ng-if="post.comment" comment-handler post="post" thread="thread.data"></div>
         </div>
     </div>
-    <div class="sixteen columns tagpage" ng-if="layout == 'grid'" id="photos">
-        <a ng-if="post.thumbnail != null" ng-repeat="post in thread.posts track by post.id" ng-href="image/{{::post.img_id}}" href>
-            <img class="reply_image scale-with-grid" ng-src="//images.chounyuu.com/thumb/{{::post.thumbnail}}" height="{{::post.tn_height}}" width="{{::post.tn_width}}">
+    <div class="sixteen columns tagpage" ng-if="thread.layout == 'grid'" id="photos">
+        <a ng-if="post.thumbnail != null" ng-repeat="post in thread.data.posts track by post.id" ng-href="image/{{::post.img_id}}" href>
+            <img class="reply_image scale-with-grid" ng-src="{{::thread.thumb(post.thumbnail)}}" height="{{::post.tn_height}}" width="{{::post.tn_width}}">
         </a>
     </div>
 </div>
@@ -65,7 +65,7 @@
 <div class="container">
     <div class="sixteen columns footer">
         <div class="btn-group">
-            <pagination all-link="true" boundary-links="true" rotate="true" direction-links="false" page-name="thread/{{::thread.id}}" total-items="totalItems" max-size="maxSize" ng-model="currentPage" items-per-page="itemsPerPage" num-pages="numPages">
+            <pagination all-link="true" boundary-links="true" rotate="true" direction-links="false" page-name="thread/{{::thread.data.id}}" total-items="thread.pagination.totalItems" max-size="thread.pagination.maxSize" ng-model="thread.pagination.currentPage" items-per-page="thread.pagination.itemsPerPage" num-pages="thread.pagination.numPages">
         </div>
     </div>
 </div>

@@ -1,4 +1,4 @@
-angular.module('prim').service('Tag', function($resource, config) {
+angular.module('prim').service('TagHandler', function($resource, config) {
     return $resource(config.api_srv + '/get/tag/:ib/:id/:page', {
         ib: config.ib_id,
         id: '@id',
@@ -6,14 +6,6 @@ angular.module('prim').service('Tag', function($resource, config) {
     }, {
         get: {
             method: 'GET'
-        }
-    });
-});
-
-angular.module('prim').service('NewTag', function($resource, config) {
-    return $resource(config.api_srv + '/post/tag/new', {}, {
-        save: {
-            method: 'POST'
         }
     });
 });

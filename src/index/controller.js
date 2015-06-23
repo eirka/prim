@@ -1,36 +1,42 @@
-angular.module('prim').controller('getIndex', function(config, internal, $scope, $location, Index, $routeParams, Utils) {
+angular.module('prim').controller('IndexCtrl', function($location, $routeParams, config, internal, IndexHandler, Utils) {
 
-    $scope.as_key = internal.as_key;
+    // using controllerAs
+    var self = this;
+
+    // set antispam key 
+    self.as_key = internal.as_key;
     // Set imageboard id
-    $scope.ib_id = config.ib_id;
+    self.ib_id = config.ib_id;
+
+    // get the thumb address
+    self.thumb = Utils.getThumbSrc;
 
     // generate post form action
-    $scope.getFormAction = Utils.getFormAction;
+    self.getFormAction = Utils.getFormAction;
 
-    // if there is no page number go to page 1
+    // this will set the page num to 1 if coming from root
     if (!$routeParams.id) {
         $routeParams.id = 1;
     }
 
     // Get index json
-    Index.get({
+    IndexHandler.get({
         id: $routeParams.id
     }, function(data) {
-        $scope.data = data;
-
+        self.data = data.index.items;
         // Pagination items from json
-        $scope.totalItems = data.index.total;
-        $scope.currentPage = data.index.current_page;
-        $scope.numPages = data.index.pages;
-        $scope.itemsPerPage = data.index.per_page;
-        $scope.maxSize = 5;
-
+        self.pagination = {
+            totalItems: data.index.total,
+            currentPage: data.index.current_page,
+            numPages: data.index.pages,
+            itemsPerPage: data.index.per_page,
+            maxSize: 5
+        };
         // Add quote post num to scope and forward to threads last page
-        $scope.replyQuote = function(id, thread, last) {
+        self.replyQuote = function(id, thread, last) {
             Utils.setQuote(id);
             $location.path('/thread/' + thread + '/' + last);
         };
-
     }, function(error) {
         Utils.apiError(error.status);
     });

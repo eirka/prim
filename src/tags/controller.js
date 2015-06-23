@@ -1,35 +1,57 @@
-angular.module('prim').controller('getTagList', function(config, internal, TagList, TagTypes, NewTag, $scope, Utils) {
+angular.module('prim').controller('TagsCtrl', function(config, internal, TagsHandler, TagTypesHandler, TagsNewTag, Utils) {
+
+    // using controllerAs
+    var self = this;
+
+    // this is a function so we can reload it if someone makes a new tag
+    self.updateTags = function() {
+        TagsHandler.get(function(data) {
+            self.data = data;
+        }, function(error) {
+            Utils.apiError(error.status);
+        });
+        self.error = null;
+    };
+
+    // initial load of tags
+    self.updateTags();
 
     // Get tag types for selector
-    TagTypes.get(function(data) {
-        $scope.tagTypes = data.tagtypes;
+    TagTypesHandler.get(function(data) {
+        self.tagtypes = data.tagtypes;
     }, function(error) {
         Utils.apiError(error.status);
     });
 
-    // get taglist json
-    $scope.updateTags = function() {
-        $scope.data = TagList.get();
-        $scope.error = null;
-    };
-
-    $scope.updateTags();
-
     // Function for adding a tag, updates tag list on success
-    $scope.newTag = function() {
-        NewTag.save({
-            name: $scope.name,
-            type: $scope.selected,
+    self.newTag = function() {
+        TagsNewTag.save({
+            name: self.name,
+            type: self.selected,
             ib: config.ib_id,
             askey: internal.as_key
         }, function() {
-            $scope.updateTags();
+            self.updateTags();
         }, function(error) {
-            $scope.error = error.data;
+            self.error = error.data;
         });
     };
 
-    // predicate for sorting
-    $scope.predicate = 'total';
+    // set default column and order for table sorting
+    self.sort = {
+        column: 'total',
+        desc: true
+    };
+
+    // reverse the sorting or change the column
+    self.changeSorting = function(column) {
+        var sort = self.sort;
+        if (sort.column == column) {
+            sort.desc = !sort.desc;
+        } else {
+            sort.column = column;
+            sort.desc = false;
+        }
+    };
 
 });

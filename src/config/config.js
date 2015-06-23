@@ -3,25 +3,25 @@ angular.module('prim').config(function($routeProvider, $locationProvider, $compi
         .when('/', {
             title: 'Index',
             templateUrl: 'pages/main.html',
-            controller: 'getIndex'
+            controller: 'IndexCtrl',
+            controllerAs: 'index'
         })
         .when('/page/:id', {
             title: 'Index',
             templateUrl: 'pages/main.html',
-            controller: 'getIndex'
+            controller: 'IndexCtrl',
+            controllerAs: 'index'
         })
         .when('/thread/:id/:page', {
             templateUrl: 'pages/thread.html',
-            controller: 'getThread'
-        })
-        .when('/post/:id/:post', {
-            templateUrl: 'pages/post.html',
-            controller: 'getPost'
+            controller: 'ThreadCtrl',
+            controllerAs: 'thread'
         })
         .when('/directory', {
             title: 'Threads',
             templateUrl: 'pages/directory.html',
-            controller: 'getDirectory'
+            controller: 'DirectoryCtrl',
+            controllerAs: 'directory'
         })
         .when('/image/:id', {
             templateUrl: 'pages/image.html',
@@ -31,11 +31,13 @@ angular.module('prim').config(function($routeProvider, $locationProvider, $compi
         .when('/tags', {
             title: 'Tags',
             templateUrl: 'pages/tags.html',
-            controller: 'getTagList'
+            controller: 'TagsCtrl',
+            controllerAs: 'tags'
         })
         .when('/tag/:id/:page', {
             templateUrl: 'pages/tag.html',
-            controller: 'getTag'
+            controller: 'TagCtrl',
+            controllerAs: 'tag'
         })
         .when('/error', {
             templateUrl: 'pages/error.html',

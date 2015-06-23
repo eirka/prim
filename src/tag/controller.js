@@ -1,22 +1,27 @@
-angular.module('prim').controller('getTag', function($scope, Tag, $routeParams, Utils) {
+angular.module('prim').controller('TagCtrl', function($scope, $routeParams, TagHandler, Utils) {
+
+    // using controllerAs
+    var self = this;
+
+    // get the thumb address
+    self.thumb = Utils.getThumbSrc;
 
     // Get tag page json
-    Tag.get({
+    TagHandler.get({
         id: $routeParams.id,
         page: $routeParams.page
     }, function(data) {
-        $scope.data = data;
-        $scope.tag = data.tag.items;
-
-        // Pagination items from json
-        $scope.totalItems = data.tag.total;
-        $scope.currentPage = data.tag.current_page;
-        $scope.numPages = data.tag.pages;
-        $scope.itemsPerPage = data.tag.per_page;
-        $scope.maxSize = 3;
-
+        self.data = data.tag.items;
         // Set page title with tag name
-        $scope.page.setTitle($scope.tag.tag);
+        $scope.page.setTitle(self.data.tag);
+        // Pagination items from json
+        self.pagination = {
+            totalItems: data.tag.total,
+            currentPage: data.tag.current_page,
+            numPages: data.tag.pages,
+            itemsPerPage: data.tag.per_page,
+            maxSize: 3
+        };
     }, function(error) {
         Utils.apiError(error.status);
     });

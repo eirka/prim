@@ -1,4 +1,4 @@
-angular.module('prim').controller('IndexCtrl', function($location, $routeParams, config, internal, IndexHandler, Utils) {
+angular.module('prim').controller('IndexCtrl', function($location, $routeParams, $scope, hotkeys, config, internal, IndexHandler, Utils) {
 
     // using controllerAs
     var self = this;
@@ -40,5 +40,27 @@ angular.module('prim').controller('IndexCtrl', function($location, $routeParams,
     }, function(error) {
         Utils.apiError(error.status);
     });
+
+    hotkeys.bindTo($scope)
+        .add({
+            combo: 'shift+left',
+            description: 'Previous Page',
+            callback: function() {
+                if (self.pagination.currentPage > 1) {
+                    var page = self.pagination.currentPage - 1;
+                    $location.path('/page/' + page);
+                }
+            }
+        })
+        .add({
+            combo: 'shift+right',
+            description: 'Next Page',
+            callback: function() {
+                if (self.pagination.currentPage < self.pagination.numPages) {
+                    var page = self.pagination.currentPage + 1;
+                    $location.path('/page/' + page);
+                }
+            }
+        });
 
 });

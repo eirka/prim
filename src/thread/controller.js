@@ -1,4 +1,4 @@
-angular.module('prim').controller('ThreadCtrl', function($window, $location, $scope, $routeParams, config, internal, ThreadHandler, Utils) {
+angular.module('prim').controller('ThreadCtrl', function($window, $location, $scope, $routeParams, hotkeys, config, internal, ThreadHandler, Utils) {
 
     // using controllerAs
     var self = this;
@@ -42,7 +42,7 @@ angular.module('prim').controller('ThreadCtrl', function($window, $location, $sc
             currentPage: data.thread.current_page,
             numPages: data.thread.pages,
             itemsPerPage: data.thread.per_page,
-            maxSize: 5
+            maxSize: 3
         };
     }, function(error) {
         Utils.apiError(error.status);
@@ -54,5 +54,41 @@ angular.module('prim').controller('ThreadCtrl', function($window, $location, $sc
         self.quote = Utils.getQuote();
         $window.scrollTo(0, 0);
     };
+
+    hotkeys.bindTo($scope)
+        .add({
+            combo: 'g',
+            description: 'Grid View',
+            callback: function() {
+                self.layout = 'grid';
+            }
+        })
+        .add({
+            combo: 'l',
+            description: 'List View',
+            callback: function() {
+                self.layout = 'list';
+            }
+        })
+        .add({
+            combo: 'shift+left',
+            description: 'Previous Page',
+            callback: function() {
+                if (self.pagination.currentPage > 1) {
+                    var page = self.pagination.currentPage - 1;
+                    $location.path('/thread/' + $routeParams.id + '/' + page);
+                }
+            }
+        })
+        .add({
+            combo: 'shift+right',
+            description: 'Next Page',
+            callback: function() {
+                if (self.pagination.currentPage < self.pagination.numPages) {
+                    var page = self.pagination.currentPage + 1;
+                    $location.path('/thread/' + $routeParams.id + '/' + page);
+                }
+            }
+        });
 
 });

@@ -1,4 +1,4 @@
-angular.module('prim').controller('TagCtrl', function($scope, $routeParams, TagHandler, Utils) {
+angular.module('prim').controller('TagCtrl', function($scope, $routeParams, $location, hotkeys, TagHandler, Utils) {
 
     // using controllerAs
     var self = this;
@@ -25,5 +25,27 @@ angular.module('prim').controller('TagCtrl', function($scope, $routeParams, TagH
     }, function(error) {
         Utils.apiError(error.status);
     });
+
+    hotkeys.bindTo($scope)
+        .add({
+            combo: 'shift+left',
+            description: 'Previous Page',
+            callback: function() {
+                if (self.pagination.currentPage > 1) {
+                    var page = self.pagination.currentPage - 1;
+                    $location.path('/tag/' + $routeParams.id + '/' + page);
+                }
+            }
+        })
+        .add({
+            combo: 'shift+right',
+            description: 'Next Page',
+            callback: function() {
+                if (self.pagination.currentPage < self.pagination.numPages) {
+                    var page = self.pagination.currentPage + 1;
+                    $location.path('/tag/' + $routeParams.id + '/' + page);
+                }
+            }
+        });
 
 });

@@ -1,4 +1,4 @@
-angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, ImageHandler, ImageAddTag, TagsHandler, Utils, config, internal) {
+angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $location, hotkeys, ImageHandler, ImageAddTag, TagsHandler, Utils, config, internal) {
 
     // using controllerAs
     var self = this;
@@ -69,5 +69,26 @@ angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, Im
         }
 
     };
+
+    hotkeys.bindTo($scope)
+        .add({
+            combo: 'left',
+            description: 'Previous Image',
+            callback: function() {
+                if (self.data.image.prev) {
+                    $location.path('/image/' + self.data.image.prev);
+                }
+            }
+        })
+        .add({
+            combo: 'right',
+            description: 'Next Image',
+            callback: function() {
+                if (self.data.image.next) {
+                    $location.path('/image/' + self.data.image.next);
+                }
+            }
+        });
+
 
 });

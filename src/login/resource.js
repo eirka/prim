@@ -6,3 +6,13 @@ angular.module('prim').service('LoginHandler', function($resource, config) {
         }
     });
 });
+
+// who am i
+angular.module('prim').service('WhoAmIHandler', function($resource, config) {
+    return $resource(config.api_srv + '/get/whoami', {}, {
+        get: {
+            method: 'GET',
+            cache: true
+        }
+    });
+});

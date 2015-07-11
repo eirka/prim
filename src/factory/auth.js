@@ -1,4 +1,4 @@
-angular.module('prim').factory('AuthService', function($rootScope, store, jwtHelper) {
+angular.module('prim').factory('AuthService', function($rootScope, store, jwtHelper, WhoAmIHandler) {
 
     // holds a default auth state
     var defaultAuthState = {
@@ -25,20 +25,19 @@ angular.module('prim').factory('AuthService', function($rootScope, store, jwtHel
                     store.remove('id_token');
                 }
 
-                // decode token
-                var data = jwtHelper.decodeToken(token);
-
-                // set the authstate to the token data
-                $rootScope.authState = {
-                    id: data.user_id,
-                    name: data.user_name,
-                    group: data.user_group,
-                    isAuthenticated: true
-                };
-
-            } else {
-                // if there is no token reset the state
-                $rootScope.authState = defaultAuthState;
+                // query who am i
+                WhoAmIHandler.get(function(data) {
+                    // set the authstate to the token data
+                    $rootScope.authState = {
+                        id: data.user.id,
+                        name: data.user.name,
+                        group: data.user.group,
+                        isAuthenticated: true
+                    };
+                }, function(error) {
+                    $rootScope.authState = defaultAuthState;
+                    store.remove('id_token');
+                });
 
             };
 

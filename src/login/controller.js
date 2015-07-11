@@ -20,6 +20,8 @@ angular.module('prim').controller('LoginCtrl', function(config, internal, LoginH
             AuthService.setAuthState();
         }, function(error) {
             self.error = error.data;
+            // destroy current session
+            AuthService.destroySession();
         });
     };
 

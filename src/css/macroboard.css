@@ -100,6 +100,7 @@ body {
 .top {
     color: #eee;
     border-radius: 0 0 6px 6px;
+    min-height: 260px;
 }
 
 .reply_body {

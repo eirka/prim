@@ -1,0 +1,57 @@
+<div ng-if="account.authState.isAuthenticated" class="container login">
+    <div class="sixteen columns loginbox">
+        <div class="fourteen columns alpha usertitle">
+            <span ng-bind="::account.authState.name"></span>
+        </div>
+        <div class="two columns omega">
+            <a class="btn btn-default" ng-click="account.logOut()" href>Logout</a>
+        </div>
+    </div>
+</div>
+<div ng-if="!account.authState.isAuthenticated" class="container login">
+    <div class="sixteen columns loginbox">
+        <div class="eight columns alpha" ng-controller="LoginCtrl as login">
+            <div class="loginform">
+                <form role="form" ng-submit="login.logIn()">
+                    <div class="form-group">
+                        <span class="logintitle">Login</span>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="name" class="form-control" placeholder="Name" ng-required="true" ng-model="login.name">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="password" class="form-control" placeholder="Password" ng-required="true" ng-model="login.password">
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-block" type="submit" value="Submit">Login</button>
+                    </div>
+                </form>
+                <div ng-if="login.error" class="alert alert-danger" role="alert" ng-bind="login.error.error_message"></div>
+                <div ng-if="login.success" class="alert alert-success" role="alert" ng-bind="login.success.success_message"></div>
+            </div>
+        </div>
+        <div class="eight columns omega" ng-controller="RegisterCtrl as register">
+            <div class="loginform">
+                <form role="form" ng-submit="register.newUser()">
+                    <div class="form-group">
+                        <span class="logintitle">Register</span>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="name" class="form-control" placeholder="Name" ng-required="true" ng-model="register.name">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="email" class="form-control" placeholder="Email" ng-required="true" ng-model="register.email">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="password" class="form-control" placeholder="Password" ng-required="true" ng-model="register.password">
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-success btn-block" type="submit" value="Submit">Register</button>
+                    </div>
+                </form>
+                <div ng-if="register.error" class="alert alert-danger" role="alert" ng-bind="register.error.error_message"></div>
+                <div ng-if="register.success" class="alert alert-success" role="alert" ng-bind="register.success.success_message"></div>
+            </div>
+        </div>
+    </div>
+</div>

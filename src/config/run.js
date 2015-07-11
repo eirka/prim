@@ -11,7 +11,7 @@ angular.module('prim').run(function(config, $rootScope, AuthService) {
         $rootScope.page.setTitle(current.$$route.title || '');
     });
 
-    // set the initial auth state
-    AuthService.setAuthState();
+    // restore the initial auth state when first loaded
+    AuthService.restoreAuthState();
 
 });

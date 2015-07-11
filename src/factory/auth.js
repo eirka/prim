@@ -1,4 +1,4 @@
-angular.module('prim').factory('AuthService', function($rootScope, store, jwtHelper, WhoAmIHandler) {
+angular.module('prim').factory('AuthService', function($rootScope, $route, store, jwtHelper, WhoAmIHandler) {
 
     // holds a default auth state
     var defaultAuthState = {
@@ -8,31 +8,35 @@ angular.module('prim').factory('AuthService', function($rootScope, store, jwtHel
         isAuthenticated: false
     };
 
-    // get the cache if it exists
-    var cachedAuthState = store.get('id_cache');
-
-    // set our state to the cached version, or default if it isnt there
-    if (cachedAuthState) {
-        $rootScope.authState = cachedAuthState;
-    } else {
-        $rootScope.authState = defaultAuthState;
-    }
-
     return {
+        queryWhoAmI: function() {
+            return WhoAmIHandler.get();
+        },
+        restoreAuthState: function() {
+            // get the cache if it exists
+            cachedAuthState = store.get('id_cache');
+
+            // set our state to the cached version, or default if it isnt there
+            if (cachedAuthState) {
+                $rootScope.authState = cachedAuthState;
+            } else {
+                $rootScope.authState = defaultAuthState;
+            }
+
+        },
         setAuthState: function() {
             // get the jwt token
             var token = store.get('id_token');
 
-            // if the token is there
             if (token) {
-
                 // if expired reset and delete
                 if (jwtHelper.isTokenExpired(token)) {
                     this.destroySession();
                 }
 
-                // query who am i
-                WhoAmIHandler.get(function(data) {
+                // query whoami for user data
+                this.queryWhoAmI().$promise.then(function(data) {
+
                     // set the authstate to the token data
                     $rootScope.authState = {
                         id: data.user.id,
@@ -44,12 +48,14 @@ angular.module('prim').factory('AuthService', function($rootScope, store, jwtHel
                     // cache data
                     store.set('id_cache', $rootScope.authState);
 
+                    // reload route
+                    $route.reload();
+
                 }, function(error) {
+                    // purge session if theres an error
                     this.destroySession();
                 });
-
             };
-
         },
         destroySession: function() {
             $rootScope.authState = defaultAuthState;

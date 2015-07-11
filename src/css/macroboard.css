@@ -8,6 +8,46 @@ body {
     font-family: "proxima-nova", sans-serif;
 }
 
+.login {
+    padding-top: 20px;
+}
+
+.loginbox {
+    color: #eee;
+    border-radius: 10px;
+    background-color: #2d3538;
+    padding: 20px 0;
+}
+
+.loginform {
+    margin: 0 auto; 
+    width: 80%;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-bottom: 5px;
+}
+
+.logintitle {
+    font-family: "omnes-pro", sans-serif;
+    font-style: italic;
+    text-align: left;
+    font-size: x-large;
+    font-weight: bold;
+}
+
+.usertitle {
+    font-family: "omnes-pro", sans-serif;
+    font-style: italic;
+    text-align: left;
+    font-size: x-large;
+    font-weight: bold;
+}
+
+.usertitle span {
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
 .scrollToTop {
     -webkit-transition: opacity 0.5s;
     -moz-transition: opacity 0.5s;

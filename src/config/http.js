@@ -4,7 +4,7 @@ angular.module('prim').config(function($httpProvider, jwtInterceptorProvider) {
     // async http requests 
     $httpProvider.useApplyAsync(true);
 
-    // get the jwt token from storage if its there
+    // get the jwt token from storage if its there and add authentication header
     jwtInterceptorProvider.tokenGetter = ['AuthService', 'jwtHelper', function(AuthService, jwtHelper) {
         // get the token from storage
         var idToken = AuthService.getToken();

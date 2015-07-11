@@ -39,17 +39,11 @@ angular.module('prim').config(function($routeProvider, $locationProvider, $compi
             controller: 'TagCtrl',
             controllerAs: 'tag'
         })
-        .when('/register', {
-            title: 'Register',
-            templateUrl: 'pages/register.html',
-            controller: 'RegisterCtrl',
-            controllerAs: 'register'
-        })
-        .when('/login', {
-            title: 'Login',
-            templateUrl: 'pages/login.html',
-            controller: 'LoginCtrl',
-            controllerAs: 'login'
+        .when('/account', {
+            title: 'Account',
+            templateUrl: 'pages/account.html',
+            controller: 'AccountCtrl',
+            controllerAs: 'account'
         })
         .when('/error', {
             templateUrl: 'pages/error.html',

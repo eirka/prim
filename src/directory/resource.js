@@ -3,7 +3,7 @@ angular.module('prim').service('DirectoryHandler', function($resource, config) {
         ib: config.ib_id
     }, {
         get: {
-        	skipAuthorization: true,
+            skipAuthorization: true,
             method: 'GET'
         }
     });

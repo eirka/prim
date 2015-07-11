@@ -5,7 +5,7 @@ angular.module('prim').service('ThreadHandler', function($resource, config) {
         page: '@page'
     }, {
         get: {
-        	skipAuthorization: true,
+            skipAuthorization: true,
             method: 'GET'
         }
     });

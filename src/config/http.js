@@ -1,6 +1,8 @@
 angular.module('prim').config(function($httpProvider, jwtInterceptorProvider) {
     // we want all the credentials
     $httpProvider.defaults.withCredentials = true;
+    // apply http requests 
+    $httpProvider.useApplyAsync(true);
 
     // get the jwt token from storage if its there
     jwtInterceptorProvider.tokenGetter = ['AuthService', 'jwtHelper', function(AuthService, jwtHelper) {

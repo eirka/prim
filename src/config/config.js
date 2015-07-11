@@ -1,4 +1,4 @@
-angular.module('prim').config(function($routeProvider, $locationProvider, $compileProvider, $httpProvider) {
+angular.module('prim').config(function($routeProvider, $locationProvider, $compileProvider) {
     $routeProvider
         .when('/', {
             title: 'Index',
@@ -39,6 +39,18 @@ angular.module('prim').config(function($routeProvider, $locationProvider, $compi
             controller: 'TagCtrl',
             controllerAs: 'tag'
         })
+        .when('/register', {
+            title: 'Register',
+            templateUrl: 'pages/register.html',
+            controller: 'RegisterCtrl',
+            controllerAs: 'register'
+        })
+        .when('/login', {
+            title: 'Login',
+            templateUrl: 'pages/login.html',
+            controller: 'LoginCtrl',
+            controllerAs: 'login'
+        })
         .when('/error', {
             templateUrl: 'pages/error.html',
             controller: 'errorHandler'
@@ -47,7 +59,6 @@ angular.module('prim').config(function($routeProvider, $locationProvider, $compi
             redirectTo: '/error'
         });
 
-    $compileProvider.debugInfoEnabled(false);
+    $compileProvider.debugInfoEnabled(true);
     $locationProvider.html5Mode(true);
-    $httpProvider.defaults.withCredentials = true;
 });

@@ -8,7 +8,7 @@
                 <input type="hidden" name="askey" ng-value="thread.as_key" />
                 <input type="hidden" name="thread" ng-value="thread.data.id" />
                 <div class="form-group">
-                    <input type="text" id="name" name="name" class="form-control" ng-maxlength="20" placeholder="Anonymous">
+                    <input type="text" id="name" name="name" ng-model="thread.authState.name" class="form-control" ng-maxlength="20" placeholder="Anonymous">
                 </div>
                 <div class="form-group">
                     <textarea id="comment" name="comment" ng-model="thread.quote" class="form-control" rows="3" ng-maxlength="1000" placeholder="Comment"></textarea>

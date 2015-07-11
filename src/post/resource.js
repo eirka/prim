@@ -5,6 +5,7 @@ angular.module('prim').service('PostHandler', function($resource, config) {
         id: '@id'
     }, {
         get: {
+            skipAuthorization: true,
             method: 'GET',
             cache: true
         }

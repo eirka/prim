@@ -3,6 +3,9 @@ angular.module('prim').controller('IndexCtrl', function($location, $routeParams,
     // using controllerAs
     var self = this;
 
+    // get a copy of authstate
+    self.authState = angular.copy($scope.authState);
+
     // set antispam key 
     self.as_key = internal.as_key;
     // Set imageboard id

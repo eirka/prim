@@ -8,12 +8,19 @@ angular.module('prim').factory('AuthService', function($rootScope, store, jwtHel
         isAuthenticated: false
     };
 
-    // set rootscope to default state
-    $rootScope.authState = defaultAuthState;
+    // get the cache if it exists
+    var cachedAuthState = store.get('id_cache');
+
+    // set our state to the cached version, or default if it isnt there
+    if (cachedAuthState) {
+        $rootScope.authState = cachedAuthState;
+    } else {
+        $rootScope.authState = defaultAuthState;
+    }
 
     return {
         setAuthState: function() {
-            // get the token
+            // get the jwt token
             var token = store.get('id_token');
 
             // if the token is there
@@ -21,8 +28,7 @@ angular.module('prim').factory('AuthService', function($rootScope, store, jwtHel
 
                 // if expired reset and delete
                 if (jwtHelper.isTokenExpired(token)) {
-                    $rootScope.authState = defaultAuthState;
-                    store.remove('id_token');
+                    this.destroySession();
                 }
 
                 // query who am i
@@ -34,9 +40,12 @@ angular.module('prim').factory('AuthService', function($rootScope, store, jwtHel
                         group: data.user.group,
                         isAuthenticated: true
                     };
+
+                    // cache data
+                    store.set('id_cache', $rootScope.authState);
+
                 }, function(error) {
-                    $rootScope.authState = defaultAuthState;
-                    store.remove('id_token');
+                    this.destroySession();
                 });
 
             };
@@ -45,6 +54,7 @@ angular.module('prim').factory('AuthService', function($rootScope, store, jwtHel
         destroySession: function() {
             $rootScope.authState = defaultAuthState;
             store.remove('id_token');
+            store.remove('id_cache');
         },
         saveToken: function(token) {
             store.set('id_token', token);

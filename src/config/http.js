@@ -14,9 +14,11 @@ angular.module('prim').config(function($httpProvider, jwtInterceptorProvider) {
                 AuthService.destroySession();
                 return null;
             };
+
+            return idToken;
         };
 
-        return idToken;
+        return null;
     }];
 
     // add jwtinterceptor to httpprovider interceptors

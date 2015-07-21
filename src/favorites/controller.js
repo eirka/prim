@@ -1,4 +1,4 @@
-angular.module('prim').controller('TagCtrl', function($scope, $routeParams, $location, hotkeys, TagHandler, Utils) {
+angular.module('prim').controller('FavoritesCtrl', function($scope, $routeParams, $location, hotkeys, FavoritesHandler, Utils) {
 
     // using controllerAs
     var self = this;
@@ -12,19 +12,16 @@ angular.module('prim').controller('TagCtrl', function($scope, $routeParams, $loc
     }
 
     // Get tag page json
-    TagHandler.get({
-        id: $routeParams.id,
+    FavoritesHandler.get({
         page: $routeParams.page
     }, function(data) {
-        self.data = data.tag.items;
-        // Set page title with tag name
-        $scope.page.setTitle(self.data.tag);
+        self.data = data.favorites.items;
         // Pagination items from json
         self.pagination = {
-            totalItems: data.tag.total,
-            currentPage: data.tag.current_page,
-            numPages: data.tag.pages,
-            itemsPerPage: data.tag.per_page,
+            totalItems: data.favorites.total,
+            currentPage: data.favorites.current_page,
+            numPages: data.favorites.pages,
+            itemsPerPage: data.favorites.per_page,
             maxSize: 3
         };
     }, function(error) {

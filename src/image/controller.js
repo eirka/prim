@@ -1,4 +1,4 @@
-angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $location, hotkeys, ImageHandler, ImageAddTag, TagsHandler, Utils, config, internal) {
+angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $location, hotkeys, ImageHandler, ImageAddTag, TagsHandler, ImageAddFavorite, Utils, config, internal) {
 
     // using controllerAs
     var self = this;
@@ -68,6 +68,15 @@ angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $l
             self.error = self.data;
         }
 
+    };
+
+    // Add an image to a users favorite list
+    self.addFavorite = function() {
+        ImageAddFavorite.save({
+            image: self.data.image.id
+        }, function() {}, function(error) {
+            self.error = error.data;
+        });
     };
 
     hotkeys.bindTo($scope)

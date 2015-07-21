@@ -18,3 +18,12 @@ angular.module('prim').service('ImageAddTag', function($resource, config) {
         }
     });
 });
+
+// adds a favorite
+angular.module('prim').service('ImageAddFavorite', function($resource, config) {
+    return $resource(config.api_srv + '/post/user/favorite', {}, {
+        save: {
+            method: 'POST'
+        }
+    });
+});

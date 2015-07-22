@@ -90,7 +90,7 @@ angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $l
     self.addFavorite = function() {
         ImageAddFavorite.save({
             image: self.data.image.id
-        }).$promise.then(function() {
+        }, function(data) {
             // refresh star state
             self.checkFavorite();
         }, function(error) {

@@ -5,6 +5,7 @@ angular.module('prim').service('ImageHandler', function($resource, config) {
         id: '@id'
     }, {
         get: {
+            skipAuthorization: true,
             method: 'GET'
         }
     });
@@ -24,6 +25,17 @@ angular.module('prim').service('ImageAddFavorite', function($resource, config) {
     return $resource(config.api_srv + '/post/user/favorite', {}, {
         save: {
             method: 'POST'
+        }
+    });
+});
+
+// checks to see if an image has been starred
+angular.module('prim').service('ImageGetFavorite', function($resource, config) {
+    return $resource(config.api_srv + '/get/user/favorite/:id', {
+        id: '@id'
+    }, {
+        get: {
+            method: 'GET'
         }
     });
 });

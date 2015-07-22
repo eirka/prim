@@ -1,4 +1,4 @@
-angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $location, hotkeys, ImageHandler, ImageAddTag, TagsHandler, ImageAddFavorite, Utils, config, internal) {
+angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $location, hotkeys, ImageHandler, ImageAddTag, TagsHandler, ImageAddFavorite, ImageGetFavorite, Utils, config, internal) {
 
     // using controllerAs
     var self = this;
@@ -70,11 +70,30 @@ angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $l
 
     };
 
+    // check to see if an image is starred or not
+    self.checkFavorite = function() {
+        ImageGetFavorite.get({
+            id: $routeParams.id
+        }, function(data) {
+            self.starred = data.starred;
+        }, function(error) {
+            self.error = error.data;
+        });
+    };
+
+    // if authed check fav state
+    if ($scope.authState.isAuthenticated) {
+        self.checkFavorite();
+    }
+
     // Add an image to a users favorite list
     self.addFavorite = function() {
         ImageAddFavorite.save({
             image: self.data.image.id
-        }, function() {}, function(error) {
+        }).$promise.then(function() {
+            // refresh star state
+            self.checkFavorite();
+        }, function(error) {
             self.error = error.data;
         });
     };

@@ -5,7 +5,7 @@
                 <a class="fa fa-arrow-left" ng-href="image/{{::image.data.image.prev}}" href></a>
             </li>
             <li ng-if="authState.isAuthenticated">
-                <a class="fa fa-star" ng-click="image.addFavorite()" href></a>
+                <a ng-class="image.starred ? 'fa fa-star' : 'fa fa-star-o'" ng-click="image.addFavorite()" href></a>
             </li>
             <li>
                 <a class="fa fa-align-justify" ng-href="thread/{{::image.data.image.thread}}/1" href></a>
@@ -30,7 +30,7 @@
                 <a class="fa fa-arrow-left" ng-href="image/{{::image.data.image.prev}}" href></a>
             </li>
             <li ng-if="authState.isAuthenticated">
-                <a class="fa fa-star" ng-click="image.addFavorite()" href></a>
+                <a ng-class="image.starred ? 'fa fa-star' : 'fa fa-star-o'" ng-click="image.addFavorite()" href></a>
             </li>
             <li>
                 <a class="fa fa-align-justify" ng-href="thread/{{::image.data.image.thread}}/1" href></a>

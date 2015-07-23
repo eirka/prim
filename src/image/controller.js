@@ -19,6 +19,22 @@ angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $l
         Utils.apiError(error.status);
     });
 
+    // check to see if an image is starred or not
+    self.checkFavorite = function() {
+        ImageGetFavorite.get({
+            id: $routeParams.id
+        }, function(data) {
+            self.starred = data.starred;
+        }, function(error) {
+            self.error = error.data;
+        });
+    };
+
+    // if authed check fav state
+    if ($scope.authState.isAuthenticated) {
+        self.checkFavorite();
+    }
+
     self.tagList = {};
 
     // Get taglist for typeahead
@@ -69,22 +85,6 @@ angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $l
         }
 
     };
-
-    // check to see if an image is starred or not
-    self.checkFavorite = function() {
-        ImageGetFavorite.get({
-            id: $routeParams.id
-        }, function(data) {
-            self.starred = data.starred;
-        }, function(error) {
-            self.error = error.data;
-        });
-    };
-
-    // if authed check fav state
-    if ($scope.authState.isAuthenticated) {
-        self.checkFavorite();
-    }
 
     // Add an image to a users favorite list
     self.addFavorite = function() {

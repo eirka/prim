@@ -47,9 +47,7 @@ angular.module('prim').config(function($routeProvider, $locationProvider, $compi
         })
         .when('/account', {
             title: 'Account',
-            templateUrl: 'pages/account.html',
-            controller: 'AccountCtrl',
-            controllerAs: 'account'
+            templateUrl: 'pages/account.html'
         })
         .when('/error', {
             templateUrl: 'pages/error.html',

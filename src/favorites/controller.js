@@ -35,7 +35,7 @@ angular.module('prim').controller('FavoritesCtrl', function($scope, $routeParams
             callback: function() {
                 if (self.pagination.currentPage > 1) {
                     var page = self.pagination.currentPage - 1;
-                    $location.path('/tag/' + $routeParams.id + '/' + page);
+                    $location.path('/favorites/' + page);
                 }
             }
         })
@@ -45,7 +45,7 @@ angular.module('prim').controller('FavoritesCtrl', function($scope, $routeParams
             callback: function() {
                 if (self.pagination.currentPage < self.pagination.numPages) {
                     var page = self.pagination.currentPage + 1;
-                    $location.path('/tag/' + $routeParams.id + '/' + page);
+                    $location.path('/favorites/' + page);
                 }
             }
         });

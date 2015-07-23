@@ -3,8 +3,15 @@ angular.module('prim').controller('AccountCtrl', function($scope, $route, AuthSe
     // using controllerAs
     var self = this;
 
-    // get a copy of authstate
-    self.authState = angular.copy($scope.authState);
+    // get whoami
+    AuthService.queryWhoAmI().$promise.then(function(data) {
+        self.whoami = {
+            id: data.user.id,
+            name: data.user.name,
+            group: data.user.group,
+            email: data.user.email
+        };
+    });
 
     // log out
     self.logOut = function() {
@@ -13,6 +20,29 @@ angular.module('prim').controller('AccountCtrl', function($scope, $route, AuthSe
     }
 
 });
+
+angular.module('prim').controller('PasswordCtrl', function(config, internal, PasswordHandler) {
+
+    // using controllerAs
+    var self = this;
+
+    // Function for registering an account
+    self.changePassword = function() {
+        self.error = "";
+        self.success = "";
+        PasswordHandler.save({
+            ib: config.ib_id,
+            oldpw: self.oldpassword,
+            newpw: self.newpassword
+        }, function(data) {
+            self.success = data;
+        }, function(error) {
+            self.error = error.data;
+        });
+    };
+
+});
+
 
 angular.module('prim').controller('RegisterCtrl', function(config, internal, RegisterHandler) {
 

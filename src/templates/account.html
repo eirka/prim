@@ -1,14 +1,40 @@
-<div ng-if="account.authState.isAuthenticated" class="container login">
-    <div class="sixteen columns loginbox">
-        <div class="fourteen columns alpha usertitle">
-            <span ng-bind="::account.authState.name"></span>
+<div ng-if="authState.isAuthenticated" ng-controller="AccountCtrl as account">
+    <div class="container login">
+        <div class="sixteen columns loginbox">
+            <div class="fourteen columns alpha usertitle">
+                <span ng-bind="::account.whoami.name"></span>
+            </div>
+            <div class="two columns omega reply_button">
+                <a class="btn btn-default" ng-click="account.logOut()" href>Logout</a>
+            </div>
         </div>
-        <div class="two columns omega reply_button">
-            <a class="btn btn-default" ng-click="account.logOut()" href>Logout</a>
+    </div>
+    <div class="container login">
+        <div class="sixteen columns loginbox">
+            <div class="eight columns alpha" ng-controller="PasswordCtrl as password">
+                <div class="loginform">
+                    <form role="form" ng-submit="password.changePassword()">
+                        <div class="form-group">
+                            <span class="logintitle">Change Password</span>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" id="oldpassword" class="form-control" placeholder="Old password" ng-required="true" ng-model="password.oldpassword">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" id="newpassword" class="form-control" placeholder="New password" ng-required="true" ng-model="password.newpassword">
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-block" type="submit" value="Submit">Submit</button>
+                        </div>
+                    </form>
+                    <div ng-if="password.error" class="alert alert-danger" role="alert" ng-bind="password.error.error_message"></div>
+                    <div ng-if="password.success" class="alert alert-success" role="alert" ng-bind="password.success.success_message"></div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-<div ng-if="!account.authState.isAuthenticated" class="container login">
+<div ng-if="!authState.isAuthenticated" class="container login">
     <div class="sixteen columns loginbox">
         <div class="eight columns alpha" ng-controller="LoginCtrl as login">
             <div class="loginform">

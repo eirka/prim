@@ -1,4 +1,4 @@
-angular.module('prim').controller('AccountCtrl', function($scope, $route, AuthService) {
+angular.module('prim').controller('AccountCtrl', function($scope, $route, toaster, user_messages, AuthService) {
 
     // using controllerAs
     var self = this;
@@ -17,11 +17,12 @@ angular.module('prim').controller('AccountCtrl', function($scope, $route, AuthSe
     self.logOut = function() {
         AuthService.destroySession();
         $route.reload()
+        toaster.pop('success', user_messages.loggedOut);
     }
 
 });
 
-angular.module('prim').controller('PasswordCtrl', function(config, internal, PasswordHandler) {
+angular.module('prim').controller('PasswordCtrl', function(toaster, config, internal, PasswordHandler) {
 
     // using controllerAs
     var self = this;
@@ -32,19 +33,21 @@ angular.module('prim').controller('PasswordCtrl', function(config, internal, Pas
         self.success = "";
         PasswordHandler.save({
             ib: config.ib_id,
-            oldpw: self.oldpassword,
-            newpw: self.newpassword
+            oldpw: self.form.oldpassword,
+            newpw: self.form.newpassword
         }, function(data) {
-            self.success = data;
+            toaster.pop('success', data.success_message);
+            // clear form 
+            self.form = {};
         }, function(error) {
-            self.error = error.data;
+            toaster.pop('error', error.data.error_message);
         });
     };
 
 });
 
 
-angular.module('prim').controller('RegisterCtrl', function(config, internal, RegisterHandler) {
+angular.module('prim').controller('RegisterCtrl', function(toaster, config, internal, RegisterHandler) {
 
     // using controllerAs
     var self = this;
@@ -56,19 +59,21 @@ angular.module('prim').controller('RegisterCtrl', function(config, internal, Reg
         RegisterHandler.save({
             ib: config.ib_id,
             askey: internal.as_key,
-            name: self.name,
-            email: self.email,
-            password: self.password
+            name: self.form.name,
+            email: self.form.email,
+            password: self.form.password
         }, function(data) {
-            self.success = data;
+            toaster.pop('success', data.success_message);
+            // clear form 
+            self.form = {};
         }, function(error) {
-            self.error = error.data;
+            toaster.pop('error', error.data.error_message);
         });
     };
 
 });
 
-angular.module('prim').controller('LoginCtrl', function($location, config, internal, LoginHandler, AuthService) {
+angular.module('prim').controller('LoginCtrl', function($location, toaster, config, internal, LoginHandler, AuthService) {
 
     // using controllerAs
     var self = this;
@@ -80,8 +85,8 @@ angular.module('prim').controller('LoginCtrl', function($location, config, inter
         LoginHandler.save({
             ib: config.ib_id,
             askey: internal.as_key,
-            name: self.name,
-            password: self.password
+            name: self.form.name,
+            password: self.form.password
         }, function(data) {
             self.success = data;
             // get rid of any prior state
@@ -90,8 +95,11 @@ angular.module('prim').controller('LoginCtrl', function($location, config, inter
             AuthService.saveToken(self.success.token);
             // set the auth state from the token
             AuthService.setAuthState();
+            toaster.pop('success', data.success_message);
+            // clear form 
+            self.form = {};
         }, function(error) {
-            self.error = error.data;
+            toaster.pop('error', error.data.error_message);
         });
     };
 

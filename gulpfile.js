@@ -76,7 +76,8 @@ gulp.task('css', function() {
             './src/css/skeleton.css',
             './src/css/bootstrap.css',
             './src/css/macroboard.css',
-            './node_modules/angular-hotkeys/build/hotkeys.min.css'
+            './node_modules/angular-hotkeys/build/hotkeys.min.css',
+            './node_modules/angularjs-toaster/toaster.min.css'
         ])
         .pipe(concat('prim.css'))
         .pipe(csso())

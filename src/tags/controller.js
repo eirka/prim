@@ -1,4 +1,4 @@
-angular.module('prim').controller('TagsCtrl', function(config, internal, TagsHandler, TagTypesHandler, TagsNewTag, Utils) {
+angular.module('prim').controller('TagsCtrl', function(toaster, config, internal, TagsHandler, TagTypesHandler, TagsNewTag, Utils) {
 
     // using controllerAs
     var self = this;
@@ -30,10 +30,11 @@ angular.module('prim').controller('TagsCtrl', function(config, internal, TagsHan
             type: self.selected,
             ib: config.ib_id,
             askey: internal.as_key
-        }, function() {
+        }, function(data) {
             self.updateTags();
+            toaster.pop('success', data.success_message);
         }, function(error) {
-            self.error = error.data;
+            toaster.pop('error', error.data.error_message);
         });
     };
 

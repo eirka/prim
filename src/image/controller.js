@@ -1,4 +1,4 @@
-angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $location, hotkeys, ImageHandler, ImageAddTag, TagsHandler, ImageAddFavorite, ImageGetFavorite, Utils, config, internal) {
+angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $location, toaster, user_messages, hotkeys, ImageHandler, ImageAddTag, TagsHandler, ImageAddFavorite, ImageGetFavorite, Utils, config, internal) {
 
     // using controllerAs
     var self = this;
@@ -26,7 +26,7 @@ angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $l
         }, function(data) {
             self.starred = data.starred;
         }, function(error) {
-            self.error = error.data;
+            toaster.pop('error', error.data.error_message);
         });
     };
 
@@ -41,7 +41,7 @@ angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $l
     TagsHandler.get(function(data) {
         self.tagList = data.tags;
     }, function(error) {
-        self.error = error.data;
+        toaster.pop('error', error.data.error_message);
     });
 
     // handles the input for ui-bootstrap typeahead, its broken otherwise
@@ -59,10 +59,9 @@ angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $l
             id: $routeParams.id
         }, function(data) {
             self.tags = data.image.tags;
-            self.error = null;
             self.selected = null;
         }, function(error) {
-            self.error = error.data;
+            toaster.pop('error', error.data.error_message);
         });
     };
 
@@ -74,14 +73,14 @@ angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $l
                 image: self.data.image.id,
                 ib: config.ib_id,
                 askey: internal.as_key
-            }, function() {
+            }, function(data) {
                 self.updateTags();
+                toaster.pop('success', data.success_message);
             }, function(error) {
-                self.error = error.data;
+                toaster.pop('error', error.data.error_message);
             });
         } else {
-            self.data.error_message = 'Tag does not exist';
-            self.error = self.data;
+            toaster.pop('error', user_messages.noTag);
         }
 
     };
@@ -93,8 +92,9 @@ angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $l
         }, function(data) {
             // refresh star state
             self.checkFavorite();
+            toaster.pop('success', data.success_message);
         }, function(error) {
-            self.error = error.data;
+            toaster.pop('error', error.data.error_message);
         });
     };
 

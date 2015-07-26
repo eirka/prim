@@ -16,15 +16,13 @@ body {
     color: #eee;
     border-radius: 10px;
     background-color: #2d3538;
-    padding: 20px 0;
+    padding: 10px 0;
 }
 
 .loginform {
     margin: 0 auto; 
     width: 80%;
-    padding-right: 10px;
-    padding-left: 10px;
-    padding-bottom: 5px;
+    padding: 2px 10px;
 }
 
 .logintitle {
@@ -33,19 +31,6 @@ body {
     text-align: left;
     font-size: x-large;
     font-weight: bold;
-}
-
-.usertitle {
-    font-family: "omnes-pro", sans-serif;
-    font-style: italic;
-    text-align: left;
-    font-size: x-large;
-    font-weight: bold;
-}
-
-.usertitle span {
-    margin-left: 10px;
-    vertical-align: middle;
 }
 
 .scrollToTop {
@@ -406,6 +391,8 @@ img.reply_image {
 
 .reply_button {
     text-align: center;
+    padding: 2px 10px;
+
 }
 
 .list_grid {
@@ -422,10 +409,7 @@ img.reply_image {
     text-align: left;
     font-size: x-large;
     font-weight: bold;
-}
-
-.thread_title span {
-    margin-left: 10px;
+    padding: 2px 10px;
 }
 
 span.postername {

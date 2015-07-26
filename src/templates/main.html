@@ -39,14 +39,12 @@
             <a ng-href="image/{{::thread.posts[0].img_id}}" href>
                 <img class="reply_image scale-with-grid" ng-src="{{::index.thumb(thread.posts[0].thumbnail)}}" height="{{::thread.posts[0].tn_height}}" width="{{::thread.posts[0].tn_width}}"> </a>
         </div>
-        <div class="eleven columns omega">
+        <div class="eleven columns omega comment_body">
             <span class="postername" ng-bind="::thread.posts[0].name"></span>
             <span ng-bind="::thread.posts[0].time"></span>
             <span>#<a ng-bind="::thread.posts[0].num" ng-click="index.replyQuote(thread.posts[0].num,thread.id,thread.last_page)" href></a></span>
         </div>
-        <div class="eleven columns omega thread_reply">
-            <p ng-bind-html="::thread.posts[0].comment | linky:'_blank'"></p>
-        </div>
+        <div comment-handler post="::thread.posts[0]" thread="thread.id"></div>
         <div class="sixteen columns alpha omittedposts" ng-if="thread.omit_posts != 0">
             {{ ::thread.omit_posts }} posts omitted. Click <a ng-href="thread/{{::thread.id}}/{{::thread.last_page}}" href>Reply</a> to view.
         </div>

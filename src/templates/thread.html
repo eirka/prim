@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="sixteen columns top">
+    <div class="sixteen columns clearfix top">
         <div class="eleven columns alpha">
             &nbsp;
         </div>
@@ -21,7 +21,7 @@
                 </div>
             </form>
         </div>
-        <div class="sixteen columns pagenav">
+        <div class="sixteen columns alpha pagenav">
             <div class="btn-group">
                 <pagination all-link="true" boundary-links="true" rotate="true" direction-links="false" page-name="thread/{{::thread.data.id}}" total-items="thread.pagination.totalItems" max-size="thread.pagination.maxSize" ng-model="thread.pagination.currentPage" items-per-page="thread.pagination.itemsPerPage" num-pages="thread.pagination.numPages">
             </div>
@@ -43,17 +43,15 @@
         </div>
     </div>
     <div ng-if="thread.layout == 'list'" ng-repeat="post in thread.data.posts track by post.id" id="reply-{{::post.num}}" class="sixteen columns clearfix reply_body">
-        <div class="five columns alpha reply_image" ng-if="post.thumbnail != null">
+        <div class="five columns alpha reply_image" ng-if="!!post.thumbnail">
             <a ng-href="image/{{::post.img_id}}" href><img class="reply_image scale-with-grid" ng-src="{{::thread.thumb(post.thumbnail)}}" height="{{::post.tn_height}}" width="{{::post.tn_width}}"> </a>
         </div>
-        <div class="eleven columns omega clearfix reply_content">
-            <div class="eleven columns alpha reply_info">
-                <span class="postername" ng-bind="::post.name"></span>
-                <span class="replytitle" ng-bind="::post.time"></span>
-                <span class="replytitle">#<a href ng-click="thread.replyQuote(post.num)" ng-bind="::post.num"></a></span>
-            </div>
-            <div ng-if="post.comment" comment-handler post="post" thread="thread.data.id"></div>
+        <div ng-class="!!post.thumbnail ? 'eleven columns omega' : 'sixteen columns alpha'" class="comment_body">
+            <span class="postername" ng-bind="::post.name"></span>
+            <span ng-bind="::post.time"></span>
+            <span>#<a href ng-click="thread.replyQuote(post.num)" ng-bind="::post.num"></a></span>
         </div>
+        <div ng-if="post.comment" comment-handler post="post" thread="thread.data.id"></div>
     </div>
     <div class="sixteen columns tagpage" ng-if="thread.layout == 'grid'" id="photos">
         <a ng-if="post.thumbnail != null" ng-repeat="post in thread.data.posts track by post.id" ng-href="image/{{::post.img_id}}" href>

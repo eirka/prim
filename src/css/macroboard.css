@@ -143,6 +143,10 @@ body {
     min-height: 260px;
 }
 
+.comment_body {
+    padding: 2px 10px;
+}
+
 .reply_body {
     padding-top: 15px;
     padding-bottom: 15px;
@@ -191,6 +195,7 @@ body {
     margin: 0;
     height: 30px;
     padding: 5px;
+    display: inline-block;
 }
 
 #nav li {
@@ -477,6 +482,9 @@ span.postername {
         text-align: center;
     }
     .source_links {
+        text-align: center;
+    }
+    #nav {
         text-align: center;
     }
 }

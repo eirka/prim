@@ -9,44 +9,48 @@ angular.module('prim').directive('commentHandler', function() {
             thread: '='
         },
         templateUrl: "pages/comment.html",
+        controllerAs: 'commentHandler',
         controller: function($scope) {
 
+            // using controllerAs
+            var self = this;
+
             // array for comment text
-            var comment = [];
+            self.comment = [];
             // array for quote ids
-            var quotes = [];
+            self.quotes = [];
 
             // matches >> with up to 5 digits
-            var re = /(>>(\d{1,5}))/;
+            self.re = /(>>(\d{1,5}))/;
             // raw comment from json
-            var raw = $scope.post.comment;
+            self.raw = $scope.post.comment;
             // match from regex on comment
-            var match;
+            self.match;
 
             // Run regex on comment and grab matches
-            while ((match = raw.match(re)) !== null) {
+            while ((match = self.raw.match(self.re)) !== null) {
                 // Get second group (just the post num)
                 var id = match[2];
                 // add quote id to id array
-                quotes.push(id);
+                self.quotes.push(id);
 
                 // index of match
                 var i = match.index;
                 // Add non matches to html array
-                comment.push(raw.substr(0, i));
+                self.comment.push(self.raw.substr(0, i));
 
                 // this sets raw to the remainder text
-                raw = raw.substring(i + match[0].length);
+                self.raw = self.raw.substring(i + match[0].length);
             }
 
             // push for final loop
-            comment.push(raw);
+            self.comment.push(self.raw);
 
             // this joins all the comment text sans quote ids
-            $scope.post.comment = comment.join('');
+            $scope.post.comment = self.comment.join('');
 
             // this is all the collected quote ids
-            $scope.post.quote_id = quotes;
+            $scope.post.quote_id = self.quotes;
 
         }
     };

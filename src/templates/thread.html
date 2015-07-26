@@ -52,7 +52,7 @@
                 <span class="replytitle" ng-bind="::post.time"></span>
                 <span class="replytitle">#<a href ng-click="thread.replyQuote(post.num)" ng-bind="::post.num"></a></span>
             </div>
-            <div ng-if="post.comment" comment-handler post="post" thread="thread.data"></div>
+            <div ng-if="post.comment" comment-handler post="post" thread="thread.data.id"></div>
         </div>
     </div>
     <div class="sixteen columns tagpage" ng-if="thread.layout == 'grid'" id="photos">

@@ -29,7 +29,7 @@ angular.module('prim').directive('quoteBox', function(PostHandler, Utils) {
             // Get single post on hover
             $scope.getPost = function(id) {
                 PostHandler.get({
-                    thread: $scope.thread.id,
+                    thread: $scope.thread,
                     id: id
                 }, function(data) {
                     $scope.quotebox = data;

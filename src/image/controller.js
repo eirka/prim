@@ -47,7 +47,7 @@ angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $l
     // handles the input for ui-bootstrap typeahead, its broken otherwise
     self.formatLabel = function(model) {
         for (var i = 0; i < self.tagList.length; i++) {
-            if (model === self.tagList[i].id) {
+            if (angular.equals(model, self.tagList[i].id)) {
                 return self.tagList[i].tag;
             }
         }
@@ -67,7 +67,7 @@ angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $l
 
     // Add a tag to the image and update list
     self.addTag = function() {
-        if (typeof self.selected === 'number' && (self.selected % 1) === 0) {
+        if (angular.isNumber(self.selected) && angular.equals((self.selected % 1), 0)) {
             ImageAddTag.save({
                 tag: self.selected,
                 image: self.data.image.id,

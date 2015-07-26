@@ -27,7 +27,7 @@ angular.module('prim').controller('ThreadCtrl', function($window, $location, $sc
     });
 
     // if there is no page number go to page 1
-    if (!$routeParams.page) {
+    if (angular.isUndefined($routeParams.page)) {
         $routeParams.page = 1;
     }
 

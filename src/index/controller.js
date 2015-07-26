@@ -18,7 +18,7 @@ angular.module('prim').controller('IndexCtrl', function($location, $routeParams,
     self.getFormAction = Utils.getFormAction;
 
     // this will set the page num to 1 if coming from root
-    if (!$routeParams.id) {
+    if (angular.isUndefined($routeParams.id)) {
         $routeParams.id = 1;
     }
 

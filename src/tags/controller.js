@@ -47,7 +47,7 @@ angular.module('prim').controller('TagsCtrl', function(toaster, config, internal
     // reverse the sorting or change the column
     self.changeSorting = function(column) {
         var sort = self.sort;
-        if (sort.column == column) {
+        if (angular.equals(sort.column, column)) {
             sort.desc = !sort.desc;
         } else {
             sort.column = column;

@@ -29,8 +29,6 @@ angular.module('prim').controller('PasswordCtrl', function(toaster, config, inte
 
     // Function for registering an account
     self.changePassword = function() {
-        self.error = "";
-        self.success = "";
         PasswordHandler.save({
             ib: config.ib_id,
             oldpw: self.form.oldpassword,
@@ -54,8 +52,6 @@ angular.module('prim').controller('RegisterCtrl', function(toaster, config, inte
 
     // Function for registering an account
     self.newUser = function() {
-        self.error = "";
-        self.success = "";
         RegisterHandler.save({
             ib: config.ib_id,
             askey: internal.as_key,
@@ -80,8 +76,6 @@ angular.module('prim').controller('LoginCtrl', function($location, toaster, conf
 
     // Function for logging in
     self.logIn = function() {
-        self.error = "";
-        self.success = "";
         LoginHandler.save({
             ib: config.ib_id,
             askey: internal.as_key,

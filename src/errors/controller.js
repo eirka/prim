@@ -2,7 +2,7 @@ angular.module('prim').controller('errorHandler', function($scope, Utils) {
 
     $scope.errorcode = Utils.getError();
 
-    if ($scope.errorcode === "") {
+    if (angular.isUndefined($scope.errorcode)) {
         $scope.errorcode = "???";
     }
 

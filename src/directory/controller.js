@@ -19,7 +19,7 @@ angular.module('prim').controller('DirectoryCtrl', function(DirectoryHandler, Ut
     // reverse the sorting or change the column
     self.changeSorting = function(column) {
         var sort = self.sort;
-        if (sort.column == column) {
+        if (angular.equals(sort.column, column)) {
             sort.desc = !sort.desc;
         } else {
             sort.column = column;

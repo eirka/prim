@@ -323,6 +323,7 @@ video {
     width: 100% !important;
     height: auto !important;
     border: 0 !important;
+    max-height: 400px;
 }
 
 #photos img:hover {

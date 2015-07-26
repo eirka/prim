@@ -1,34 +1,36 @@
 // quotebox takes the quotes from comment-handler and 
-angular.module('prim').directive('quoteBox', function($compile, PostHandler, Utils) {
+angular.module('prim').directive('quoteBox', function(PostHandler, Utils) {
     return {
         restrict: 'A',
         transclude: true,
         scope: {
-            ids: '=',
+            id: '=',
             thread: '='
         },
         templateUrl: "pages/hover.html",
         link: function($scope, $element, $attrs) {
-            // Compile link html from commenthandler
-            var element = angular.element($scope.links);
-            var test = $compile(element)($scope);
-            element.append(test);
-
             // Hoverbox code
-            $scope.show = {};
-            $scope.show.card = false;
+            $scope.show = {
+                card: false
+            };
+
             $scope.hoverTmplUrl = $attrs.hoverTmplUrl;
             $scope.onHoverIn = $scope.$eval($attrs.onHoverIn);
             $scope.onHoverOut = $scope.$eval($attrs.onHoverOut);
+
+            // make quote text
+            $scope.getText = function(id) {
+                return '>>' + id
+            };
 
             // get the thumb address
             $scope.thumb = Utils.getThumbSrc;
 
             // Get single post on hover
-            $scope.getPost = function(post_id) {
+            $scope.getPost = function(id) {
                 PostHandler.get({
                     thread: $scope.thread.id,
-                    id: post_id
+                    id: id
                 }, function(data) {
                     $scope.quotebox = data;
                 }, function(error) {
@@ -39,4 +41,5 @@ angular.module('prim').directive('quoteBox', function($compile, PostHandler, Uti
         }
 
     };
+
 });

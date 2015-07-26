@@ -1,4 +1,4 @@
-<div ng-class="post.thumbnail != null ? 'eleven columns omega' : 'sixteen columns omega'">
-    <span ng-if="post.quote_link != ''" quote-box hover-tmpl-url="pages/box.html" thread="thread" ids="post.quote_id" links="post.quote_link"></span>
+<div ng-class="!!post.thumbnail ? 'eleven columns omega' : 'sixteen columns omega'">
+    <span ng-if="!!post.quote_id.length" ng-repeat="id in post.quote_id track by $index" style="margin-right:2px;" quote-box hover-tmpl-url="pages/box.html" thread="thread" id="id"></span>
     <p ng-bind-html="::post.comment | linky:'_blank'"></p>
 </div>

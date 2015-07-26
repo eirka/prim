@@ -7,7 +7,7 @@ angular.module('prim').controller('TagCtrl', function($scope, $routeParams, $loc
     self.thumb = Utils.getThumbSrc;
 
     // go to page 1 if something is fishy
-    if (angular.isUndefined($routeParams.page) || !angular.isNumber($routeParams.page)) {
+    if (angular.isUndefined($routeParams.page)) {
         $routeParams.page = 1;
     }
 

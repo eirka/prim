@@ -18,13 +18,13 @@ angular.module('prim').controller('IndexCtrl', function($location, $routeParams,
     self.getFormAction = Utils.getFormAction;
 
     // go to page 1 if something is fishy
-    if (angular.isUndefined($routeParams.id) || !angular.isNumber($routeParams.id)) {
-        $routeParams.id = 1;
+    if (angular.isUndefined($routeParams.page)) {
+        $routeParams.page = 1;
     }
 
     // Get index json
     IndexHandler.get({
-        id: $routeParams.id
+        page: $routeParams.page
     }, function(data) {
         self.data = data.index.items;
         // Pagination items from json

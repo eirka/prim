@@ -6,7 +6,7 @@ angular.module('prim').config(function($routeProvider, $locationProvider, $compi
             controller: 'IndexCtrl',
             controllerAs: 'index'
         })
-        .when('/page/:id', {
+        .when('/page/:page', {
             title: 'Index',
             templateUrl: 'pages/main.html',
             controller: 'IndexCtrl',

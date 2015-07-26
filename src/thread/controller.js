@@ -27,7 +27,7 @@ angular.module('prim').controller('ThreadCtrl', function($window, $location, $sc
     });
 
     // go to page 1 if something is fishy
-    if (angular.isUndefined($routeParams.page) || !angular.isNumber($routeParams.page)) {
+    if (angular.isUndefined($routeParams.page)) {
         $routeParams.page = 1;
     }
 

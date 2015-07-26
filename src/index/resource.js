@@ -1,7 +1,7 @@
 angular.module('prim').service('IndexHandler', function($resource, config) {
-    return $resource(config.api_srv + '/get/index/:ib/:id', {
+    return $resource(config.api_srv + '/get/index/:ib/:page', {
         ib: config.ib_id,
-        id: '@id'
+        page: '@page'
     }, {
         get: {
             skipAuthorization: true,

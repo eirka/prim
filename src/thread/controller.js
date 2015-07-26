@@ -26,8 +26,8 @@ angular.module('prim').controller('ThreadCtrl', function($window, $location, $sc
         Utils.clearQuote();
     });
 
-    // if there is no page number go to page 1
-    if (angular.isUndefined($routeParams.page)) {
+    // go to page 1 if something is fishy
+    if (angular.isUndefined($routeParams.page) || !angular.isNumber($routeParams.page)) {
         $routeParams.page = 1;
     }
 

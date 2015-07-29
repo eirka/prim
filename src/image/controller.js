@@ -46,11 +46,13 @@ angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $l
 
     // handles the input for ui-bootstrap typeahead, its broken otherwise
     self.formatLabel = function(model) {
-        for (var i = 0; i < self.tagList.length; i++) {
-            if (angular.equals(model, self.tagList[i].id)) {
-                return self.tagList[i].tag;
+        var tag;
+        angular.forEach(self.tagList, function(value) {
+            if (angular.equals(model, value.id)) {
+                tag = value.tag;
             }
-        }
+        });
+        return tag;
     };
 
     // Update image json

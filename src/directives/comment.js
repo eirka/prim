@@ -11,47 +11,28 @@ angular.module('prim').directive('commentHandler', function() {
         templateUrl: "pages/comment.html",
         controllerAs: 'commentHandler',
         controller: function($scope) {
-
-            // using controllerAs
-            var self = this;
-
-            // array for comment text
-            self.comment = [];
             // array for quote ids
-            self.quotes = [];
+            var quotes = [];
+            // regex for quotes
+            var re = />>(\d{1,5})/g;
+            // the comment from json reply
+            var raw = $scope.post.comment;
+            // hold our matches
+            var m;
 
-            // matches >> with up to 5 digits
-            self.re = /(>>(\d{1,5}))/;
-            // raw comment from json
-            self.raw = $scope.post.comment;
-            // match from regex on comment
-            self.match;
-
-            // Run regex on comment and grab matches
-            while ((match = self.raw.match(self.re)) !== null) {
-                // Get second group (just the post num)
-                var id = match[2];
-                // add quote id to id array
-                self.quotes.push(id);
-
-                // index of match
-                var i = match.index;
-                // Add non matches to html array
-                self.comment.push(self.raw.substr(0, i));
-
-                // this sets raw to the remainder text
-                self.raw = self.raw.substring(i + match[0].length);
+            // loop through regex matches
+            while ((m = re.exec(raw)) !== null) {
+                if (m.index === re.lastIndex) {
+                    re.lastIndex++;
+                }
+                // push match to quotes array
+                quotes.push(m[1]);
             }
 
-            // push for final loop
-            self.comment.push(self.raw);
-
-            // this joins all the comment text sans quote ids
-            $scope.post.comment = self.comment.join('');
-
+            // trim the comment, remove the quotes, and remove multiple newlines
+            $scope.post.comment = raw.replace(re, '').replace(/(\n){3,}/g, '\n\n').trim();
             // this is all the collected quote ids
-            $scope.post.quote_id = self.quotes;
-
+            $scope.post.quote_id = quotes;
         }
     };
 });

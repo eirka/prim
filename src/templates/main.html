@@ -58,7 +58,7 @@
             <span ng-bind="::post.time"></span>
             <span>#<a ng-bind="::post.num" ng-click="index.replyQuote(post.num,thread.id,thread.last_page)" href></a></span>
         </div>
-        <div ng-if="post.comment" comment-handler post="post" thread="thread.id"></div>
+        <div comment-handler post="post" thread="thread.id"></div>
     </div>
 </div>
 <div class="container">

@@ -9,6 +9,8 @@ var del = require('del');
 var ngHtml2Js = require("gulp-ng-html2js");
 var htmlmin = require('gulp-htmlmin');
 var csso = require('gulp-csso');
+var postcss = require('gulp-postcss');
+var autoprefixer = require('autoprefixer-core');
 
 gulp.task('default', function(callback) {
     runSequence('clean', 'prim', 'templates', 'ui-bootstrap', 'app', 'browserify', 'css', callback);
@@ -73,6 +75,7 @@ gulp.task('browserify', function() {
 
 gulp.task('css', function() {
     return gulp.src([
+            './node_modules/normalize.css/normalize.css',
             './src/css/skeleton.css',
             './src/css/bootstrap.css',
             './src/css/macroboard.css',
@@ -80,6 +83,9 @@ gulp.task('css', function() {
             './node_modules/angularjs-toaster/toaster.min.css'
         ])
         .pipe(concat('prim.css'))
+        .pipe(postcss([autoprefixer({
+            browsers: ['last 2 versions']
+        })]))
         .pipe(csso())
         .pipe(gulp.dest('./dist'));
 });

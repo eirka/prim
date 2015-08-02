@@ -25,6 +25,15 @@ angular.module('prim').service('PasswordHandler', function($resource, config) {
     });
 });
 
+// change email
+angular.module('prim').service('EmailHandler', function($resource, config) {
+    return $resource(config.api_srv + '/post/user/email', {}, {
+        save: {
+            method: 'POST'
+        }
+    });
+});
+
 // who am i
 angular.module('prim').service('WhoAmIHandler', function($resource, config) {
     return $resource(config.api_srv + '/get/user/whoami', {}, {

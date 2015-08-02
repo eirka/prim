@@ -44,6 +44,28 @@ angular.module('prim').controller('PasswordCtrl', function(toaster, config, inte
 
 });
 
+angular.module('prim').controller('EmailCtrl', function($route, toaster, config, internal, EmailHandler) {
+
+    // using controllerAs
+    var self = this;
+
+    // Function for registering an account
+    self.updateEmail = function() {
+        EmailHandler.save({
+            ib: config.ib_id,
+            email: self.form.email
+        }, function(data) {
+            toaster.pop('success', data.success_message);
+            // clear form 
+            self.form = {};
+            // reload
+            $route.reload()
+        }, function(error) {
+            toaster.pop('error', error.data.error_message);
+        });
+    };
+
+});
 
 angular.module('prim').controller('RegisterCtrl', function(toaster, config, internal, RegisterHandler) {
 

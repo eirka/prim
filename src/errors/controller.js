@@ -7,6 +7,9 @@ angular.module('prim').controller('errorHandler', function($scope, Utils) {
     }
 
     switch ($scope.errorcode) {
+        case 401:
+            $scope.page.setTitle("Unauthorized");
+            break;
         case 404:
             $scope.page.setTitle("Not Found");
             break;

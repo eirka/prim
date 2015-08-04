@@ -5,7 +5,6 @@ angular.module('prim').service('ImageHandler', function($resource, config) {
         id: '@id'
     }, {
         get: {
-            skipAuthorization: true,
             method: 'GET'
         }
     });

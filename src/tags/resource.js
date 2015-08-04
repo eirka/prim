@@ -4,7 +4,6 @@ angular.module('prim').service('TagsHandler', function($resource, config) {
         ib: config.ib_id
     }, {
         get: {
-            skipAuthorization: true,
             method: 'GET'
         }
     });
@@ -14,7 +13,6 @@ angular.module('prim').service('TagsHandler', function($resource, config) {
 angular.module('prim').service('TagTypesHandler', function($resource, config) {
     return $resource(config.api_srv + '/get/tagtypes', {}, {
         get: {
-            skipAuthorization: true,
             method: 'GET',
             cache: true
         }

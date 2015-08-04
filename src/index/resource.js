@@ -4,7 +4,6 @@ angular.module('prim').service('IndexHandler', function($resource, config) {
         page: '@page'
     }, {
         get: {
-            skipAuthorization: true,
             method: 'GET'
         }
     });

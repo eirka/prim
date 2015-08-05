@@ -7,3 +7,13 @@ angular.module('prim').service('PopularHandler', function($resource, config) {
         }
     });
 });
+
+angular.module('prim').service('NewHandler', function($resource, config) {
+    return $resource(config.api_srv + '/get/new/:ib', {
+        ib: config.ib_id
+    }, {
+        get: {
+            method: 'GET'
+        }
+    });
+});

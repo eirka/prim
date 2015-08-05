@@ -8,6 +8,30 @@ body {
     font-family: "proxima-nova", sans-serif;
 }
 
+.mbgreen {
+    background-color: #00bc6f;
+}
+
+.mbgreen_light {
+    background-color: #D5FFDA;
+}
+
+.mbred {
+    background-color: #ff5859;
+}
+
+.mbred_light {
+    background-color: #FFC3C4;
+}
+
+.mbblue {
+    background-color: #00a0df;
+}
+
+.mbblue_light {
+    background-color: #D0F2FF;
+}
+
 .login {
     padding-top: 20px;
 }
@@ -163,6 +187,16 @@ body {
     padding-top: 10px;
     padding-bottom: 10px;
     border-radius: 6px 6px 0 0;
+}
+
+.trending_box_header {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 6px 6px 0 0;
+}
+
+.trending_box_back {
+    border-radius: 0 0 6px 6px;
 }
 
 .tagpage {

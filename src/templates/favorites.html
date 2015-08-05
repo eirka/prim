@@ -6,12 +6,12 @@
     </div>
 </div>
 <div class="container thread">
-    <div class="sixteen columns clearfix tag_header_body">
+    <div class="sixteen columns clearfix trending_box_header mbred">
         <div class="fourteen columns alpha thread_title">
             <span>Favorites</span>
         </div>
     </div>
-    <div ng-if="favorites.pagination.totalItems != 0" class="sixteen columns clearfix tagpage" id="photos">
+    <div ng-if="favorites.pagination.totalItems != 0" class="sixteen columns clearfix trending_box_back mbred_light" id="photos">
         <a ng-repeat="image in favorites.data.images track by image.id" ng-href="image/{{::image.id}}" href>
             <img class="reply_image scale-with-grid" ng-src="{{::favorites.thumb(image.thumbnail)}}" height="{{::image.tn_height}}" width="{{::image.tn_width}}">
         </a>

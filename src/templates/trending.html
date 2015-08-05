@@ -1,0 +1,12 @@
+<div class="container thread" ng-controller="PopularCtrl as popular">
+    <div class="sixteen columns clearfix trending_box_header mbblue">
+        <div class="fourteen columns alpha thread_title">
+            <span>Popular</span>
+        </div>
+    </div>
+    <div ng-if="popular.data" class="sixteen columns clearfix trending_box_back mbblue_light" id="photos">
+        <a ng-repeat="image in popular.data track by image.id" ng-href="image/{{::image.id}}" href>
+            <img class="reply_image scale-with-grid" ng-src="{{::popular.thumb(image.thumbnail)}}" height="{{::image.tn_height}}" width="{{::image.tn_width}}">
+        </a>
+    </div>
+</div>

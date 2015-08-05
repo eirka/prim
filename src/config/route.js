@@ -45,6 +45,10 @@ angular.module('prim').config(function($routeProvider, $locationProvider, $compi
             controller: 'FavoritesCtrl',
             controllerAs: 'favorites'
         })
+        .when('/trending', {
+            title: 'Trending',
+            templateUrl: 'pages/trending.html'
+        })
         .when('/account', {
             title: 'Account',
             templateUrl: 'pages/account.html'

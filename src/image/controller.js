@@ -1,4 +1,4 @@
-angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $location, toaster, user_messages, hotkeys, ImageHandler, ImageAddTag, TagSearchHandler, ImageAddFavorite, ImageGetFavorite, Utils, config, internal) {
+angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $location, $filter, toaster, user_messages, hotkeys, ImageHandler, ImageAddTag, TagSearchHandler, ImageAddFavorite, ImageGetFavorite, Utils, config, internal) {
 
     // using controllerAs
     var self = this;
@@ -42,7 +42,8 @@ angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $l
         return TagSearchHandler.get({
             search: term
         }).$promise.then(function(data) {
-            return self.tagList = data.tags;
+
+            return self.tagList = $filter('limitTo')(data.tags, 6);
         });
     };
 

@@ -46,7 +46,7 @@
         <div class="eight columns alpha tag_input">
             <form ng-submit="image.addTag()">
                 <div class="input-group">
-                    <input ng-required="true" type="text" class="form-control" typeahead-wait-ms="300" typeahead-min-length="3" typeahead="tag.id as tag.tag for tag in image.searchTags($viewValue) | limitTo:6" typeahead-input-formatter="image.formatLabel($model)" ng-model="image.selected" typeahead-editable="false" placeholder="Add Tag">
+                    <input ng-required="true" type="text" class="form-control" typeahead-wait-ms="300" typeahead-min-length="3" typeahead="tag.id as tag.tag for tag in image.searchTags($viewValue)" typeahead-input-formatter="image.formatLabel($model)" ng-model="image.selected" typeahead-editable="false" placeholder="Add Tag">
                     <span class="input-group-btn">
                         <button class="btn btn-primary" type="submit">Add</button>
                     </span>

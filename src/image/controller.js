@@ -1,4 +1,4 @@
-angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $location, toaster, user_messages, hotkeys, ImageHandler, ImageAddTag, TagsHandler, ImageAddFavorite, ImageGetFavorite, Utils, config, internal) {
+angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $location, toaster, user_messages, hotkeys, ImageHandler, ImageAddTag, TagSearchHandler, ImageAddFavorite, ImageGetFavorite, Utils, config, internal) {
 
     // using controllerAs
     var self = this;
@@ -37,12 +37,14 @@ angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $l
 
     self.tagList = {};
 
-    // Get taglist for typeahead
-    TagsHandler.get(function(data) {
-        self.tagList = data.tags;
-    }, function(error) {
-        toaster.pop('error', error.data.error_message);
-    });
+    // async tag search
+    self.searchTags = function(term) {
+        return TagSearchHandler.get({
+            search: term
+        }).$promise.then(function(data) {
+            return self.tagList = data.tags;
+        });
+    };
 
     // handles the input for ui-bootstrap typeahead, its broken otherwise
     self.formatLabel = function(model) {

@@ -27,3 +27,14 @@ angular.module('prim').service('TagsNewTag', function($resource, config) {
         }
     });
 });
+
+// searches tags with a query
+angular.module('prim').service('TagSearchHandler', function($resource, config) {
+    return $resource(config.api_srv + '/get/tags/:ib', {
+        ib: config.ib_id
+    }, {
+        get: {
+            method: 'GET'
+        }
+    });
+});

@@ -3,12 +3,13 @@
         <div class="eleven columns alpha">
             &nbsp;
         </div>
-        <div class="five columns omega postform">
-            <form role="form" action="{{index.getFormAction('/post/thread/new')}}" method="post" enctype="multipart/form-data">
+        <div class="five columns omega postform" ng-controller="IndexFormCtrl as postform">
+            <form role="form" action="{{postform.getFormAction('/post/thread/new')}}" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="ib" ng-value="index.ib_id" />
                 <input type="hidden" name="askey" ng-value="index.as_key" />
+                <input ng-if="postform.authState.isAuthenticated" type="hidden" name="access_token" ng-value="postform.token" />
                 <div class="form-group">
-                    <input type="text" id="name" name="name" ng-model="index.authState.name" class="form-control" ng-maxlength="20" placeholder="Anonymous">
+                    <input type="text" id="name" name="name" ng-model="postform.authState.name" class="form-control" ng-maxlength="20" placeholder="Anonymous">
                 </div>
                 <div class="form-group">
                     <input type="text" id="title" ng-required="true" name="title" class="form-control" ng-maxlength="40" placeholder="Title">

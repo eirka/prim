@@ -3,9 +3,6 @@ angular.module('prim').controller('IndexCtrl', function($location, $routeParams,
     // using controllerAs
     var self = this;
 
-    // get a copy of authstate
-    self.authState = angular.copy($scope.authState);
-
     // set antispam key 
     self.as_key = internal.as_key;
     // Set imageboard id
@@ -13,9 +10,6 @@ angular.module('prim').controller('IndexCtrl', function($location, $routeParams,
 
     // get the thumb address
     self.thumb = Utils.getThumbSrc;
-
-    // generate post form action
-    self.getFormAction = Utils.getFormAction;
 
     // go to page 1 if something is fishy
     if (angular.isUndefined($routeParams.page)) {
@@ -65,5 +59,22 @@ angular.module('prim').controller('IndexCtrl', function($location, $routeParams,
                 }
             }
         });
+
+});
+
+// handles the page post form
+angular.module('prim').controller('IndexFormCtrl', function($scope, AuthService, Utils) {
+
+    // using controllerAs
+    var self = this;
+
+    // get a copy of authstate
+    self.authState = angular.copy($scope.authState);
+
+    // generate post form action
+    self.getFormAction = Utils.getFormAction;
+
+    // get jwt token for form
+    self.token = AuthService.getToken();
 
 });

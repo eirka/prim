@@ -1,4 +1,4 @@
-angular.module('prim').controller('AccountCtrl', function($scope, $route, toaster, user_messages, AuthService) {
+angular.module('prim').controller('AccountCtrl', function($route, toaster, user_messages, AuthService) {
 
     // using controllerAs
     var self = this;
@@ -10,6 +10,10 @@ angular.module('prim').controller('AccountCtrl', function($scope, $route, toaste
             name: data.user.name,
             group: data.user.group,
             email: data.user.email
+        };
+        // set text if theres no email
+        if (angular.equals(self.whoami.email, "")) {
+            self.whoami.email = user_messages.noEmail;
         };
     });
 

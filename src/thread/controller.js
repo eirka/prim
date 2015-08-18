@@ -3,9 +3,6 @@ angular.module('prim').controller('ThreadCtrl', function($window, $location, $sc
     // using controllerAs
     var self = this;
 
-    // get a copy of authstate
-    self.authState = angular.copy($scope.authState);
-
     // set antispam key 
     self.as_key = internal.as_key;
 
@@ -14,9 +11,6 @@ angular.module('prim').controller('ThreadCtrl', function($window, $location, $sc
 
     // get the thumb address
     self.thumb = Utils.getThumbSrc;
-
-    // generate post form action
-    self.getFormAction = Utils.getFormAction;
 
     // get quote if there is one
     self.quote = Utils.getQuote();
@@ -93,5 +87,23 @@ angular.module('prim').controller('ThreadCtrl', function($window, $location, $sc
                 }
             }
         });
+
+});
+
+
+// handles the page post form
+angular.module('prim').controller('ThreadFormCtrl', function($scope, AuthService, Utils) {
+
+    // using controllerAs
+    var self = this;
+
+    // get a copy of authstate
+    self.authState = angular.copy($scope.authState);
+
+    // generate post form action
+    self.getFormAction = Utils.getFormAction;
+
+    // get jwt token for form
+    self.token = AuthService.getToken();
 
 });

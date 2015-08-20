@@ -1,0 +1,36 @@
+@import "variables";
+@import "mixins";
+
+/* postbox css */
+
+.postbox {
+    margin-top: -3em;
+}
+
+.postbox_box {
+    @include clearfix;
+
+    @include shadow;
+
+    @include mediaWidths;
+
+    width: $boxWidthRel;
+    position: relative;
+    top: 3em;
+    margin: 0 auto;
+    color: $fontDark;
+    border-radius: 6px;
+    min-height: 17em;
+    padding: 1em;
+}
+
+.postbox_form {
+    @media #{$screenSmall} {
+        float: right;
+        width: 18em;
+    }
+
+    @media #{$screenMedium} {
+        width: 20em;
+    }
+}

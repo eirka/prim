@@ -1,0 +1,57 @@
+@import "variables";
+
+/* mixins */
+
+@mixin headerFont {
+    font-family: "omnes-pro", sans-serif;
+    font-style: italic;
+    text-align: left;
+    font-weight: bold;
+}
+
+@mixin mediaSmall {
+    @media #{$screenSmall} {
+        width: $boxWidthSmall;
+    }
+}
+
+@mixin mediaMedium {
+    @media #{$screenMedium} {
+        width: $boxWidthMedium;
+    }
+}
+
+@mixin mediaLarge {
+    @media #{$screenLarge} {
+        width: $boxWidthLarge;
+    }
+}
+
+@mixin mediaWidths {
+    @include mediaSmall;
+
+    @include mediaMedium;
+
+    @include mediaLarge;
+}
+
+@mixin column {
+    float: left;
+    display: inline;
+}
+
+@mixin clearfix {
+    &:before,
+    &:after {
+        content: " ";
+        display: table;
+    }
+
+    &:after {
+        clear: both;
+    }
+}
+
+@mixin shadow {
+    box-shadow: 0 2px 3px #ccc;
+}

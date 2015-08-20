@@ -1,0 +1,60 @@
+@import "variables";
+@import "mixins";
+
+/* header css */
+
+.footer {}
+
+.footer_box {
+    @include clearfix;
+
+    @include mediaWidths;
+
+    width: $boxWidthRel;
+    margin: 0 auto;
+    color: $fontLight;
+    text-align: center;
+    padding: 1em;
+}
+
+/* footer links */
+
+.footer_links {
+    width: 100%;
+    text-align: center;
+    order: 2;
+    position: relative;
+    top: 1em;
+
+    @media #{$screenSmall} {
+        text-align: left;
+        order: 1;
+    }
+}
+
+.footer_links ul {
+    display: inline-block;
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+}
+
+.footer_links li {
+    display: inline;
+    list-style-type: none;
+}
+
+.footer_links li a {
+    @include headerFont;
+
+    padding: 0.5em;
+    font-size: 1em;
+    color: $fontLight;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.footer_links li a:hover {
+    color: $fontLight;
+    border-radius: 3px;
+}

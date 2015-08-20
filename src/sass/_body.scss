@@ -1,0 +1,22 @@
+/* global css */
+
+*,
+*:before,
+*:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+input[name="file"] {
+    font-size: small;
+    display: block;
+}
+
+body {
+    margin: 0;
+    font-family: "proxima-nova", sans-serif;
+    font-size: 1em;
+    color: $fontDark;
+    min-width: 20em;
+}

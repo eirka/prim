@@ -1,0 +1,124 @@
+@import "variables";
+@import "mixins";
+
+/* thread css */
+
+.threads {
+    padding-top: 5em;
+    padding-bottom: 1em;
+}
+
+.thread {
+    @include mediaWidths;
+
+    @include shadow;
+
+    border-radius: 6px;
+    overflow: hidden;
+    width: $boxWidthRel;
+    margin: 0 auto;
+    margin-bottom: 2em;
+}
+
+/* thread header */
+
+.thread_header {
+    @include clearfix;
+
+    padding: 1em 1em 0em 1em;
+}
+
+.thread_title {
+    @include headerFont;
+
+    text-align: center;
+    padding-bottom: 0.5em;
+    line-height: 1.2em;
+    font-size: 1.5em;
+
+    @media #{$screenSmall} {
+        padding: 0;
+        float: left;
+        max-width: 50%;
+    }
+}
+
+.thread_replybutton {
+    text-align: center;
+
+    @media #{$screenSmall} {
+        float: right;
+    }
+}
+
+/* thread rows */
+
+.thread_row {
+    @include clearfix;
+}
+
+.thread_row_header {
+    @include clearfix;
+}
+
+.thread_row_image {
+    text-align: center;
+    padding: 1em 1em 0em 1em;
+
+    @media #{$screenSmall} {
+        padding: 1em;
+        float: left;
+        width: 25%;
+    }
+}
+
+.thread_row_image img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #444;
+}
+
+.thread_row_image img:hover {
+    opacity: 0.6;
+}
+
+.thread_row_info {
+    padding: 1em 1em 0em 1em;
+    text-align: center;
+
+    @media #{$screenSmall} {
+        text-align: left;
+        float: left;
+        width: 75%;
+    }
+}
+
+.thread_row_post {
+    padding: 0 1em 1em 1em;
+    text-align: left;
+
+    @media #{$screenSmall} {
+        padding: 0.5em 1em 1em 1em;
+        float: left;
+        width: 75%;
+    }
+}
+
+.thread_row_omit {
+    text-align: center;
+    padding-bottom: 1em;
+    font-weight: bold;
+}
+
+.thread_row_noimage {
+    width: 100%;
+}
+
+.thread_row_post p {
+    word-wrap: break-word;
+    hyphens: auto;
+    padding-top: 0.5em;
+    text-align: left;
+    white-space: pre-line;
+    margin: 0;
+}

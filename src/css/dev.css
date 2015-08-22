@@ -1,0 +1,124 @@
+/* variables */
+/* tag colors */
+/* font colors */
+/* widths */
+/* mixins */
+/* colors */
+/* global */
+a {
+  color: #514359;
+  text-decoration: none; }
+
+a:hover,
+a:focus {
+  color: #b7aabe; }
+
+body {
+  background: #2d3538; }
+
+/* image grid */
+.image_grid {
+  background-color: #cfc7d4; }
+
+/* header */
+.header_navigation li.n1:hover,
+.header_navigation ul ul,
+.thread_header,
+.thread_index_header,
+.thread_row_header,
+.footer_links li a:hover {
+  background: #867092; }
+
+.header_navigation ul ul li:hover {
+  background: #6c5a75; }
+
+/* content */
+.content {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyAQMAAAAk8RryAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAZQTFRF8Ov0+Pf8stQ8zQAAABxJREFUGNNjYGBgqP///wDDUKf////fAOIMcRoAC2SoK0LPuyIAAAAASUVORK5CYII=); }
+
+/* threads */
+.thread_row:nth-of-type(even) {
+  background-color: #cfc7d4; }
+
+.thread_row:nth-of-type(odd) {
+  background-color: #e8e4ea; }
+
+/* postbox */
+.postbox_box {
+  background: #eee; }
+  @media screen and (min-width: 50em) {
+    .postbox_box {
+      background-image: url("/images/mascot.png");
+      background-size: auto 98%;
+      background-repeat: no-repeat;
+      background-position: bottom left; } }
+
+/* image page */
+.image {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyAQMAAAAk8RryAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAZQTFRF8Ov0+Pf8stQ8zQAAABxJREFUGNNjYGBgqP///wDDUKf////fAOIMcRoAC2SoK0LPuyIAAAAASUVORK5CYII=); }
+
+.image_info,
+.image_box_nav {
+  background-color: #2d3538; }
+
+.image_box_image {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAKCAQAAABcH8X6AAAAHElEQVQ4y2M0OMlAc8DI8J8Oloz6ZNQnoz4hCABeaQnjKb8q7QAAAABJRU5ErkJggg=="); }
+
+/* logo */
+.site_logo {
+  width: 100%;
+  text-align: center;
+  order: 1; }
+  @media screen and (min-width: 50em) {
+    .site_logo {
+      text-align: right;
+      order: 2; } }
+
+.site_logo img {
+  max-width: 10em;
+  height: auto; }
+
+/* components */
+.label-dark {
+  border: 1px solid #333;
+  color: #444; }
+
+.label-light {
+  border: 1px solid #aaa; }
+
+.label-default {
+  background-color: #eee; }
+  .label-default:hover, .label-default:focus {
+    color: #867092; }
+
+.button-default {
+  background-color: #eee; }
+  .button-default:hover, .button-default:focus, .button-default.focus {
+    background-color: #ddd; }
+
+.button-primary {
+  background-color: #6c5a75; }
+  .button-primary:hover, .button-primary:focus, .button-primary.focus {
+    background-color: #867092; }
+
+.dropdown-menu > .active > a,
+.dropdown-menu > .active > a:hover,
+.dropdown-menu > .active > a:focus {
+  background-color: #867092; }
+
+.pagination > li > a.favorited {
+  color: red; }
+
+.pagination > li > a:hover,
+.pagination > li > span:hover,
+.pagination > li > a:focus,
+.pagination > li > span:focus {
+  background-color: #9e8da8; }
+
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+  background-color: #867092; }

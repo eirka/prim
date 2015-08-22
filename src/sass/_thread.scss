@@ -3,11 +3,6 @@
 
 /* thread css */
 
-.threads {
-    padding-top: 5em;
-    padding-bottom: 1em;
-}
-
 .thread {
     @include mediaWidths;
 
@@ -25,7 +20,13 @@
 .thread_header {
     @include clearfix;
 
-    padding: 1em 1em 0em 1em;
+    padding: 1em;
+}
+
+.thread_index_header {
+    @include clearfix;
+
+    padding: 1em 1em 0 1em;
 }
 
 .thread_title {
@@ -43,7 +44,7 @@
     }
 }
 
-.thread_replybutton {
+.thread_buttons {
     text-align: center;
 
     @media #{$screenSmall} {
@@ -98,15 +99,23 @@
     text-align: left;
 
     @media #{$screenSmall} {
-        padding: 0.5em 1em 1em 1em;
+        padding: 0.5em 1em;
         float: left;
         width: 75%;
+    }
+
+    & p {
+        word-wrap: break-word;
+        hyphens: auto;
+        text-align: left;
+        white-space: pre-line;
+        margin: 0;
     }
 }
 
 .thread_row_omit {
     text-align: center;
-    padding-bottom: 1em;
+    padding-bottom: 0.5em;
     font-weight: bold;
 }
 
@@ -114,11 +123,8 @@
     width: 100%;
 }
 
-.thread_row_post p {
-    word-wrap: break-word;
-    hyphens: auto;
-    padding-top: 0.5em;
-    text-align: left;
-    white-space: pre-line;
-    margin: 0;
+.post_quote {
+    margin-right: 1px;
 }
+
+.post_info {}

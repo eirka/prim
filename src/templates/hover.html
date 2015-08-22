@@ -1,5 +1,5 @@
 <div class="angular-hovercard" ng-mouseenter="showCard = true; onHoverIn()" ng-mouseleave="showCard = false; onHoverOut()">
-    <label class="angular-hovercard-label" ng-class="{ 'angular-hovercard-active': showCard }" ng-style="hoverLabelStyle" ng-transclude></label>
-    <div class="angular-hovercard-detail" ng-class="{ 'angular-hovercard-active': showCard }" ng-include="hoverTmplUrl" ng-style="hoverCardStyle"></div>
+    <label class="angular-hovercard-label" ng-transclude></label>
+    <div ng-include="hoverTmplUrl" class="angular-hovercard-detail" ng-if="showCard"></div>
     <a class="label label-default" ng-mouseenter="getPost(id)" ng-bind="getText(id)"></a>
 </div>

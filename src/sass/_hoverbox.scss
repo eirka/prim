@@ -1,0 +1,31 @@
+@import "mixins";
+
+/* hoverbox */
+
+.angular-hovercard {
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+.angular-hovercard-detail {
+    position: absolute;
+    border-radius: 3px;
+    background: #eee;
+    min-width: 20%;
+    max-width: 80%;
+    z-index: 99;
+
+    @media #{$screenSmall} {
+        min-width: 20%;
+        max-width: 40%;
+    }
+}
+
+.angular-hovercard-detail.ng-leave {
+    visibility: hidden;
+}
+
+.angular-hovercard-label {
+    padding: 1px;
+    position: relative;
+}

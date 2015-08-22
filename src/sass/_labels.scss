@@ -2,46 +2,32 @@
 
 /* label css */
 
+label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
 .label {
     display: inline;
-    padding: .2em .6em .3em;
+    padding: .1em .5em;
     font-size: 75%;
     font-weight: bold;
-    line-height: 1;
-    color: $fontLight;
+    color: #555;
     text-align: center;
     white-space: nowrap;
     vertical-align: baseline;
-    border-radius: .25em;
+    border-radius: 3px;
+    margin: 0;
 }
 
 a.label:hover,
 a.label:focus {
-    color: $fontLight;
     text-decoration: none;
     cursor: pointer;
 }
 
 .label:empty {
     display: none;
-}
-
-.label-primary {
-    background-color: #428bca;
-}
-
-.label-success {
-    background-color: #5cb85c;
-}
-
-.label-info {
-    background-color: #5bc0de;
-}
-
-.label-warning {
-    background-color: #f0ad4e;
-}
-
-.label-danger {
-    background-color: #d9534f;
 }

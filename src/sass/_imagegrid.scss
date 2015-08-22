@@ -1,0 +1,34 @@
+@import "variables";
+@import "mixins";
+
+/* image grid */
+
+.image_grid {
+    line-height: 0;
+    column-count: 3;
+    column-gap: 0;
+
+    @media #{$screenSmall} {
+        column-count: 4;
+    }
+
+    @media #{$screenMedium} {
+        column-count: 5;
+    }
+
+    @media #{$screenLarge} {
+        column-count: 6;
+    }
+
+    & img {
+        width: 100%;
+        height: auto;
+        border: 0;
+        max-height: 400px;
+    }
+
+    & img:hover {
+        opacity: 0.6;
+        border: 0;
+    }
+}

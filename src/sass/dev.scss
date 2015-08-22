@@ -1,0 +1,172 @@
+@import "mixins";
+
+/* colors */
+
+$elementDark: #2d3538;
+$primaryColor: #867092;
+$scanLineWidth: 1px;
+
+/* global */
+
+a {
+    color: darken($primaryColor, 20%);
+    text-decoration: none;
+}
+
+a:hover,
+a:focus {
+    color: lighten($primaryColor, 20%);
+}
+
+body {
+    background: $elementDark;
+}
+
+/* image grid */
+
+.image_grid {
+    background-color: lighten($primaryColor, 30%);
+}
+
+/* header */
+
+.header_navigation li.n1:hover,
+.header_navigation ul ul,
+.thread_header,
+.thread_index_header,
+.thread_row_header,
+.footer_links li a:hover {
+    background: $primaryColor;
+}
+
+.header_navigation ul ul li:hover {
+    background: darken($primaryColor, 10%);
+}
+
+/* content */
+
+.content {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyAQMAAAAk8RryAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAZQTFRF8Ov0+Pf8stQ8zQAAABxJREFUGNNjYGBgqP///wDDUKf////fAOIMcRoAC2SoK0LPuyIAAAAASUVORK5CYII=);
+}
+
+/* threads */
+
+.thread_row:nth-of-type(even) {
+    background-color: lighten($primaryColor, 30%);
+}
+
+.thread_row:nth-of-type(odd) {
+    background-color: lighten($primaryColor, 40%);
+}
+
+/* postbox */
+
+.postbox_box {
+    background: #eee;
+
+    @media #{$screenSmall} {
+        background-image: url("/images/mascot.png");
+        background-size: auto 98%;
+        background-repeat: no-repeat;
+        background-position: bottom left;
+    }
+}
+
+/* image page */
+
+.image {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyAQMAAAAk8RryAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAZQTFRF8Ov0+Pf8stQ8zQAAABxJREFUGNNjYGBgqP///wDDUKf////fAOIMcRoAC2SoK0LPuyIAAAAASUVORK5CYII=);
+}
+
+.image_info,
+.image_box_nav {
+    background-color: $elementDark;
+}
+
+.image_box_image {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAKCAQAAABcH8X6AAAAHElEQVQ4y2M0OMlAc8DI8J8Oloz6ZNQnoz4hCABeaQnjKb8q7QAAAABJRU5ErkJggg==");
+}
+
+/* logo */
+
+.site_logo {
+    width: 100%;
+    text-align: center;
+    order: 1;
+
+    @media #{$screenSmall} {
+        text-align: right;
+        order: 2;
+    }
+}
+
+.site_logo img {
+    max-width: 10em;
+    height: auto;
+}
+
+/* components */
+
+.label-dark {
+    border: 1px solid #333;
+    color: #444;
+}
+
+.label-light {
+    border: 1px solid #aaa;
+}
+
+.label-default {
+    background-color: #eee;
+
+    &:hover,
+    &:focus {
+        color: $primaryColor;
+    }
+}
+
+.button-default {
+    background-color: #eee;
+
+    &:hover,
+    &:focus,
+    &.focus {
+        background-color: #ddd;
+    }
+}
+
+.button-primary {
+    background-color: darken($primaryColor, 10%);
+
+    &:hover,
+    &:focus,
+    &.focus {
+        background-color: $primaryColor;
+    }
+}
+
+.dropdown-menu > .active > a,
+.dropdown-menu > .active > a:hover,
+.dropdown-menu > .active > a:focus {
+    background-color: $primaryColor;
+}
+
+.pagination > li > a.favorited {
+    color: red;
+}
+
+.pagination > li > a:hover,
+.pagination > li > span:hover,
+.pagination > li > a:focus,
+.pagination > li > span:focus {
+    background-color: lighten($primaryColor, 10%);
+}
+
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+    background-color: $primaryColor;
+}

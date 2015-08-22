@@ -23,7 +23,7 @@
     font-size: 14px;
     text-align: left;
     list-style: none;
-    background-color: #fff;
+    background-color: #eee;
     background-clip: padding-box;
     border: 1px solid #ccc;
     border: 1px solid rgba(0, 0, 0, 0.15);
@@ -65,7 +65,6 @@
 .dropdown-menu > .active > a:focus {
     color: #fff;
     text-decoration: none;
-    background-color: #428bca;
     outline: 0;
 }
 
@@ -137,16 +136,4 @@
     top: auto;
     bottom: 100%;
     margin-bottom: 1px;
-}
-
-@media (min-width: 768px) {
-    .navbar-right .dropdown-menu {
-        right: 0;
-        left: auto;
-    }
-
-    .navbar-right .dropdown-menu-left {
-        right: auto;
-        left: 0;
-    }
 }

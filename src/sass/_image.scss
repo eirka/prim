@@ -1,0 +1,94 @@
+@import "variables";
+@import "mixins";
+
+/* image page css */
+
+.image {
+    padding: 2em 0;
+}
+
+.image_container {
+    @include clearfix;
+
+    @include mediaWidths;
+
+    width: $boxWidthRel;
+    margin: 0 auto;
+}
+
+.image_info {
+    @include shadow;
+
+    text-align: center;
+    border-radius: 6px;
+    overflow: hidden;
+    padding: 0.5em;
+
+    & .no_tags {
+        color: $fontLight;
+        padding: 0.5em;
+    }
+
+    @media #{$screenSmall} {
+        padding: 0;
+        float: left;
+        margin: 0;
+        margin-left: 6px;
+        width: calc(25% - 6px);
+
+        & input {
+            border-radius: 0;
+        }
+
+        & .source_links {
+            padding: 1em 0;
+        }
+    }
+
+    @media #{$screenMedium} {
+        width: calc(20% - 6px);
+    }
+}
+
+.image_box {
+    @include shadow;
+
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 1em;
+
+    @media #{$screenSmall} {
+        text-align: left;
+        float: left;
+        width: 75%;
+    }
+
+    @media #{$screenMedium} {
+        width: 80%;
+    }
+}
+
+.image_box_nav {
+    text-align: center;
+}
+
+.image_controls {
+    padding: 0.5em;
+}
+
+.image_box_image {
+    & video {
+        max-width: 100%;
+        max-height: 80%;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+    }
+
+    & img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+    }
+}

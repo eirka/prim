@@ -75,10 +75,7 @@ gulp.task('browserify', function() {
 
 gulp.task('css', function() {
     return gulp.src([
-            './node_modules/normalize.css/normalize.css',
-            './src/css/skeleton.css',
-            './src/css/bootstrap.css',
-            './src/css/macroboard.css',
+            './src/css/prim.css',
             './node_modules/angular-hotkeys/build/hotkeys.min.css',
             './node_modules/angularjs-toaster/toaster.min.css'
         ])

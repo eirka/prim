@@ -1,9 +1,6 @@
-<div class="container">
-    <div class="sixteen columns top">
-        <div class="eleven columns alpha">
-            &nbsp;
-        </div>
-        <div class="five columns omega postform" ng-controller="IndexFormCtrl as postform">
+<div class="postbox" ng-controller="IndexFormCtrl as postform">
+    <div class="postbox_box">
+        <div class="postbox_form">
             <form role="form" action="{{postform.getFormAction('/post/thread/new')}}" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="ib" ng-value="index.ib_id" />
                 <input type="hidden" name="askey" ng-value="index.as_key" />
@@ -21,49 +18,56 @@
                     <input id="file" type="file" name="file">
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-primary btn-block" type="submit" value="Submit">Submit</button>
+                    <button class="button button-block button-primary" type="submit" value="Submit">Submit</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-<div ng-repeat="thread in index.data track by thread.id" id="thread-{{::thread.id}}" class="container thread">
-    <div ng-class="{'header_single': thread.posts.length == 1}" class="sixteen columns header_body">
-        <div class="fourteen columns alpha thread_title">
-            <span ng-bind="::thread.title"></span>
-            <i ng-if="thread.closed" title="Closed" class="fa fa-lock"></i>
-            <i ng-if="thread.sticky" title="Sticky" class="fa fa-thumb-tack"></i>
+<div class="content">
+    <div ng-repeat="thread in index.data track by thread.id" id="thread-{{::thread.id}}" class="thread">
+        <div class="thread_index_header">
+            <div class="thread_title">
+                <span ng-bind="::thread.title"></span>
+                <i ng-if="thread.closed" title="Closed" class="fa fa-lock"></i>
+                <i ng-if="thread.sticky" title="Sticky" class="fa fa-thumb-tack"></i>
+            </div>
+            <div class="thread_buttons">
+                <a class="button button-default" ng-href="thread/{{::thread.id}}/{{::thread.last_page}}" href>Reply</a>
+            </div>
         </div>
-        <div class="two columns omega reply_button"> <a class="btn btn-default" ng-href="thread/{{::thread.id}}/{{::thread.last_page}}" href>Reply</a>
+        <div class="thread_row_header">
+            <div class="thread_row_image" ng-if="thread.posts[0].thumbnail != null">
+                <a ng-href="image/{{::thread.posts[0].img_id}}" href>
+                    <img ng-src="{{::index.thumb(thread.posts[0].thumbnail)}}" height="{{::thread.posts[0].tn_height}}" width="{{::thread.posts[0].tn_width}}"> </a>
+            </div>
+            <div class="thread_row_info">
+                <span class="post_info"><strong ng-bind="::thread.posts[0].name"></strong></span>
+                <span class="post_info" ng-bind="::thread.posts[0].time"></span>
+                <a class="label label-dark" ng-bind="'#'+{{::thread.posts[0].num}}" ng-click="index.replyQuote(thread.posts[0].num,thread.id,thread.last_page)" href></a>
+            </div>
+            <div comment-handler post="::thread.posts[0]" thread="thread.id"></div>
         </div>
-        <div class="five columns alpha reply_image" ng-if="thread.posts[0].thumbnail != null">
-            <a ng-href="image/{{::thread.posts[0].img_id}}" href>
-                <img class="reply_image scale-with-grid" ng-src="{{::index.thumb(thread.posts[0].thumbnail)}}" height="{{::thread.posts[0].tn_height}}" width="{{::thread.posts[0].tn_width}}"> </a>
+        <div class="thread_row_header">
+            <div class="thread_row_omit" ng-if="!!thread.omit_posts">
+                {{ ::thread.omit_posts }} posts omitted. Click <a ng-href="thread/{{::thread.id}}/{{::thread.last_page}}" href>Reply</a> to view.
+            </div>
         </div>
-        <div class="eleven columns omega comment_body">
-            <span class="postername" ng-bind="::thread.posts[0].name"></span>
-            <span ng-bind="::thread.posts[0].time"></span>
-            <span>#<a ng-bind="::thread.posts[0].num" ng-click="index.replyQuote(thread.posts[0].num,thread.id,thread.last_page)" href></a></span>
+        <div ng-repeat="post in thread.posts track by post.id" ng-if="!$first" class="thread_row">
+            <div class="thread_row_image" ng-if="!!post.thumbnail">
+                <a ng-href="image/{{::post.img_id}}" href><img ng-src="{{::index.thumb(post.thumbnail)}}" height="{{::post.tn_height}}" width="{{::post.tn_width}}"> </a>
+            </div>
+            <div class="thread_row_info">
+                <span class="post_info"><strong ng-bind="::post.name"></strong></span>
+                <span class="post_info" ng-bind="::post.time"></span>
+                <a class="label label-light" ng-bind="'#'+{{::post.num}}" ng-click="index.replyQuote(post.num,thread.id,thread.last_page)" href></a>
+            </div>
+            <div comment-handler post="post" thread="thread.id"></div>
         </div>
-        <div comment-handler post="::thread.posts[0]" thread="thread.id"></div>
-        <div class="sixteen columns alpha omittedposts" ng-if="thread.omit_posts != 0">
-            {{ ::thread.omit_posts }} posts omitted. Click <a ng-href="thread/{{::thread.id}}/{{::thread.last_page}}" href>Reply</a> to view.
-        </div>
-    </div>
-    <div ng-repeat="post in thread.posts track by post.id" ng-if="!$first" class="sixteen columns clearfix reply_body">
-        <div class="five columns alpha reply_image" ng-if="!!post.thumbnail">
-            <a ng-href="image/{{::post.img_id}}" href><img class="reply_image scale-with-grid" ng-src="{{::index.thumb(post.thumbnail)}}" height="{{::post.tn_height}}" width="{{::post.tn_width}}"> </a>
-        </div>
-        <div ng-class="!!post.thumbnail ? 'eleven columns omega' : 'sixteen columns alpha'" class="comment_body">
-            <span class="postername" ng-bind="::post.name"></span>
-            <span ng-bind="::post.time"></span>
-            <span>#<a ng-bind="::post.num" ng-click="index.replyQuote(post.num,thread.id,thread.last_page)" href></a></span>
-        </div>
-        <div comment-handler post="post" thread="thread.id"></div>
     </div>
 </div>
-<div class="container">
-    <div class="sixteen columns footer">
+<div class="footer">
+    <div class="footer_box">
         <pagination boundary-links="true" rotate="true" direction-links="false" page-name="page" total-items="index.pagination.totalItems" max-size="index.pagination.maxSize" ng-model="index.pagination.currentPage" items-per-page="index.pagination.itemsPerPage" num-pages="index.pagination.numPages">
     </div>
 </div>

@@ -1,0 +1,110 @@
+@import "variables";
+@import "mixins";
+
+/* tags css */
+
+.tag {
+    display: inline-block;
+    margin-bottom: 0;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    white-space: nowrap;
+    padding: 6px 12px;
+    font-size: 0.9em;
+    line-height: 1.42857143;
+    overflow: hidden;
+    text-decoration: none;
+    border-radius: 3px;
+    margin: 0.2em 0;
+
+    &:hover,
+    &:focus,
+    &.focus {
+        text-decoration: none;
+    }
+
+    &:active,
+    &.active {
+        outline: 0;
+        margin: 0;
+        background-image: none;
+        box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    &.disabled,
+    &[disabled],
+    fieldset[disabled] & {
+        cursor: not-allowed;
+        pointer-events: none;
+        opacity: 0.65;
+        box-shadow: none;
+    }
+
+    @media #{$screenSmall} {
+        margin: 0;
+        border-radius: 0;
+        width: 100%;
+    }
+}
+
+.tag-artist {
+    color: $fontDark;
+    background-color: $artistColor;
+
+    &:hover,
+    &:focus,
+    &.focus {
+        background-color: darken($artistColor, 10%);
+        color: $fontDark;
+    }
+}
+
+.tag-copyright {
+    color: $fontDark;
+    background-color: $copyrightColor;
+
+    &:hover,
+    &:focus,
+    &.focus {
+        background-color: darken($copyrightColor, 10%);
+        color: $fontDark;
+    }
+}
+
+.tag-character {
+    color: $fontDark;
+    background-color: $characterColor;
+
+    &:hover,
+    &:focus,
+    &.focus {
+        background-color: darken($characterColor, 10%);
+        color: $fontDark;
+    }
+}
+
+.tag-default {
+    color: $fontDark;
+    background-color: #eee;
+
+    &:hover,
+    &:focus,
+    &.focus {
+        background-color: #ddd;
+        color: $fontDark;
+    }
+}
+
+.tag-source {
+    color: $fontDark;
+    background-color: $sourceColor;
+
+    &:hover,
+    &:focus,
+    &.focus {
+        background-color: darken($sourceColor, 10%);
+        color: $fontDark;
+    }
+}

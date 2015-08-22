@@ -14,13 +14,13 @@ angular.module('prim').directive('quoteBox', function(PostHandler, Utils) {
                 card: false
             };
 
-            $scope.hoverTmplUrl = $attrs.hoverTmplUrl;
+            $scope.hoverTmplUrl = "pages/box.html";
             $scope.onHoverIn = $scope.$eval($attrs.onHoverIn);
             $scope.onHoverOut = $scope.$eval($attrs.onHoverOut);
 
             // make quote text
             $scope.getText = function(id) {
-                return '>>' + id
+                return '>>' + id;
             };
 
             // get the thumb address

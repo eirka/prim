@@ -49,6 +49,18 @@
     }
 }
 
+.tag-default {
+    color: $fontDark;
+    background-color: #eee;
+
+    &:hover,
+    &:focus,
+    &.focus {
+        background-color: #ddd;
+        color: $fontDark;
+    }
+}
+
 .tag-artist {
     color: $fontDark;
     background-color: $artistColor;
@@ -81,18 +93,6 @@
     &:focus,
     &.focus {
         background-color: darken($characterColor, 10%);
-        color: $fontDark;
-    }
-}
-
-.tag-default {
-    color: $fontDark;
-    background-color: #eee;
-
-    &:hover,
-    &:focus,
-    &.focus {
-        background-color: #ddd;
         color: $fontDark;
     }
 }

@@ -3,6 +3,28 @@ angular.module('prim').controller('TagsCtrl', function(toaster, config, internal
     // using controllerAs
     var self = this;
 
+    // selects a row color
+    self.rowClass = function(type) {
+        var rowclass = "";
+
+        switch (type) {
+            case 2:
+                rowclass = "row-artist";
+                break;
+            case 3:
+                rowclass = "row-character";
+                break;
+            case 4:
+                rowclass = "row-copyright";
+                break;
+            default:
+                rowclass = "";
+                break;
+        }
+
+        return rowclass
+    }
+
     // this is a function so we can reload it if someone makes a new tag
     self.updateTags = function() {
         TagsHandler.get(function(data) {

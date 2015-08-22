@@ -1,24 +1,28 @@
-<div class="container thread" ng-controller="NewCtrl as new">
-    <div class="sixteen columns clearfix trending_box_header mbgreen">
-        <div class="fourteen columns alpha thread_title">
-            <span>New</span>
+<div class="trending">
+    <div class="trending_container">
+        <div class="new_container" ng-controller="NewCtrl as new">
+            <div>
+                <div class="new_title">
+                    <i class="fa fa-star-o"></i><span>New</span>
+                </div>
+                <div ng-if="new.data" class="image_grid">
+                    <a ng-repeat="image in new.data track by image.id" ng-href="image/{{::image.id}}" href>
+                        <img ng-src="{{::new.thumb(image.thumbnail)}}" height="{{::image.tn_height}}" width="{{::image.tn_width}}">
+                    </a>
+                </div>
+            </div>
         </div>
-    </div>
-    <div ng-if="new.data" class="sixteen columns clearfix trending_box_back mbgreen_light" id="photos">
-        <a ng-repeat="image in new.data track by image.id" ng-href="image/{{::image.id}}" href>
-            <img class="reply_image scale-with-grid" ng-src="{{::new.thumb(image.thumbnail)}}" height="{{::image.tn_height}}" width="{{::image.tn_width}}">
-        </a>
-    </div>
-</div>
-<div class="container thread" ng-controller="PopularCtrl as popular">
-    <div class="sixteen columns clearfix trending_box_header mbblue">
-        <div class="fourteen columns alpha thread_title">
-            <span>Popular</span>
+        <div class="popular_container" ng-controller="PopularCtrl as popular">
+            <div>
+                <div class="popular_title">
+                    <i class="fa fa-thumbs-o-up"></i><span>Popular</span>
+                </div>
+                <div ng-if="popular.data" class="image_grid">
+                    <a ng-repeat="image in popular.data track by image.id" ng-href="image/{{::image.id}}" href>
+                        <img ng-src="{{::popular.thumb(image.thumbnail)}}" height="{{::image.tn_height}}" width="{{::image.tn_width}}">
+                    </a>
+                </div>
+            </div>
         </div>
-    </div>
-    <div ng-if="popular.data" class="sixteen columns clearfix trending_box_back mbblue_light" id="photos">
-        <a ng-repeat="image in popular.data track by image.id" ng-href="image/{{::image.id}}" href>
-            <img class="reply_image scale-with-grid" ng-src="{{::popular.thumb(image.thumbnail)}}" height="{{::image.tn_height}}" width="{{::image.tn_width}}">
-        </a>
     </div>
 </div>

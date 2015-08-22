@@ -1,13 +1,6 @@
-<div class="container">
-    <div class="sixteen columns image_bar">
-        <div class="btn-group">
-            <pagination all-link="true" boundary-links="true" rotate="true" direction-links="false" page-name="tag/{{::tag.data.id}}" total-items="tag.pagination.totalItems" max-size="tag.pagination.maxSize" ng-model="tag.pagination.currentPage" items-per-page="tag.pagination.itemsPerPage" num-pages="tag.pagination.numPages">
-        </div>
-    </div>
-</div>
-<div class="container thread">
-    <div class="sixteen columns clearfix tag_header_body">
-        <div class="fourteen columns alpha thread_title">
+<div class="tagpage">
+    <div class="tagpage_container">
+        <div class="tagpage_title" ng-class="tag.rowClass(tag.data.type)">
             <span ng-switch="tag.data.type">
             <span ng-switch-when="1" ng-bind="'Tag: ' + tag.data.tag"></span>
             <span ng-switch-when="2" ng-bind="'Artist: ' + tag.data.tag"></span>
@@ -15,19 +8,18 @@
             <span ng-switch-when="4" ng-bind="'Copyright: ' + tag.data.tag"></span>
             </span>
         </div>
-    </div>
-    <div ng-if="tag.pagination.totalItems != 0" class="sixteen columns clearfix tagpage" id="photos">
-        <a ng-repeat="image in tag.data.images track by image.id" ng-href="image/{{::image.id}}" href>
-            <img class="reply_image scale-with-grid" ng-src="{{::tag.thumb(image.thumbnail)}}" height="{{::image.tn_height}}" width="{{::image.tn_width}}">
-        </a>
-    </div>
-    <div ng-if="tag.pagination.totalItems == 0" style="text-align:center;" class="sixteen columns clearfix reply_body">
-        No items <i class="fa fa-frown-o"></i>
-    </div>
-</div>
-<div class="container">
-    <div class="sixteen columns footer">
-        <div class="btn-group">
+        <div class="tagpage_nav">
+            <pagination all-link="true" boundary-links="true" rotate="true" direction-links="false" page-name="tag/{{::tag.data.id}}" total-items="tag.pagination.totalItems" max-size="tag.pagination.maxSize" ng-model="tag.pagination.currentPage" items-per-page="tag.pagination.itemsPerPage" num-pages="tag.pagination.numPages">
+        </div>
+        <div ng-if="tag.pagination.totalItems != 0" class="image_grid">
+            <a ng-repeat="image in tag.data.images track by image.id" ng-href="image/{{::image.id}}" href>
+                <img ng-src="{{::tag.thumb(image.thumbnail)}}" height="{{::image.tn_height}}" width="{{::image.tn_width}}">
+            </a>
+        </div>
+        <div ng-if="tag.pagination.totalItems == 0" class="no_tags">
+            <span>No tags <i class="fa fa-frown-o"></i></span>
+        </div>
+        <div class="tagpage_nav">
             <pagination all-link="true" boundary-links="true" rotate="true" direction-links="false" page-name="tag/{{::tag.data.id}}" total-items="tag.pagination.totalItems" max-size="tag.pagination.maxSize" ng-model="tag.pagination.currentPage" items-per-page="tag.pagination.itemsPerPage" num-pages="tag.pagination.numPages">
         </div>
     </div>

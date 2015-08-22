@@ -1,25 +1,28 @@
-<div class="container">
-    <div class="sixteen columns thread_list">
-        <table class="table_list">
-            <thead>
-                <tr class="table_header">
-                    <th align="left"><a href="" ng-click="directory.changeSorting('title')">Title</a></th>
-                    <th width="10%"><a href="" ng-click="directory.changeSorting('postcount')">Posts</a></th>
-                    <th width="10%"><a href="" ng-click="directory.changeSorting('images')">Images</a></th>
-                    <th width="20%"><a href="" ng-click="directory.changeSorting('last_post')">Last Post</a></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="table_item" ng-repeat="thread in directory.data.directory | orderBy:directory.sort.column:directory.sort.desc track by thread.id">
-                    <td>
-                        <a ng-href="thread/{{::thread.id}}/1" rel="nofollow" href ng-bind="::thread.title"></a>
-                        <i ng-if="thread.closed" title="Closed" class="fa fa-lock"></i>
-                        <i ng-if="thread.sticky" title="Sticky" class="fa fa-thumb-tack"></i>
-                    </td>
-                    <td align="center" ng-bind="::thread.postcount"></td>
-                    <td align="center" ng-bind="::thread.images"></td>
-                    <td align="center" ng-bind="::thread.last_post"></td>
-                </tr>
-            </tbody>
-        </table>
+<div class="directory">
+    <div class="directory_container">
+        <div class="directory_list">
+            <table>
+                <thead>
+                    <tr>
+                        <th align="left"><a href="" ng-click="directory.changeSorting('title')">Title</a></th>
+                        <th width="10%"><a href="" ng-click="directory.changeSorting('postcount')">Posts</a></th>
+                        <th width="10%"><a href="" ng-click="directory.changeSorting('images')">Images</a></th>
+                        <th width="20%"><a href="" ng-click="directory.changeSorting('last_post')">Last Post</a></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="thread in directory.data.directory | orderBy:directory.sort.column:directory.sort.desc track by thread.id">
+                        <td>
+                            <a ng-href="thread/{{::thread.id}}/1" rel="nofollow" href ng-bind="::thread.title"></a>
+                            <i ng-if="thread.closed" title="Closed" class="fa fa-lock"></i>
+                            <i ng-if="thread.sticky" title="Sticky" class="fa fa-thumb-tack"></i>
+                        </td>
+                        <td align="center" ng-bind="::thread.postcount"></td>
+                        <td align="center" ng-bind="::thread.images"></td>
+                        <td align="center" ng-bind="::thread.last_post"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
+</div>

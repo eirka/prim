@@ -1,0 +1,41 @@
+@import "variables";
+@import "mixins";
+
+/* tag page css */
+
+.tagpage {
+    padding: 2em 0;
+}
+
+.tagpage_container {
+    @include mediaWidths;
+
+    @include shadow;
+
+    border-radius: 6px;
+    overflow: hidden;
+    width: $boxWidthRel;
+    margin: 0 auto;
+
+    & .no_tags {
+        color: $fontLight;
+        padding: 1em;
+        text-align: center;
+    }
+}
+
+.tagpage_title {
+    padding: 1em;
+
+    & span {
+        @include headerFont;
+
+        color: $fontLight;
+        font-size: 1.3em;
+    }
+}
+
+.tagpage_nav {
+    text-align: center;
+    padding: 0.5em;
+}

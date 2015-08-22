@@ -24,7 +24,7 @@
         </div>
     </div>
 </div>
-<div class="content">
+<div class="threads">
     <div class="thread">
         <div class="thread_header">
             <div class="thread_title">
@@ -51,7 +51,9 @@
             <div comment-handler post="post" thread="thread.data.id"></div>
         </div>
         <div ng-if="thread.layout == 'grid'" class="image_grid">
-            <a ng-repeat="post in thread.data.posts track by post.id" ng-if="!!post.thumbnail" ng-href="image/{{::post.img_id}}" href><img ng-src="{{::thread.thumb(post.thumbnail)}}" height="{{::post.tn_height}}" width="{{::post.tn_width}}"> </a>
+            <a ng-repeat="post in thread.data.posts track by post.id" ng-if="!!post.thumbnail" ng-href="image/{{::post.img_id}}" href>
+                <img ng-src="{{::thread.thumb(post.thumbnail)}}" height="{{::post.tn_height}}" width="{{::post.tn_width}}">
+            </a>
         </div>
     </div>
 </div>

@@ -1,0 +1,38 @@
+@import "variables";
+@import "mixins";
+
+/* error css */
+
+.error {
+    padding: 2em 0;
+}
+
+.error_container {
+    @include clearfix;
+
+    @include mediaWidths;
+
+    @include shadow;
+
+    border-radius: 6px;
+    overflow: hidden;
+    width: $boxWidthRel;
+    margin: 0 auto;
+    padding: 1em;
+
+    & .error_code {
+        @include headerFont;
+
+        text-align: center;
+        color: $fontLight;
+        font-size: 3em;
+        padding: 0.5em;
+    }
+
+    & .error_message {
+        text-align: center;
+        color: $fontLight;
+        font-size: 1.3em;
+        padding: 0.5em;
+    }
+}

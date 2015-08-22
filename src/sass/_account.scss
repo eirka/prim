@@ -1,0 +1,39 @@
+@import "variables";
+@import "mixins";
+
+/* account css */
+
+.account {
+    padding: 2em 0;
+}
+
+.account_container {
+    @include clearfix;
+
+    @include mediaWidths;
+
+    @include shadow;
+
+    border-radius: 6px;
+    overflow: hidden;
+    width: $boxWidthRel;
+    margin: 0 auto;
+    padding: 1em;
+    margin-bottom: 1em;
+
+    & .account_title {
+        @include headerFont;
+
+        text-align: center;
+        color: $fontLight;
+        font-size: 1.2em;
+    }
+
+    & .account_subcontainer {
+        margin-bottom: 1em;
+    }
+
+    & .logout {
+        text-align: center;
+    }
+}

@@ -1,0 +1,67 @@
+@import "variables";
+@import "mixins";
+
+/* trending css */
+
+.trending {}
+
+.trending_container {
+    @include clearfix;
+
+    @include mediaWidths;
+
+    width: $boxWidthRel;
+    margin: 0 auto;
+}
+
+.new_container,
+.popular_container {
+    @include shadow;
+
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 1em 0;
+
+    @media #{$screenSmall} {
+        margin: 1em 0.5em;
+        float: left;
+        width: calc(50% - 1em);
+    }
+
+    & .image_grid {
+        background: transparent;
+        column-count: 3;
+
+        @media #{$screenSmall} {
+            column-count: 2;
+        }
+
+        @media #{$screenMedium} {
+            column-count: 3;
+        }
+
+        @media #{$screenLarge} {
+            column-count: 4;
+        }
+    }
+}
+
+.new_title,
+.popular_title {
+    padding: 1em;
+    text-align: center;
+
+    & i,
+    & span {
+        color: $fontLight;
+        font-size: 1.4em;
+    }
+
+    & i {
+        margin-right: 0.3em;
+    }
+
+    & span {
+        @include headerFont;
+    }
+}

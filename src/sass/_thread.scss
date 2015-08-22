@@ -3,6 +3,11 @@
 
 /* thread css */
 
+.threads {
+    padding-top: 4em;
+    padding-bottom: 0.5em;
+}
+
 .thread {
     @include mediaWidths;
 

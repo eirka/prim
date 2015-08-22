@@ -1,0 +1,41 @@
+@import "variables";
+@import "mixins";
+
+/* favorites css */
+
+.favorites {
+    padding: 2em 0;
+}
+
+.favorites_container {
+    @include mediaWidths;
+
+    @include shadow;
+
+    border-radius: 6px;
+    overflow: hidden;
+    width: $boxWidthRel;
+    margin: 0 auto;
+
+    & .no_favorites {
+        color: $fontLight;
+        padding: 1em;
+        text-align: center;
+    }
+}
+
+.favorites_title {
+    padding: 1em;
+
+    & span {
+        @include headerFont;
+
+        color: $fontDark;
+        font-size: 1.3em;
+    }
+}
+
+.favorites_nav {
+    text-align: center;
+    padding: 0.5em;
+}

@@ -1,12 +1,13 @@
-<div class="container">
-    <div style="padding-top:10px;padding-bottom:30px;" class="sixteen columns image_bar">
-        <span style="color:#fef;font-weight: bold;font-style: italic;font-size:2em;font-family:omnes-pro,sans-serif;">error</span>
-        <span ng-bind="::errorcode" style="color:#fef;font-weight: bold;font-style: italic;font-size:8em;font-family:omnes-pro,sans-serif;"></span>
-        <br />
-        <span ng-switch="errorcode">
-<span ng-switch-when="404" style="color:#fef;font-family:omnes-pro,sans-serif;font-style: italic;">Couldn't find whatever you were looking for!</span>
-        <span ng-switch-when="502" style="color:#fef;font-family:omnes-pro,sans-serif;font-style: italic;">Oh no the API server is probably down!</span>
-        <span ng-switch-default style="color:#fef;font-family:omnes-pro,sans-serif;font-style: italic;">Looks like something went wrong!</span>
-        </span>
+<div class="error">
+    <div class="error_container">
+        <div class="error_code">
+            <span>Error</span>
+            <span ng-bind="::errorcode"></span>
+        </div>
+        <div class="error_message" ng-switch="errorcode">
+            <span ng-switch-when="404">Couldn't find whatever you were looking for!</span>
+            <span ng-switch-when="502">Oh no the API server is probably down!</span>
+            <span ng-switch-default>Looks like something went wrong!</span>
+        </div>
     </div>
 </div>

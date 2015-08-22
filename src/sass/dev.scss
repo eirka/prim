@@ -6,6 +6,10 @@ $elementDark: #2d3538;
 $primaryColor: #867092;
 $scanLineWidth: 1px;
 
+$trendingNew: #00bc6f;
+$trendingPopular: #00a0df;
+$favoritesColor: #ff5859;
+
 /* global */
 
 a {
@@ -19,6 +23,16 @@ a:focus {
 }
 
 body {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyAQMAAAAk8RryAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAZQTFRF8Ov0+Pf8stQ8zQAAABxJREFUGNNjYGBgqP///wDDUKf////fAOIMcRoAC2SoK0LPuyIAAAAASUVORK5CYII=);
+}
+
+/* containers */
+
+.header,
+.error_container,
+.account_container,
+.postbox,
+.footer {
     background: $elementDark;
 }
 
@@ -41,12 +55,6 @@ body {
 
 .header_navigation ul ul li:hover {
     background: darken($primaryColor, 10%);
-}
-
-/* content */
-
-.content {
-    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyAQMAAAAk8RryAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAZQTFRF8Ov0+Pf8stQ8zQAAABxJREFUGNNjYGBgqP///wDDUKf////fAOIMcRoAC2SoK0LPuyIAAAAASUVORK5CYII=);
 }
 
 /* threads */
@@ -74,10 +82,6 @@ body {
 
 /* image page */
 
-.image {
-    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyAQMAAAAk8RryAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAZQTFRF8Ov0+Pf8stQ8zQAAABxJREFUGNNjYGBgqP///wDDUKf////fAOIMcRoAC2SoK0LPuyIAAAAASUVORK5CYII=);
-}
-
 .image_info,
 .image_box_nav {
     background-color: $elementDark;
@@ -85,6 +89,147 @@ body {
 
 .image_box_image {
     background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAKCAQAAABcH8X6AAAAHElEQVQ4y2M0OMlAc8DI8J8Oloz6ZNQnoz4hCABeaQnjKb8q7QAAAABJRU5ErkJggg==");
+}
+
+/* directory and tag lists */
+
+.tags_list,
+.directory_list {
+    background-color: $elementDark;
+
+    & table {
+        background-color: lighten($primaryColor, 30%);
+    }
+
+    & table th {
+        background-color: darken($primaryColor, 10%);
+    }
+
+    & table th a {
+        color: #eee;
+    }
+
+    & table tr:nth-of-type(even) {
+        background-color: lighten($primaryColor, 30%);
+    }
+
+    & table tr:nth-of-type(odd) {
+        background-color: lighten($primaryColor, 40%);
+    }
+
+    & table tr:hover {
+        background-color: lighten($primaryColor, 10%);
+    }
+}
+
+.tags_list {
+    & .row-artist,
+    & .row-copyright,
+    & .row-character {
+        color: #ddd;
+    }
+
+    & .row-artist a,
+    & .row-copyright a,
+    & .row-character a {
+        color: #ddd;
+    }
+
+    & .row-artist a:hover,
+    & .row-copyright a:hover,
+    & .row-character a:hover {
+        color: #555;
+    }
+
+    & .row-artist {
+        background-color: $artistColor !important;
+
+        &:hover {
+            background-color: darken($artistColor, 10%) !important;
+        }
+    }
+
+    & .row-copyright {
+        background-color: $copyrightColor !important;
+
+        &:hover {
+            background-color: darken($copyrightColor, 10%) !important;
+        }
+    }
+
+    & .row-character {
+        background-color: $characterColor !important;
+
+        &:hover {
+            background-color: darken($characterColor, 10%) !important;
+        }
+    }
+}
+
+/* tagpage */
+
+.tagpage_container {
+    background-color: $elementDark;
+
+    & .no_tags {
+        background-color: lighten($elementDark, 10%);
+    }
+
+    & .tagpage-tag {
+        background-color: $primaryColor;
+    }
+
+    & .tagpage-artist {
+        background-color: $artistColor;
+    }
+
+    & .tagpage-copyright {
+        background-color: $copyrightColor;
+    }
+
+    & .tagpage-character {
+        background-color: $characterColor;
+    }
+}
+
+/* tagpage */
+
+.favorites_container {
+    background-color: $elementDark;
+
+    & .no_favorites {
+        background-color: lighten($elementDark, 10%);
+    }
+
+    & .favorites_title {
+        background-color: $favoritesColor;
+    }
+
+    & .image_grid {
+        background-color: lighten($favoritesColor, 20%);
+    }
+}
+
+/* trending */
+
+.new_title {
+    background-color: $trendingNew;
+}
+
+.popular_title {
+    background-color: $trendingPopular;
+}
+
+.new_container {
+    & .image_grid {
+        background-color: lighten($trendingNew, 20%);
+    }
+}
+
+.popular_container {
+    & .image_grid {
+        background-color: lighten($trendingPopular, 20%);
+    }
 }
 
 /* logo */
@@ -152,7 +297,7 @@ body {
 }
 
 .pagination > li > a.favorited {
-    color: red;
+    color: #ff5859;
 }
 
 .pagination > li > a:hover,

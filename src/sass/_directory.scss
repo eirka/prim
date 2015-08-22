@@ -1,0 +1,47 @@
+@import "variables";
+@import "mixins";
+
+/* directory css */
+
+.directory {
+    padding: 1em 0;
+}
+
+.directory_container {
+    @include clearfix;
+
+    @include mediaWidths;
+
+    width: $boxWidthRel;
+    margin: 0 auto;
+}
+
+.tags_list,
+.directory_list {
+    @include shadow;
+
+    border-radius: 6px;
+    overflow: hidden;
+
+    & table {
+        width: 100%;
+    }
+
+    & table td,
+    & table th {
+        padding: 0.3em 0.5em;
+    }
+}
+
+.directory_list {
+    padding: 0 0 1.5em 0;
+}
+
+.tags_list {
+    padding: 0 0 1.5em 0;
+}
+
+.tags_bar {
+    text-align: center;
+    padding: 0.5em;
+}

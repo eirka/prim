@@ -1,94 +1,83 @@
 <!-- Authed -->
-<div ng-if="authState.isAuthenticated" ng-controller="AccountCtrl as account">
-    <div class="container login">
-        <div class="sixteen columns clearfix loginbox">
-            <div class="fourteen columns alpha thread_title">
-                <span ng-bind="::account.whoami.name"></span>
-            </div>
-            <div class="two columns omega reply_button">
-                <a class="btn btn-default" ng-click="account.logOut()" href>Logout</a>
-            </div>
+<div class="account" ng-if="authState.isAuthenticated" ng-controller="AccountCtrl as account">
+    <div class="account_container">
+        <div class="account_title">
+            <span ng-bind="::account.whoami.name"></span>
+        </div>
+        <div class="logout">
+            <a class="button button-default" ng-click="account.logOut()" href>Logout</a>
         </div>
     </div>
-    <div class="container login">
-        <div class="sixteen columns loginbox">
-            <div class="eight columns alpha" ng-controller="PasswordCtrl as password">
-                <div class="loginform">
-                    <form role="form" ng-submit="password.changePassword()">
-                        <div class="form-group">
-                            <span class="logintitle">Change Password</span>
-                        </div>
-                        <div class="form-group">
-                            <input type="password" id="oldpassword" class="form-control" placeholder="Old password" ng-required="true" ng-model="password.form.oldpassword">
-                        </div>
-                        <div class="form-group">
-                            <input type="password" id="newpassword" class="form-control" placeholder="New password" ng-required="true" ng-model="password.form.newpassword">
-                        </div>
-                        <div class="form-group">
-                            <button class="btn btn-primary btn-block" type="submit" value="Submit">Submit</button>
-                        </div>
-                    </form>
+    <div class="account_container">
+        <div class="account_subcontainer" ng-controller="PasswordCtrl as password">
+            <form role="form" ng-submit="password.changePassword()">
+                <div class="form-group">
+                    <span class="account_title">Change Password</span>
                 </div>
-            </div>
-            <div class="eight columns omega" ng-controller="EmailCtrl as email">
-                <div class="loginform">
-                    <form role="form" ng-submit="email.updateEmail()">
-                        <div class="form-group">
-                            <span class="logintitle">Update Email</span>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" id="email" class="form-control" placeholder="{{::account.whoami.email}}" ng-required="true" ng-model="email.form.email">
-                        </div>
-                        <div class="form-group">
-                            <button class="btn btn-primary btn-block" type="submit" value="Submit">Submit</button>
-                        </div>
-                    </form>
+                <div class="form-group">
+                    <input type="password" id="oldpassword" class="form-control" placeholder="Old password" ng-required="true" ng-model="password.form.oldpassword">
                 </div>
-            </div>
+                <div class="form-group">
+                    <input type="password" id="newpassword" class="form-control" placeholder="New password" ng-required="true" ng-model="password.form.newpassword">
+                </div>
+                <div class="form-group">
+                    <button class="button button-primary button-block" type="submit" value="Submit">Submit</button>
+                </div>
+            </form>
+        </div>
+        <div class="account_subcontainer" ng-controller="EmailCtrl as email">
+            <form role="form" ng-submit="email.updateEmail()">
+                <div class="form-group">
+                    <span class="account_title">Update Email</span>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="email" class="form-control" placeholder="{{::account.whoami.email}}" ng-required="true" ng-model="email.form.email">
+                </div>
+                <div class="form-group">
+                    <button class="button button-primary button-block" type="submit" value="Submit">Submit</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+</div>
 <!-- Not authed -->
-<div ng-if="!authState.isAuthenticated" class="container login">
-    <div class="sixteen columns loginbox">
-        <div class="eight columns alpha" ng-controller="LoginCtrl as login">
-            <div class="loginform">
-                <form role="form" ng-submit="login.logIn()">
-                    <div class="form-group">
-                        <span class="logintitle">Login</span>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="name" class="form-control" placeholder="Name" ng-required="true" ng-model="login.form.name">
-                    </div>
-                    <div class="form-group">
-                        <input type="password" id="password" class="form-control" placeholder="Password" ng-required="true" ng-model="login.form.password">
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-primary btn-block" type="submit" value="Submit">Login</button>
-                    </div>
-                </form>
-            </div>
+<div ng-if="!authState.isAuthenticated" class="account">
+    <div class="account_container">
+        <div class="account_subcontainer" ng-controller="LoginCtrl as login">
+            <form role="form" ng-submit="login.logIn()">
+                <div class="form-group">
+                    <span class="account_title">Login</span>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="name" class="form-control" placeholder="Name" ng-required="true" ng-model="login.form.name">
+                </div>
+                <div class="form-group">
+                    <input type="password" id="password" class="form-control" placeholder="Password" ng-required="true" ng-model="login.form.password">
+                </div>
+                <div class="form-group">
+                    <button class="button button-primary button-block" type="submit" value="Submit">Login</button>
+                </div>
+            </form>
         </div>
-        <div class="eight columns omega" ng-controller="RegisterCtrl as register">
-            <div class="loginform">
-                <form role="form" ng-submit="register.newUser()">
-                    <div class="form-group">
-                        <span class="logintitle">Register</span>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="name" class="form-control" placeholder="Name" ng-required="true" ng-model="register.form.name">
-                    </div>
-                    <div class="form-group">
-                        <input type="password" id="password" class="form-control" placeholder="Password" ng-required="true" ng-model="register.form.password">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="email" class="form-control" placeholder="Email (optional)" ng-model="register.form.email">
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-success btn-block" type="submit" value="Submit">Register</button>
-                    </div>
-                </form>
-            </div>
+        <div class="account_subcontainer" ng-controller="RegisterCtrl as register">
+            <form role="form" ng-submit="register.newUser()">
+                <div class="form-group">
+                    <span class="account_title">Register</span>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="name" class="form-control" placeholder="Name" ng-required="true" ng-model="register.form.name">
+                </div>
+                <div class="form-group">
+                    <input type="password" id="password" class="form-control" placeholder="Password" ng-required="true" ng-model="register.form.password">
+                </div>
+                <div class="form-group">
+                    <input type="text" id="email" class="form-control" placeholder="Email (optional)" ng-model="register.form.email">
+                </div>
+                <div class="form-group">
+                    <button class="button button-success button-block" type="submit" value="Submit">Register</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

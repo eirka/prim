@@ -6,6 +6,31 @@ angular.module('prim').controller('TagCtrl', function($scope, $routeParams, $loc
     // get the thumb address
     self.thumb = Utils.getThumbSrc;
 
+    // selects a row color
+    self.rowClass = function(type) {
+        var rowclass = "";
+
+        switch (type) {
+            case 1:
+                rowclass = "tagpage-tag";
+                break;
+            case 2:
+                rowclass = "tagpage-artist";
+                break;
+            case 3:
+                rowclass = "tagpage-character";
+                break;
+            case 4:
+                rowclass = "tagpage-copyright";
+                break;
+            default:
+                rowclass = "";
+                break;
+        }
+
+        return rowclass
+    }
+
     // go to page 1 if something is fishy
     if (angular.isUndefined($routeParams.page)) {
         $routeParams.page = 1;

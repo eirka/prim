@@ -14,6 +14,14 @@ a:focus {
   color: #b7aabe; }
 
 body {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyAQMAAAAk8RryAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAZQTFRF8Ov0+Pf8stQ8zQAAABxJREFUGNNjYGBgqP///wDDUKf////fAOIMcRoAC2SoK0LPuyIAAAAASUVORK5CYII=); }
+
+/* containers */
+.header,
+.error_container,
+.account_container,
+.postbox,
+.footer {
   background: #2d3538; }
 
 /* image grid */
@@ -31,10 +39,6 @@ body {
 
 .header_navigation ul ul li:hover {
   background: #6c5a75; }
-
-/* content */
-.content {
-  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyAQMAAAAk8RryAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAZQTFRF8Ov0+Pf8stQ8zQAAABxJREFUGNNjYGBgqP///wDDUKf////fAOIMcRoAC2SoK0LPuyIAAAAASUVORK5CYII=); }
 
 /* threads */
 .thread_row:nth-of-type(even) {
@@ -54,15 +58,91 @@ body {
       background-position: bottom left; } }
 
 /* image page */
-.image {
-  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyAQMAAAAk8RryAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAZQTFRF8Ov0+Pf8stQ8zQAAABxJREFUGNNjYGBgqP///wDDUKf////fAOIMcRoAC2SoK0LPuyIAAAAASUVORK5CYII=); }
-
 .image_info,
 .image_box_nav {
   background-color: #2d3538; }
 
 .image_box_image {
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAKCAQAAABcH8X6AAAAHElEQVQ4y2M0OMlAc8DI8J8Oloz6ZNQnoz4hCABeaQnjKb8q7QAAAABJRU5ErkJggg=="); }
+
+/* directory and tag lists */
+.tags_list,
+.directory_list {
+  background-color: #2d3538; }
+  .tags_list table,
+  .directory_list table {
+    background-color: #cfc7d4; }
+  .tags_list table th,
+  .directory_list table th {
+    background-color: #6c5a75; }
+  .tags_list table th a,
+  .directory_list table th a {
+    color: #eee; }
+  .tags_list table tr:nth-of-type(even),
+  .directory_list table tr:nth-of-type(even) {
+    background-color: #cfc7d4; }
+  .tags_list table tr:nth-of-type(odd),
+  .directory_list table tr:nth-of-type(odd) {
+    background-color: #e8e4ea; }
+  .tags_list table tr:hover,
+  .directory_list table tr:hover {
+    background-color: #9e8da8; }
+
+.tags_list .row-artist, .tags_list .row-copyright, .tags_list .row-character {
+  color: #ddd; }
+.tags_list .row-artist a, .tags_list .row-copyright a, .tags_list .row-character a {
+  color: #ddd; }
+.tags_list .row-artist a:hover, .tags_list .row-copyright a:hover, .tags_list .row-character a:hover {
+  color: #555; }
+.tags_list .row-artist {
+  background-color: #d9534f !important; }
+  .tags_list .row-artist:hover {
+    background-color: #c9302c !important; }
+.tags_list .row-copyright {
+  background-color: #B132B1 !important; }
+  .tags_list .row-copyright:hover {
+    background-color: #892789 !important; }
+.tags_list .row-character {
+  background-color: #5cb85c !important; }
+  .tags_list .row-character:hover {
+    background-color: #449d44 !important; }
+
+/* tagpage */
+.tagpage_container {
+  background-color: #2d3538; }
+  .tagpage_container .no_tags {
+    background-color: #445054; }
+  .tagpage_container .tagpage-tag {
+    background-color: #867092; }
+  .tagpage_container .tagpage-artist {
+    background-color: #d9534f; }
+  .tagpage_container .tagpage-copyright {
+    background-color: #B132B1; }
+  .tagpage_container .tagpage-character {
+    background-color: #5cb85c; }
+
+/* tagpage */
+.favorites_container {
+  background-color: #2d3538; }
+  .favorites_container .no_favorites {
+    background-color: #445054; }
+  .favorites_container .favorites_title {
+    background-color: #ff5859; }
+  .favorites_container .image_grid {
+    background-color: #ffbebe; }
+
+/* trending */
+.new_title {
+  background-color: #00bc6f; }
+
+.popular_title {
+  background-color: #00a0df; }
+
+.new_container .image_grid {
+  background-color: #23ffa5; }
+
+.popular_container .image_grid {
+  background-color: #46cbff; }
 
 /* logo */
 .site_logo {
@@ -107,7 +187,7 @@ body {
   background-color: #867092; }
 
 .pagination > li > a.favorited {
-  color: red; }
+  color: #ff5859; }
 
 .pagination > li > a:hover,
 .pagination > li > span:hover,

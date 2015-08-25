@@ -542,6 +542,13 @@ button {
   .button-primary:hover, .button-primary:focus, .button-primary.focus {
     text-decoration: none; }
 
+.button-success {
+  color: #eee;
+  background-color: #7BBD75; }
+  .button-success:hover, .button-success:focus, .button-success.focus {
+    text-decoration: none;
+    background-color: #9cce98; }
+
 /* button groups */
 .button-group,
 .button-group-vertical {
@@ -1066,6 +1073,7 @@ textarea.form-control {
   margin-bottom: 5px; }
 
 .angular-hovercard-detail {
+  box-shadow: 0 2px 3px #ccc;
   position: absolute;
   border-radius: 3px;
   background: #eee;
@@ -1296,7 +1304,7 @@ textarea.form-control {
 
 /* image page css */
 .image {
-  padding: 2em 0; }
+  padding: 1em 0; }
 
 .image_container {
   width: 90%;
@@ -1440,13 +1448,16 @@ textarea.form-control {
   font-style: italic;
   text-align: left;
   font-weight: bold;
+  padding: 0.8em;
+  font-size: 1.5em;
   text-align: center;
-  padding-bottom: 0.5em;
-  line-height: 1.2em;
-  font-size: 1.5em; }
+  padding: 0.5em; }
   @media screen and (min-width: 50em) {
     .thread_title {
-      padding: 0;
+      text-align: left; } }
+  @media screen and (min-width: 50em) {
+    .thread_title {
+      padding: 0.2em;
       float: left;
       max-width: 50%; } }
 
@@ -1568,7 +1579,7 @@ textarea.form-control {
 
 /* error css */
 .error {
-  padding: 2em 0; }
+  padding: 1em 0; }
 
 .error_container {
   box-shadow: 0 2px 3px #ccc;
@@ -1608,7 +1619,7 @@ textarea.form-control {
 
 /* tag page css */
 .tagpage {
-  padding: 2em 0; }
+  padding: 1em 0; }
 
 .tagpage_container {
   box-shadow: 0 2px 3px #ccc;
@@ -1631,14 +1642,17 @@ textarea.form-control {
     text-align: center; }
 
 .tagpage_title {
-  padding: 1em; }
-  .tagpage_title span {
-    font-family: "omnes-pro", sans-serif;
-    font-style: italic;
-    text-align: left;
-    font-weight: bold;
-    color: #eee;
-    font-size: 1.3em; }
+  font-family: "omnes-pro", sans-serif;
+  font-style: italic;
+  text-align: left;
+  font-weight: bold;
+  padding: 0.8em;
+  font-size: 1.5em;
+  text-align: center;
+  color: #eee; }
+  @media screen and (min-width: 50em) {
+    .tagpage_title {
+      text-align: left; } }
 
 .tagpage_nav {
   text-align: center;
@@ -1690,30 +1704,26 @@ textarea.form-control {
     @media screen and (min-width: 80em) {
       .new_container .image_grid,
       .popular_container .image_grid {
-        column-count: 4; } }
+        column-count: 3; } }
 
 .new_title,
 .popular_title {
-  padding: 1em;
-  text-align: center; }
-  .new_title i, .new_title span,
-  .popular_title i,
-  .popular_title span {
-    color: #eee;
-    font-size: 1.4em; }
-  .new_title i,
-  .popular_title i {
-    margin-right: 0.3em; }
-  .new_title span,
-  .popular_title span {
-    font-family: "omnes-pro", sans-serif;
-    font-style: italic;
-    text-align: left;
-    font-weight: bold; }
+  font-family: "omnes-pro", sans-serif;
+  font-style: italic;
+  text-align: left;
+  font-weight: bold;
+  padding: 0.8em;
+  font-size: 1.5em;
+  text-align: center;
+  color: #eee; }
+  @media screen and (min-width: 50em) {
+    .new_title,
+    .popular_title {
+      text-align: left; } }
 
 /* account css */
 .account {
-  padding: 2em 0; }
+  padding: 1em 0; }
 
 .account_container {
   box-shadow: 0 2px 3px #ccc;
@@ -1737,22 +1747,68 @@ textarea.form-control {
   @media screen and (min-width: 80em) {
     .account_container {
       width: 78em; } }
+  .account_container .account_subcontainer {
+    margin-bottom: 1em;
+    text-align: center; }
+    @media screen and (min-width: 50em) {
+      .account_container .account_subcontainer {
+        text-align: left;
+        margin: 1em 0.5em;
+        float: left;
+        width: calc(50% - 1em); } }
   .account_container .account_title {
     font-family: "omnes-pro", sans-serif;
     font-style: italic;
     text-align: left;
     font-weight: bold;
+    padding: 0.8em;
+    font-size: 1.5em;
     text-align: center;
     color: #eee;
-    font-size: 1.2em; }
-  .account_container .account_subcontainer {
-    margin-bottom: 1em; }
+    padding: 0; }
+    @media screen and (min-width: 50em) {
+      .account_container .account_title {
+        text-align: left; } }
+  .account_container .account_name {
+    font-family: "omnes-pro", sans-serif;
+    font-style: italic;
+    text-align: left;
+    font-weight: bold;
+    padding: 0.8em;
+    font-size: 1.5em;
+    text-align: center;
+    color: #eee;
+    padding: 0;
+    padding-bottom: 0.5em; }
+    @media screen and (min-width: 50em) {
+      .account_container .account_name {
+        text-align: left; } }
+    @media screen and (min-width: 50em) {
+      .account_container .account_name {
+        padding: 0.2em;
+        float: left;
+        max-width: 50%; } }
   .account_container .logout {
     text-align: center; }
+    @media screen and (min-width: 50em) {
+      .account_container .logout {
+        float: right; } }
+
+/* user colors */
+.group_registered {
+  font-weight: bold; }
+
+.group_moderator {
+  font-weight: bold;
+  color: #CC3434; }
+
+.group_admin {
+  font-weight: bold;
+  color: #CC3434; }
 
 /* favorites css */
 .favorites {
-  padding: 2em 0; }
+  padding: 1em 0; }
 
 .favorites_container {
   box-shadow: 0 2px 3px #ccc;
@@ -1775,14 +1831,17 @@ textarea.form-control {
     text-align: center; }
 
 .favorites_title {
-  padding: 1em; }
-  .favorites_title span {
-    font-family: "omnes-pro", sans-serif;
-    font-style: italic;
-    text-align: left;
-    font-weight: bold;
-    color: #333;
-    font-size: 1.3em; }
+  font-family: "omnes-pro", sans-serif;
+  font-style: italic;
+  text-align: left;
+  font-weight: bold;
+  padding: 0.8em;
+  font-size: 1.5em;
+  text-align: center;
+  color: #eee; }
+  @media screen and (min-width: 50em) {
+    .favorites_title {
+      text-align: left; } }
 
 .favorites_nav {
   text-align: center;
@@ -1826,4 +1885,5 @@ body {
   font-family: "proxima-nova", sans-serif;
   font-size: 1em;
   color: #333;
-  min-width: 20em; }
+  min-width: 20em;
+  overflow-y: scroll; }

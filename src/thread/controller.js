@@ -9,6 +9,9 @@ angular.module('prim').controller('ThreadCtrl', function($window, $location, $sc
     // Variable for grid or list view as default
     self.layout = 'list';
 
+    // selects usergroup class
+    self.usergroupClass = Utils.usergroupClass;
+
     // get the thumb address
     self.thumb = Utils.getThumbSrc;
 
@@ -96,9 +99,6 @@ angular.module('prim').controller('ThreadFormCtrl', function($scope, AuthService
 
     // using controllerAs
     var self = this;
-
-    // get a copy of authstate
-    self.authState = angular.copy($scope.authState);
 
     // generate post form action
     self.getFormAction = Utils.getFormAction;

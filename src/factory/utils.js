@@ -38,6 +38,27 @@ angular.module('prim').factory('Utils', function($location, $sce, config) {
         // generates the thumb url for an image with the img server from the config
         getThumbSrc: function(filename) {
             return $sce.trustAsResourceUrl(config.img_srv + '/thumb/' + filename);
+        },
+        // select the css class depending on user group
+        usergroupClass: function(group) {
+            var rowclass = "";
+
+            switch (group) {
+                case 1:
+                    rowclass = "group_guest";
+                    break;
+                case 2:
+                    rowclass = "group_registered";
+                    break;
+                case 3:
+                    rowclass = "group_moderator";
+                    break;
+                case 4:
+                    rowclass = "group_admin";
+                    break;
+            }
+
+            return rowclass
         }
     };
 });

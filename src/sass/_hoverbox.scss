@@ -8,6 +8,8 @@
 }
 
 .angular-hovercard-detail {
+    @include shadow;
+
     position: absolute;
     border-radius: 3px;
     background: #eee;

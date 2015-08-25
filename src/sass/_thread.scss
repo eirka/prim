@@ -35,15 +35,12 @@
 }
 
 .thread_title {
-    @include headerFont;
+    @include boxTitle;
 
-    text-align: center;
-    padding-bottom: 0.5em;
-    line-height: 1.2em;
-    font-size: 1.5em;
+    padding: 0.5em;
 
     @media #{$screenSmall} {
-        padding: 0;
+        padding: 0.2em;
         float: left;
         max-width: 50%;
     }

@@ -1,13 +1,13 @@
-<div ng-if="error == undefined" style="padding:5px;text-align: center;">
+<div ng-if="!!quotebox.post" style="padding:5px;text-align: center;">
     <div ng-if="quotebox.post.thumbnail != null">
         <a ng-href="image/{{quotebox.post.img_id}}" href><img ng-src="{{thumb(quotebox.post.thumbnail)}}" height="{{quotebox.post.tn_height}}" width="{{quotebox.post.tn_width}}"></a>
     </div>
-    <span><strong ng-bind="quotebox.post.name"></strong></span>
+    <span ng-class="usergroupClass(quotebox.post.group)" ng-bind="quotebox.post.name"></span>
     <span ng-bind="quotebox.post.time"></span>
     <span ng-bind="'#' + quotebox.post.num"></span>
     <br />
     <span ng-bind-html="quotebox.post.comment | linky:'_blank'"></span>
 </div>
-<div ng-if="error != undefined" style="padding:5px;text-align: center;">
+<div ng-if="!!error" style="padding:5px;text-align: center;">
     <span ng-bind="error.error_message"></span>
 </div>

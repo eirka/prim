@@ -4,7 +4,7 @@
 /* tag page css */
 
 .tagpage {
-    padding: 2em 0;
+    padding: 1em 0;
 }
 
 .tagpage_container {
@@ -25,14 +25,9 @@
 }
 
 .tagpage_title {
-    padding: 1em;
+    @include boxTitle;
 
-    & span {
-        @include headerFont;
-
-        color: $fontLight;
-        font-size: 1.3em;
-    }
+    color: $fontLight;
 }
 
 .tagpage_nav {

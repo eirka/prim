@@ -8,6 +8,9 @@ angular.module('prim').controller('IndexCtrl', function($location, $routeParams,
     // Set imageboard id
     self.ib_id = config.ib_id;
 
+    // selects usergroup class
+    self.usergroupClass = Utils.usergroupClass;
+
     // get the thumb address
     self.thumb = Utils.getThumbSrc;
 
@@ -67,9 +70,6 @@ angular.module('prim').controller('IndexFormCtrl', function($scope, AuthService,
 
     // using controllerAs
     var self = this;
-
-    // get a copy of authstate
-    self.authState = angular.copy($scope.authState);
 
     // generate post form action
     self.getFormAction = Utils.getFormAction;

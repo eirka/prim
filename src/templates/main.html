@@ -4,9 +4,9 @@
             <form role="form" action="{{postform.getFormAction('/post/thread/new')}}" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="ib" ng-value="index.ib_id" />
                 <input type="hidden" name="askey" ng-value="index.as_key" />
-                <input ng-if="postform.authState.isAuthenticated" type="hidden" name="access_token" ng-value="postform.token" />
+                <input ng-if="authState.isAuthenticated" type="hidden" name="access_token" ng-value="postform.token" />
                 <div class="form-group">
-                    <input type="text" id="name" name="name" ng-model="postform.authState.name" class="form-control" ng-maxlength="20" placeholder="Anonymous">
+                    <span ng-bind="::authState.name" class="form-control" ng-class="index.usergroupClass(authState.group)"></span>
                 </div>
                 <div class="form-group">
                     <input type="text" id="title" ng-required="true" name="title" class="form-control" ng-maxlength="40" placeholder="Title">
@@ -42,7 +42,7 @@
                     <img ng-src="{{::index.thumb(thread.posts[0].thumbnail)}}" height="{{::thread.posts[0].tn_height}}" width="{{::thread.posts[0].tn_width}}"> </a>
             </div>
             <div class="thread_row_info">
-                <span class="post_info"><strong ng-bind="::thread.posts[0].name"></strong></span>
+                <span class="post_info" ng-class="index.usergroupClass(thread.posts[0].group)" ng-bind="::thread.posts[0].name"></span>
                 <span class="post_info" ng-bind="::thread.posts[0].time"></span>
                 <a class="label label-dark" ng-bind="'#'+{{::thread.posts[0].num}}" ng-click="index.replyQuote(thread.posts[0].num,thread.id,thread.last_page)" href></a>
             </div>
@@ -58,7 +58,7 @@
                 <a ng-href="image/{{::post.img_id}}" href><img ng-src="{{::index.thumb(post.thumbnail)}}" height="{{::post.tn_height}}" width="{{::post.tn_width}}"> </a>
             </div>
             <div class="thread_row_info">
-                <span class="post_info"><strong ng-bind="::post.name"></strong></span>
+                <span class="post_info" ng-class="index.usergroupClass(post.group)" ng-bind="::post.name"></span>
                 <span class="post_info" ng-bind="::post.time"></span>
                 <a class="label label-light" ng-bind="'#'+{{::post.num}}" ng-click="index.replyQuote(post.num,thread.id,thread.last_page)" href></a>
             </div>

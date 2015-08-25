@@ -75,6 +75,18 @@ button {
     }
 }
 
+.button-success {
+    color: $fontLight;
+    background-color: #7BBD75;
+
+    &:hover,
+    &:focus,
+    &.focus {
+        text-decoration: none;
+        background-color: lighten(#7BBD75, 10%);
+    }
+}
+
 /* button groups */
 
 .button-group,

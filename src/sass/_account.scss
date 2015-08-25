@@ -4,7 +4,7 @@
 /* account css */
 
 .account {
-    padding: 2em 0;
+    padding: 1em 0;
 }
 
 .account_container {
@@ -21,19 +21,62 @@
     padding: 1em;
     margin-bottom: 1em;
 
-    & .account_title {
-        @include headerFont;
-
-        text-align: center;
-        color: $fontLight;
-        font-size: 1.2em;
-    }
-
     & .account_subcontainer {
         margin-bottom: 1em;
+        text-align: center;
+
+        @media #{$screenSmall} {
+            text-align: left;
+            margin: 1em 0.5em;
+            float: left;
+            width: calc(50% - 1em);
+        }
+    }
+
+    & .account_title {
+        @include boxTitle;
+
+        color: $fontLight;
+        padding: 0;
+    }
+
+    & .account_name {
+        @include boxTitle;
+
+        color: $fontLight;
+        padding: 0;
+        padding-bottom: 0.5em;
+
+        @media #{$screenSmall} {
+            padding: 0.2em;
+            float: left;
+            max-width: 50%;
+        }
     }
 
     & .logout {
         text-align: center;
+
+        @media #{$screenSmall} {
+            float: right;
+        }
     }
+}
+
+/* user colors */
+
+.group_guest {}
+
+.group_registered {
+    font-weight: bold;
+}
+
+.group_moderator {
+    font-weight: bold;
+    color: #CC3434;
+}
+
+.group_admin {
+    font-weight: bold;
+    color: #CC3434;
 }

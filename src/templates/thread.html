@@ -4,9 +4,9 @@
             <form role="form" action="{{postform.getFormAction('/post/thread/reply')}}" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="askey" ng-value="thread.as_key" />
                 <input type="hidden" name="thread" ng-value="thread.data.id" />
-                <input ng-if="postform.authState.isAuthenticated" type="hidden" name="access_token" ng-value="postform.token" />
+                <input ng-if="authState.isAuthenticated" type="hidden" name="access_token" ng-value="postform.token" />
                 <div class="form-group">
-                    <input type="text" id="name" name="name" ng-model="postform.authState.name" class="form-control" ng-maxlength="20" placeholder="Anonymous">
+                    <span ng-bind="::authState.name" class="form-control" ng-class="thread.usergroupClass(authState.group)"></span>
                 </div>
                 <div class="form-group">
                     <textarea id="comment" name="comment" ng-model="thread.quote" class="form-control" rows="3" ng-maxlength="1000" placeholder="Comment"></textarea>
@@ -44,7 +44,7 @@
                 <a ng-href="image/{{::post.img_id}}" href><img ng-src="{{::thread.thumb(post.thumbnail)}}" height="{{::post.tn_height}}" width="{{::post.tn_width}}"> </a>
             </div>
             <div class="thread_row_info">
-                <span class="post_info"><strong ng-bind="::post.name"></strong></span>
+                <span class="post_info" ng-class="thread.usergroupClass(post.group)" ng-bind="::post.name"></span>
                 <span class="post_info" ng-bind="::post.time"></span>
                 <a class="label label-light" ng-bind="'#'+{{::post.num}}" ng-click="thread.replyQuote(post.num)" href></a>
             </div>

@@ -9,6 +9,18 @@
     font-weight: bold;
 }
 
+@mixin boxTitle {
+    @include headerFont;
+
+    padding: 0.8em;
+    font-size: 1.5em;
+    text-align: center;
+
+    @media #{$screenSmall} {
+        text-align: left;
+    }
+}
+
 @mixin mediaSmall {
     @media #{$screenSmall} {
         width: $boxWidthSmall;

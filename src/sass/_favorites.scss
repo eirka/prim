@@ -4,7 +4,7 @@
 /* favorites css */
 
 .favorites {
-    padding: 2em 0;
+    padding: 1em 0;
 }
 
 .favorites_container {
@@ -25,14 +25,9 @@
 }
 
 .favorites_title {
-    padding: 1em;
+    @include boxTitle;
 
-    & span {
-        @include headerFont;
-
-        color: $fontDark;
-        font-size: 1.3em;
-    }
+    color: $fontLight;
 }
 
 .favorites_nav {

@@ -1,4 +1,4 @@
-// quotebox takes the quotes from comment-handler and 
+// quotebox takes the quotes from comment-handler and makes a popup box with the post data
 angular.module('prim').directive('quoteBox', function(PostHandler, Utils) {
     return {
         restrict: 'A',
@@ -22,6 +22,9 @@ angular.module('prim').directive('quoteBox', function(PostHandler, Utils) {
             $scope.getText = function(id) {
                 return '>>' + id;
             };
+
+            // selects usergroup class
+            $scope.usergroupClass = Utils.usergroupClass;
 
             // get the thumb address
             $scope.thumb = Utils.getThumbSrc;

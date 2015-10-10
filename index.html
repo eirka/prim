@@ -7,27 +7,40 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="" />
-    <link rel="stylesheet" type="text/css" href="css/prim.css" />
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="/prim.css" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <script src="/prim.js"></script>
+    <script src="/settings.js"></script>
 </head>
 
 <body>
-    <div class="container">
-        <div class="sixteen columns navbar">
-            <div id="nav" class="ten columns alpha">
+    <top-box></top-box>
+    <toaster-container toaster-options="{'position-class':'toast-bottom-right','limit':5}"></toaster-container>
+    <div class="header">
+        <div class="header_top">
+            <div class="header_navigation">
                 <ul>
-                    <li><a href="directory">Threads</a></li>
-                    <li><a href="tags">Tags</a></li>
+                    <li class="n1"><a href="/" title="Navigation"><i class="fa fa-fw fa-bars"></i></a>
+                        <ul>
+                            <li><a href="/">Imageboards</a></li>
+                        </ul>
+                    </li>
+                    <li class="n2"><a href="trending" title="New and Popular"><i class="fa fa-fw fa-bolt"></i></a></li>
+                    <li class="n3"><a href="directory" title="Directory"><i class="fa fa-fw fa-list"></i></a></li>
+                    <li class="n4"><a href="tags" title="Tags"><i class="fa fa-fw fa-tags"></i></a></li>
+                    <li class="n5"><a href="account" title="Account"><i class="fa fa-fw fa-user"></i></a></li>
+                    <li class="n6" ng-if="authState.isAuthenticated" ng-cloak><a href="favorites/1" title="Favorites"><i class="fa fa-fw fa-heart"></i></a></li>
                 </ul>
             </div>
-            <div class="six columns omega logo">
-                <a href="/"><img class="scale-with-grid" src="logo.png" alt="logo"></a>
+            <div class="site_logo">
+                <a href="/">
+                    <img src="/logo.png" alt="Prim" />
+                </a>
             </div>
         </div>
     </div>
     <div ng-view></div>
-    <script src="prim.js"></script>
-    <script src="config.js"></script>
 </body>
 
 </html>

@@ -1798,13 +1798,10 @@ textarea.form-control {
 .group_registered {
   font-weight: bold; }
 
-.group_moderator {
-  font-weight: bold;
-  color: #CC3434; }
-
+.group_moderator,
 .group_admin {
   font-weight: bold;
-  color: #CC3434; }
+  color: #960F0F; }
 
 /* favorites css */
 .favorites {

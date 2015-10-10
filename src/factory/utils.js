@@ -29,15 +29,15 @@ angular.module('prim').factory('Utils', function($location, $sce, config) {
         },
         // generates the action for the post/reply form
         getFormAction: function(addr) {
-            return $sce.trustAsResourceUrl(config.api_srv + addr);
+            return config.api_srv + addr;
         },
         // generates the src url for an image with the img server from the config
         getImgSrc: function(filename) {
-            return $sce.trustAsResourceUrl(config.img_srv + '/src/' + filename);
+            return config.img_srv + '/src/' + filename;
         },
         // generates the thumb url for an image with the img server from the config
         getThumbSrc: function(filename) {
-            return $sce.trustAsResourceUrl(config.img_srv + '/thumb/' + filename);
+            return config.img_srv + '/thumb/' + filename;
         },
         // select the css class depending on user group
         usergroupClass: function(group) {

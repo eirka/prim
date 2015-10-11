@@ -1,4 +1,4 @@
-angular.module('prim').controller('ThreadCtrl', function($window, $location, $scope, $routeParams, $route, toaster, hotkeys, config, internal, ThreadHandler, PostDeleteHandler, Utils) {
+angular.module('prim').controller('ThreadCtrl', function($window, $location, $scope, $routeParams, hotkeys, config, internal, ThreadHandler, Utils) {
 
     // using controllerAs
     var self = this;
@@ -55,21 +55,6 @@ angular.module('prim').controller('ThreadCtrl', function($window, $location, $sc
         $window.scrollTo(0, 0);
     };
 
-    // delete a post
-    self.deletePost = function(thread_id, post_id) {
-        if (confirm("Are you sure you want to delete this post?")) {
-            PostDeleteHandler.remove({
-                thread: thread_id,
-                id: post_id
-            }, function(data) {
-                $route.reload();
-                toaster.pop('success', data.success_message);
-            }, function(error) {
-                toaster.pop('error', error.data.error_message);
-            });
-        };
-    };
-
     hotkeys.bindTo($scope)
         .add({
             combo: 'g',
@@ -120,27 +105,5 @@ angular.module('prim').controller('ThreadFormCtrl', function($scope, AuthService
 
     // get jwt token for form
     self.token = AuthService.getToken();
-
-});
-
-// mod functions for threads
-angular.module('prim').controller('ThreadModCtrl', function($scope, $location, toaster, ThreadDeleteHandler, Utils) {
-
-    // using controllerAs
-    var self = this;
-
-    // delete a thread
-    self.deleteThread = function(thread_id) {
-        if (confirm("Are you sure you want to delete this thread?")) {
-            ThreadDeleteHandler.remove({
-                id: thread_id
-            }, function(data) {
-                $location.path('/');
-                toaster.pop('success', data.success_message);
-            }, function(error) {
-                toaster.pop('error', error.data.error_message);
-            });
-        };
-    };
 
 });

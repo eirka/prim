@@ -1,5 +1,5 @@
-<div class="directory">
-    <div class="directory_container">
+<div class="taglist">
+    <div class="taglist_container">
         <div class="tags_list">
             <div class="tags_bar">
                 <form role="form" class="form-inline" ng-submit="tags.newTag()">
@@ -14,7 +14,10 @@
                     </div>
                 </form>
             </div>
-            <table>
+            <div ng-if="tags.notags" class="no_tags">
+                <span>No tags <i class="fa fa-frown-o"></i></span>
+            </div>
+            <table ng-if="!tags.notags">
                 <thead>
                     <tr>
                         <th width="6%"><a href="" ng-click="tags.changeSorting('type')">Type</a></th>
@@ -31,7 +34,7 @@
                             <i ng-switch-when="4" title="Copyright" class="fa fa-copyright"></i>
                         </td>
                         <td>
-                            <a ng-href="tag/{{::tag.id}}/1" rel="nofollow" href ng-bind="::tag.tag"></a>
+                            <a ng-href="tag/{{::tag.id}}/1" rel="nofollow" href ng-bind="::tag.tag"></a> <i ng-if="authState.isAuthenticated && authState.group >= 3" class="fa fa-times" title="Delete Tag" ng-click="tags.deleteTag(tag.id)"></i>
                         </td>
                         <td align="center" ng-bind="::tag.total"></td>
                     </tr>

@@ -1,4 +1,4 @@
-angular.module('prim').controller('TagsCtrl', function(toaster, config, internal, TagsHandler, TagTypesHandler, TagsNewTag, Utils) {
+angular.module('prim').controller('TagsCtrl', function(toaster, config, internal, TagsHandler, TagTypesHandler, TagDeleteHandler, TagsNewTag, Utils) {
 
     // using controllerAs
     var self = this;
@@ -27,10 +27,15 @@ angular.module('prim').controller('TagsCtrl', function(toaster, config, internal
 
     // this is a function so we can reload it if someone makes a new tag
     self.updateTags = function() {
+        self.notags = false;
         TagsHandler.get(function(data) {
             self.data = data;
         }, function(error) {
-            Utils.apiError(error.status);
+            if (angular.equals(error.status, 404)) {
+                self.notags = true;
+            } else {
+                Utils.apiError(error.status);
+            }
         });
         self.error = null;
     };
@@ -44,6 +49,20 @@ angular.module('prim').controller('TagsCtrl', function(toaster, config, internal
     }, function(error) {
         Utils.apiError(error.status);
     });
+
+    // Function for adding a tag, updates tag list on success
+    self.deleteTag = function(tag_id) {
+        if (confirm("Are you sure you want to delete this tag?")) {
+            TagDeleteHandler.remove({
+                id: tag_id
+            }, function(data) {
+                self.updateTags();
+                toaster.pop('success', data.success_message);
+            }, function(error) {
+                toaster.pop('error', error.data.error_message);
+            });
+        };
+    };
 
     // Function for adding a tag, updates tag list on success
     self.newTag = function() {

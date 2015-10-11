@@ -2,10 +2,6 @@
 angular.module('prim').service('TagsHandler', function($resource, config) {
     return $resource(config.api_srv + '/get/tags/:ib', {
         ib: config.ib_id
-    }, {
-        get: {
-            method: 'GET'
-        }
     });
 });
 
@@ -13,7 +9,6 @@ angular.module('prim').service('TagsHandler', function($resource, config) {
 angular.module('prim').service('TagTypesHandler', function($resource, config) {
     return $resource(config.api_srv + '/get/tagtypes', {}, {
         get: {
-            method: 'GET',
             cache: true
         }
     });
@@ -21,20 +16,19 @@ angular.module('prim').service('TagTypesHandler', function($resource, config) {
 
 // add a new tag to ib
 angular.module('prim').service('TagsNewTag', function($resource, config) {
-    return $resource(config.api_srv + '/post/tag/new', {}, {
-        save: {
-            method: 'POST'
-        }
-    });
+    return $resource(config.api_srv + '/post/tag/new', {}, {});
 });
 
 // searches tags with a query
 angular.module('prim').service('TagSearchHandler', function($resource, config) {
     return $resource(config.api_srv + '/get/tags/:ib', {
         ib: config.ib_id
-    }, {
-        get: {
-            method: 'GET'
-        }
+    });
+});
+
+// searches tags with a query
+angular.module('prim').service('TagDeleteHandler', function($resource, config) {
+    return $resource(config.api_srv + '/post/mod/tag/:id', {
+        id: '@id'
     });
 });

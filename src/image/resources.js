@@ -38,3 +38,11 @@ angular.module('prim').service('ImageGetFavorite', function($resource, config) {
         }
     });
 });
+
+// deletes an image tag
+angular.module('prim').service('ImageTagDeleteHandler', function($resource, config) {
+    return $resource(config.api_srv + '/post/mod/imagetag/:image/:tag', {
+        image: '@image',
+        tag: '@tag'
+    });
+});

@@ -1,4 +1,4 @@
-angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $location, $filter, toaster, user_messages, hotkeys, ImageHandler, ImageAddTag, TagSearchHandler, ImageAddFavorite, ImageGetFavorite, Utils, config, internal) {
+angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $location, $filter, toaster, user_messages, hotkeys, ImageHandler, ImageAddTag, TagSearchHandler, ImageAddFavorite, ImageGetFavorite, ImageTagDeleteHandler, Utils, config, internal) {
 
     // using controllerAs
     var self = this;
@@ -88,6 +88,21 @@ angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $l
             toaster.pop('error', user_messages.noTag);
         }
 
+    };
+
+    // Function for deleting a tag, updates tag list on success
+    self.deleteTag = function(image_id, tag_id) {
+        if (confirm("Are you sure you want to delete this tag?")) {
+            ImageTagDeleteHandler.remove({
+                image: image_id,
+                tag: tag_id
+            }, function(data) {
+                self.updateTags();
+                toaster.pop('success', data.success_message);
+            }, function(error) {
+                toaster.pop('error', error.data.error_message);
+            });
+        };
     };
 
     // Add an image to a users favorite list

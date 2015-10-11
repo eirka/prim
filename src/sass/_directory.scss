@@ -1,12 +1,14 @@
 @import "variables";
 @import "mixins";
 
-/* directory css */
+/* directory and tag list css */
 
+.taglist,
 .directory {
     padding: 1em 0;
 }
 
+.taglist_container,
 .directory_container {
     @include clearfix;
 
@@ -14,6 +16,14 @@
 
     width: $boxWidthRel;
     margin: 0 auto;
+}
+
+.taglist_container{
+        & .no_tags {
+        color: $fontLight;
+        padding: 1em;
+        text-align: center;
+    }
 }
 
 .tags_list,

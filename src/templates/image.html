@@ -57,15 +57,11 @@
             <div ng-if="!image.tags" class="no_tags">
                 No tags <i class="fa fa-frown-o"></i>
             </div>
-            <div ng-if="image.tags" class="tags">
-                <span ng-repeat="tag in image.tags track by tag.id">
-                <span ng-switch="tag.type">
-            <a class="tag tag-default" ng-switch-when="1" ng-bind="::tag.tag" rel="nofollow" ng-href="tag/{{::tag.id}}/1" href></a>
-            <a class="tag tag-artist" ng-switch-when="2" ng-bind="::tag.tag" rel="nofollow" ng-href="tag/{{::tag.id}}/1" href></a>
-            <a class="tag tag-character" ng-switch-when="3" ng-bind="::tag.tag" rel="nofollow" ng-href="tag/{{::tag.id}}/1" href></a>
-            <a class="tag tag-copyright" ng-switch-when="4" ng-bind="::tag.tag" rel="nofollow" ng-href="tag/{{::tag.id}}/1" href></a>
-                </span>
-                </span>
+            <div ng-if="image.tags">
+                <div class="tags" ng-repeat="tag in image.tags track by tag.id">
+                    <i ng-if="authState.isAuthenticated && authState.group >= 3" class="delete_button fa fa-times" title="Delete Tag" ng-click="image.deleteTag(image.data.image.id, tag.id)"></i>
+                    <a class="tag" ng-class="{'tag-default': tag.type == 1, 'tag-artist': tag.type == 2, 'tag-character': tag.type == 3, 'tag-copyright': tag.type == 4}" ng-bind="::tag.tag" rel="nofollow" ng-href="tag/{{::tag.id}}/1" href> </a>
+                </div>
             </div>
         </div>
     </div>

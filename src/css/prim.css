@@ -1333,6 +1333,12 @@ textarea.form-control {
   .image_info .no_tags {
     color: #eee;
     padding: 0.5em; }
+  .image_info .tags {
+    position: relative; }
+  .image_info .delete_button {
+    position: absolute;
+    right: 5px;
+    top: 2px; }
   @media screen and (min-width: 50em) {
     .image_info {
       padding: 0;
@@ -1532,27 +1538,40 @@ textarea.form-control {
 .post_quote {
   margin-right: 1px; }
 
-/* directory css */
+/* directory and tag list css */
+.taglist,
 .directory {
   padding: 1em 0; }
 
+.taglist_container,
 .directory_container {
   width: 90%;
   margin: 0 auto; }
-  .directory_container:before, .directory_container:after {
+  .taglist_container:before, .taglist_container:after,
+  .directory_container:before,
+  .directory_container:after {
     content: " ";
     display: table; }
+  .taglist_container:after,
   .directory_container:after {
     clear: both; }
   @media screen and (min-width: 50em) {
+    .taglist_container,
     .directory_container {
       width: 48em; } }
   @media screen and (min-width: 65em) {
+    .taglist_container,
     .directory_container {
       width: 63em; } }
   @media screen and (min-width: 80em) {
+    .taglist_container,
     .directory_container {
       width: 78em; } }
+
+.taglist_container .no_tags {
+  color: #eee;
+  padding: 1em;
+  text-align: center; }
 
 .tags_list,
 .directory_list {

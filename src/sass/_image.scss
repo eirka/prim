@@ -29,6 +29,16 @@
         padding: 0.5em;
     }
 
+    & .tags {
+        position: relative;
+    }
+
+    & .delete_button {
+        position: absolute;
+        right: 5px;
+        top: 2px;
+    }
+
     @media #{$screenSmall} {
         padding: 0;
         float: left;

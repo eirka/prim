@@ -26,6 +26,11 @@
     @include clearfix;
 
     padding: 1em;
+
+    & .thread_mod_buttons {
+        display: inline-block;
+        padding-right: 0.5em;
+    }
 }
 
 .thread_index_header {

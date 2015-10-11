@@ -1,7 +1,10 @@
 <div class="directory">
     <div class="directory_container">
         <div class="directory_list">
-            <table>
+            <div ng-if="directory.nothreads" class="no_threads">
+                <span>No threads <i class="fa fa-frown-o"></i></span>
+            </div>
+            <table ng-if="!directory.nothreads">
                 <thead>
                     <tr>
                         <th align="left"><a href="" ng-click="directory.changeSorting('title')">Title</a></th>

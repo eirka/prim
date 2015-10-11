@@ -45,6 +45,10 @@ button {
     }
 }
 
+.button-small {
+    padding: 0 6px;
+}
+
 .button-block {
     display: block;
     width: 100%;
@@ -84,6 +88,18 @@ button {
     &.focus {
         text-decoration: none;
         background-color: lighten(#7BBD75, 10%);
+    }
+}
+
+.button-danger {
+    color: $fontLight;
+    background-color: #d9534f;
+
+    &:hover,
+    &:focus,
+    &.focus {
+        text-decoration: none;
+        background-color: lighten(#d9534f, 10%);
     }
 }
 

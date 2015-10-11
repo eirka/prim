@@ -18,8 +18,16 @@
     margin: 0 auto;
 }
 
-.taglist_container{
-        & .no_tags {
+.directory_container {
+    & .no_threads {
+        color: $fontLight;
+        padding: 1em;
+        text-align: center;
+    }
+}
+
+.taglist_container {
+    & .no_tags {
         color: $fontLight;
         padding: 1em;
         text-align: center;

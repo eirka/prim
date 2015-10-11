@@ -525,6 +525,9 @@ button {
     opacity: 0.65;
     box-shadow: none; }
 
+.button-small {
+  padding: 0 6px; }
+
 .button-block {
   display: block;
   width: 100%; }
@@ -548,6 +551,13 @@ button {
   .button-success:hover, .button-success:focus, .button-success.focus {
     text-decoration: none;
     background-color: #9cce98; }
+
+.button-danger {
+  color: #eee;
+  background-color: #d9534f; }
+  .button-danger:hover, .button-danger:focus, .button-danger.focus {
+    text-decoration: none;
+    background-color: #e27c79; }
 
 /* button groups */
 .button-group,
@@ -1440,6 +1450,9 @@ textarea.form-control {
     display: table; }
   .thread_header:after {
     clear: both; }
+  .thread_header .thread_mod_buttons {
+    display: inline-block;
+    padding-right: 0.5em; }
 
 .thread_index_header {
   padding: 1em 1em 0 1em; }
@@ -1567,6 +1580,11 @@ textarea.form-control {
     .taglist_container,
     .directory_container {
       width: 78em; } }
+
+.directory_container .no_threads {
+  color: #eee;
+  padding: 1em;
+  text-align: center; }
 
 .taglist_container .no_tags {
   color: #eee;

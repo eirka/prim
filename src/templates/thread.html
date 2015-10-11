@@ -33,6 +33,9 @@
                 <i ng-if="thread.data.sticky" title="Sticky" class="fa fa-thumb-tack"></i>
             </div>
             <div class="thread_buttons">
+                <div ng-if="authState.isAuthenticated && authState.group >= 3" class="thread_mod_buttons" ng-controller="ThreadModCtrl as modbuttons">
+                    <a ng-if="authState.isAuthenticated && authState.group == 4" class="button button-danger" ng-click="modbuttons.deleteThread(thread.data.id)" href>Delete</a>
+                </div>
                 <div class="button-group">
                     <a class="button button-default fa fa-align-justify" ng-class="{active: thread.layout == 'list'}" ng-click="thread.layout = 'list'"></a>
                     <a class="button button-default fa fa-th" ng-class="{active: thread.layout == 'grid'}" ng-click="thread.layout = 'grid'"></a>
@@ -47,6 +50,7 @@
                 <span class="post_info" ng-class="thread.usergroupClass(post.group)" ng-bind="::post.name"></span>
                 <span class="post_info" ng-bind="::post.time"></span>
                 <a class="label label-light" ng-bind="'#'+{{::post.num}}" ng-click="thread.replyQuote(post.num)" href></a>
+                <a ng-if="authState.isAuthenticated && authState.group == 4" class="button button-danger button-small" ng-click="thread.deletePost(thread.data.id, post.num)" href>Delete</a>
             </div>
             <div comment-handler post="post" thread="thread.data.id"></div>
         </div>

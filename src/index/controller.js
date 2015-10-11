@@ -1,4 +1,4 @@
-angular.module('prim').controller('IndexCtrl', function($location, $routeParams, $scope, hotkeys, config, internal, IndexHandler, Utils) {
+angular.module('prim').controller('IndexCtrl', function($location, $routeParams, $scope, $route, hotkeys, config, internal, IndexHandler, Utils) {
 
     // using controllerAs
     var self = this;

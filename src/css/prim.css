@@ -1344,7 +1344,11 @@ textarea.form-control {
     color: #eee;
     padding: 0.5em; }
   .image_info .tags {
+    display: inline;
     position: relative; }
+    @media screen and (min-width: 50em) {
+      .image_info .tags {
+        display: block; } }
   .image_info .delete_button {
     position: absolute;
     right: 5px;

@@ -30,7 +30,12 @@
     }
 
     & .tags {
+        display: inline;
         position: relative;
+
+        @media #{$screenSmall} {
+            display: block;
+        }
     }
 
     & .delete_button {

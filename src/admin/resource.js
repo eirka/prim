@@ -22,3 +22,16 @@ angular.module('prim').service('StickyThreadHandler', function($resource, config
         id: '@id'
     });
 });
+
+angular.module('prim').service('TagDeleteHandler', function($resource, config) {
+    return $resource(config.api_srv + '/post/mod/tag/:id', {
+        id: '@id'
+    });
+});
+
+angular.module('prim').service('ImageTagDeleteHandler', function($resource, config) {
+    return $resource(config.api_srv + '/post/mod/imagetag/:image/:tag', {
+        image: '@image',
+        tag: '@tag'
+    });
+});

@@ -34,6 +34,12 @@ angular.module('prim').config(function($routeProvider, $locationProvider, $compi
             controller: 'TagsCtrl',
             controllerAs: 'tags'
         })
+        .when('/tags/:page', {
+            title: 'Tags',
+            templateUrl: 'pages/tags.html',
+            controller: 'TagsCtrl',
+            controllerAs: 'tags'
+        })
         .when('/tag/:id/:page', {
             templateUrl: 'pages/tag.html',
             controller: 'TagCtrl',

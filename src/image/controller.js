@@ -42,8 +42,7 @@ angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $l
         return TagSearchHandler.get({
             search: term
         }).$promise.then(function(data) {
-
-            return self.tagList = $filter('limitTo')(data.tags, 6);
+            return self.tagList = $filter('limitTo')(data.tagsearch, 6);
         });
     };
 

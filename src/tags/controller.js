@@ -1,7 +1,12 @@
-angular.module('prim').controller('TagsCtrl', function(toaster, config, internal, TagsHandler, TagTypesHandler, TagDeleteHandler, TagsNewTag, Utils) {
+angular.module('prim').controller('TagsCtrl', function($routeParams, toaster, config, internal, TagsHandler, TagTypesHandler, TagDeleteHandler, TagsNewTag, Utils) {
 
     // using controllerAs
     var self = this;
+
+    // go to page 1 if something is fishy
+    if (angular.isUndefined($routeParams.page)) {
+        $routeParams.page = 1;
+    }
 
     // selects a row color
     self.rowClass = function(type) {
@@ -28,8 +33,18 @@ angular.module('prim').controller('TagsCtrl', function(toaster, config, internal
     // this is a function so we can reload it if someone makes a new tag
     self.updateTags = function() {
         self.notags = false;
-        TagsHandler.get(function(data) {
-            self.data = data;
+        TagsHandler.get({
+            page: $routeParams.page
+        }, function(data) {
+            self.data = data.tags.items;
+            // Pagination items from json
+            self.pagination = {
+                totalItems: data.tags.total,
+                currentPage: data.tags.current_page,
+                numPages: data.tags.pages,
+                itemsPerPage: data.tags.per_page,
+                maxSize: 3
+            };
         }, function(error) {
             if (angular.equals(error.status, 404)) {
                 self.notags = true;

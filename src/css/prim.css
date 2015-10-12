@@ -1619,7 +1619,7 @@ textarea.form-control {
   padding: 0 0 1.5em 0; }
 
 .tags_list {
-  padding: 0 0 1.5em 0; }
+  padding: 0; }
 
 .tags_bar {
   text-align: center;

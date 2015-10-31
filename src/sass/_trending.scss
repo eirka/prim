@@ -3,15 +3,21 @@
 
 /* trending css */
 
-.trending {}
-
-.trending_container {
+.trending {
     @include clearfix;
 
     @include mediaWidths;
 
     width: $boxWidthRel;
     margin: 0 auto;
+}
+
+.trending_col {
+    @media #{$screenSmall} {
+        margin: 0 0.5em;
+        float: left;
+        width: calc(50% - 1em);
+    }
 }
 
 .new_container,
@@ -22,12 +28,6 @@
     border-radius: 6px;
     overflow: hidden;
     margin: 1em 0;
-
-    @media #{$screenSmall} {
-        margin: 1em 0.5em;
-        float: left;
-        width: calc(50% - 1em);
-    }
 
     & .image_grid {
         background: transparent;

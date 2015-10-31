@@ -1707,23 +1707,29 @@ textarea.form-control {
   padding: 0.5em; }
 
 /* trending css */
-.trending_container {
+.trending {
   width: 90%;
   margin: 0 auto; }
-  .trending_container:before, .trending_container:after {
+  .trending:before, .trending:after {
     content: " ";
     display: table; }
-  .trending_container:after {
+  .trending:after {
     clear: both; }
   @media screen and (min-width: 50em) {
-    .trending_container {
+    .trending {
       width: 48em; } }
   @media screen and (min-width: 65em) {
-    .trending_container {
+    .trending {
       width: 63em; } }
   @media screen and (min-width: 80em) {
-    .trending_container {
+    .trending {
       width: 78em; } }
+
+@media screen and (min-width: 50em) {
+  .trending_col {
+    margin: 0 0.5em;
+    float: left;
+    width: calc(50% - 1em); } }
 
 .new_container,
 .popular_container,
@@ -1732,13 +1738,6 @@ textarea.form-control {
   border-radius: 6px;
   overflow: hidden;
   margin: 1em 0; }
-  @media screen and (min-width: 50em) {
-    .new_container,
-    .popular_container,
-    .favorited_container {
-      margin: 1em 0.5em;
-      float: left;
-      width: calc(50% - 1em); } }
   .new_container .image_grid,
   .popular_container .image_grid,
   .favorited_container .image_grid {

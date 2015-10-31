@@ -3,7 +3,11 @@
 
 /* header css */
 
-.footer {}
+.footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
 
 .footer_box {
     @include clearfix;

@@ -12,10 +12,10 @@
 
     position: absolute;
     border-radius: 3px;
-    background: #eee;
     min-width: 20%;
     max-width: 80%;
     z-index: 99;
+    overflow: hidden;
 
     @media #{$screenSmall} {
         min-width: 20%;
@@ -30,4 +30,10 @@
 .angular-hovercard-label {
     padding: 1px;
     position: relative;
+}
+
+.quotebox {
+    background: #eee;
+    text-align: center;
+    padding: 0.5em 0;
 }

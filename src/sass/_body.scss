@@ -1,11 +1,26 @@
 /* global css */
 
+html {
+    height: 100%;
+    box-sizing: border-box;
+}
+
 *,
 *:before,
 *:after {
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
+    box-sizing: inherit;
+}
+
+body {
+    position: relative;
+    margin: 0;
+    min-height: 100%;
+    font-family: "proxima-nova", sans-serif;
+    font-size: 1em;
+    color: $fontDark;
+    min-width: 20em;
+    overflow-y: scroll;
+    padding-bottom: 4em;
 }
 
 video {
@@ -18,13 +33,4 @@ video {
 input[name="file"] {
     font-size: small;
     display: block;
-}
-
-body {
-    margin: 0;
-    font-family: "proxima-nova", sans-serif;
-    font-size: 1em;
-    color: $fontDark;
-    min-width: 20em;
-    overflow-y: scroll;
 }

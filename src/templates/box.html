@@ -1,12 +1,17 @@
-<div ng-if="!!quotebox.post" style="padding:5px;text-align: center;">
+<div ng-if="!!quotebox.post" class="quotebox">
     <div ng-if="quotebox.post.thumbnail != null">
         <a ng-href="image/{{quotebox.post.img_id}}" href><img ng-src="{{thumb(quotebox.post.thumbnail)}}" height="{{quotebox.post.tn_height}}" width="{{quotebox.post.tn_width}}"></a>
     </div>
-    <span ng-class="usergroupClass(quotebox.post.group)" ng-bind="quotebox.post.name"></span>
-    <span ng-bind="quotebox.post.time"></span>
-    <span ng-bind="'#' + quotebox.post.num"></span>
-    <br />
-    <span ng-bind-html="quotebox.post.comment | linky:'_blank'"></span>
+    <div class="content">
+        <div class="info">
+            <span class="post_info" ng-class="usergroupClass(quotebox.post.group)" ng-bind="quotebox.post.name"></span>
+            <span class="post_info" ng-bind="quotebox.post.time"></span>
+            <span class="label label-light" ng-bind="'#'+{{::quotebox.post.num}}" href></span>
+        </div>
+        <div class="comment">
+            <span ng-bind-html="quotebox.post.comment | linky:'_blank'"></span>
+        </div>
+    </div>
 </div>
 <div ng-if="!!error" style="padding:5px;text-align: center;">
     <span ng-bind="error.error_message"></span>

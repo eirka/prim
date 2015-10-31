@@ -1086,10 +1086,10 @@ textarea.form-control {
   box-shadow: 0 2px 3px #ccc;
   position: absolute;
   border-radius: 3px;
-  background: #eee;
   min-width: 20%;
   max-width: 80%;
-  z-index: 99; }
+  z-index: 99;
+  overflow: hidden; }
   @media screen and (min-width: 50em) {
     .angular-hovercard-detail {
       min-width: 20%;
@@ -1101,6 +1101,11 @@ textarea.form-control {
 .angular-hovercard-label {
   padding: 1px;
   position: relative; }
+
+.quotebox {
+  background: #eee;
+  text-align: center;
+  padding: 0.5em 0; }
 
 /* header css */
 .header_top {
@@ -1209,6 +1214,11 @@ textarea.form-control {
   background: #a9ceac; }
 
 /* header css */
+.footer {
+  position: absolute;
+  width: 100%;
+  bottom: 0; }
+
 .footer_box {
   width: 90%;
   margin: 0 auto;
@@ -1915,12 +1925,25 @@ textarea.form-control {
     visibility: visible; }
 
 /* global css */
+html {
+  height: 100%;
+  box-sizing: border-box; }
+
 *,
 *:before,
 *:after {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box; }
+  box-sizing: inherit; }
+
+body {
+  position: relative;
+  margin: 0;
+  min-height: 100%;
+  font-family: "proxima-nova", sans-serif;
+  font-size: 1em;
+  color: #333;
+  min-width: 20em;
+  overflow-y: scroll;
+  padding-bottom: 4em; }
 
 video {
   display: inline-block;
@@ -1931,11 +1954,3 @@ video {
 input[name="file"] {
   font-size: small;
   display: block; }
-
-body {
-  margin: 0;
-  font-family: "proxima-nova", sans-serif;
-  font-size: 1em;
-  color: #333;
-  min-width: 20em;
-  overflow-y: scroll; }

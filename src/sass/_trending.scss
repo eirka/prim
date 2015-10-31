@@ -15,7 +15,8 @@
 }
 
 .new_container,
-.popular_container {
+.popular_container,
+.favorited_container {
     @include shadow;
 
     border-radius: 6px;
@@ -47,7 +48,8 @@
 }
 
 .new_title,
-.popular_title {
+.popular_title,
+.favorited_title {
     @include boxTitle;
 
     color: $fontLight;

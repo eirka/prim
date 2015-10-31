@@ -31,3 +31,20 @@ angular.module('prim').controller('NewCtrl', function(NewHandler, Utils) {
     });
 
 });
+
+angular.module('prim').controller('FavoritedCtrl', function(FavoritedHandler, Utils) {
+
+    // using controllerAs
+    var self = this;
+
+    // get the thumb address
+    self.thumb = Utils.getThumbSrc;
+
+    // Get tag page json
+    FavoritedHandler.get(function(data) {
+        self.data = data.favorited;
+    }, function(error) {
+        Utils.apiError(error.status);
+    });
+
+});

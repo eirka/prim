@@ -17,3 +17,13 @@ angular.module('prim').service('NewHandler', function($resource, config) {
         }
     });
 });
+
+angular.module('prim').service('FavoritedHandler', function($resource, config) {
+    return $resource(config.api_srv + '/get/favorited/:ib', {
+        ib: config.ib_id
+    }, {
+        get: {
+            method: 'GET'
+        }
+    });
+});

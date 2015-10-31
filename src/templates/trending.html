@@ -24,5 +24,17 @@
                 </div>
             </div>
         </div>
+        <div class="favorited_container" ng-controller="FavoritedCtrl as favorited">
+            <div>
+                <div class="favorited_title">
+                    <i class="fa fa-heart"></i><span>Favorites</span>
+                </div>
+                <div ng-if="favorited.data" class="image_grid">
+                    <a ng-repeat="image in favorited.data track by image.id" ng-href="image/{{::image.id}}" href>
+                        <img ng-src="{{::favorited.thumb(image.thumbnail)}}" height="{{::image.tn_height}}" width="{{::image.tn_width}}">
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

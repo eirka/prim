@@ -1726,36 +1726,43 @@ textarea.form-control {
       width: 78em; } }
 
 .new_container,
-.popular_container {
+.popular_container,
+.favorited_container {
   box-shadow: 0 2px 3px #ccc;
   border-radius: 6px;
   overflow: hidden;
   margin: 1em 0; }
   @media screen and (min-width: 50em) {
     .new_container,
-    .popular_container {
+    .popular_container,
+    .favorited_container {
       margin: 1em 0.5em;
       float: left;
       width: calc(50% - 1em); } }
   .new_container .image_grid,
-  .popular_container .image_grid {
+  .popular_container .image_grid,
+  .favorited_container .image_grid {
     background: transparent;
     column-count: 3; }
     @media screen and (min-width: 50em) {
       .new_container .image_grid,
-      .popular_container .image_grid {
+      .popular_container .image_grid,
+      .favorited_container .image_grid {
         column-count: 2; } }
     @media screen and (min-width: 65em) {
       .new_container .image_grid,
-      .popular_container .image_grid {
+      .popular_container .image_grid,
+      .favorited_container .image_grid {
         column-count: 3; } }
     @media screen and (min-width: 80em) {
       .new_container .image_grid,
-      .popular_container .image_grid {
+      .popular_container .image_grid,
+      .favorited_container .image_grid {
         column-count: 3; } }
 
 .new_title,
-.popular_title {
+.popular_title,
+.favorited_title {
   font-family: "omnes-pro", sans-serif;
   font-style: italic;
   text-align: left;
@@ -1766,7 +1773,8 @@ textarea.form-control {
   color: #eee; }
   @media screen and (min-width: 50em) {
     .new_title,
-    .popular_title {
+    .popular_title,
+    .favorited_title {
       text-align: left; } }
 
 /* account css */

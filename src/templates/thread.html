@@ -33,12 +33,12 @@
                 <i ng-if="thread.data.sticky" title="Sticky" class="fa fa-thumb-tack"></i>
             </div>
             <div class="thread_buttons">
-                <div ng-if="authState.isAuthenticated && authState.group >= 3" class="thread_mod_buttons" ng-controller="ThreadModCtrl as modbuttons">
-                    <a ng-if="authState.isAuthenticated && authState.group == 4" title="Delete" class="button button-danger fa fa-trash-o" ng-click="modbuttons.deleteThread(thread.data.id)" href></a>
-                    <a ng-if="!thread.data.sticky" title="Sticky" class="button button-default fa fa-thumb-tack" ng-click="modbuttons.stickyThread(thread.data.id)" href></a>
-                    <a ng-if="thread.data.sticky" title="Unsticky" class="button button-success fa fa-thumb-tack" ng-click="modbuttons.stickyThread(thread.data.id)" href></a>
-                    <a ng-if="!thread.data.closed" title="Close" class="button button-default fa fa-unlock-alt" ng-click="modbuttons.closeThread(thread.data.id)" href></a>
-                    <a ng-if="thread.data.closed" title="Open" class="button button-success fa fa-lock" ng-click="modbuttons.closeThread(thread.data.id)" href></a>
+                <div ng-if="authState.isAuthenticated && authState.group >= 3" class="thread_mod_buttons" ng-controller="ThreadModCtrl as threadmod">
+                    <a ng-if="authState.isAuthenticated && authState.group == 4" title="Delete" class="button button-danger fa fa-trash-o" ng-click="threadmod.deleteThread(thread.data.id)" href></a>
+                    <a ng-if="!thread.data.sticky" title="Sticky" class="button button-default fa fa-thumb-tack" ng-click="threadmod.stickyThread(thread.data.id)" href></a>
+                    <a ng-if="thread.data.sticky" title="Unsticky" class="button button-success fa fa-thumb-tack" ng-click="threadmod.stickyThread(thread.data.id)" href></a>
+                    <a ng-if="!thread.data.closed" title="Close" class="button button-default fa fa-unlock-alt" ng-click="threadmod.closeThread(thread.data.id)" href></a>
+                    <a ng-if="thread.data.closed" title="Open" class="button button-success fa fa-lock" ng-click="threadmod.closeThread(thread.data.id)" href></a>
                 </div>
                 <div class="button-group">
                     <a class="button button-default fa fa-align-justify" ng-class="{active: thread.layout == 'list'}" ng-click="thread.layout = 'list'"></a>
@@ -54,9 +54,8 @@
                 <span class="post_info" ng-class="thread.usergroupClass(post.group)" ng-bind="::post.name"></span>
                 <span class="post_info" ng-bind="::post.time"></span>
                 <a class="label label-light" ng-bind="'#'+{{::post.num}}" ng-click="thread.replyQuote(post.num)" href></a>
-                <div class="post_mod_buttons" ng-controller="ThreadModCtrl as modbuttons">
-                    <a ng-if="authState.isAuthenticated && authState.group == 4" title="Ban" class="button button-danger button-small fa fa-ban" ng-click="modbuttons.banUser(thread.data.id, post.num)" href></a>
-                    <a ng-if="authState.isAuthenticated && authState.group == 4" title="Delete" class="button button-danger button-small fa fa-trash-o" ng-click="modbuttons.deletePost(thread.data.id, post.num)" href></a>
+                <div class="post_mod_buttons" ng-controller="PostModCtrl as postmod">
+                    <a ng-if="authState.isAuthenticated && authState.group == 4" title="Delete" class="button button-danger button-small fa fa-trash-o" ng-click="postmod.deletePost(thread.data.id, post.num)" href></a>
                 </div>
             </div>
             <div comment-handler post="post" thread="thread.data.id"></div>

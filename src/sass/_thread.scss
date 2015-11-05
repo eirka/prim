@@ -5,7 +5,7 @@
 
 .threads {
     padding-top: 4em;
-    padding-bottom: 0.5em;
+    padding-bottom: 5em;
 }
 
 .thread {
@@ -53,9 +53,23 @@
 
 .thread_buttons {
     text-align: center;
+    display: flex;
+    justify-content: center;
 
     @media #{$screenSmall} {
         float: right;
+    }
+}
+
+.thread_info {
+    display: inline-block;
+    border-radius: 4px;
+    padding: 0.4em 0.6em;
+    margin-right: 0.3em;
+
+    & .col {
+        display: inline-block;
+        padding: 0 0.1em;
     }
 }
 

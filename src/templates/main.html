@@ -28,12 +28,23 @@
     <div ng-repeat="thread in index.data track by thread.id" id="thread-{{::thread.id}}" class="thread">
         <div class="thread_index_header">
             <div class="thread_title">
-                <span ng-bind="::thread.title"></span>
+                <a ng-href="thread/{{::thread.id}}/1" ng-bind="::thread.title" href></a>
                 <i ng-if="thread.closed" title="Closed" class="fa fa-lock"></i>
                 <i ng-if="thread.sticky" title="Sticky" class="fa fa-thumb-tack"></i>
             </div>
             <div class="thread_buttons">
-                <a class="button button-default" ng-href="thread/{{::thread.id}}/{{::thread.last_page}}" href>Reply</a>
+                <div class="thread_info">
+                    <div class="col">
+                        <i class="fa fa-fw fa-comment-o" title="Posts"></i><span ng-bind="thread.total"></span>
+                    </div>
+                    <div class="col">
+                        <i class="fa fa-fw fa-picture-o" title="Images"></i><span ng-bind="thread.images"></span>
+                    </div>
+                    <div class="col">
+                        <i class="fa fa-fw fa-file-o" title="Pages"></i><span ng-bind="thread.pages"></span>
+                    </div>
+                </div>
+                <a class="button button-thread fa fa-forward" title="Last Page" ng-href="thread/{{::thread.id}}/{{::thread.pages}}" href></a>
             </div>
         </div>
         <div class="thread_row_header">
@@ -47,11 +58,6 @@
                 <a class="label label-dark" ng-bind="'#'+{{::thread.posts[0].num}}" ng-click="index.replyQuote(thread.posts[0].num,thread.id,thread.last_page)" href></a>
             </div>
             <div comment-handler post="::thread.posts[0]" thread="thread.id"></div>
-        </div>
-        <div class="thread_row_header">
-            <div class="thread_row_omit" ng-if="!!thread.omit_posts">
-                {{ ::thread.omit_posts }} posts omitted. Click <a ng-href="thread/{{::thread.id}}/{{::thread.last_page}}" href>Reply</a> to view.
-            </div>
         </div>
         <div ng-repeat="post in thread.posts track by post.id" ng-if="!$first" class="thread_row">
             <div class="thread_row_image" ng-if="!!post.thumbnail">

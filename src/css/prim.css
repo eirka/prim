@@ -508,9 +508,7 @@ button {
   cursor: pointer;
   background-image: none;
   white-space: nowrap;
-  padding: 6px 12px;
-  font-size: 0.9em;
-  line-height: 1.42857143;
+  padding: 0.4em 0.8em;
   border-radius: 4px;
   text-decoration: none; }
   .button:hover, .button:focus, .button.focus {
@@ -1442,7 +1440,7 @@ textarea.form-control {
 /* thread css */
 .threads {
   padding-top: 4em;
-  padding-bottom: 0.5em; }
+  padding-bottom: 5em; }
 
 .thread {
   box-shadow: 0 2px 3px #ccc;
@@ -1500,10 +1498,21 @@ textarea.form-control {
       max-width: 50%; } }
 
 .thread_buttons {
-  text-align: center; }
+  text-align: center;
+  display: flex;
+  justify-content: center; }
   @media screen and (min-width: 50em) {
     .thread_buttons {
       float: right; } }
+
+.thread_info {
+  display: inline-block;
+  border-radius: 4px;
+  padding: 0.4em 0.6em;
+  margin-right: 0.3em; }
+  .thread_info .col {
+    display: inline-block;
+    padding: 0 0.1em; }
 
 /* thread rows */
 .thread_row:before, .thread_row:after {
@@ -1947,8 +1956,7 @@ body {
   font-size: 1em;
   color: #333;
   min-width: 20em;
-  overflow-y: scroll;
-  padding-bottom: 4em; }
+  overflow-y: scroll; }
 
 video {
   display: inline-block;

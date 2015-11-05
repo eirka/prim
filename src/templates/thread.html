@@ -41,8 +41,8 @@
                     <a ng-if="thread.data.closed" title="Open" class="button button-success fa fa-lock" ng-click="threadmod.closeThread(thread.data.id)" href></a>
                 </div>
                 <div class="button-group">
-                    <a class="button button-default fa fa-align-justify" ng-class="{active: thread.layout == 'list'}" ng-click="thread.layout = 'list'"></a>
-                    <a class="button button-default fa fa-th" ng-class="{active: thread.layout == 'grid'}" ng-click="thread.layout = 'grid'"></a>
+                    <a class="button button-default fa fa-align-justify" title="Post view" ng-class="{active: thread.layout == 'list'}" ng-click="thread.layout = 'list'"></a>
+                    <a class="button button-default fa fa-th" title="Image view" ng-class="{active: thread.layout == 'grid'}" ng-click="thread.layout = 'grid'"></a>
                 </div>
             </div>
         </div>

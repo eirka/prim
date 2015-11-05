@@ -15,6 +15,9 @@ angular.module('prim').controller('ThreadCtrl', function($window, $location, $sc
     // get the thumb address
     self.thumb = Utils.getThumbSrc;
 
+    // get the avatar address
+    self.avatar = Utils.getAvatar;
+
     // get quote if there is one
     self.quote = Utils.getQuote();
 

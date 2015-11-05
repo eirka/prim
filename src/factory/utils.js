@@ -39,6 +39,10 @@ angular.module('prim').factory('Utils', function($location, $sce, config) {
         getThumbSrc: function(filename) {
             return config.img_srv + '/thumb/' + filename;
         },
+        // generates the avatar src
+        getAvatar: function(id) {
+            return config.img_srv + '/avatars/' + id + '.png';
+        },
         // select the css class depending on user group
         usergroupClass: function(group) {
             var rowclass = "";

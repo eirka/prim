@@ -29,6 +29,9 @@ angular.module('prim').directive('quoteBox', function(PostHandler, Utils) {
             // get the thumb address
             $scope.thumb = Utils.getThumbSrc;
 
+            // get the avatar address
+            $scope.avatar = Utils.getAvatar;
+
             // Get single post on hover
             $scope.getPost = function(id) {
                 PostHandler.get({

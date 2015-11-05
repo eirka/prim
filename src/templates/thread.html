@@ -51,6 +51,7 @@
                 <a ng-href="image/{{::post.img_id}}" href><img ng-src="{{::thread.thumb(post.thumbnail)}}" height="{{::post.tn_height}}" width="{{::post.tn_width}}"> </a>
             </div>
             <div class="thread_row_info" ng-class="{ 'thread_row_noimage': !post.thumbnail }">
+                <img ng-if="post.group != 1" class="post_info" ng-src="{{::thread.avatar(post.avatar)}}" height="18px" width="auto">
                 <span class="post_info" ng-class="thread.usergroupClass(post.group)" ng-bind="::post.name"></span>
                 <span class="post_info" ng-bind="::post.time"></span>
                 <a class="label label-light" ng-bind="'#'+{{::post.num}}" ng-click="thread.replyQuote(post.num)" href></a>

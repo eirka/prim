@@ -14,6 +14,9 @@ angular.module('prim').controller('IndexCtrl', function($location, $routeParams,
     // get the thumb address
     self.thumb = Utils.getThumbSrc;
 
+    // get the avatar address
+    self.avatar = Utils.getAvatar;
+
     // go to page 1 if something is fishy
     if (angular.isUndefined($routeParams.page)) {
         $routeParams.page = 1;

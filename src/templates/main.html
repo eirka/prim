@@ -56,7 +56,7 @@
                 <img ng-if="thread.posts[0].group != 1" class="post_info" ng-src="{{::index.avatar(thread.posts[0].avatar)}}" height="18px" width="auto">
                 <span class="post_info" ng-class="index.usergroupClass(thread.posts[0].group)" ng-bind="::thread.posts[0].name"></span>
                 <span class="post_info" ng-bind="::thread.posts[0].time"></span>
-                <a class="label label-dark" ng-bind="'#'+{{::thread.posts[0].num}}" ng-click="index.replyQuote(thread.posts[0].num,thread.id,thread.last_page)" href></a>
+                <a class="label label-dark" ng-bind="'#'+{{::thread.posts[0].num}}" ng-click="index.replyQuote(thread.posts[0].num,thread.id,thread.pages)" href></a>
             </div>
             <div comment-handler post="::thread.posts[0]" thread="thread.id"></div>
         </div>
@@ -68,7 +68,7 @@
                 <img ng-if="post.group != 1" class="post_info" ng-src="{{::index.avatar(post.avatar)}}" height="18px" width="auto">
                 <span class="post_info" ng-class="index.usergroupClass(post.group)" ng-bind="::post.name"></span>
                 <span class="post_info" ng-bind="::post.time"></span>
-                <a class="label label-light" ng-bind="'#'+{{::post.num}}" ng-click="index.replyQuote(post.num,thread.id,thread.last_page)" href></a>
+                <a class="label label-light" ng-bind="'#'+{{::post.num}}" ng-click="index.replyQuote(post.num,thread.id,thread.pages)" href></a>
             </div>
             <div comment-handler post="post" thread="thread.id"></div>
         </div>

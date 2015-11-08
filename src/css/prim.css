@@ -1527,17 +1527,24 @@ textarea.form-control {
 .thread_row_header:after {
   clear: both; }
 
-.thread_row_image {
+.thread_row_image,
+.index_row_image {
   text-align: center;
   padding: 1em 1em 0em 1em; }
   @media screen and (min-width: 50em) {
-    .thread_row_image {
+    .thread_row_image,
+    .index_row_image {
       padding: 1em;
       float: left;
       width: 25%; } }
 
 .thread_row_image img {
   max-width: 100%;
+  height: auto;
+  border: 1px solid #444; }
+
+.index_row_image img {
+  max-width: 150px;
   height: auto;
   border: 1px solid #444; }
 

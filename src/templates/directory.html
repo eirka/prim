@@ -8,8 +8,8 @@
                 <thead>
                     <tr>
                         <th style="text-align:left;"><a href="" ng-click="directory.changeSorting('title')">Title</a></th>
-                        <th style="text-align:right;"><a href="" ng-click="directory.changeSorting('postcount')"><i class="fa fa-fw fa-comment-o" title="Posts"></i></a></th>
-                        <th style="text-align:right;"><a href="" ng-click="directory.changeSorting('images')"><i class="fa fa-fw fa-picture-o" title="Images"></i></a></th>
+                        <th style="text-align:center;"><a href="" ng-click="directory.changeSorting('postcount')"><i class="fa fa-fw fa-comment-o" title="Posts"></i></a></th>
+                        <th style="text-align:center;"><a href="" ng-click="directory.changeSorting('images')"><i class="fa fa-fw fa-picture-o" title="Images"></i></a></th>
                         <th style="text-align:center;"><a href="" ng-click="directory.changeSorting('last_post')">Last Post</a></th>
                     </tr>
                 </thead>
@@ -19,11 +19,11 @@
                             <i ng-if="thread.closed" title="Closed" class="fa fa-lock"></i>
                             <i ng-if="thread.sticky" title="Sticky" class="fa fa-thumb-tack"></i>
                             <a ng-href="thread/{{::thread.id}}/1" rel="nofollow" href ng-bind="::thread.title"></a>
-                            <a ng-if="thread.pages > 1" ng-href="thread/{{::thread.id}}/{{::thread.pages}}" title="Last page" class="fa fa-forward" href></a>
+                            <a ng-if="thread.pages > 1" ng-href="thread/{{::thread.id}}/{{::thread.pages}}" title="Last page" class="fa fa-forward" style="float:right;" href></a>
                         </td>
-                        <td style="width:3em;text-align:right;" align="center" ng-bind="::thread.postcount"></td>
-                        <td style="width:3em;text-align:right;" align="center" ng-bind="::thread.images"></td>
-                        <td style="width:25%;max-width:15em;text-align:center;" align="center" ng-bind="::thread.last_post"></td>
+                        <td style="width:3em;text-align:center;" align="center" ng-bind="::thread.postcount"></td>
+                        <td style="width:3em;text-align:center;" align="center" ng-bind="::thread.images"></td>
+                        <td style="width:20%;text-align:center;" align="center" ng-bind="::thread.last_post"></td>
                     </tr>
                 </tbody>
             </table>

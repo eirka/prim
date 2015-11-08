@@ -48,9 +48,10 @@
             </div>
         </div>
         <div class="thread_row_header">
-            <div class="thread_row_image" ng-if="thread.posts[0].thumbnail != null">
+            <div class="index_row_image" ng-if="thread.posts[0].thumbnail != null">
                 <a ng-href="image/{{::thread.posts[0].img_id}}" href>
-                    <img ng-src="{{::index.thumb(thread.posts[0].thumbnail)}}" height="{{::thread.posts[0].tn_height}}" width="{{::thread.posts[0].tn_width}}"> </a>
+                    <img ng-src="{{::index.thumb(thread.posts[0].thumbnail)}}" height="{{::thread.posts[0].tn_height}}" width="{{::thread.posts[0].tn_width}}">
+                </a>
             </div>
             <div class="thread_row_info">
                 <img ng-if="thread.posts[0].group != 1" class="post_info" ng-src="{{::index.avatar(thread.posts[0].avatar)}}" height="18px" width="auto">
@@ -60,9 +61,16 @@
             </div>
             <div comment-handler post="::thread.posts[0]" thread="thread.id"></div>
         </div>
+        <div class="thread_row_header">
+            <div class="thread_row_omit" ng-if="thread.total - thread.posts.length > 1">
+                {{ thread.total - thread.posts.length | number:0 }} posts omitted
+            </div>
+        </div>
         <div ng-repeat="post in thread.posts track by post.id" ng-if="!$first" class="thread_row">
-            <div class="thread_row_image" ng-if="!!post.thumbnail">
-                <a ng-href="image/{{::post.img_id}}" href><img ng-src="{{::index.thumb(post.thumbnail)}}" height="{{::post.tn_height}}" width="{{::post.tn_width}}"> </a>
+            <div class="index_row_image" ng-if="!!post.thumbnail">
+                <a ng-href="image/{{::post.img_id}}" href>
+                    <img ng-src="{{::index.thumb(post.thumbnail)}}" height="{{::post.tn_height}}" width="{{::post.tn_width}}">
+                </a>
             </div>
             <div class="thread_row_info">
                 <img ng-if="post.group != 1" class="post_info" ng-src="{{::index.avatar(post.avatar)}}" height="18px" width="auto">

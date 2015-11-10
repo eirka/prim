@@ -1,6 +1,6 @@
 <div ng-if="!!quotebox.post" class="quotebox">
     <div ng-if="quotebox.post.thumbnail != null">
-        <a ng-href="image/{{quotebox.post.img_id}}" href><img ng-src="{{thumb(quotebox.post.thumbnail)}}" height="{{quotebox.post.tn_height}}" width="{{quotebox.post.tn_width}}"></a>
+        <a ng-href="image/{{quotebox.post.img_id}}" href><img class="quotebox_image" ng-src="{{thumb(quotebox.post.thumbnail)}}" height="{{quotebox.post.tn_height}}" width="{{quotebox.post.tn_width}}"></a>
     </div>
     <div class="content">
         <div class="info">
@@ -10,7 +10,7 @@
             <span class="label label-light" ng-bind="'#'+{{::quotebox.post.num}}" href></span>
         </div>
         <div class="comment">
-            <span ng-bind-html="quotebox.post.comment | linky:'_blank'"></span>
+            <span ng-bind-html="quotebox.post.comment | embed"></span>
         </div>
     </div>
 </div>

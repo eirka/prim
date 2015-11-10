@@ -10,7 +10,9 @@
 
 .thread {
     @include mediaWidths;
+
     @include shadow;
+
     border-radius: 6px;
     overflow: hidden;
     width: $boxWidthRel;
@@ -18,12 +20,13 @@
     margin-bottom: 2em;
 }
 
-
 /* thread header */
 
 .thread_header {
     @include clearfix;
+
     padding: 1em;
+
     & .thread_mod_buttons {
         display: inline-block;
         padding-right: 0.5em;
@@ -32,12 +35,15 @@
 
 .thread_index_header {
     @include clearfix;
-    padding: 1em 1em 0 1em;
+
+    padding: 1em;
 }
 
 .thread_title {
     @include boxTitle;
+
     padding: 0.5em;
+
     @media #{$screenSmall} {
         padding: 0.2em;
         float: left;
@@ -49,6 +55,7 @@
     text-align: center;
     display: flex;
     justify-content: center;
+
     @media #{$screenSmall} {
         float: right;
     }
@@ -59,18 +66,21 @@
     border-radius: 4px;
     padding: 0.4em 0.6em;
     margin-right: 0.3em;
+
     & .col {
         display: inline-block;
         padding: 0 0.1em;
     }
 }
 
-
 /* thread rows */
 
-.thread_row {
+.thread_row,
+.index_row {
     @include clearfix;
 }
+
+.index_row {}
 
 .thread_row_header {
     @include clearfix;
@@ -80,6 +90,7 @@
 .index_row_image {
     text-align: center;
     padding: 1em 1em 0em 1em;
+
     @media #{$screenSmall} {
         padding: 1em;
         float: left;
@@ -94,7 +105,7 @@
 }
 
 .index_row_image img {
-    max-width: 150px;
+    max-width: 120px;
     height: auto;
     border: 1px solid #444;
 }
@@ -106,14 +117,17 @@
 .thread_row_info {
     padding: 1em 1em 0em 1em;
     text-align: center;
+
     @media #{$screenSmall} {
         text-align: left;
         float: left;
         width: 75%;
     }
+
     & .post_mod_buttons {
         display: inline-block;
         padding-left: 0.5em;
+
         @media #{$screenSmall} {
             float: right;
             padding: 0;
@@ -124,11 +138,13 @@
 .thread_row_post {
     padding: 0 1em 1em 1em;
     text-align: left;
+
     @media #{$screenSmall} {
         padding: 0.5em 1em;
         float: left;
         width: 75%;
     }
+
     & p {
         word-wrap: break-word;
         hyphens: auto;

@@ -44,29 +44,15 @@
                         <i class="fa fa-fw fa-file-o" title="Pages"></i><span ng-bind="thread.pages"></span>
                     </div>
                 </div>
-                <a class="button button-thread fa fa-forward" title="Last Page" ng-href="thread/{{::thread.id}}/{{::thread.pages}}" href></a>
+                <a class="button button-thread" ng-href="thread/{{::thread.id}}/{{::thread.pages}}" href>Reply</a>
             </div>
         </div>
         <div class="thread_row_header">
-            <div class="index_row_image" ng-if="thread.posts[0].thumbnail != null">
-                <a ng-href="image/{{::thread.posts[0].img_id}}" href>
-                    <img ng-src="{{::index.thumb(thread.posts[0].thumbnail)}}" height="{{::thread.posts[0].tn_height}}" width="{{::thread.posts[0].tn_width}}">
-                </a>
-            </div>
-            <div class="thread_row_info">
-                <img ng-if="thread.posts[0].group != 1" class="post_info" ng-src="{{::index.avatar(thread.posts[0].avatar)}}" height="18px" width="auto">
-                <span class="post_info" ng-class="index.usergroupClass(thread.posts[0].group)" ng-bind="::thread.posts[0].name"></span>
-                <span class="post_info" ng-bind="::thread.posts[0].time"></span>
-                <a class="label label-dark" ng-bind="'#'+{{::thread.posts[0].num}}" ng-click="index.replyQuote(thread.posts[0].num,thread.id,thread.pages)" href></a>
-            </div>
-            <div comment-handler post="::thread.posts[0]" thread="thread.id"></div>
-        </div>
-        <div class="thread_row_header">
-            <div class="thread_row_omit" ng-if="thread.total - thread.posts.length > 1">
-                {{ thread.total - thread.posts.length | number:0 }} posts omitted
+            <div class="thread_row_omit" ng-if="thread.total - thread.posts.length >= 1">
+                <a ng-href="thread/{{::thread.id}}/{{::thread.pages}}" href>{{ thread.total - thread.posts.length | number:0 }} posts omitted...</a>
             </div>
         </div>
-        <div ng-repeat="post in thread.posts track by post.id" ng-if="!$first" class="thread_row">
+        <div ng-repeat="post in thread.posts track by post.id" class="index_row">
             <div class="index_row_image" ng-if="!!post.thumbnail">
                 <a ng-href="image/{{::post.img_id}}" href>
                     <img ng-src="{{::index.thumb(post.thumbnail)}}" height="{{::post.tn_height}}" width="{{::post.tn_width}}">

@@ -1,5 +1,5 @@
 // quotebox takes the quotes from comment-handler and makes a popup box with the post data
-angular.module('prim').directive('quoteBox', function(PostHandler, Utils) {
+angular.module('prim').directive('quoteBox', function($filter, PostHandler, Utils, emoticons) {
     return {
         restrict: 'A',
         transclude: true,
@@ -39,6 +39,15 @@ angular.module('prim').directive('quoteBox', function(PostHandler, Utils) {
                     id: id
                 }, function(data) {
                     $scope.quotebox = data;
+
+                    var comment = $scope.quotebox.post.comment;
+
+                    // add emoticons
+                    comment = emoticons.injectTags(comment);
+
+                    // add embed filter
+                    $scope.comment = $filter('embed')(comment);
+
                 }, function(error) {
                     $scope.error = error.data;
                 });

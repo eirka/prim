@@ -10,7 +10,7 @@
             <span class="label label-light" ng-bind="'#'+{{::quotebox.post.num}}" href></span>
         </div>
         <div class="comment">
-            <quotebox-comment-handler post="quotebox.post" thread="quotebox.post.thread_id" />
+            <span ng-if="comment" ng-bind-html="::comment"></span>
         </div>
     </div>
 </div>

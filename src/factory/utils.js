@@ -1,10 +1,10 @@
-angular.module('prim').factory('Utils', function($location, $sce, config) {
+angular.module('prim').factory('Utils', function($location, config) {
 
     // holds the quote text
-    var commentQuote = "";
+    var commentQuote;
 
     // holds the error code
-    var errorCode = "";
+    var errorCode;
 
     return {
         // sets the quote
@@ -45,7 +45,7 @@ angular.module('prim').factory('Utils', function($location, $sce, config) {
         },
         // select the css class depending on user group
         usergroupClass: function(group) {
-            var rowclass = "";
+            var rowclass;
 
             switch (group) {
                 case 1:

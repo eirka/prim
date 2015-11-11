@@ -1545,6 +1545,10 @@ textarea.form-control {
 .index_row:after {
   clear: both; }
 
+.index_row .auto-resizable-iframe {
+  max-width: 300px;
+  height: auto; }
+
 .thread_row_header:before, .thread_row_header:after {
   content: " ";
   display: table; }

@@ -80,7 +80,12 @@
     @include clearfix;
 }
 
-.index_row {}
+.index_row {
+    & .auto-resizable-iframe {
+        max-width: 300px;
+        height: auto;
+    }
+}
 
 .thread_row_header {
     @include clearfix;

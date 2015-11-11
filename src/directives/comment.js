@@ -1,9 +1,8 @@
 // comment-handler uses a regex to parse out quotes from a post starting with >> and adds them to an array
 // it then sends the generated quotes to the quotebox directive which will create a popup with the posts
-// this is based on the linky filter from ngSanitize
-angular.module('prim').directive('commentHandler', function($sanitize) {
+angular.module('prim').directive('commentHandler', function($sce, emoticons, urls) {
     return {
-        restrict: 'A',
+        restrict: 'E',
         scope: {
             post: '=',
             thread: '='
@@ -31,10 +30,18 @@ angular.module('prim').directive('commentHandler', function($sanitize) {
 
             // trim the comment, remove the quotes, and remove multiple newlines
             var comment = raw.replace(re, '').replace(/(\n){3,}/g, '\n\n').trim();
-            // apply linky
-            $scope.post.comment = $filter('embed')(comment);
+
+            // add emoticons
+            var comment = emoticons.injectTags(comment);
+            // add links
+            var comment = urls.createLinks(comment);
+
+            // set scope
+            $scope.post.comment = $sce.trustAsHtml(comment);
             // this is all the collected quote ids
             $scope.post.quote_id = quotes;
         }
+
     };
+
 });

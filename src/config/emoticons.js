@@ -44,6 +44,36 @@ angular.module('prim').config(function configureEmoticons(emoticonsProvider, con
     }, {
         text: "smugmrgw",
         image: "smugmrgw.png"
+    }, {
+        text: "coolsnake",
+        image: "coolsnake.gif"
+    }, {
+        text: "duck",
+        image: "duck.png"
+    }, {
+        text: "flower",
+        image: "flower.gif"
+    }, {
+        text: "goofy",
+        image: "goofy.gif"
+    }, {
+        text: "hand",
+        image: "hand.gif"
+    }, {
+        text: "hehe",
+        image: "hehe.gif"
+    }, {
+        text: "hmm",
+        image: "hmm.gif"
+    }, {
+        text: "milk",
+        image: "milk.gif"
+    }, {
+        text: "psyduck",
+        image: "psyduck.gif"
+    }, {
+        text: "squid",
+        image: "squid.gif"
     }]);
 
     // set the image server for the emoticon image src

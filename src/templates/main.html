@@ -50,7 +50,7 @@
         <div class="thread_row_header">
             <div class="thread_row_omit" ng-if="thread.total - thread.posts.length >= 1">
                 <a ng-href="thread/{{::thread.id}}/{{::thread.pages}}" href>
-                    <ng-pluralize count="thread.total" when="{'1': '1 post omitted...', 'other': '{{ thread.total - thread.posts.length | number:0 }} posts omitted...'}"></ng-pluralize>
+                    <ng-pluralize count="{{ thread.total - thread.posts.length | number:0 }}" when="{'1': '1 post omitted...', 'other': '{} posts omitted...'}"></ng-pluralize>
                 </a>
             </div>
         </div>

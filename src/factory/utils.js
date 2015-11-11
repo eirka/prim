@@ -1,7 +1,7 @@
 angular.module('prim').factory('Utils', function($location, config) {
 
     // holds the quote text
-    var commentQuote;
+    var commentQuote = "";
 
     // holds the error code
     var errorCode;

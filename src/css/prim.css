@@ -1104,15 +1104,14 @@ textarea.form-control {
   background: #eee;
   text-align: center;
   padding: 0.5em; }
+  .quotebox .external_image, .quotebox .quotebox_image {
+    max-width: 120px;
+    height: auto; }
 
 .quotebox_error {
   background: #d9534f;
   text-align: center;
   padding: 0.5em; }
-
-.quotebox_image {
-  max-width: 120px;
-  height: auto; }
 
 /* header css */
 .header_top {
@@ -1416,6 +1415,13 @@ textarea.form-control {
   height: auto;
   display: block;
   margin: 0 auto; }
+
+/* external image embed */
+.external_image {
+  max-width: 200px;
+  height: auto;
+  border: 1px solid #444;
+  margin: 0.2em; }
 
 /* video embed div */
 .auto-resizable-iframe {

@@ -108,6 +108,15 @@
     }
 }
 
+/* external image embed */
+
+.external_image {
+    max-width: 200px;
+    height: auto;
+    border: 1px solid #444;
+    margin: 0.2em;
+}
+
 /* video embed div */
 
 .auto-resizable-iframe {

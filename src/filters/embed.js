@@ -9,7 +9,7 @@ angular.module('prim').filter('embed', function($sce) {
         }
 
         // global url regex
-        var urlRegex = /\b(?:(https?|ftp|file):\/\/|www\.)[-A-Z0-9+()&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|]/ig;
+        var urlRegex = /(https?:\/\/|(www\.)|[A-Za-z0-9._%+-]+@)\S*[^\s.;,(){}<>"\u201d\u2019]/ig;
 
         // detects protocol to see if its missing
         var protocolRegex = /^[a-z]+\:\/\//i;
@@ -17,9 +17,26 @@ angular.module('prim').filter('embed', function($sce) {
         // youtube regex
         var youtubeRegex = /(https?)?:\/\/(www\.)?(?:youtube\.com\/\S*(?:(?:\/e(?:mbed))?\/|watch\?(?:\S*?&?v\=))|youtu\.be\/)([a-zA-Z0-9_-]{6,11})/i;
 
+        // image regex
+        var imageRegex = /(https?:\/\/|(www\.)|[A-Za-z0-9._%+-]+@)\S*[^\s.;,(){}<>"\u201d\u2019](?:\/[^\/#?]+)+\.(?:jpe?g|gif|png)/i;
+
         strReplaced = input.replace(urlRegex, function(text) {
 
             var url = text;
+
+            // add a protocol to the link if there isnt one
+            if (!protocolRegex.test(text)) {
+                url = 'http://' + text;
+            }
+
+            // embed image
+            if (imageRegex.test(url)) {
+
+                var match = imageRegex.exec(url);
+
+                return '<a href="' + url + '" target="_blank"><img class="external_image" src="' + url + '" /></a>';
+
+            }
 
             // embed youtube video
             if (youtubeRegex.test(url)) {
@@ -28,11 +45,6 @@ angular.module('prim').filter('embed', function($sce) {
 
                 return '<div class="auto-resizable-iframe"><div><iframe src="https://www.youtube.com/embed/' + match[3] + '" frameborder="0" allowfullscreen></iframe></div></div>';
 
-            }
-
-            // add a protocol to the link if there isnt one
-            if (!protocolRegex.test(text)) {
-                url = 'http://' + text;
             }
 
             // create a link

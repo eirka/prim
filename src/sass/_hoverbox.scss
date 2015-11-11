@@ -36,15 +36,16 @@
     background: #eee;
     text-align: center;
     padding: 0.5em;
+
+    & .external_image,
+    & .quotebox_image {
+        max-width: 120px;
+        height: auto;
+    }
 }
 
 .quotebox_error {
     background: $artistColor;
     text-align: center;
     padding: 0.5em;
-}
-
-.quotebox_image {
-    max-width: 120px;
-    height: auto;
 }

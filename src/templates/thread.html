@@ -6,7 +6,7 @@
                 <input type="hidden" name="thread" ng-value="thread.data.id" />
                 <input ng-if="authState.isAuthenticated" type="hidden" name="access_token" ng-value="postform.token" />
                 <div class="form-group">
-                    <span ng-bind="::authState.name" class="form-control" ng-class="thread.usergroupClass(authState.group)"></span>
+                    <span ng-bind="authState.name" class="form-control" ng-class="thread.usergroupClass(authState.group)"></span>
                 </div>
                 <div class="form-group">
                     <textarea id="comment" name="comment" ng-model="thread.quote" class="form-control" rows="3" ng-maxlength="1000" placeholder="Comment"></textarea>
@@ -20,7 +20,7 @@
             </form>
         </div>
         <div class="postbox_pagination">
-            <pagination all-link="true" boundary-links="true" rotate="true" direction-links="false" page-name="thread/{{::thread.data.id}}" total-items="thread.pagination.totalItems" max-size="thread.pagination.maxSize" ng-model="thread.pagination.currentPage" items-per-page="thread.pagination.itemsPerPage" num-pages="thread.pagination.numPages">
+            <pagination all-link="true" boundary-links="true" rotate="true" direction-links="false" page-name="thread/{{thread.data.id}}" total-items="thread.pagination.totalItems" max-size="thread.pagination.maxSize" ng-model="thread.pagination.currentPage" items-per-page="thread.pagination.itemsPerPage" num-pages="thread.pagination.numPages">
         </div>
     </div>
 </div>
@@ -28,7 +28,7 @@
     <div class="thread">
         <div class="thread_header">
             <div class="thread_title">
-                <span ng-bind="::thread.data.title"></span>
+                <span ng-bind="thread.data.title"></span>
                 <i ng-if="thread.data.closed" title="Closed" class="fa fa-lock"></i>
                 <i ng-if="thread.data.sticky" title="Sticky" class="fa fa-thumb-tack"></i>
             </div>
@@ -46,15 +46,15 @@
                 </div>
             </div>
         </div>
-        <div ng-show="thread.layout == 'list'" ng-repeat="post in thread.data.posts track by post.id" id="reply-{{::post.num}}" class="thread_row">
+        <div ng-show="thread.layout == 'list'" ng-repeat="post in ::thread.data.posts track by post.id" id="reply-{{post.num}}" class="thread_row">
             <div class="thread_row_image" ng-if="!!post.thumbnail">
-                <a ng-href="image/{{::post.img_id}}" href><img ng-src="{{::thread.thumb(post.thumbnail)}}" height="{{::post.tn_height}}" width="{{::post.tn_width}}"> </a>
+                <a ng-href="image/{{post.img_id}}" href><img ng-src="{{thread.thumb(post.thumbnail)}}" height="{{post.tn_height}}" width="{{post.tn_width}}"> </a>
             </div>
             <div class="thread_row_info" ng-class="{ 'thread_row_noimage': !post.thumbnail }">
-                <img ng-if="post.group != 1" class="post_info" ng-src="{{::thread.avatar(post.avatar)}}" height="18px" width="auto">
-                <span class="post_info" ng-class="thread.usergroupClass(post.group)" ng-bind="::post.name"></span>
-                <span class="post_info" ng-bind="::post.time"></span>
-                <a class="label label-light" ng-bind="'#'+{{::post.num}}" ng-click="thread.replyQuote(post.num)" href></a>
+                <img ng-if="post.group != 1" class="post_info" ng-src="{{thread.avatar(post.avatar)}}" height="18px" width="auto">
+                <span class="post_info" ng-class="thread.usergroupClass(post.group)" ng-bind="post.name"></span>
+                <span class="post_info" ng-bind="post.time"></span>
+                <a class="label label-light" ng-bind="'#'+{{post.num}}" ng-click="thread.replyQuote(post.num)" href></a>
                 <div ng-if="authState.isAuthenticated && authState.group >= 3" class="post_mod_buttons" ng-controller="PostModCtrl as postmod">
                     <a title="Delete" class="button button-danger button-small fa fa-trash-o" ng-click="postmod.deletePost(thread.data.id, post.num)" href></a>
                 </div>
@@ -62,14 +62,14 @@
             <comment-handler post="post" thread="thread.data.id" />
         </div>
         <div ng-if="thread.layout == 'grid'" class="image_grid">
-            <a ng-repeat="post in thread.data.posts track by post.id" ng-if="!!post.thumbnail" ng-href="image/{{::post.img_id}}" href>
-                <img ng-src="{{::thread.thumb(post.thumbnail)}}" height="{{::post.tn_height}}" width="{{::post.tn_width}}">
+            <a ng-repeat="post in ::thread.data.posts track by post.id" ng-if="!!post.thumbnail" ng-href="image/{{post.img_id}}" href>
+                <img ng-src="{{thread.thumb(post.thumbnail)}}" height="{{post.tn_height}}" width="{{post.tn_width}}">
             </a>
         </div>
     </div>
 </div>
 <div class="footer">
     <div class="footer_box">
-        <pagination all-link="true" boundary-links="true" rotate="true" direction-links="false" page-name="thread/{{::thread.data.id}}" total-items="thread.pagination.totalItems" max-size="thread.pagination.maxSize" ng-model="thread.pagination.currentPage" items-per-page="thread.pagination.itemsPerPage" num-pages="thread.pagination.numPages">
+        <pagination all-link="true" boundary-links="true" rotate="true" direction-links="false" page-name="thread/{{thread.data.id}}" total-items="thread.pagination.totalItems" max-size="thread.pagination.maxSize" ng-model="thread.pagination.currentPage" items-per-page="thread.pagination.itemsPerPage" num-pages="thread.pagination.numPages">
     </div>
 </div>

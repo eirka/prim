@@ -6,7 +6,7 @@
                 <input type="hidden" name="askey" ng-value="index.as_key" />
                 <input ng-if="authState.isAuthenticated" type="hidden" name="access_token" ng-value="postform.token" />
                 <div class="form-group">
-                    <span ng-bind="::authState.name" class="form-control" ng-class="index.usergroupClass(authState.group)"></span>
+                    <span ng-bind="authState.name" class="form-control" ng-class="index.usergroupClass(authState.group)"></span>
                 </div>
                 <div class="form-group">
                     <input type="text" id="title" ng-required="true" name="title" class="form-control" ng-maxlength="40" placeholder="Title">
@@ -25,10 +25,10 @@
     </div>
 </div>
 <div class="threads">
-    <div ng-repeat="thread in index.data track by thread.id" id="thread-{{::thread.id}}" class="thread">
+    <div ng-repeat="thread in ::index.data track by thread.id" id="thread-{{thread.id}}" class="thread">
         <div class="thread_index_header">
             <div class="thread_title">
-                <a ng-href="thread/{{::thread.id}}/1" ng-bind="::thread.title" href></a>
+                <a ng-href="thread/{{thread.id}}/1" ng-bind="thread.title" href></a>
                 <i ng-if="thread.closed" title="Closed" class="fa fa-lock"></i>
                 <i ng-if="thread.sticky" title="Sticky" class="fa fa-thumb-tack"></i>
             </div>
@@ -44,27 +44,27 @@
                         <i class="fa fa-fw fa-file-o" title="Pages"></i><span ng-bind="thread.pages"></span>
                     </div>
                 </div>
-                <a class="button button-thread" ng-href="thread/{{::thread.id}}/{{::thread.pages}}" href>Reply</a>
+                <a class="button button-thread" ng-href="thread/{{thread.id}}/{{thread.pages}}" href>Reply</a>
             </div>
         </div>
         <div class="thread_row_header">
             <div class="thread_row_omit" ng-if="thread.total - thread.posts.length >= 1">
-                <a ng-href="thread/{{::thread.id}}/{{::thread.pages}}" href>
+                <a ng-href="thread/{{thread.id}}/{{thread.pages}}" href>
                     <ng-pluralize count="{{ thread.total - thread.posts.length | number:0 }}" when="{'1': '1 post omitted...', 'other': '{} posts omitted...'}"></ng-pluralize>
                 </a>
             </div>
         </div>
-        <div ng-repeat="post in thread.posts track by post.id" class="index_row">
+        <div ng-repeat="post in ::thread.posts track by post.id" class="index_row">
             <div class="index_row_image" ng-if="!!post.thumbnail">
-                <a ng-href="image/{{::post.img_id}}" href>
-                    <img ng-src="{{::index.thumb(post.thumbnail)}}" height="{{::post.tn_height}}" width="{{::post.tn_width}}">
+                <a ng-href="image/{{post.img_id}}" href>
+                    <img ng-src="{{index.thumb(post.thumbnail)}}" height="{{post.tn_height}}" width="{{post.tn_width}}">
                 </a>
             </div>
             <div class="thread_row_info">
-                <img ng-if="post.group != 1" class="post_info" ng-src="{{::index.avatar(post.avatar)}}" height="18px" width="auto">
-                <span class="post_info" ng-class="index.usergroupClass(post.group)" ng-bind="::post.name"></span>
-                <span class="post_info" ng-bind="::post.time"></span>
-                <a class="label label-light" ng-bind="'#'+{{::post.num}}" ng-click="index.replyQuote(post.num,thread.id,thread.pages)" href></a>
+                <img ng-if="post.group != 1" class="post_info" ng-src="{{index.avatar(post.avatar)}}" height="18px" width="auto">
+                <span class="post_info" ng-class="index.usergroupClass(post.group)" ng-bind="post.name"></span>
+                <span class="post_info" ng-bind="post.time"></span>
+                <a class="label label-light" ng-bind="'#'+{{post.num}}" ng-click="index.replyQuote(post.num,thread.id,thread.pages)" href></a>
             </div>
             <comment-handler post="post" thread="thread.id" />
         </div>

@@ -26,7 +26,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="tag in tags.data | orderBy:tags.sort.column:tags.sort.desc track by tag.id" ng-class="tags.rowClass(tag.type)">
+                    <tr ng-repeat="tag in ::tags.data | orderBy:tags.sort.column:tags.sort.desc track by tag.id" ng-class="tags.rowClass(tag.type)">
                         <td ng-switch="tag.type" align="center">
                             <i ng-switch-when="1" title="Tag" class="fa fa-tag"></i>
                             <i ng-switch-when="2" title="Artist" class="fa fa-paint-brush"></i>
@@ -34,9 +34,9 @@
                             <i ng-switch-when="4" title="Copyright" class="fa fa-copyright"></i>
                         </td>
                         <td>
-                            <a ng-href="tag/{{::tag.id}}/1" rel="nofollow" href ng-bind="::tag.tag"></a> <i ng-if="authState.isAuthenticated && authState.group >= 3" class="fa fa-times" title="Delete Tag" ng-click="tags.deleteTag(tag.id)"></i>
+                            <a ng-href="tag/{{tag.id}}/1" rel="nofollow" href ng-bind="tag.tag"></a> <i ng-if="authState.isAuthenticated && authState.group >= 3" class="fa fa-times" title="Delete Tag" ng-click="tags.deleteTag(tag.id)"></i>
                         </td>
-                        <td align="center" ng-bind="::tag.total"></td>
+                        <td align="center" ng-bind="tag.total"></td>
                     </tr>
                 </tbody>
             </table>

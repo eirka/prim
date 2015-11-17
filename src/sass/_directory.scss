@@ -59,6 +59,15 @@
     padding: 0;
 }
 
+.lastpage {
+    color: #333;
+    border: 1px solid #333;
+
+    @media #{$screenSmall} {
+        float: right;
+    }
+}
+
 .tags_bar {
     text-align: center;
     padding: 0.5em;

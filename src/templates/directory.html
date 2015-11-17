@@ -19,7 +19,7 @@
                             <i ng-if="thread.closed" title="Closed" class="fa fa-lock"></i>
                             <i ng-if="thread.sticky" title="Sticky" class="fa fa-thumb-tack"></i>
                             <a ng-href="thread/{{thread.id}}/1" rel="nofollow" href ng-bind="thread.title"></a>
-                            <a ng-if="thread.pages > 1" ng-href="thread/{{thread.id}}/{{thread.pages}}" title="Last page" class="fa fa-forward" style="float:right;" href></a>
+                            <a ng-if="thread.pages > 1" ng-href="thread/{{thread.id}}/{{thread.pages}}" title="Last page" class="label lastpage" href>last page</a>
                         </td>
                         <td style="width:3em;text-align:center;" align="center" ng-bind="thread.postcount"></td>
                         <td style="width:3em;text-align:center;" align="center" ng-bind="thread.images"></td>

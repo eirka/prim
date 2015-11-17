@@ -57,7 +57,7 @@
         <div ng-repeat="post in ::thread.posts track by post.id" class="index_row">
             <div class="index_row_image" ng-if="!!post.thumbnail">
                 <a ng-href="image/{{post.img_id}}" href>
-                    <img ng-src="{{index.thumb(post.thumbnail)}}" height="{{post.tn_height}}" width="{{post.tn_width}}">
+                    <img ng-src="{{index.thumb(post.thumbnail,post.filename)}}" height="{{post.tn_height}}" width="{{post.tn_width}}">
                 </a>
             </div>
             <div class="thread_row_info">

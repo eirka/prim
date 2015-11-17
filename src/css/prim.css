@@ -1107,6 +1107,8 @@ textarea.form-control {
   .quotebox .external_image, .quotebox .quotebox_image {
     max-width: 120px;
     height: auto; }
+  .quotebox .comment {
+    overflow: hidden; }
 
 .quotebox_error {
   background: #d9534f;
@@ -1615,7 +1617,8 @@ textarea.form-control {
     hyphens: auto;
     text-align: left;
     white-space: pre-line;
-    margin: 0; }
+    margin: 0;
+    overflow: hidden; }
 
 .thread_row_omit {
   text-align: center;

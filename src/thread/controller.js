@@ -53,8 +53,7 @@ angular.module('prim').controller('ThreadCtrl', function($window, $location, $sc
 
     // add post num to comment box
     self.replyQuote = function(id) {
-        Utils.setQuote(id);
-        self.quote = Utils.getQuote();
+        self.quote += " >>" + id + " ";
         $window.scrollTo(0, 0);
     };
 

@@ -14,7 +14,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="thread in ::directory.data.directory | orderBy:directory.sort.column:directory.sort.desc track by thread.id">
+                    <tr ng-repeat="thread in directory.data.directory | orderBy:directory.sort.column:directory.sort.desc track by thread.id">
                         <td style="width:auto;text-align:left;">
                             <i ng-if="thread.closed" title="Closed" class="fa fa-lock"></i>
                             <i ng-if="thread.sticky" title="Sticky" class="fa fa-thumb-tack"></i>

@@ -18,7 +18,6 @@
     margin: 0 auto;
 
     & .no_favorites {
-        color: $fontLight;
         padding: 1em;
         text-align: center;
     }
@@ -26,8 +25,6 @@
 
 .favorites_title {
     @include boxTitle;
-
-    color: $fontLight;
 }
 
 .favorites_nav {

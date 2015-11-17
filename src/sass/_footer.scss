@@ -16,7 +16,6 @@
 
     width: $boxWidthRel;
     margin: 0 auto;
-    color: $fontLight;
     text-align: center;
     padding: 1em;
 }
@@ -49,16 +48,12 @@
 }
 
 .footer_links li a {
-    @include headerFont;
-
     padding: 0.5em;
     font-size: 1em;
-    color: $fontLight;
     display: inline-block;
     text-decoration: none;
 }
 
 .footer_links li a:hover {
-    color: $fontLight;
     border-radius: 3px;
 }

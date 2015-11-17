@@ -36,14 +36,12 @@
     & .account_title {
         @include boxTitle;
 
-        color: $fontLight;
         padding: 0;
     }
 
     & .account_name {
         @include boxTitle;
 
-        color: $fontLight;
         padding: 0;
         padding-bottom: 0.5em;
 
@@ -61,18 +59,4 @@
             float: right;
         }
     }
-}
-
-/* user colors */
-
-.group_guest {}
-
-.group_registered {
-    font-weight: bold;
-}
-
-.group_moderator,
-.group_admin {
-    font-weight: bold;
-    color: #960F0F;
 }

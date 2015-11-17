@@ -12,7 +12,6 @@
     flex-direction: column;
     width: $boxWidthRel;
     margin: 0 auto;
-    color: $fontLight;
     padding: 0.5em;
 
     @media #{$screenSmall} {
@@ -54,7 +53,6 @@
 .header_navigation ul ul li {
     display: list-item;
     list-style-type: none;
-    color: $fontDark;
     border-radius: 0;
 }
 
@@ -83,17 +81,12 @@
 .header_navigation li a {
     display: inline-block;
     font-size: 1em;
-    color: $fontLight;
     text-decoration: none;
     padding: 0.2em;
 
     @media #{$screenSmall} {
         padding: 0.4em;
     }
-}
-
-.header_navigation li a:hover {
-    color: $fontDark;
 }
 
 .header_navigation li.n1:hover {

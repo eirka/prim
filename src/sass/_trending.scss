@@ -51,6 +51,4 @@
 .popular_title,
 .favorited_title {
     @include boxTitle;
-
-    color: $fontLight;
 }

@@ -52,55 +52,6 @@ button {
     width: 100%;
 }
 
-/* default button */
-
-.button-default {
-    color: $fontDark;
-
-    &:hover,
-    &:focus,
-    &.focus {
-        color: $fontDark;
-        text-decoration: none;
-    }
-}
-
-/* primary button */
-
-.button-primary {
-    color: $fontLight;
-
-    &:hover,
-    &:focus,
-    &.focus {
-        text-decoration: none;
-    }
-}
-
-.button-success {
-    color: $fontLight;
-    background-color: #7BBD75;
-
-    &:hover,
-    &:focus,
-    &.focus {
-        text-decoration: none;
-        background-color: lighten(#7BBD75, 10%);
-    }
-}
-
-.button-danger {
-    color: $fontLight;
-    background-color: #d9534f;
-
-    &:hover,
-    &:focus,
-    &.focus {
-        text-decoration: none;
-        background-color: lighten(#d9534f, 10%);
-    }
-}
-
 /* button groups */
 
 .button-group,

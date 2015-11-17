@@ -21,17 +21,13 @@
     padding: 1em;
 
     & .error_code {
-        @include headerFont;
-
         text-align: center;
-        color: $fontLight;
         font-size: 3em;
         padding: 0.5em;
     }
 
     & .error_message {
         text-align: center;
-        color: $fontLight;
         font-size: 1.3em;
         padding: 0.5em;
     }

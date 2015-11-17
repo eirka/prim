@@ -18,17 +18,9 @@
     margin: 0 auto;
 }
 
-.directory_container {
-    & .no_threads {
-        color: $fontLight;
-        padding: 1em;
-        text-align: center;
-    }
-}
-
+.directory_container,
 .taglist_container {
-    & .no_tags {
-        color: $fontLight;
+    & .no_threads {
         padding: 1em;
         text-align: center;
     }
@@ -60,7 +52,6 @@
 }
 
 .lastpage {
-    color: #333;
     border: 1px solid #333;
 
     @media #{$screenSmall} {

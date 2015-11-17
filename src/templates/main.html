@@ -60,7 +60,7 @@
                     <img ng-src="{{index.thumb(post.thumbnail,post.filename)}}" height="{{post.tn_height}}" width="{{post.tn_width}}">
                 </a>
             </div>
-            <div class="thread_row_info">
+            <div class="thread_row_info" ng-class="{ 'thread_row_noimage': !post.thumbnail }">
                 <img ng-if="post.group != 1" class="post_info" ng-src="{{index.avatar(post.avatar)}}" height="18px" width="auto">
                 <span class="post_info" ng-class="index.usergroupClass(post.group)" ng-bind="post.name"></span>
                 <span class="post_info" ng-bind="post.time"></span>

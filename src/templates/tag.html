@@ -13,7 +13,7 @@
         </div>
         <div ng-if="tag.pagination.totalItems != 0" class="image_grid">
             <a ng-repeat="image in ::tag.data.images track by image.id" ng-href="image/{{image.id}}" href>
-                <img ng-src="{{tag.thumb(image.thumbnail)}}" height="{{image.tn_height}}" width="{{image.tn_width}}">
+                <img ng-src="{{tag.thumb(image.thumbnail,image.filename)}}" height="{{image.tn_height}}" width="{{image.tn_width}}">
             </a>
         </div>
         <div ng-if="tag.pagination.totalItems == 0" class="no_tags">

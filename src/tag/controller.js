@@ -3,9 +3,6 @@ angular.module('prim').controller('TagCtrl', function($scope, $routeParams, $loc
     // using controllerAs
     var self = this;
 
-    // get the thumb address
-    self.thumb = Utils.getThumbSrc;
-
     // selects a row color
     self.rowClass = function(type) {
         var rowclass = "";
@@ -52,6 +49,12 @@ angular.module('prim').controller('TagCtrl', function($scope, $routeParams, $loc
             itemsPerPage: data.tag.per_page,
             maxSize: 3
         };
+
+        // modify content
+        angular.forEach(self.data.images, function(image) {
+            image.thumbnail = Utils.getThumbSrc(image.thumbnail, image.filename);
+        });
+
     }, function(error) {
         Utils.apiError(error.status);
     });

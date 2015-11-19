@@ -26,12 +26,6 @@ angular.module('prim').directive('quoteBox', function($filter, PostHandler, Util
             // selects usergroup class
             $scope.usergroupClass = Utils.usergroupClass;
 
-            // get the thumb address
-            $scope.thumb = Utils.getThumbSrc;
-
-            // get the avatar address
-            $scope.avatar = Utils.getAvatar;
-
             // Get single post on hover
             $scope.getPost = function(id) {
                 PostHandler.get({
@@ -39,6 +33,13 @@ angular.module('prim').directive('quoteBox', function($filter, PostHandler, Util
                     id: id
                 }, function(data) {
                     $scope.quotebox = data;
+
+                    $scope.quotebox.post.avatar = Utils.getAvatar(data.post.avatar);
+
+                    // set thumbnail
+                    if (angular.isDefined(data.post.thumbnail)) {
+                        $scope.quotebox.post.thumbnail = Utils.getThumbSrc(data.post.thumbnail, data.post.filename);
+                    }
 
                     var comment = $scope.quotebox.post.comment;
 

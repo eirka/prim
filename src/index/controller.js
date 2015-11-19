@@ -5,17 +5,12 @@ angular.module('prim').controller('IndexCtrl', function($location, $routeParams,
 
     // set antispam key 
     self.as_key = internal.as_key;
+
     // Set imageboard id
     self.ib_id = config.ib_id;
 
     // selects usergroup class
     self.usergroupClass = Utils.usergroupClass;
-
-    // get the thumb address
-    self.thumb = Utils.getThumbSrc;
-
-    // get the avatar address
-    self.avatar = Utils.getAvatar;
 
     // go to page 1 if something is fishy
     if (angular.isUndefined($routeParams.page)) {
@@ -35,11 +30,25 @@ angular.module('prim').controller('IndexCtrl', function($location, $routeParams,
             itemsPerPage: data.index.per_page,
             maxSize: 5
         };
+
+        // modify content
+        angular.forEach(self.data, function(thread) {
+            angular.forEach(thread.posts, function(post) {
+                // set avatar
+                post.avatar = Utils.getAvatar(post.avatar);
+                // set thumbnail
+                if (angular.isDefined(post.thumbnail)) {
+                    post.thumbnail = Utils.getThumbSrc(post.thumbnail, post.filename);
+                }
+            })
+        });
+
         // Add quote post num to scope and forward to threads last page
         self.replyQuote = function(id, thread, last) {
             Utils.setQuote(id);
             $location.path('/thread/' + thread + '/' + last);
         };
+
     }, function(error) {
         Utils.apiError(error.status);
     });

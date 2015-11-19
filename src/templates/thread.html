@@ -48,11 +48,11 @@
         </div>
         <div ng-show="thread.layout == 'list'" ng-repeat="post in ::thread.data.posts track by post.id" id="reply-{{post.num}}" class="thread_row">
             <div class="thread_row_image" ng-if="!!post.thumbnail">
-                <a ng-href="image/{{post.img_id}}" href><img ng-src="{{thread.thumb(post.thumbnail,post.filename)}}" height="{{post.tn_height}}" width="{{post.tn_width}}"> </a>
+                <a ng-href="image/{{post.img_id}}" href><img ng-src="{{post.thumbnail}}" height="{{post.tn_height}}" width="{{post.tn_width}}"> </a>
             </div>
             <div class="thread_row_info" ng-class="{ 'thread_row_noimage': !post.thumbnail }">
-                <img ng-if="post.group != 1" class="post_info" ng-src="{{thread.avatar(post.avatar)}}" height="18px" width="auto">
-                <span class="post_info" ng-class="thread.usergroupClass(post.group)" ng-bind="post.name"></span>
+                <img ng-if="post.group != 1" class="post_info" ng-src="{{post.avatar}}" height="18px" width="auto">
+                <span class="post_info" ng-class="thread.usergroupClass(post.group,post.moderator)" ng-bind="post.name"></span>
                 <span class="post_info" ng-bind="post.time"></span>
                 <a class="label label-light" ng-bind="'#'+{{post.num}}" ng-click="thread.replyQuote(post.num)" href></a>
                 <div ng-if="authState.isAuthenticated && authState.group >= 3" class="post_mod_buttons" ng-controller="PostModCtrl as postmod">
@@ -63,7 +63,7 @@
         </div>
         <div ng-if="thread.layout == 'grid'" class="image_grid">
             <a ng-repeat="post in ::thread.data.posts track by post.id" ng-if="!!post.thumbnail" ng-href="image/{{post.img_id}}" href>
-                <img ng-src="{{thread.thumb(post.thumbnail,post.filename)}}" height="{{post.tn_height}}" width="{{post.tn_width}}">
+                <img ng-src="{{post.thumbnail}}" height="{{post.tn_height}}" width="{{post.tn_width}}">
             </a>
         </div>
     </div>

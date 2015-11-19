@@ -57,8 +57,12 @@ angular.module('prim').factory('Utils', function($location, config) {
             return config.img_srv + '/avatars/' + id + '.png';
         },
         // select the css class depending on user group
-        usergroupClass: function(group) {
+        usergroupClass: function(group, moderator) {
             var rowclass;
+
+            if (moderator) {
+                return "group_moderator"
+            }
 
             switch (group) {
                 case 1:
@@ -66,12 +70,6 @@ angular.module('prim').factory('Utils', function($location, config) {
                     break;
                 case 2:
                     rowclass = "group_registered";
-                    break;
-                case 3:
-                    rowclass = "group_moderator";
-                    break;
-                case 4:
-                    rowclass = "group_admin";
                     break;
             }
 

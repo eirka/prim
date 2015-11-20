@@ -8,49 +8,49 @@ angular.module('prim').directive('quoteBox', function($filter, PostHandler, Util
             thread: '='
         },
         templateUrl: "pages/hover.html",
-        link: function($scope, $element, $attrs) {
+        link: function(scope, element, attrs) {
             // Hoverbox code
-            $scope.show = {
+            scope.show = {
                 card: false
             };
 
-            $scope.hoverTmplUrl = "pages/box.html";
-            $scope.onHoverIn = $scope.$eval($attrs.onHoverIn);
-            $scope.onHoverOut = $scope.$eval($attrs.onHoverOut);
+            scope.hoverTmplUrl = "pages/box.html";
+            scope.onHoverIn = scope.$eval(attrs.onHoverIn);
+            scope.onHoverOut = scope.$eval(attrs.onHoverOut);
 
             // make quote text
-            $scope.getText = function(id) {
+            scope.getText = function(id) {
                 return '>>' + id;
             };
 
             // selects usergroup class
-            $scope.usergroupClass = Utils.usergroupClass;
+            scope.usergroupClass = Utils.usergroupClass;
 
             // Get single post on hover
-            $scope.getPost = function(id) {
+            scope.getPost = function(id) {
                 PostHandler.get({
-                    thread: $scope.thread,
+                    thread: scope.thread,
                     id: id
                 }, function(data) {
-                    $scope.quotebox = data;
+                    scope.quotebox = data;
 
-                    $scope.quotebox.post.avatar = Utils.getAvatar(data.post.avatar);
+                    scope.quotebox.post.avatar = Utils.getAvatar(data.post.avatar);
 
                     // set thumbnail
                     if (angular.isDefined(data.post.thumbnail)) {
-                        $scope.quotebox.post.thumbnail = Utils.getThumbSrc(data.post.thumbnail, data.post.filename);
+                        scope.quotebox.post.thumbnail = Utils.getThumbSrc(data.post.thumbnail, data.post.filename);
                     }
 
-                    var comment = $scope.quotebox.post.comment;
+                    var comment = scope.quotebox.post.comment;
 
                     // add emoticons
                     comment = emoticons.injectTags(comment);
 
                     // add embed filter
-                    $scope.comment = $filter('embed')(comment);
+                    scope.comment = $filter('embed')(comment);
 
                 }, function(error) {
-                    $scope.error = error.data;
+                    scope.error = error.data;
                 });
             };
 

@@ -1005,8 +1005,14 @@ textarea.form-control {
   .quotebox .external_image, .quotebox .quotebox_image {
     max-width: 120px;
     height: auto; }
-  .quotebox .comment {
-    overflow: hidden; }
+
+.quotebox_comment p {
+  word-wrap: break-word;
+  hyphens: auto;
+  text-align: center;
+  white-space: pre-line;
+  margin: 0;
+  overflow: hidden; }
 
 .quotebox_error {
   text-align: center;
@@ -1490,13 +1496,14 @@ textarea.form-control {
       padding: 0.5em 1em;
       float: left;
       width: 75%; } }
-  .thread_row_post p {
-    word-wrap: break-word;
-    hyphens: auto;
-    text-align: left;
-    white-space: pre-line;
-    margin: 0;
-    overflow: hidden; }
+
+.thread_comment p {
+  word-wrap: break-word;
+  hyphens: auto;
+  text-align: left;
+  white-space: pre-line;
+  margin: 0;
+  overflow: hidden; }
 
 .thread_row_omit {
   text-align: center;

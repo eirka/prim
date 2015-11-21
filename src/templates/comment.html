@@ -1,4 +1,6 @@
 <div ng-class="{ 'thread_row_noimage': !post.thumbnail }" class="thread_row_post">
-    <span ng-if="!!post.quote_id" ng-repeat="id in ::post.quote_id track by $index" class="post_quote" quote-box thread="thread" id="id"></span>
-    <p ng-if="post.comment" ng-bind-html="::post.comment"></p>
+    <comment-quotes ng-if="!!post.quote_id" ng-repeat="id in ::post.quote_id track by $index" class="post_quote" thread="thread" id="id"></comment-quotes>
+    <div class="thread_comment">
+        <comment-formatter ng-if="!!post.comment" comment="post.comment"></comment-formatter>
+    </div>
 </div>

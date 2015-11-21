@@ -59,7 +59,7 @@
                     <a title="Delete" class="button button-danger button-small fa fa-trash-o" ng-click="postmod.deletePost(thread.data.id, post.num)" href></a>
                 </div>
             </div>
-            <comment-handler post="post" thread="thread.data.id" />
+            <comment-handler post="post" thread="thread.data.id"></comment-handler>
         </div>
         <div ng-if="thread.layout == 'grid'" class="image_grid">
             <a ng-repeat="post in ::thread.data.posts track by post.id" ng-if="!!post.thumbnail" ng-href="image/{{post.img_id}}" href>

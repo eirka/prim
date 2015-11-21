@@ -1,6 +1,6 @@
 // comment-handler uses a regex to parse out quotes from a post starting with >> and adds them to an array
 // it then sends the generated quotes to the quotebox directive which will create a popup with the posts
-angular.module('prim').directive('commentHandler', function($filter, emoticons) {
+angular.module('prim').directive('commentHandler', function() {
     return {
         restrict: 'E',
         scope: {
@@ -8,7 +8,6 @@ angular.module('prim').directive('commentHandler', function($filter, emoticons) 
             thread: '='
         },
         templateUrl: "pages/comment.html",
-        controllerAs: 'commentHandler',
         link: function(scope, element, attrs) {
             // array for quote ids
             var quotes = [];
@@ -31,16 +30,41 @@ angular.module('prim').directive('commentHandler', function($filter, emoticons) 
             // trim the comment, remove the quotes, and remove multiple newlines
             var comment = raw.replace(re, '').replace(/(\n){3,}/g, '\n\n').trim();
 
-            // add emoticons
-            comment = emoticons.injectTags(comment);
-
-            // filter comment
-            scope.post.comment = $filter('embed')(comment);
-
             // this is all the collected quote ids
             scope.post.quote_id = quotes;
+
+            // the quoteless comment
+            scope.post.comment = comment;
+
         }
 
     };
 
+});
+
+// formats the comment text with emoticons and embeds
+angular.module('prim').directive('commentFormatter', function($sanitize, $compile, embed, emoticons) {
+    return {
+        restrict: 'E',
+        scope: {
+            comment: '='
+        },
+        link: function(scope, element, attrs) {
+
+            // sanitize input
+            var comment = $sanitize(scope.comment);
+
+            // filter comment and add embeds
+            comment = embed.filterComment(comment);
+
+            // add emoticons
+            comment = emoticons.injectTags(comment);
+
+            element.html('<p>' + comment + '</p>');
+
+            // compile our comment and add it to dom
+            $compile(element.contents())(scope);
+
+        }
+    };
 });

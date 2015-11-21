@@ -66,7 +66,7 @@
                 <span class="post_info" ng-bind="post.time"></span>
                 <a class="label label-light" ng-bind="'#'+{{post.num}}" ng-click="index.replyQuote(post.num,thread.id,thread.pages)" href></a>
             </div>
-            <comment-handler post="post" thread="thread.id" />
+            <comment-handler post="post" thread="thread.id"></comment-handler>
         </div>
     </div>
 </div>

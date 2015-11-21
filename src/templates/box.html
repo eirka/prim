@@ -9,8 +9,8 @@
             <span class="post_info" ng-bind="quotebox.post.time"></span>
             <span class="label label-light" ng-bind="'#'+{{::quotebox.post.num}}" href></span>
         </div>
-        <div class="comment">
-            <span ng-if="comment" ng-bind-html="::comment"></span>
+        <div class="quotebox_comment">
+            <comment-formatter ng-if="!!quotebox.post.comment" comment="quotebox.post.comment"></comment-formatter>
         </div>
     </div>
 </div>

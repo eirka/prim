@@ -1,5 +1,5 @@
 // quotebox takes the quotes from comment-handler and makes a popup box with the post data
-angular.module('prim').directive('commentQuotes', function($compile, PostHandler, Utils, emoticons, embed) {
+angular.module('prim').directive('commentQuotes', function() {
     return {
         restrict: 'E',
         transclude: true,
@@ -24,7 +24,7 @@ angular.module('prim').directive('commentQuotes', function($compile, PostHandler
 
 
 // quotebox takes the quotes from comment-handler and makes a popup box with the post data
-angular.module('prim').directive('hoverBox', function($compile, PostHandler, Utils, emoticons, embed) {
+angular.module('prim').directive('hoverBox', function(PostHandler, Utils) {
     return {
         restrict: 'E',
         scope: false,

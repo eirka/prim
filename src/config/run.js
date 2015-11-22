@@ -12,6 +12,6 @@ angular.module('prim').run(function(config, $rootScope, AuthService) {
     });
 
     // restore the initial auth state when first loaded
-    AuthService.restoreAuthState();
+    AuthService.setAuthState();
 
 });

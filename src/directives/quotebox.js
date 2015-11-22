@@ -2,7 +2,6 @@
 angular.module('prim').directive('commentQuotes', function() {
     return {
         restrict: 'E',
-        transclude: true,
         scope: {
             id: '=',
             thread: '='

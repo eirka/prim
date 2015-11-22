@@ -12,18 +12,6 @@ angular.module('prim').factory('AuthService', function($rootScope, $route, store
         queryWhoAmI: function() {
             return WhoAmIHandler.get();
         },
-        restoreAuthState: function() {
-            // get the cache if it exists
-            cachedAuthState = store.get('id_cache');
-
-            // set our state to the cached version, or default if it isnt there
-            if (cachedAuthState) {
-                $rootScope.authState = cachedAuthState;
-            } else {
-                $rootScope.authState = defaultAuthState;
-            }
-
-        },
         setAuthState: function() {
             // get the jwt token
             var token = store.get('id_token');
@@ -55,6 +43,9 @@ angular.module('prim').factory('AuthService', function($rootScope, $route, store
                     // purge session if theres an error
                     this.destroySession();
                 });
+            } else {
+                // just set anon if theres no token
+                $rootScope.authState = defaultAuthState;
             };
         },
         destroySession: function() {

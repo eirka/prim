@@ -60,16 +60,18 @@ angular.module('prim').factory('Utils', function($location, config) {
         usergroupClass: function(group, moderator) {
             var rowclass;
 
-            if (moderator) {
-                return "group_moderator"
-            }
-
             switch (group) {
                 case 1:
                     rowclass = "group_guest";
                     break;
                 case 2:
                     rowclass = "group_registered";
+                    break;
+                case 3:
+                    rowclass = "group_moderator";
+                    break;
+                case 4:
+                    rowclass = "group_admin";
                     break;
             }
 

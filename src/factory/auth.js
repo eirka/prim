@@ -20,6 +20,7 @@ angular.module('prim').factory('AuthService', function($rootScope, $route, store
                 // if expired reset and delete
                 if (jwtHelper.isTokenExpired(token)) {
                     this.destroySession();
+                    return
                 }
 
                 // query whoami for user data
@@ -37,16 +38,21 @@ angular.module('prim').factory('AuthService', function($rootScope, $route, store
                     store.set('id_cache', $rootScope.authState);
 
                     // reload route
-                    $route.reload();
+                    //$route.reload();
+
+                    return
 
                 }, function(error) {
                     // purge session if theres an error
                     this.destroySession();
+                    return
                 });
-            } else {
-                // just set anon if theres no token
-                $rootScope.authState = defaultAuthState;
+
             };
+
+            // set initial state if theres no token
+            $rootScope.authState = defaultAuthState;
+
         },
         destroySession: function() {
             $rootScope.authState = defaultAuthState;

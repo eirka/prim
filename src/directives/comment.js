@@ -27,8 +27,8 @@ angular.module('prim').directive('commentHandler', function() {
                 quotes.push(m[1]);
             }
 
-            // trim the comment, remove the quotes, and remove multiple newlines
-            var comment = raw.replace(re, '').replace(/(\n){3,}/g, '\n\n').trim();
+            // remove the quotes
+            var comment = raw.replace(re, '')
 
             // this is all the collected quote ids
             scope.post.quote_id = quotes;
@@ -51,8 +51,10 @@ angular.module('prim').directive('commentFormatter', function($sanitize, $compil
         },
         link: function(scope, element, attrs) {
 
-            // sanitize input
-            var comment = $sanitize(scope.comment);
+            var comment = scope.comment;
+
+            // trim and remove extra newlines
+            comment = comment.replace(/(\n){3,}/g, '\n\n').trim();
 
             // filter comment and add embeds
             comment = embed.filterComment(comment);

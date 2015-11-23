@@ -1,4 +1,4 @@
-angular.module('prim').factory('AuthService', function($rootScope, $route, store, jwtHelper, WhoAmIHandler) {
+angular.module('prim').factory('AuthService', function($rootScope, $route, store, jwtHelper, WhoAmIHandler, Utils) {
 
     // holds a default auth state
     var defaultAuthState = {
@@ -13,6 +13,14 @@ angular.module('prim').factory('AuthService', function($rootScope, $route, store
             return WhoAmIHandler.get();
         },
         setAuthState: function() {
+            // get the cache if it exists
+            cachedAuthState = store.get('id_cache');
+
+            // set our state to the cached version, or default if it isnt there
+            if (cachedAuthState) {
+                $rootScope.authState = cachedAuthState;
+            }
+
             // get the jwt token
             var token = store.get('id_token');
 
@@ -31,6 +39,7 @@ angular.module('prim').factory('AuthService', function($rootScope, $route, store
                         id: data.user.id,
                         name: data.user.name,
                         group: data.user.group,
+                        avatar: Utils.getAvatar(data.user.avatar),
                         isAuthenticated: true
                     };
 

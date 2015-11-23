@@ -18,6 +18,15 @@
     width: $boxWidthRel;
     margin: 0 auto;
     margin-bottom: 2em;
+
+    &.ng-enter {
+        transition: 0.3s;
+        opacity: 0;
+    }
+
+    &.ng-enter-active {
+        opacity: 1;
+    }
 }
 
 /* thread header */

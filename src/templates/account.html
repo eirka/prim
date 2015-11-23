@@ -2,6 +2,7 @@
 <div class="account" ng-if="authState.isAuthenticated" ng-controller="AccountCtrl as account">
     <div class="account_container">
         <div class="account_name">
+            <img ng-if="account.whoami.avatar" ng-src="{{account.whoami.avatar}}" height="20px" width="auto" />
             <span ng-bind="::account.whoami.name"></span>
         </div>
         <div class="logout">

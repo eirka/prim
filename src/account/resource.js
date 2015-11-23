@@ -36,7 +36,9 @@ angular.module('prim').service('EmailHandler', function($resource, config) {
 
 // who am i
 angular.module('prim').service('WhoAmIHandler', function($resource, config) {
-    return $resource(config.api_srv + '/get/user/whoami', {}, {
+    return $resource(config.api_srv + '/get/user/whoami/:ib', {
+        ib: config.ib_id
+    }, {
         get: {
             method: 'GET'
         }

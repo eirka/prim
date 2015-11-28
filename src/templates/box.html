@@ -5,7 +5,7 @@
     <div class="content">
         <div class="info">
             <img ng-if="quotebox.post.group != 1" class="post_info" ng-src="{{quotebox.post.avatar}}" height="18px" width="auto">
-            <span class="post_info" ng-class="usergroupClass(quotebox.post.group,quotebox.post.moderator)" ng-bind="quotebox.post.name"></span>
+            <span class="post_info" ng-class="usergroupClass(quotebox.post.group)" ng-bind="quotebox.post.name"></span>
             <span class="post_info" ng-bind="quotebox.post.time"></span>
             <span class="label label-light" ng-bind="'#'+{{::quotebox.post.num}}" href></span>
         </div>

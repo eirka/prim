@@ -57,25 +57,17 @@ angular.module('prim').factory('Utils', function($location, config) {
             return config.img_srv + '/avatars/' + id + '.png';
         },
         // select the css class depending on user group
-        usergroupClass: function(group, moderator) {
-            var rowclass;
-
+        usergroupClass: function(group) {
             switch (group) {
-                case 1:
-                    rowclass = "group_guest";
-                    break;
                 case 2:
-                    rowclass = "group_registered";
-                    break;
+                    return "group_registered";
                 case 3:
-                    rowclass = "group_moderator";
-                    break;
+                    return "group_moderator";
                 case 4:
-                    rowclass = "group_admin";
-                    break;
+                    return "group_admin";
+                default:
+                    return "group_guest";
             }
-
-            return rowclass
         }
     };
 });

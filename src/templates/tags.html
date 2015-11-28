@@ -34,7 +34,7 @@
                             <i ng-switch-when="4" title="Copyright" class="fa fa-copyright"></i>
                         </td>
                         <td>
-                            <a ng-href="tag/{{tag.id}}/1" rel="nofollow" href ng-bind="tag.tag"></a> <i ng-if="authState.isAuthenticated && authState.group >= 3" class="fa fa-times" title="Delete Tag" ng-click="tags.deleteTag(tag.id)"></i>
+                            <a ng-href="tag/{{tag.id}}/1" rel="nofollow" href ng-bind="tag.tag"></a> <i ng-if="tags.showModControls" class="fa fa-times" title="Delete Tag" ng-click="tags.deleteTag(tag.id)"></i>
                         </td>
                         <td align="center" ng-bind="tag.total"></td>
                     </tr>

@@ -1,4 +1,4 @@
-angular.module('prim').controller('ThreadCtrl', function($window, $location, $scope, $routeParams, hotkeys, config, internal, ThreadHandler, Utils) {
+angular.module('prim').controller('ThreadCtrl', function($window, $location, $scope, $routeParams, hotkeys, config, internal, ThreadHandler, Utils, AuthService) {
 
     // using controllerAs
     var self = this;
@@ -8,6 +8,9 @@ angular.module('prim').controller('ThreadCtrl', function($window, $location, $sc
 
     // Variable for grid or list view as default
     self.layout = 'list';
+
+    // if mod controls should be shown or not
+    self.showModControls = AuthService.showModControls();
 
     // selects usergroup class
     self.usergroupClass = Utils.usergroupClass;

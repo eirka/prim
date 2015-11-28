@@ -1,80 +1,140 @@
-angular.module('prim').factory('AuthService', function($rootScope, $route, store, jwtHelper, WhoAmIHandler, Utils) {
+// provides numerous functions for the auth system
+angular.module('prim').factory('AuthService', function($rootScope, $route, GlobalStore, LocalStore, jwtHelper, WhoAmIHandler, Utils, config) {
+
+    // holds default ib data
+    var defaultIbData = {
+        group: 1
+    }
 
     // holds a default auth state
     var defaultAuthState = {
         id: 1,
         name: 'Anonymous',
-        group: 1,
-        isAuthenticated: false
+        isAuthenticated: false,
+        ibdata: defaultIbData
     };
 
+    // user jwt token store key
+    var tokenstorename = 'token';
+    // user data cache store key
+    var cachestorename = 'cache';
+    // our ibdata store key
+    var ibstorename = 'data';
+
     return {
+        // show mod controls if user is mod or admin
+        showModControls: function() {
+            if ($rootScope.authState.isAuthenticated) {
+                switch ($rootScope.authState.ibdata.group) {
+                    case 3:
+                        return true
+                    case 4:
+                        return true
+                    default:
+                        return false
+                }
+            }
+            return false
+        },
+        // promise to the whoami handler
         queryWhoAmI: function() {
             return WhoAmIHandler.get();
         },
-        setAuthState: function() {
-            // get the cache if it exists
-            var cachedAuthState = store.get('id_cache');
+        // set the state to the cached data if available
+        setCachedState: function() {
+            var self = this;
+
+            // get the cached data if it exists
+            var cachedAuthState = self.getUserCache();
+            var cachedIbState = self.getIbData();
 
             // set our state to the cached version, or default if it isnt there
-            if (cachedAuthState) {
+            if (cachedAuthState && cachedIbState) {
                 $rootScope.authState = cachedAuthState;
+                $rootScope.authState.ibdata = cachedIbState;
             } else {
                 $rootScope.authState = defaultAuthState;
             }
+        },
+        // handles the creation of key and cache store and also queries whoami handler for fresh info
+        setAuthState: function() {
+            var self = this;
+
+            // try and set the cached state first 
+            self.setCachedState();
 
             // get the jwt token
-            var token = store.get('id_token');
-
-            // if theres a cached auth state and no token destroy the session
-            if (cachedAuthState && !token) {
-                this.destroySession();
-                return
-            };
+            var token = self.getToken();
 
             // get a refreshed whois if there is a token
             if (token) {
                 // if expired reset and delete
                 if (jwtHelper.isTokenExpired(token)) {
-                    this.destroySession();
+                    self.destroySession();
                     return
                 }
 
                 // query whoami for user data
-                this.queryWhoAmI().$promise.then(function(data) {
-                    // set the authstate to the token data
+                self.queryWhoAmI().$promise.then(function(data) {
+                    // set the authstate to the whoami data
                     $rootScope.authState = {
                         id: data.user.id,
                         name: data.user.name,
-                        group: data.user.group,
-                        avatar: Utils.getAvatar(data.user.avatar),
-                        isAuthenticated: true
+                        isAuthenticated: true,
+                        avatar: Utils.getAvatar(data.user.avatar)
                     };
 
-                    // cache data
-                    store.set('id_cache', $rootScope.authState);
+                    // cache user data
+                    self.saveUserCache($rootScope.authState);
+
+                    // set our per ib data
+                    $rootScope.authState.ibdata = {
+                        group: data.user.group
+                    }
+
+                    // cache ib data
+                    self.saveIbData($rootScope.authState.ibdata);
 
                     return
 
                 }, function(error) {
                     // purge session if theres an error
-                    this.destroySession();
+                    self.destroySession();
                     return
                 });
 
             };
-
         },
+        // sets authstate to anon and removed all cached info
         destroySession: function() {
+            GlobalStore.remove(tokenstorename);
+            GlobalStore.remove(cachestorename);
+            LocalStore.remove(ibstorename);
             $rootScope.authState = defaultAuthState;
-            store.remove('id_token');
-            store.remove('id_cache');
         },
+        // saves the user cache
+        saveIbData: function(data) {
+            LocalStore.set(ibstorename, data);
+        },
+        // gets the user cache
+        getIbData: function() {
+            return LocalStore.get(ibstorename);
+        },
+        // saves the user cache
+        saveUserCache: function(cache) {
+            GlobalStore.set(cachestorename, cache);
+        },
+        // gets the user cache
+        getUserCache: function() {
+            return GlobalStore.get(cachestorename);
+        },
+        // saves the jwt token
         saveToken: function(token) {
-            store.set('id_token', token);
+            GlobalStore.set(tokenstorename, token);
         },
+        // retrieves the jwt token
         getToken: function() {
-            return store.get('id_token');
+            return GlobalStore.get(tokenstorename);
         }
     };
 });

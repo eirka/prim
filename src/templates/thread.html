@@ -8,7 +8,7 @@
                 <div class="form-group">
                     <div class="form-control userinfo">
                         <img ng-if="authState.avatar" ng-src="{{authState.avatar}}" height="18px" width="auto" />
-                        <span ng-bind="authState.name" ng-class="thread.usergroupClass(authState.group)"></span>
+                        <span ng-bind="authState.name" ng-class="thread.usergroupClass(authState.ibdata.group)"></span>
                     </div>
                 </div>
                 <div class="form-group">
@@ -36,7 +36,7 @@
                 <i ng-if="thread.data.sticky" title="Sticky" class="fa fa-thumb-tack"></i>
             </div>
             <div class="thread_buttons">
-                <div ng-if="authState.isAuthenticated && authState.group >= 3" class="thread_mod_buttons" ng-controller="ThreadModCtrl as threadmod">
+                <div ng-if="thread.showModControls" class="thread_mod_buttons" ng-controller="ThreadModCtrl as threadmod">
                     <a title="Delete" class="button button-danger fa fa-trash-o" ng-click="threadmod.deleteThread(thread.data.id)" href></a>
                     <a ng-if="!thread.data.sticky" title="Sticky" class="button button-default fa fa-thumb-tack" ng-click="threadmod.stickyThread(thread.data.id)" href></a>
                     <a ng-if="thread.data.sticky" title="Unsticky" class="button button-success fa fa-thumb-tack" ng-click="threadmod.stickyThread(thread.data.id)" href></a>
@@ -55,10 +55,10 @@
             </div>
             <div class="thread_row_info" ng-class="{ 'thread_row_noimage': !post.thumbnail }">
                 <img ng-if="post.group != 1" class="post_info" ng-src="{{post.avatar}}" height="18px" width="auto">
-                <span class="post_info" ng-class="thread.usergroupClass(post.group,post.moderator)" ng-bind="post.name"></span>
+                <span class="post_info" ng-class="thread.usergroupClass(post.group)" ng-bind="post.name"></span>
                 <span class="post_info" ng-bind="post.time"></span>
                 <a class="label label-light" ng-bind="'#'+{{post.num}}" ng-click="thread.replyQuote(post.num)" href></a>
-                <div ng-if="authState.isAuthenticated && authState.group >= 3" class="post_mod_buttons" ng-controller="PostModCtrl as postmod">
+                <div ng-if="thread.showModControls" class="post_mod_buttons" ng-controller="PostModCtrl as postmod">
                     <a title="Delete" class="button button-danger button-small fa fa-trash-o" ng-click="postmod.deletePost(thread.data.id, post.num)" href></a>
                 </div>
             </div>

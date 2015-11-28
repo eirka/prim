@@ -1,7 +1,10 @@
-angular.module('prim').controller('TagsCtrl', function($routeParams, toaster, config, internal, TagsHandler, TagTypesHandler, TagDeleteHandler, TagsNewTag, Utils) {
+angular.module('prim').controller('TagsCtrl', function($routeParams, toaster, config, internal, TagsHandler, TagTypesHandler, TagDeleteHandler, TagsNewTag, Utils, AuthService) {
 
     // using controllerAs
     var self = this;
+
+    // if mod controls should be shown or not
+    self.showModControls = AuthService.showModControls();
 
     // go to page 1 if something is fishy
     if (angular.isUndefined($routeParams.page)) {

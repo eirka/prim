@@ -8,7 +8,7 @@
                 <div class="form-group">
                     <div class="form-control userinfo">
                         <img ng-if="authState.avatar" ng-src="{{authState.avatar}}" height="18px" width="auto" />
-                        <span ng-bind="authState.name" ng-class="index.usergroupClass(authState.group)"></span>
+                        <span ng-bind="authState.name" ng-class="index.usergroupClass(authState.ibdata.group)"></span>
                     </div>
                 </div>
                 <div class="form-group">
@@ -65,7 +65,7 @@
             </div>
             <div class="thread_row_info" ng-class="{ 'thread_row_noimage': !post.thumbnail }">
                 <img ng-if="post.group != 1" class="post_info" ng-src="{{post.avatar}}" height="18px" width="auto">
-                <span class="post_info" ng-class="index.usergroupClass(post.group,post.moderator)" ng-bind="post.name"></span>
+                <span class="post_info" ng-class="index.usergroupClass(post.group)" ng-bind="post.name"></span>
                 <span class="post_info" ng-bind="post.time"></span>
                 <a class="label label-light" ng-bind="'#'+{{post.num}}" ng-click="index.replyQuote(post.num,thread.id,thread.pages)" href></a>
             </div>

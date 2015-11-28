@@ -1,7 +1,10 @@
-angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $location, $filter, toaster, user_messages, hotkeys, ImageHandler, ImageAddTag, TagSearchHandler, ImageAddFavorite, ImageGetFavorite, ImageTagDeleteHandler, Utils, config, internal) {
+angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $location, $filter, toaster, user_messages, hotkeys, ImageHandler, ImageAddTag, TagSearchHandler, ImageAddFavorite, ImageGetFavorite, ImageTagDeleteHandler, Utils, AuthService, config, internal) {
 
     // using controllerAs
     var self = this;
+
+    // if mod controls should be shown or not
+    self.showModControls = AuthService.showModControls();
 
     // Get the image json from pram
     ImageHandler.get({
@@ -136,6 +139,5 @@ angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $l
                 }
             }
         });
-
 
 });

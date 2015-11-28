@@ -1,5 +1,5 @@
 // provides numerous functions for the auth system
-angular.module('prim').factory('AuthService', function($rootScope, $route, GlobalStore, LocalStore, jwtHelper, WhoAmIHandler, Utils, config) {
+angular.module('prim').factory('AuthService', function($rootScope, GlobalStore, LocalStore, jwtHelper, UserHandlers, Utils) {
 
     // holds default ib data
     var defaultIbData = {
@@ -38,7 +38,7 @@ angular.module('prim').factory('AuthService', function($rootScope, $route, Globa
         },
         // promise to the whoami handler
         queryWhoAmI: function() {
-            return WhoAmIHandler.get();
+            return UserHandlers.whoami.get();
         },
         // set the state to the cached data if available
         setCachedState: function() {

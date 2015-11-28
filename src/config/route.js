@@ -61,7 +61,8 @@ angular.module('prim').config(function($routeProvider, $locationProvider, $compi
         })
         .when('/error', {
             templateUrl: 'pages/error.html',
-            controller: 'errorHandler'
+            controller: 'errorHandler',
+            controllerAs: 'error'
         })
         .otherwise({
             redirectTo: '/error'

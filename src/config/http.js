@@ -19,12 +19,34 @@ angular.module('prim').config(function($httpProvider, jwtInterceptorProvider) {
         return null;
     }];
 
-    // add jwtinterceptor to httpprovider interceptors
-    $httpProvider.interceptors.push('jwtInterceptor');
-
     // we want all the credentials
     $httpProvider.defaults.withCredentials = true;
     // async http requests 
     $httpProvider.useApplyAsync(true);
 
+    // add jwtinterceptor to httpprovider interceptors
+    $httpProvider.interceptors.push('jwtInterceptor');
+
+    // add our error interceptor
+    $httpProvider.interceptors.push('errorInterceptor');
+
+});
+
+
+// our error interceptor
+angular.module('prim').factory('errorInterceptor', function($q, $location, toaster, Utils) {
+    return {
+        'responseError': function(rejection) {
+            if (angular.equals(rejection.status, -1)) {
+                Utils.apiError(502);
+            } else if (angular.equals(rejection.status, 401)) {
+                // if unauthorized forward to the login page
+                toaster.pop('error', rejection.data.error_message);
+                $location.path('/account');
+            } else if (angular.equals(rejection.status, 404)) {
+                Utils.apiError(404);
+            }
+            return $q.reject(rejection);
+        }
+    };
 });

@@ -1,4 +1,4 @@
-angular.module('prim').controller('DirectoryCtrl', function(DirectoryHandler, Utils) {
+angular.module('prim').controller('DirectoryCtrl', function(Handlers, Utils) {
 
     // using controllerAs
     var self = this;
@@ -6,13 +6,11 @@ angular.module('prim').controller('DirectoryCtrl', function(DirectoryHandler, Ut
     self.nothreads = false;
 
     // Get the directory json from pram
-    DirectoryHandler.get(function(data) {
+    Handlers.directory.get(function(data) {
         self.data = data;
     }, function(error) {
         if (angular.equals(error.status, 404)) {
             self.nothreads = true;
-        } else {
-            Utils.apiError(error.status);
         }
     });
 

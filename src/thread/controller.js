@@ -1,4 +1,4 @@
-angular.module('prim').controller('ThreadCtrl', function($window, $location, $scope, $routeParams, hotkeys, config, internal, ThreadHandler, Utils, AuthService) {
+angular.module('prim').controller('ThreadCtrl', function($window, $location, $scope, $routeParams, hotkeys, config, internal, Handlers, Utils, AuthService) {
 
     // using controllerAs
     var self = this;
@@ -29,7 +29,7 @@ angular.module('prim').controller('ThreadCtrl', function($window, $location, $sc
     }
 
     // Get thread json and set scope
-    ThreadHandler.get({
+    Handlers.thread.get({
         id: $routeParams.id,
         page: $routeParams.page
     }, function(data) {
@@ -55,8 +55,6 @@ angular.module('prim').controller('ThreadCtrl', function($window, $location, $sc
             }
         });
 
-    }, function(error) {
-        Utils.apiError(error.status);
     });
 
     // add post num to comment box

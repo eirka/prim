@@ -1,4 +1,4 @@
-angular.module('prim').controller('IndexCtrl', function($location, $routeParams, $scope, $route, hotkeys, config, internal, IndexHandler, Utils) {
+angular.module('prim').controller('IndexCtrl', function($location, $routeParams, $scope, $route, hotkeys, config, internal, Handlers, Utils) {
 
     // using controllerAs
     var self = this;
@@ -18,7 +18,7 @@ angular.module('prim').controller('IndexCtrl', function($location, $routeParams,
     }
 
     // Get index json
-    IndexHandler.get({
+    Handlers.index.get({
         page: $routeParams.page
     }, function(data) {
         self.data = data.index.items;
@@ -49,9 +49,8 @@ angular.module('prim').controller('IndexCtrl', function($location, $routeParams,
             $location.path('/thread/' + thread + '/' + last);
         };
 
-    }, function(error) {
-        Utils.apiError(error.status);
     });
+
 
     hotkeys.bindTo($scope)
         .add({

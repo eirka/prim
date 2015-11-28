@@ -1,4 +1,4 @@
-angular.module('prim').controller('FavoritesCtrl', function($scope, $routeParams, $location, hotkeys, FavoritesHandler, Utils) {
+angular.module('prim').controller('FavoritesCtrl', function($scope, $routeParams, $location, hotkeys, UserHandlers, Utils) {
 
     // using controllerAs
     var self = this;
@@ -9,7 +9,7 @@ angular.module('prim').controller('FavoritesCtrl', function($scope, $routeParams
     }
 
     // Get tag page json
-    FavoritesHandler.get({
+    UserHandlers.favorites.get({
         page: $routeParams.page
     }, function(data) {
         self.data = data.favorites.items;
@@ -27,8 +27,6 @@ angular.module('prim').controller('FavoritesCtrl', function($scope, $routeParams
             image.thumbnail = Utils.getThumbSrc(image.thumbnail, image.filename);
         });
 
-    }, function(error) {
-        Utils.apiError(error.status);
     });
 
     hotkeys.bindTo($scope)

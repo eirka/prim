@@ -1,4 +1,4 @@
-angular.module('prim').controller('TagsCtrl', function($routeParams, toaster, config, internal, TagsHandler, TagTypesHandler, TagDeleteHandler, TagsNewTag, Utils, AuthService) {
+angular.module('prim').controller('TagsCtrl', function($routeParams, Handlers, ModHandlers, toaster, config, internal, Utils, AuthService) {
 
     // using controllerAs
     var self = this;
@@ -36,7 +36,7 @@ angular.module('prim').controller('TagsCtrl', function($routeParams, toaster, co
     // this is a function so we can reload it if someone makes a new tag
     self.updateTags = function() {
         self.notags = false;
-        TagsHandler.get({
+        Handlers.tags.get({
             page: $routeParams.page
         }, function(data) {
             self.data = data.tags.items;
@@ -51,8 +51,6 @@ angular.module('prim').controller('TagsCtrl', function($routeParams, toaster, co
         }, function(error) {
             if (angular.equals(error.status, 404)) {
                 self.notags = true;
-            } else {
-                Utils.apiError(error.status);
             }
         });
         self.error = null;
@@ -62,16 +60,14 @@ angular.module('prim').controller('TagsCtrl', function($routeParams, toaster, co
     self.updateTags();
 
     // Get tag types for selector
-    TagTypesHandler.get(function(data) {
+    Handlers.tagtypes.get(function(data) {
         self.tagtypes = data.tagtypes;
-    }, function(error) {
-        Utils.apiError(error.status);
     });
 
     // Function for adding a tag, updates tag list on success
     self.deleteTag = function(tag_id) {
         if (confirm("Are you sure you want to delete this tag?")) {
-            TagDeleteHandler.remove({
+            ModHandlers.deletetag.delete({
                 id: tag_id
             }, function(data) {
                 self.updateTags();
@@ -84,7 +80,7 @@ angular.module('prim').controller('TagsCtrl', function($routeParams, toaster, co
 
     // Function for adding a tag, updates tag list on success
     self.newTag = function() {
-        TagsNewTag.save({
+        Handlers.newtag.save({
             name: self.name,
             type: self.selected,
             ib: config.ib_id,

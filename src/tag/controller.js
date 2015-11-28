@@ -1,31 +1,22 @@
-angular.module('prim').controller('TagCtrl', function($scope, $routeParams, $location, hotkeys, TagHandler, Utils) {
+angular.module('prim').controller('TagCtrl', function($scope, $routeParams, $location, hotkeys, Handlers, Utils) {
 
     // using controllerAs
     var self = this;
 
     // selects a row color
     self.rowClass = function(type) {
-        var rowclass = "";
-
         switch (type) {
             case 1:
-                rowclass = "tagpage-tag";
-                break;
+                return "tagpage-tag";
             case 2:
-                rowclass = "tagpage-artist";
-                break;
+                return "tagpage-artist";
             case 3:
-                rowclass = "tagpage-character";
-                break;
+                return "tagpage-character";
             case 4:
-                rowclass = "tagpage-copyright";
-                break;
+                return "tagpage-copyright";
             default:
-                rowclass = "";
-                break;
+                return "";
         }
-
-        return rowclass
     }
 
     // go to page 1 if something is fishy
@@ -34,7 +25,7 @@ angular.module('prim').controller('TagCtrl', function($scope, $routeParams, $loc
     }
 
     // Get tag page json
-    TagHandler.get({
+    Handlers.tag.get({
         id: $routeParams.id,
         page: $routeParams.page
     }, function(data) {
@@ -55,8 +46,6 @@ angular.module('prim').controller('TagCtrl', function($scope, $routeParams, $loc
             image.thumbnail = Utils.getThumbSrc(image.thumbnail, image.filename);
         });
 
-    }, function(error) {
-        Utils.apiError(error.status);
     });
 
     hotkeys.bindTo($scope)

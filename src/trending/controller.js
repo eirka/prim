@@ -1,10 +1,10 @@
-angular.module('prim').controller('PopularCtrl', function(PopularHandler, Utils) {
+angular.module('prim').controller('PopularCtrl', function(Handlers, Utils) {
 
     // using controllerAs
     var self = this;
 
     // Get tag page json
-    PopularHandler.get(function(data) {
+    Handlers.popular.get(function(data) {
         self.data = data.popular;
 
         // modify content
@@ -12,19 +12,17 @@ angular.module('prim').controller('PopularCtrl', function(PopularHandler, Utils)
             image.thumbnail = Utils.getThumbSrc(image.thumbnail, image.filename);
         });
 
-    }, function(error) {
-        Utils.apiError(error.status);
     });
 
 });
 
-angular.module('prim').controller('NewCtrl', function(NewHandler, Utils) {
+angular.module('prim').controller('NewCtrl', function(Handlers, Utils) {
 
     // using controllerAs
     var self = this;
 
     // Get tag page json
-    NewHandler.get(function(data) {
+    Handlers.new.get(function(data) {
         self.data = data.new;
 
         // modify content
@@ -32,19 +30,17 @@ angular.module('prim').controller('NewCtrl', function(NewHandler, Utils) {
             image.thumbnail = Utils.getThumbSrc(image.thumbnail, image.filename);
         });
 
-    }, function(error) {
-        Utils.apiError(error.status);
     });
 
 });
 
-angular.module('prim').controller('FavoritedCtrl', function(FavoritedHandler, Utils) {
+angular.module('prim').controller('FavoritedCtrl', function(Handlers, Utils) {
 
     // using controllerAs
     var self = this;
 
     // Get tag page json
-    FavoritedHandler.get(function(data) {
+    Handlers.favorited.get(function(data) {
         self.data = data.favorited;
 
         // modify content
@@ -52,8 +48,6 @@ angular.module('prim').controller('FavoritedCtrl', function(FavoritedHandler, Ut
             image.thumbnail = Utils.getThumbSrc(image.thumbnail, image.filename);
         });
 
-    }, function(error) {
-        Utils.apiError(error.status);
     });
 
 });

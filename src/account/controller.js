@@ -31,14 +31,14 @@ angular.module('prim').controller('AccountCtrl', function($route, toaster, user_
 
 });
 
-angular.module('prim').controller('PasswordCtrl', function(toaster, config, internal, PasswordHandler) {
+angular.module('prim').controller('PasswordCtrl', function(toaster, config, internal, UserHandlers) {
 
     // using controllerAs
     var self = this;
 
     // Function for registering an account
     self.changePassword = function() {
-        PasswordHandler.save({
+        UserHandlers.password.save({
             ib: config.ib_id,
             oldpw: self.form.oldpassword,
             newpw: self.form.newpassword
@@ -53,14 +53,14 @@ angular.module('prim').controller('PasswordCtrl', function(toaster, config, inte
 
 });
 
-angular.module('prim').controller('EmailCtrl', function($route, toaster, config, internal, EmailHandler) {
+angular.module('prim').controller('EmailCtrl', function($route, toaster, config, internal, UserHandlers) {
 
     // using controllerAs
     var self = this;
 
     // Function for registering an account
     self.updateEmail = function() {
-        EmailHandler.save({
+        UserHandlers.email.save({
             ib: config.ib_id,
             email: self.form.email
         }, function(data) {
@@ -76,14 +76,14 @@ angular.module('prim').controller('EmailCtrl', function($route, toaster, config,
 
 });
 
-angular.module('prim').controller('RegisterCtrl', function(toaster, config, internal, RegisterHandler) {
+angular.module('prim').controller('RegisterCtrl', function(toaster, config, internal, UserHandlers) {
 
     // using controllerAs
     var self = this;
 
     // Function for registering an account
     self.newUser = function() {
-        RegisterHandler.save({
+        UserHandlers.register.save({
             ib: config.ib_id,
             askey: internal.as_key,
             name: self.form.name,
@@ -100,14 +100,14 @@ angular.module('prim').controller('RegisterCtrl', function(toaster, config, inte
 
 });
 
-angular.module('prim').controller('LoginCtrl', function($location, toaster, config, internal, LoginHandler, AuthService) {
+angular.module('prim').controller('LoginCtrl', function($location, toaster, config, internal, UserHandlers, AuthService) {
 
     // using controllerAs
     var self = this;
 
     // Function for logging in
     self.logIn = function() {
-        LoginHandler.save({
+        UserHandlers.login.save({
             ib: config.ib_id,
             askey: internal.as_key,
             name: self.form.name,

@@ -23,7 +23,7 @@ angular.module('prim').directive('commentQuotes', function() {
 
 
 // quotebox takes the quotes from comment-handler and makes a popup box with the post data
-angular.module('prim').directive('hoverBox', function(PostHandler, Utils) {
+angular.module('prim').directive('hoverBox', function(Handlers, Utils) {
     return {
         restrict: 'E',
         scope: false,
@@ -33,7 +33,7 @@ angular.module('prim').directive('hoverBox', function(PostHandler, Utils) {
             // selects usergroup class
             scope.usergroupClass = Utils.usergroupClass;
 
-            PostHandler.get({
+            Handlers.post.get({
                 thread: scope.thread,
                 id: scope.id
             }, function(data) {

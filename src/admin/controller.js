@@ -1,12 +1,12 @@
 // mod functions for threads
-angular.module('prim').controller('ThreadModCtrl', function($location, $route, toaster, ThreadDeleteHandler, CloseThreadHandler, StickyThreadHandler, Utils) {
+angular.module('prim').controller('ThreadModCtrl', function($location, $route, toaster, ModHandlers, Utils) {
 
     // using controllerAs
     var self = this;
 
     // toggle thread close status
     self.closeThread = function(thread_id) {
-        CloseThreadHandler.save({
+        ModHandlers.close.save({
             id: thread_id
         }, function(data) {
             $route.reload();
@@ -18,7 +18,7 @@ angular.module('prim').controller('ThreadModCtrl', function($location, $route, t
 
     // toggle thread sticky status
     self.stickyThread = function(thread_id) {
-        StickyThreadHandler.save({
+        ModHandlers.sticky.save({
             id: thread_id
         }, function(data) {
             $route.reload();
@@ -33,7 +33,7 @@ angular.module('prim').controller('ThreadModCtrl', function($location, $route, t
     // delete a thread
     self.deleteThread = function(thread_id) {
         if (confirm("Are you sure you want to delete this thread?")) {
-            ThreadDeleteHandler.remove({
+            ModHandlers.deletethread.remove({
                 id: thread_id
             }, function(data) {
                 $location.path('/');
@@ -48,7 +48,7 @@ angular.module('prim').controller('ThreadModCtrl', function($location, $route, t
 
 
 // mod functions for threads
-angular.module('prim').controller('PostModCtrl', function($route, toaster, PostDeleteHandler, Utils) {
+angular.module('prim').controller('PostModCtrl', function($route, toaster, ModHandlers, Utils) {
 
     // using controllerAs
     var self = this;
@@ -56,7 +56,7 @@ angular.module('prim').controller('PostModCtrl', function($route, toaster, PostD
     // delete a post
     self.deletePost = function(thread_id, post_id) {
         if (confirm("Are you sure you want to delete this post?")) {
-            PostDeleteHandler.remove({
+            ModHandlers.deletepost.remove({
                 thread: thread_id,
                 id: post_id
             }, function(data) {

@@ -1,4 +1,4 @@
-angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $location, $filter, toaster, user_messages, hotkeys, ImageHandler, ImageAddTag, TagSearchHandler, ImageAddFavorite, ImageGetFavorite, ImageTagDeleteHandler, Utils, AuthService, config, internal) {
+angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $location, $filter, Handlers, UserHandlers, ModHandlers, toaster, user_messages, hotkeys, Utils, AuthService, config, internal) {
 
     // using controllerAs
     var self = this;
@@ -7,7 +7,7 @@ angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $l
     self.showModControls = AuthService.showModControls();
 
     // Get the image json from pram
-    ImageHandler.get({
+    Handlers.image.get({
         id: $routeParams.id
     }, function(data) {
         self.data = data;
@@ -18,13 +18,11 @@ angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $l
         self.src = Utils.getImgSrc(data.image.filename);
         // get file ext to check if video or image
         self.ext = data.image.filename.split('.').pop();
-    }, function(error) {
-        Utils.apiError(error.status);
     });
 
     // check to see if an image is starred or not
     self.checkFavorite = function() {
-        ImageGetFavorite.get({
+        UserHandlers.favorite.get({
             id: $routeParams.id
         }, function(data) {
             self.starred = data.starred;
@@ -42,7 +40,7 @@ angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $l
 
     // async tag search
     self.searchTags = function(term) {
-        return TagSearchHandler.get({
+        return Handlers.tagsearch.get({
             search: term
         }).$promise.then(function(data) {
             return self.tagList = $filter('limitTo')(data.tagsearch, 6);
@@ -62,7 +60,7 @@ angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $l
 
     // Update image json
     self.updateTags = function() {
-        ImageHandler.get({
+        Handlers.image.get({
             id: $routeParams.id
         }, function(data) {
             self.tags = data.image.tags;
@@ -75,7 +73,7 @@ angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $l
     // Add a tag to the image and update list
     self.addTag = function() {
         if (angular.isNumber(self.selected) && angular.equals((self.selected % 1), 0)) {
-            ImageAddTag.save({
+            Handlers.addtag.save({
                 tag: self.selected,
                 image: self.data.image.id,
                 ib: config.ib_id,
@@ -95,7 +93,7 @@ angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $l
     // Function for deleting a tag, updates tag list on success
     self.deleteTag = function(image_id, tag_id) {
         if (confirm("Are you sure you want to delete this tag?")) {
-            ImageTagDeleteHandler.remove({
+            ModHandlers.deleteimagetag.delete({
                 image: image_id,
                 tag: tag_id
             }, function(data) {
@@ -109,7 +107,7 @@ angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $l
 
     // Add an image to a users favorite list
     self.addFavorite = function() {
-        ImageAddFavorite.save({
+        UserHandlers.addfavorite.save({
             image: self.data.image.id
         }, function(data) {
             // refresh star state

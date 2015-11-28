@@ -1,12 +1,20 @@
 angular.module('prim').controller('errorHandler', function($scope, Utils) {
 
-    $scope.errorcode = Utils.getError();
+    // using controllerAs
+    var self = this;
 
-    if (angular.isUndefined($scope.errorcode) || angular.equals($scope.errorcode, "")) {
-        $scope.errorcode = "???";
+    // get the stored error code 
+    self.errorcode = Utils.getError();
+
+    if (angular.isUndefined(self.errorcode) || angular.equals(self.errorcode, "")) {
+        self.errorcode = "???";
     }
 
-    switch ($scope.errorcode) {
+    if (angular.equals(self.errorcode, -1)) {
+        self.errorcode = 502;
+    }
+
+    switch (self.errorcode) {
         case 401:
             $scope.page.setTitle("Unauthorized");
             break;

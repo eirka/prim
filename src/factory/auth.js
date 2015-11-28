@@ -107,9 +107,7 @@ angular.module('prim').factory('AuthService', function($rootScope, $route, Globa
         },
         // sets authstate to anon and removed all cached info
         destroySession: function() {
-            GlobalStore.remove(tokenstorename);
-            GlobalStore.remove(cachestorename);
-            LocalStore.remove(ibstorename);
+            localStorage.clear();
             $rootScope.authState = defaultAuthState;
         },
         // saves the user cache

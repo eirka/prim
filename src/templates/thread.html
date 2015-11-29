@@ -32,20 +32,22 @@
         <div class="thread_header">
             <div class="thread_title">
                 <span ng-bind="thread.data.title"></span>
-                <i ng-if="thread.data.closed" title="Closed" class="fa fa-lock"></i>
-                <i ng-if="thread.data.sticky" title="Sticky" class="fa fa-thumb-tack"></i>
             </div>
             <div class="thread_buttons">
                 <div ng-if="thread.showModControls" class="thread_mod_buttons" ng-controller="ThreadModCtrl as threadmod">
                     <a title="Delete" class="button button-danger fa fa-trash-o" ng-click="threadmod.deleteThread(thread.data.id)" href></a>
-                    <a ng-if="!thread.data.sticky" title="Sticky" class="button button-default fa fa-thumb-tack" ng-click="threadmod.stickyThread(thread.data.id)" href></a>
-                    <a ng-if="thread.data.sticky" title="Unsticky" class="button button-success fa fa-thumb-tack" ng-click="threadmod.stickyThread(thread.data.id)" href></a>
                     <a ng-if="!thread.data.closed" title="Close" class="button button-default fa fa-unlock-alt" ng-click="threadmod.closeThread(thread.data.id)" href></a>
                     <a ng-if="thread.data.closed" title="Open" class="button button-success fa fa-lock" ng-click="threadmod.closeThread(thread.data.id)" href></a>
+                    <a ng-if="!thread.data.sticky" title="Sticky" class="button button-default fa fa-thumb-tack" ng-click="threadmod.stickyThread(thread.data.id)" href></a>
+                    <a ng-if="thread.data.sticky" title="Unsticky" class="button button-success fa fa-thumb-tack" ng-click="threadmod.stickyThread(thread.data.id)" href></a>
+                </div>
+                <div ng-if="thread.data.closed" title="Closed" class="thread_info fa fa-lock">
+                </div>
+                <div ng-if="thread.data.sticky" title="Sticky" class="thread_info fa fa-thumb-tack">
                 </div>
                 <div class="button-group">
-                    <a class="button button-default fa fa-align-justify" title="Post view" ng-class="{active: thread.layout == 'list'}" ng-click="thread.layout = 'list'"></a>
-                    <a class="button button-default fa fa-th" title="Image view" ng-class="{active: thread.layout == 'grid'}" ng-click="thread.layout = 'grid'"></a>
+                    <a class="button button-thread fa fa-align-justify" title="Post view" ng-class="{active: thread.layout == 'list'}" ng-click="thread.layout = 'list'"></a>
+                    <a class="button button-thread fa fa-th" title="Image view" ng-class="{active: thread.layout == 'grid'}" ng-click="thread.layout = 'grid'"></a>
                 </div>
             </div>
         </div>

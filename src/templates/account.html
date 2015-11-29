@@ -9,9 +9,9 @@
             <a class="button button-default" ng-click="account.logOut()" href>Logout</a>
         </div>
     </div>
-    <div class="account_container">
-        <div class="account_subcontainer" ng-controller="PasswordCtrl as password">
-            <form role="form" ng-submit="password.changePassword()">
+    <div class="account_row">
+        <div class="account_subcontainer left" ng-controller="PasswordCtrl as password">
+            <form role="form" name="passwordform" ng-submit="password.changePassword()">
                 <div class="form-group">
                     <span class="account_title">Change Password</span>
                 </div>
@@ -22,12 +22,15 @@
                     <input type="password" id="newpassword" class="form-control" placeholder="New password" ng-required="true" ng-model="password.form.newpassword">
                 </div>
                 <div class="form-group">
-                    <button class="button button-primary button-block" type="submit" value="Submit">Submit</button>
+                    <input type="password" id="checkpassword" class="form-control" placeholder="New Password (retype)" ng-required="true" ng-model="password.form.check_password" validation-error="password.form.check_password != password.form.newpassword ? 'Passwords don\'t match' : ''">
+                </div>
+                <div class="form-group">
+                    <button ng-disabled="passwordform.$invalid" class="button button-primary button-block" type="submit" value="Submit">Submit</button>
                 </div>
             </form>
         </div>
-        <div class="account_subcontainer" ng-controller="EmailCtrl as email">
-            <form role="form" ng-submit="email.updateEmail()">
+        <div class="account_subcontainer right" ng-controller="EmailCtrl as email">
+            <form role="form" name="emailform" ng-submit="email.updateEmail()">
                 <div class="form-group">
                     <span class="account_title">Update Email</span>
                 </div>
@@ -35,7 +38,7 @@
                     <input type="text" id="email" class="form-control" placeholder="{{::account.whoami.email}}" ng-required="true" ng-model="email.form.email">
                 </div>
                 <div class="form-group">
-                    <button class="button button-primary button-block" type="submit" value="Submit">Submit</button>
+                    <button ng-disabled="emailform.$invalid" class="button button-primary button-block" type="submit" value="Submit">Submit</button>
                 </div>
             </form>
         </div>
@@ -44,9 +47,9 @@
 </div>
 <!-- Not authed -->
 <div ng-if="!authState.isAuthenticated" class="account">
-    <div class="account_container">
-        <div class="account_subcontainer" ng-controller="LoginCtrl as login">
-            <form role="form" ng-submit="login.logIn()">
+    <div class="account_row">
+        <div class="account_subcontainer left" ng-controller="LoginCtrl as login">
+            <form role="form" name="loginform" ng-submit="login.logIn()">
                 <div class="form-group">
                     <span class="account_title">Login</span>
                 </div>
@@ -57,26 +60,29 @@
                     <input type="password" id="password" class="form-control" placeholder="Password" ng-required="true" ng-model="login.form.password">
                 </div>
                 <div class="form-group">
-                    <button class="button button-primary button-block" type="submit" value="Submit">Login</button>
+                    <button ng-disabled="loginform.$invalid" class="button button-primary button-block" type="submit" value="Submit">Login</button>
                 </div>
             </form>
         </div>
-        <div class="account_subcontainer" ng-controller="RegisterCtrl as register">
-            <form role="form" ng-submit="register.newUser()">
+        <div class="account_subcontainer right" ng-controller="RegisterCtrl as register">
+            <form role="form" name="registerform" ng-submit="register.newUser()">
                 <div class="form-group">
                     <span class="account_title">Register</span>
                 </div>
                 <div class="form-group">
-                    <input type="text" id="name" class="form-control" placeholder="Name" ng-required="true" ng-model="register.form.name">
+                    <input type="text" id="name" ng-minlength="3" ng-maxlength="20" class="form-control" placeholder="Name" ng-required="true" ng-model="register.form.name">
                 </div>
                 <div class="form-group">
                     <input type="password" id="password" class="form-control" placeholder="Password" ng-required="true" ng-model="register.form.password">
                 </div>
                 <div class="form-group">
+                    <input type="password" id="checkpassword" class="form-control" placeholder="Password (retype)" ng-required="true" ng-model="register.form.check_password" validation-error="register.form.check_password != register.form.password ? 'Passwords don\'t match' : ''">
+                </div>
+                <div class="form-group">
                     <input type="text" id="email" class="form-control" placeholder="Email (optional)" ng-model="register.form.email">
                 </div>
                 <div class="form-group">
-                    <button class="button button-success button-block" type="submit" value="Submit">Register</button>
+                    <button ng-disabled="registerform.$invalid" class="button button-success button-block" type="submit" value="Submit">Register</button>
                 </div>
             </form>
         </div>

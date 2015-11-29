@@ -21,24 +21,6 @@
     padding: 1em;
     margin-bottom: 1em;
 
-    & .account_subcontainer {
-        margin-bottom: 1em;
-        text-align: center;
-
-        @media #{$screenSmall} {
-            text-align: left;
-            margin: 1em 0.5em;
-            float: left;
-            width: calc(50% - 1em);
-        }
-    }
-
-    & .account_title {
-        @include boxTitle;
-
-        padding: 0;
-    }
-
     & .account_name {
         @include boxTitle;
 
@@ -61,6 +43,47 @@
 
         @media #{$screenSmall} {
             float: right;
+        }
+    }
+}
+
+.account_row {
+    @include clearfix;
+
+    @include mediaWidths;
+
+    overflow: hidden;
+    width: $boxWidthRel;
+    margin: 0 auto;
+    padding: 0;
+
+    & .account_subcontainer {
+        @include shadow;
+
+        border-radius: 6px;
+        overflow: hidden;
+        padding: 1em;
+        text-align: center;
+        margin-bottom: 1em;
+
+        & .account_title {
+            @include boxTitle;
+
+            padding: 0;
+        }
+
+        @media #{$screenSmall} {
+            float: left;
+
+            &.left {
+                margin-right: 0.5em;
+                width: calc(50% - 0.5em);
+            }
+
+            &.right {
+                margin-left: 0.5em;
+                width: calc(50% - 0.5em);
+            }
         }
     }
 }

@@ -1750,23 +1750,6 @@ textarea.form-control {
   @media screen and (min-width: 80em) {
     .account_container {
       width: 78em; } }
-  .account_container .account_subcontainer {
-    margin-bottom: 1em;
-    text-align: center; }
-    @media screen and (min-width: 50em) {
-      .account_container .account_subcontainer {
-        text-align: left;
-        margin: 1em 0.5em;
-        float: left;
-        width: calc(50% - 1em); } }
-  .account_container .account_title {
-    padding: 0.8em;
-    font-size: 1.5em;
-    text-align: center;
-    padding: 0; }
-    @media screen and (min-width: 50em) {
-      .account_container .account_title {
-        text-align: left; } }
   .account_container .account_name {
     padding: 0.8em;
     font-size: 1.5em;
@@ -1788,6 +1771,50 @@ textarea.form-control {
     @media screen and (min-width: 50em) {
       .account_container .logout {
         float: right; } }
+
+.account_row {
+  overflow: hidden;
+  width: 90%;
+  margin: 0 auto;
+  padding: 0; }
+  .account_row:before, .account_row:after {
+    content: " ";
+    display: table; }
+  .account_row:after {
+    clear: both; }
+  @media screen and (min-width: 50em) {
+    .account_row {
+      width: 48em; } }
+  @media screen and (min-width: 65em) {
+    .account_row {
+      width: 63em; } }
+  @media screen and (min-width: 80em) {
+    .account_row {
+      width: 78em; } }
+  .account_row .account_subcontainer {
+    box-shadow: 0 2px 3px #ccc;
+    border-radius: 6px;
+    overflow: hidden;
+    padding: 1em;
+    text-align: center;
+    margin-bottom: 1em; }
+    .account_row .account_subcontainer .account_title {
+      padding: 0.8em;
+      font-size: 1.5em;
+      text-align: center;
+      padding: 0; }
+      @media screen and (min-width: 50em) {
+        .account_row .account_subcontainer .account_title {
+          text-align: left; } }
+    @media screen and (min-width: 50em) {
+      .account_row .account_subcontainer {
+        float: left; }
+        .account_row .account_subcontainer.left {
+          margin-right: 0.5em;
+          width: calc(50% - 0.5em); }
+        .account_row .account_subcontainer.right {
+          margin-left: 0.5em;
+          width: calc(50% - 0.5em); } }
 
 /* favorites css */
 .favorites {

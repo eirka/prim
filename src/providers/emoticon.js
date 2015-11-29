@@ -100,7 +100,7 @@ angular.module('prim').provider("emoticons", function emoticonsProvider() {
 
         // I create an HTML tag that represents the given token.
         function createTokenTag(token) {
-            return ('<img class="emoticon" src="' + imgsrv + '/emoticons/' + token.image + '" />');
+            return ('<img class="emoticon" title=":' + token.text + ':" src="' + imgsrv + '/emoticons/' + token.image + '" />');
         }
 
     }

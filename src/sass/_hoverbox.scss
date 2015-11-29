@@ -13,18 +13,23 @@
     position: absolute;
     border-radius: 3px;
     min-width: 20%;
-    max-width: 80%;
+    max-width: 60%;
     z-index: 99;
     overflow: hidden;
+
+    &.ng-enter {
+        transition: 0.3s;
+        opacity: 0;
+    }
+
+    &.ng-enter-active {
+        opacity: 1;
+    }
 
     @media #{$screenSmall} {
         min-width: 20%;
         max-width: 40%;
     }
-}
-
-.angular-hovercard-detail.ng-leave {
-    visibility: hidden;
 }
 
 .angular-hovercard-label {

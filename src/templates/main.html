@@ -32,10 +32,14 @@
         <div class="thread_index_header">
             <div class="thread_title">
                 <a ng-href="thread/{{thread.id}}/1" ng-bind="thread.title" href></a>
-                <i ng-if="thread.closed" title="Closed" class="fa fa-lock"></i>
-                <i ng-if="thread.sticky" title="Sticky" class="fa fa-thumb-tack"></i>
             </div>
             <div class="thread_buttons">
+                <div ng-if="thread.closed" title="Closed" class="thread_info">
+                    <i class="fa fa-lock"></i>
+                </div>
+                <div ng-if="thread.sticky" title="Sticky" class="thread_info">
+                    <i class="fa fa-thumb-tack"></i>
+                </div>
                 <div class="thread_info">
                     <div class="col">
                         <i class="fa fa-fw fa-comment-o" title="Posts"></i><span ng-bind="thread.total"></span>

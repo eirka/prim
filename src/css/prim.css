@@ -985,16 +985,18 @@ textarea.form-control {
   position: absolute;
   border-radius: 3px;
   min-width: 20%;
-  max-width: 80%;
+  max-width: 60%;
   z-index: 99;
   overflow: hidden; }
+  .angular-hovercard-detail.ng-enter {
+    transition: 0.3s;
+    opacity: 0; }
+  .angular-hovercard-detail.ng-enter-active {
+    opacity: 1; }
   @media screen and (min-width: 50em) {
     .angular-hovercard-detail {
       min-width: 20%;
       max-width: 40%; } }
-
-.angular-hovercard-detail.ng-leave {
-  visibility: hidden; }
 
 .angular-hovercard-label {
   padding: 1px;

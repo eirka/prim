@@ -6,10 +6,10 @@
         <input type="text" id="name" ng-minlength="3" ng-maxlength="20" class="form-control" placeholder="Name" ng-required="true" ng-model="register.form.name">
     </div>
     <div class="form-group">
-        <input type="password" id="password" class="form-control" placeholder="Password" ng-required="true" ng-model="register.form.password">
+        <input type="password" id="password" class="form-control" placeholder="Password" ng-minlength="5" ng-required="true" ng-model="register.form.password">
     </div>
     <div class="form-group">
-        <input type="password" id="checkpassword" class="form-control" placeholder="Password (retype)" ng-required="true" ng-model="register.form.check_password" validation-error="register.form.check_password != register.form.password ? 'Passwords don\'t match' : ''">
+        <input type="password" id="checkpassword" class="form-control" placeholder="Password (retype)" ng-minlength="5" ng-required="true" ng-model="register.form.check_password" validation-error="register.form.check_password != register.form.password ? 'Passwords don\'t match' : ''">
     </div>
     <div class="form-group">
         <input type="text" id="email" class="form-control" placeholder="Email (optional)" ng-model="register.form.email">

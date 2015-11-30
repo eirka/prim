@@ -128,14 +128,37 @@
     opacity: 0.6;
 }
 
-.thread_row_info {
-    padding: 1em 1em 0em 1em;
+.thread_content {
+    width: 100%;
     text-align: center;
+    display: table;
+    padding: 0.8em;
 
     @media #{$screenSmall} {
         text-align: left;
         float: left;
         width: 75%;
+    }
+
+    &.noimage {
+        width: 100%;
+    }
+}
+
+.thread_row_info {
+    width: 100%;
+
+    & .items {
+        & .info_item {
+            display: inline-block;
+            padding-right: 0.3em;
+
+            & img {
+                width: 18px;
+                height: auto;
+                vertical-align: middle;
+            }
+        }
     }
 
     & .post_mod_buttons {
@@ -150,14 +173,9 @@
 }
 
 .thread_row_post {
-    padding: 0 1em 1em 1em;
+    width: 100%;
+    padding-top: 0.5em;
     text-align: left;
-
-    @media #{$screenSmall} {
-        padding: 0.5em 1em;
-        float: left;
-        width: 75%;
-    }
 }
 
 .thread_comment {
@@ -177,14 +195,6 @@
     font-weight: bold;
 }
 
-.thread_row_noimage {
-    width: 100%;
-}
-
 .post_quote {
     margin-right: 1px;
-}
-
-.post_info {
-    vertical-align: middle;
 }

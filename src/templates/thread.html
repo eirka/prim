@@ -53,18 +53,31 @@
         </div>
         <div ng-show="thread.layout == 'list'" ng-repeat="post in ::thread.data.posts track by post.id" id="reply-{{post.num}}" class="thread_row">
             <div class="thread_row_image" ng-if="!!post.thumbnail">
-                <a ng-href="image/{{post.img_id}}" href><img ng-src="{{post.thumbnail}}" height="{{post.tn_height}}" width="{{post.tn_width}}"> </a>
+                <a ng-href="image/{{post.img_id}}" href><img ng-src="{{post.thumbnail}}" height="{{post.tn_height}}" width="{{post.tn_width}}">
+                </a>
             </div>
-            <div class="thread_row_info" ng-class="{ 'thread_row_noimage': !post.thumbnail }">
-                <img ng-if="post.group != 1" class="post_info" ng-src="{{post.avatar}}" height="18px" width="auto">
-                <span class="post_info" ng-class="thread.usergroupClass(post.group)" ng-bind="post.name"></span>
-                <span class="post_info" ng-bind="post.time"></span>
-                <a class="label label-light" ng-bind="'#'+{{post.num}}" ng-click="thread.replyQuote(post.num)" href></a>
-                <div ng-if="thread.showModControls" class="post_mod_buttons" ng-controller="PostModCtrl as postmod">
-                    <a title="Delete" class="button button-danger button-small fa fa-trash-o" ng-click="postmod.deletePost(thread.data.id, post.num)" href></a>
+            <div class="thread_content" ng-class="{ 'noimage': !post.thumbnail }">
+                <div class="thread_row_info">
+                    <div class="items">
+                        <div ng-if="post.group != 1" class="info_item">
+                            <img ng-src="{{post.avatar}}">
+                        </div>
+                        <div class="info_item">
+                            <span ng-class="thread.usergroupClass(post.group)" ng-bind="post.name"></span>
+                        </div>
+                        <div class="info_item">
+                            <span ng-bind="post.time"></span>
+                        </div>
+                        <div class="info_item">
+                            <a class="label label-light" ng-bind="'#'+{{post.num}}" ng-click="thread.replyQuote(post.num)" href></a>
+                        </div>
+                        <div ng-if="thread.showModControls" class="post_mod_buttons" ng-controller="PostModCtrl as postmod">
+                            <a title="Delete" class="button button-danger button-small fa fa-trash-o" ng-click="postmod.deletePost(thread.data.id, post.num)" href></a>
+                        </div>
+                    </div>
                 </div>
+                <comment-handler post="post" thread="thread.data.id"></comment-handler>
             </div>
-            <comment-handler post="post" thread="thread.data.id"></comment-handler>
         </div>
         <div ng-if="thread.layout == 'grid'" class="image_grid">
             <a ng-repeat="post in ::thread.data.posts track by post.id" ng-if="!!post.thumbnail" ng-href="image/{{post.img_id}}" href>

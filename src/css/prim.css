@@ -1103,7 +1103,7 @@ textarea.form-control {
   padding: 0.2em; }
   @media screen and (min-width: 50em) {
     .header_navigation li a {
-      padding: 0.4em; } }
+      padding: 0.4em 0.2em; } }
 
 .header_navigation li.n1:hover {
   border-radius: 3px 3px 0 0; }
@@ -1482,14 +1482,28 @@ textarea.form-control {
 .thread_row_image img:hover {
   opacity: 0.6; }
 
-.thread_row_info {
-  padding: 1em 1em 0em 1em;
-  text-align: center; }
+.thread_content {
+  width: 100%;
+  text-align: center;
+  display: table;
+  padding: 0.8em; }
   @media screen and (min-width: 50em) {
-    .thread_row_info {
+    .thread_content {
       text-align: left;
       float: left;
       width: 75%; } }
+  .thread_content.noimage {
+    width: 100%; }
+
+.thread_row_info {
+  width: 100%; }
+  .thread_row_info .items .info_item {
+    display: inline-block;
+    padding-right: 0.3em; }
+    .thread_row_info .items .info_item img {
+      width: 18px;
+      height: auto;
+      vertical-align: middle; }
   .thread_row_info .post_mod_buttons {
     display: inline-block;
     padding-left: 0.5em; }
@@ -1499,13 +1513,9 @@ textarea.form-control {
         padding: 0; } }
 
 .thread_row_post {
-  padding: 0 1em 1em 1em;
+  width: 100%;
+  padding-top: 0.5em;
   text-align: left; }
-  @media screen and (min-width: 50em) {
-    .thread_row_post {
-      padding: 0.5em 1em;
-      float: left;
-      width: 75%; } }
 
 .thread_comment p {
   word-wrap: break-word;
@@ -1520,14 +1530,8 @@ textarea.form-control {
   padding-bottom: 0.5em;
   font-weight: bold; }
 
-.thread_row_noimage {
-  width: 100%; }
-
 .post_quote {
   margin-right: 1px; }
-
-.post_info {
-  vertical-align: middle; }
 
 /* directory and tag list css */
 .taglist,

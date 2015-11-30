@@ -35,7 +35,9 @@ gulp.task('prim', function() {
 
 // build and minify templates
 gulp.task('templates', function() {
-    return gulp.src(['./src/templates/*.html'])
+    return gulp.src(['./src/templates/*.html',
+            './src/templates/**/*.html'
+        ])
         .pipe(htmlmin({
             collapseWhitespace: true
         }))

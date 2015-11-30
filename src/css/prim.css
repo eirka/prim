@@ -10,8 +10,8 @@
  * body `font-size` is set using `em` units.
  */
 html {
-  font-size: 100%;
-  line-height: 1.25em; }
+  font-size: 93.75%;
+  line-height: 1.2em; }
 
 /**
  * 1. Set default font family to sans-serif.
@@ -124,7 +124,7 @@ strong {
  * Set 1 unit of vertical rhythm on the top and bottom margin.
  */
 blockquote {
-  margin: 1.25em 40px; }
+  margin: 1.2em 40px; }
 
 /**
  * Address styling not present in Safari and Chrome.
@@ -139,40 +139,40 @@ dfn {
 h1 {
   /* Set the font-size and line-height while keeping a proper vertical rhythm. */
   font-size: 2em;
-  line-height: 1.25em;
+  line-height: 1.2em;
   /* Set 1 unit of vertical rhythm on the top and bottom margins. */
-  margin-top: 0.625em;
-  margin-bottom: 0.625em; }
+  margin-top: 0.6em;
+  margin-bottom: 0.6em; }
 
 h2 {
   font-size: 1.5em;
-  line-height: 1.66667em;
-  margin-top: 0.83333em;
-  margin-bottom: 0.83333em; }
+  line-height: 1.6em;
+  margin-top: 0.8em;
+  margin-bottom: 0.8em; }
 
 h3 {
   font-size: 1.17em;
-  line-height: 2.13675em;
-  margin-top: 1.06838em;
-  margin-bottom: 1.06838em; }
+  line-height: 2.05128em;
+  margin-top: 1.02564em;
+  margin-bottom: 1.02564em; }
 
 h4 {
   font-size: 1em;
-  line-height: 1.25em;
-  margin-top: 1.25em;
-  margin-bottom: 1.25em; }
+  line-height: 2.4em;
+  margin-top: 1.2em;
+  margin-bottom: 1.2em; }
 
 h5 {
   font-size: 0.83em;
-  line-height: 1.50602em;
-  margin-top: 1.50602em;
-  margin-bottom: 1.50602em; }
+  line-height: 1.44578em;
+  margin-top: 1.44578em;
+  margin-bottom: 1.44578em; }
 
 h6 {
   font-size: 0.67em;
-  line-height: 1.86567em;
-  margin-top: 1.86567em;
-  margin-bottom: 1.86567em; }
+  line-height: 1.79104em;
+  margin-top: 1.79104em;
+  margin-bottom: 1.79104em; }
 
 /**
  * Address styling not present in IE 8/9.
@@ -186,7 +186,7 @@ mark {
  */
 p,
 pre {
-  margin: 1.25em 0; }
+  margin: 1.2em 0; }
 
 /**
  * Address inconsistent and variable font size in all browsers.
@@ -219,7 +219,7 @@ dl,
 menu,
 ol,
 ul {
-  margin: 1.25em 0; }
+  margin: 1.2em 0; }
 
 dd {
   margin: 0 0 0 40px; }
@@ -262,7 +262,7 @@ svg:not(:root) {
  * Address margin not present in IE 8/9 and Safari.
  */
 figure {
-  margin: 1.25em 40px; }
+  margin: 1.2em 40px; }
 
 /**
  * Address differences between Firefox and other browsers.
@@ -441,18 +441,18 @@ fieldset {
   margin: 0 2px;
   /* Apply borders and padding that keep the vertical rhythm. */
   border-color: #c0c0c0;
-  border-top-width: 0.0625em;
+  border-top-width: 0.06667em;
   border-top-style: solid;
-  padding-top: 0.375em;
-  border-bottom-width: 0.0625em;
+  padding-top: 0.35333em;
+  border-bottom-width: 0.06667em;
   border-bottom-style: solid;
-  padding-bottom: 0.75em;
-  border-left-width: 0.0625em;
+  padding-bottom: 0.71333em;
+  border-left-width: 0.06667em;
   border-left-style: solid;
-  padding-left: 0.71875em;
-  border-right-width: 0.0625em;
+  padding-left: 0.68333em;
+  border-right-width: 0.06667em;
   border-right-style: solid;
-  padding-right: 0.71875em; }
+  padding-right: 0.68333em; }
 
 /**
  * 1. Correct `color` not being inherited in IE 8/9/10/11.
@@ -507,7 +507,7 @@ button {
   cursor: pointer;
   background-image: none;
   white-space: nowrap;
-  padding: 0.4em 0.8em;
+  padding: 0.4em 0.6em;
   border-radius: 4px;
   text-decoration: none; }
   .button:hover, .button:focus, .button.focus {
@@ -829,7 +829,8 @@ fieldset[disabled] .form-control {
   opacity: 1; }
 
 textarea.form-control {
-  height: auto; }
+  height: auto;
+  resize: none; }
 
 .form-group:not(:last-child) {
   margin-bottom: 1em; }
@@ -1407,7 +1408,7 @@ textarea.form-control {
     clear: both; }
 
 .thread_title {
-  padding: 0.8em;
+  padding: 0.6em;
   font-size: 1.5em;
   text-align: center;
   padding: 0.5em; }
@@ -1432,7 +1433,7 @@ textarea.form-control {
   display: inline-block;
   border-radius: 4px;
   padding: 0.4em 0.6em;
-  margin-right: 0.3em; }
+  margin-right: 0.2em; }
   .thread_info .col {
     display: inline-block;
     padding: 0 0.1em; }
@@ -1650,7 +1651,7 @@ textarea.form-control {
     text-align: center; }
 
 .tagpage_title {
-  padding: 0.8em;
+  padding: 0.6em;
   font-size: 1.5em;
   text-align: center; }
   @media screen and (min-width: 50em) {
@@ -1717,7 +1718,7 @@ textarea.form-control {
 .new_title,
 .popular_title,
 .favorited_title {
-  padding: 0.8em;
+  padding: 0.6em;
   font-size: 1.5em;
   text-align: center; }
   @media screen and (min-width: 50em) {
@@ -1730,49 +1731,61 @@ textarea.form-control {
 .account {
   padding: 1em 0; }
 
-.account_container {
+.account_header {
   box-shadow: 0 2px 3px #ccc;
   border-radius: 6px;
-  overflow: hidden;
   width: 90%;
   margin: 0 auto;
-  padding: 1em;
-  margin-bottom: 1em; }
-  .account_container:before, .account_container:after {
+  padding: 0.5em;
+  margin-bottom: 1em;
+  display: table; }
+  .account_header:before, .account_header:after {
     content: " ";
     display: table; }
-  .account_container:after {
+  .account_header:after {
     clear: both; }
   @media screen and (min-width: 50em) {
-    .account_container {
+    .account_header {
       width: 48em; } }
   @media screen and (min-width: 65em) {
-    .account_container {
+    .account_header {
       width: 63em; } }
   @media screen and (min-width: 80em) {
-    .account_container {
+    .account_header {
       width: 78em; } }
-  .account_container .account_name {
-    padding: 0.8em;
-    font-size: 1.5em;
-    text-align: center;
-    padding: 0;
-    padding-bottom: 0.5em; }
-    @media screen and (min-width: 50em) {
-      .account_container .account_name {
-        text-align: left; } }
-    .account_container .account_name img {
+  .account_header .user_info {
+    overflow: hidden; }
+    .account_header .user_info .user_avatar, .account_header .user_info .user_name {
+      display: table-cell;
       vertical-align: middle; }
+    .account_header .user_info .user_avatar {
+      padding: 0.2em;
+      border-radius: 3px;
+      overflow: hidden; }
+      .account_header .user_info .user_avatar img {
+        width: 24px;
+        height: auto;
+        vertical-align: middle; }
+      @media screen and (min-width: 50em) {
+        .account_header .user_info .user_avatar img {
+          width: 32px;
+          height: auto; } }
+    .account_header .user_info .user_name {
+      font-size: 1.5em;
+      padding: 0;
+      padding-left: 0.3em; }
+      @media screen and (min-width: 50em) {
+        .account_header .user_info .user_name {
+          font-size: 1.8em; } }
     @media screen and (min-width: 50em) {
-      .account_container .account_name {
-        padding: 0.2em;
+      .account_header .user_info {
         float: left;
-        max-width: 50%; } }
-  .account_container .logout {
-    text-align: center; }
-    @media screen and (min-width: 50em) {
-      .account_container .logout {
-        float: right; } }
+        max-width: 60%; } }
+  .account_header .logout {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: right;
+    line-height: 1.5em; }
 
 .account_row {
   overflow: hidden;
@@ -1801,7 +1814,7 @@ textarea.form-control {
     text-align: center;
     margin-bottom: 1em; }
     .account_row .account_subcontainer .account_title {
-      padding: 0.8em;
+      padding: 0.6em;
       font-size: 1.5em;
       text-align: center;
       padding: 0; }
@@ -1842,7 +1855,7 @@ textarea.form-control {
     text-align: center; }
 
 .favorites_title {
-  padding: 0.8em;
+  padding: 0.6em;
   font-size: 1.5em;
   text-align: center; }
   @media screen and (min-width: 50em) {

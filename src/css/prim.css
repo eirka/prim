@@ -1024,9 +1024,8 @@ textarea.form-control {
   margin: 0 auto;
   padding: 0.5em 0;
   display: flex;
-  flex-direction: row;
-  flex-wrap: reverse-wrap;
-  align-items: center; }
+  align-items: center;
+  flex-direction: column; }
   .header_bar:before, .header_bar:after {
     content: " ";
     display: table; }
@@ -1041,11 +1040,32 @@ textarea.form-control {
   @media screen and (min-width: 80em) {
     .header_bar {
       width: 78em; } }
+  .header_bar .left {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    order: 2; }
+  .header_bar .right {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    order: 1; }
+  @media screen and (min-width: 50em) {
+    .header_bar {
+      flex-direction: row; }
+      .header_bar .left {
+        order: 1;
+        width: auto; }
+      .header_bar .right {
+        order: 2;
+        width: auto;
+        margin-left: auto; } }
 
 /* nav menu */
 .nav_menu {
-  order: 1;
-  flex: 0 0 auto; }
+  order: 1; }
   .nav_menu ul {
     position: relative;
     display: inline-block;
@@ -1085,7 +1105,7 @@ textarea.form-control {
 /* nav items */
 .nav_items {
   order: 2;
-  flex: 1 1 auto; }
+  margin-left: auto; }
   .nav_items ul {
     position: relative;
     display: inline-block;
@@ -1102,11 +1122,26 @@ textarea.form-control {
         font-size: 1em;
         padding: 0.5em; }
 
+/* logo */
+.site_logo {
+  order: 1; }
+  @media screen and (min-width: 50em) {
+    .site_logo {
+      order: 2; } }
+  .site_logo img {
+    display: inline-block;
+    max-width: 10em;
+    height: auto;
+    max-height: 2em; }
+
 /* user menu */
 .user_menu {
-  order: 3;
-  flex: 0 0 auto;
-  margin-right: 0.5em; }
+  order: 2;
+  margin-left: auto; }
+  @media screen and (min-width: 50em) {
+    .user_menu {
+      order: 1;
+      margin-right: 1em; } }
   .user_menu ul {
     position: relative;
     display: inline-block;
@@ -1141,16 +1176,6 @@ textarea.form-control {
       display: inline-block;
       padding: 0.5em 1em;
       font-size: 1.1em; }
-
-/* logo */
-.site_logo {
-  order: 4;
-  flex: 0 0 auto; }
-  .site_logo img {
-    display: inline-block;
-    max-width: 10em;
-    height: auto;
-    max-height: 2em; }
 
 /* header css */
 .footer {

@@ -1,40 +1,44 @@
 <div class="header_bar">
-    <div class="nav_menu">
-        <ul>
-            <li class="n1"><a href="/" title="Navigation"><i class="fa fa-fw fa-bars"></i></a>
-                <ul>
-                    <ng-include src="'includes/site.html'"></ng-include>
-                </ul>
-            </li>
-        </ul>
-    </div>
-    <div class="nav_items">
-        <ul>
-            <ng-include src="'pages/menus/nav.html'"></ng-include>
-        </ul>
-    </div>
-    <div class="user_menu">
-        <div ng-if="!authState.isAuthenticated" class="login">
-            <a href="account" class="button button-small button-login" title="Navigation">login</a>
-        </div>
-        <div ng-if="authState.isAuthenticated">
+    <div class="left">
+        <div class="nav_menu">
             <ul>
-                <li>
-                    <div class="avatar avatar-medium">
-                        <div class="avatar-inner">
-                            <a href="account" title="Navigation">
-                                <img ng-src="{{authState.avatar}}" />
-                            </a>
-                        </div>
-                    </div>
-                    <ul ng-controller="UserMenuCtrl as usermenu">
-                        <ng-include src="'pages/menus/user.html'"></ng-include>
+                <li class="n1"><a href="/" title="Navigation"><i class="fa fa-fw fa-bars"></i></a>
+                    <ul>
+                        <ng-include src="'includes/site.html'"></ng-include>
                     </ul>
                 </li>
             </ul>
         </div>
+        <div class="nav_items">
+            <ul>
+                <ng-include src="'pages/menus/nav.html'"></ng-include>
+            </ul>
+        </div>
     </div>
-    <div class="site_logo">
-        <ng-include src="'includes/logo.html'"></ng-include>
+    <div class="right">
+        <div class="user_menu">
+            <div ng-if="!authState.isAuthenticated" class="login">
+                <a href="account" class="button button-small button-login" title="Navigation">login</a>
+            </div>
+            <div ng-if="authState.isAuthenticated" ng-controller="UserMenuCtrl as usermenu">
+                <ul>
+                    <li>
+                        <div class="avatar avatar-medium">
+                            <div class="avatar-inner">
+                                <a href="account" title="Navigation">
+                                    <img ng-src="{{authState.avatar}}" />
+                                </a>
+                            </div>
+                        </div>
+                        <ul ng-style="usermenu.visible">
+                            <ng-include src="'pages/menus/user.html'"></ng-include>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="site_logo">
+            <ng-include src="'includes/logo.html'"></ng-include>
+        </div>
     </div>
 </div>

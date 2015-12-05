@@ -10,12 +10,20 @@ angular.module('prim').directive('commentQuotes', function() {
         link: function(scope, element, attrs) {
 
             // Hoverbox code
-            scope.show = {
-                card: false
-            };
+            scope.show = false;
 
-            scope.onHoverIn = scope.$eval(attrs.onHoverIn);
-            scope.onHoverOut = scope.$eval(attrs.onHoverOut);
+            // toggle menu visibility
+            scope.toggle = function() {
+                scope.show = !scope.show;
+            }
+
+            scope.open = function() {
+                scope.show = true;
+            }
+
+            scope.close = function() {
+                scope.show = false;
+            }
 
         }
     };

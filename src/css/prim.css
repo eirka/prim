@@ -989,10 +989,11 @@ textarea.form-control {
   max-width: 60%;
   z-index: 99;
   overflow: hidden; }
-  .angular-hovercard-detail.ng-enter {
-    transition: 0.3s;
+  .angular-hovercard-detail.ng-enter, .angular-hovercard-detail.ng-leave {
+    transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s; }
+  .angular-hovercard-detail.ng-enter, .angular-hovercard-detail.ng-leave.ng-leave-active {
     opacity: 0; }
-  .angular-hovercard-detail.ng-enter-active {
+  .angular-hovercard-detail.ng-leave, .angular-hovercard-detail.ng-enter.ng-enter-active {
     opacity: 1; }
   @media screen and (min-width: 50em) {
     .angular-hovercard-detail {
@@ -1074,25 +1075,30 @@ textarea.form-control {
     margin: 0; }
     .nav_menu ul li {
       list-style-type: none;
-      display: inline-block; }
+      display: inline-block;
+      border-radius: 3px; }
       .nav_menu ul li a {
         list-style-type: none;
         display: block;
-        border-radius: 3px 3px 0px 0px;
         font-size: 1em;
         padding: 0.5em; }
-    .nav_menu ul li:hover > ul {
-      display: block; }
     .nav_menu ul ul {
-      display: none;
-      z-index: 900; }
-    .nav_menu ul ul {
+      display: block;
+      z-index: 900;
       text-align: left;
-      border-radius: 0 3px 3px 3px;
+      border-radius: 3px;
       overflow: hidden;
       padding: 0;
       position: absolute;
       top: 100%; }
+      .nav_menu ul ul.ng-enter, .nav_menu ul ul.ng-leave {
+        transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s; }
+      .nav_menu ul ul.ng-enter, .nav_menu ul ul.ng-leave.ng-leave-active {
+        opacity: 0;
+        top: 50px; }
+      .nav_menu ul ul.ng-leave, .nav_menu ul ul.ng-enter.ng-enter-active {
+        opacity: 1;
+        top: 100%; }
     .nav_menu ul ul li {
       display: list-item;
       list-style-type: none;
@@ -1124,10 +1130,7 @@ textarea.form-control {
 
 /* logo */
 .site_logo {
-  order: 1; }
-  @media screen and (min-width: 50em) {
-    .site_logo {
-      order: 2; } }
+  order: 2; }
   .site_logo img {
     display: inline-block;
     max-width: 10em;
@@ -1136,11 +1139,10 @@ textarea.form-control {
 
 /* user menu */
 .user_menu {
-  order: 2;
-  margin-left: auto; }
+  order: 1;
+  margin-right: auto; }
   @media screen and (min-width: 50em) {
     .user_menu {
-      order: 1;
       margin-right: 1em; } }
   .user_menu ul {
     position: relative;
@@ -1151,11 +1153,6 @@ textarea.form-control {
     .user_menu ul li {
       list-style-type: none;
       display: inline-block; }
-    .user_menu ul li:hover > ul {
-      display: block; }
-    .user_menu ul ul {
-      display: none;
-      z-index: 900; }
     .user_menu ul ul {
       text-align: left;
       border-radius: 3px;
@@ -1163,7 +1160,20 @@ textarea.form-control {
       padding: 0;
       position: absolute;
       top: 100%;
-      right: 0; }
+      display: block;
+      z-index: 900; }
+      .user_menu ul ul.ng-enter, .user_menu ul ul.ng-leave {
+        transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s; }
+      .user_menu ul ul.ng-enter, .user_menu ul ul.ng-leave.ng-leave-active {
+        opacity: 0;
+        top: 50px; }
+      .user_menu ul ul.ng-leave, .user_menu ul ul.ng-enter.ng-enter-active {
+        opacity: 1;
+        top: 100%; }
+      @media screen and (min-width: 50em) {
+        .user_menu ul ul {
+          left: auto;
+          right: 0; } }
     .user_menu ul ul li {
       display: list-item;
       list-style-type: none;

@@ -10,7 +10,7 @@ var ngHtml2Js = require("gulp-ng-html2js");
 var htmlmin = require('gulp-htmlmin');
 var csso = require('gulp-csso');
 var postcss = require('gulp-postcss');
-var autoprefixer = require('autoprefixer-core');
+var autoprefixer = require('autoprefixer');
 
 gulp.task('default', function(callback) {
     runSequence('clean', 'prim', 'templates', 'ui-bootstrap', 'app', 'browserify', 'css', callback);

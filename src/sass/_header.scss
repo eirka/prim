@@ -62,32 +62,42 @@
         & li {
             list-style-type: none;
             display: inline-block;
+            border-radius: 3px;
 
             & a {
                 list-style-type: none;
                 display: block;
-                border-radius: 3px 3px 0px 0px;
                 font-size: 1em;
                 padding: 0.5em;
             }
         }
 
-        & li:hover > ul {
+        & ul {
             display: block;
-        }
-
-        & ul {
-            display: none;
             z-index: 900;
-        }
-
-        & ul {
             text-align: left;
-            border-radius: 0 3px 3px 3px;
+            border-radius: 3px;
             overflow: hidden;
             padding: 0;
             position: absolute;
             top: 100%;
+
+            &.ng-enter,
+            &.ng-leave {
+                transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s;
+            }
+
+            &.ng-enter,
+            &.ng-leave.ng-leave-active {
+                opacity: 0;
+                top: 50px;
+            }
+
+            &.ng-leave,
+            &.ng-enter.ng-enter-active {
+                opacity: 1;
+                top: 100%;
+            }
         }
 
         & ul li {
@@ -135,11 +145,7 @@
 /* logo */
 
 .site_logo {
-    order: 1;
-
-    @media #{$screenSmall} {
-        order: 2;
-    }
+    order: 2;
 
     & img {
         display: inline-block;
@@ -152,11 +158,10 @@
 /* user menu */
 
 .user_menu {
-    order: 2;
-    margin-left: auto;
+    order: 1;
+    margin-right: auto;
 
     @media #{$screenSmall} {
-        order: 1;
         margin-right: 1em;
     }
 
@@ -172,15 +177,6 @@
             display: inline-block;
         }
 
-        & li:hover > ul {
-            display: block;
-        }
-
-        & ul {
-            display: none;
-            z-index: 900;
-        }
-
         & ul {
             text-align: left;
             border-radius: 3px;
@@ -188,7 +184,30 @@
             padding: 0;
             position: absolute;
             top: 100%;
-            right: 0;
+            display: block;
+            z-index: 900;
+
+            &.ng-enter,
+            &.ng-leave {
+                transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s;
+            }
+
+            &.ng-enter,
+            &.ng-leave.ng-leave-active {
+                opacity: 0;
+                top: 50px;
+            }
+
+            &.ng-leave,
+            &.ng-enter.ng-enter-active {
+                opacity: 1;
+                top: 100%;
+            }
+
+            @media #{$screenSmall} {
+                left: auto;
+                right: 0;
+            }
         }
 
         & ul li {

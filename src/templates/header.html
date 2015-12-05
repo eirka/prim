@@ -1,9 +1,9 @@
 <div class="header_bar">
     <div class="left">
-        <div class="nav_menu">
-            <ul>
-                <li class="n1"><a href="/" title="Navigation"><i class="fa fa-fw fa-bars"></i></a>
-                    <ul>
+        <div class="nav_menu" ng-controller="NavMenuCtrl as navmenu">
+            <ul click-off="navmenu.close" ng-click="navmenu.toggle()" ng-mouseenter="navmenu.open()" ng-mouseleave="navmenu.close()">
+                <li class="n1"><a href title="Navigation"><i class="fa fa-fw fa-bars"></i></a>
+                    <ul ng-if="navmenu.visible">
                         <ng-include src="'includes/site.html'"></ng-include>
                     </ul>
                 </li>
@@ -21,16 +21,16 @@
                 <a href="account" class="button button-small button-login" title="Navigation">login</a>
             </div>
             <div ng-if="authState.isAuthenticated" ng-controller="UserMenuCtrl as usermenu">
-                <ul>
+                <ul click-off="usermenu.close" ng-click="usermenu.toggle()" ng-mouseenter="usermenu.open()" ng-mouseleave="usermenu.close()">
                     <li>
                         <div class="avatar avatar-medium">
                             <div class="avatar-inner">
-                                <a href="account" title="Navigation">
+                                <a href title="User">
                                     <img ng-src="{{authState.avatar}}" />
                                 </a>
                             </div>
                         </div>
-                        <ul ng-style="usermenu.visible">
+                        <ul ng-if="usermenu.visible">
                             <ng-include src="'pages/menus/user.html'"></ng-include>
                         </ul>
                     </li>

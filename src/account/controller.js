@@ -129,18 +129,3 @@ angular.module('prim').controller('LoginCtrl', function($location, toaster, conf
     };
 
 });
-
-
-angular.module('prim').controller('UserMenuCtrl', function($route, toaster, user_messages, AuthService) {
-
-    // using controllerAs
-    var self = this;
-
-    // log out
-    self.logOut = function() {
-        AuthService.destroySession();
-        $route.reload()
-        toaster.pop('success', user_messages.loggedOut);
-    }
-
-});

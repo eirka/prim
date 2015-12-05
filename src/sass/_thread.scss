@@ -18,15 +18,6 @@
     width: $boxWidthRel;
     margin: 0 auto;
     margin-bottom: 2em;
-
-    &.ng-enter {
-        transition: 0.3s;
-        opacity: 0;
-    }
-
-    &.ng-enter-active {
-        opacity: 1;
-    }
 }
 
 /* thread header */
@@ -152,12 +143,6 @@
         & .info_item {
             display: inline-block;
             padding-right: 0.3em;
-
-            & img {
-                width: 18px;
-                height: auto;
-                vertical-align: middle;
-            }
         }
     }
 

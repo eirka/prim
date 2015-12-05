@@ -7,7 +7,6 @@
                 <input ng-if="authState.isAuthenticated" type="hidden" name="access_token" ng-value="postform.token" />
                 <div class="form-group">
                     <div class="form-control userinfo">
-                        <img ng-if="authState.avatar" ng-src="{{authState.avatar}}" height="18px" width="auto" />
                         <span ng-bind="authState.name" ng-class="index.usergroupClass(authState.ibdata.group)"></span>
                     </div>
                 </div>
@@ -71,7 +70,11 @@
                 <div class="thread_row_info">
                     <div class="items">
                         <div ng-if="post.group != 1" class="info_item">
-                            <img ng-src="{{post.avatar}}">
+                            <div class="avatar avatar-xsmall">
+                                <div class="avatar-inner">
+                                    <img ng-src="{{post.avatar}}" />
+                                </div>
+                            </div>
                         </div>
                         <div class="info_item">
                             <span ng-class="index.usergroupClass(post.group)" ng-bind="post.name"></span>

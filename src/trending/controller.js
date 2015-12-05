@@ -12,6 +12,8 @@ angular.module('prim').controller('PopularCtrl', function(Handlers, Utils) {
             image.thumbnail = Utils.getThumbSrc(image.thumbnail, image.filename);
         });
 
+    }, function(error) {
+        Utils.apiError(error.status);
     });
 
 });
@@ -30,6 +32,8 @@ angular.module('prim').controller('NewCtrl', function(Handlers, Utils) {
             image.thumbnail = Utils.getThumbSrc(image.thumbnail, image.filename);
         });
 
+    }, function(error) {
+        Utils.apiError(error.status);
     });
 
 });
@@ -48,6 +52,8 @@ angular.module('prim').controller('FavoritedCtrl', function(Handlers, Utils) {
             image.thumbnail = Utils.getThumbSrc(image.thumbnail, image.filename);
         });
 
+    }, function(error) {
+        Utils.apiError(error.status);
     });
 
 });

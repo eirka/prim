@@ -18,6 +18,8 @@ angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $l
         self.src = Utils.getImgSrc(data.image.filename);
         // get file ext to check if video or image
         self.ext = data.image.filename.split('.').pop();
+    }, function(error) {
+        Utils.apiError(error.status);
     });
 
     // check to see if an image is starred or not

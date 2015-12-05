@@ -1,0 +1,53 @@
+@import "variables";
+@import "mixins";
+
+/* avatar css */
+
+.avatar {
+    box-sizing: border-box;
+    display: inline-block;
+    vertical-align: text-bottom;
+
+    & img {
+        border-radius: 3px;
+        display: block;
+        margin: 0 auto;
+        height: 100%;
+        width: 100%;
+    }
+}
+
+.avatar-inner {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.avatar-xsmall,
+.avatar-xsmall .avatar-inner {
+    height: 18px;
+    width: 18px;
+}
+
+.avatar-small,
+.avatar-small .avatar-inner {
+    height: 24px;
+    width: 24px;
+}
+
+.avatar-medium,
+.avatar-medium .avatar-inner {
+    height: 32px;
+    width: 32px;
+}
+
+.avatar-large,
+.avatar-large .avatar-inner {
+    height: 48px;
+    width: 48px;
+}
+
+.avatar-xlarge,
+.avatar-xlarge .avatar-inner {
+    height: 64px;
+    width: 64px;
+}

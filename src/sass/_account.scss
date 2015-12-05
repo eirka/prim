@@ -20,6 +20,7 @@
     padding: 0.5em;
     margin-bottom: 1em;
     display: table;
+    height: 2em;
 
     & .user_info {
         overflow: hidden;
@@ -31,32 +32,15 @@
         }
 
         & .user_avatar {
-            padding: 0.2em;
+            padding: 0;
             border-radius: 3px;
             overflow: hidden;
-
-            & img {
-                width: 24px;
-                height: auto;
-                vertical-align: middle;
-            }
-
-            @media #{$screenSmall} {
-                & img {
-                    width: 32px;
-                    height: auto;
-                }
-            }
         }
 
         & .user_name {
             font-size: 1.5em;
             padding: 0;
             padding-left: 0.3em;
-
-            @media #{$screenSmall} {
-                font-size: 1.8em;
-            }
         }
 
         @media #{$screenSmall} {
@@ -69,7 +53,6 @@
         display: table-cell;
         vertical-align: middle;
         text-align: right;
-        line-height: 1.5em;
     }
 }
 

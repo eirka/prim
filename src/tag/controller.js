@@ -46,6 +46,8 @@ angular.module('prim').controller('TagCtrl', function($scope, $routeParams, $loc
             image.thumbnail = Utils.getThumbSrc(image.thumbnail, image.filename);
         });
 
+    }, function(error) {
+        Utils.apiError(error.status);
     });
 
     hotkeys.bindTo($scope)

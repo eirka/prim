@@ -11,6 +11,8 @@ angular.module('prim').controller('DirectoryCtrl', function(Handlers, Utils) {
     }, function(error) {
         if (angular.equals(error.status, 404)) {
             self.nothreads = true;
+        } else {
+            Utils.apiError(error.status);
         }
     });
 

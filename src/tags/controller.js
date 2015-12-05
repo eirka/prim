@@ -51,6 +51,8 @@ angular.module('prim').controller('TagsCtrl', function($routeParams, Handlers, M
         }, function(error) {
             if (angular.equals(error.status, 404)) {
                 self.notags = true;
+            } else {
+                Utils.apiError(error.status);
             }
         });
         self.error = null;
@@ -62,6 +64,8 @@ angular.module('prim').controller('TagsCtrl', function($routeParams, Handlers, M
     // Get tag types for selector
     Handlers.tagtypes.get(function(data) {
         self.tagtypes = data.tagtypes;
+    }, function(error) {
+        Utils.apiError(error.status);
     });
 
     // Function for adding a tag, updates tag list on success

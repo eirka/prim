@@ -49,6 +49,8 @@ angular.module('prim').controller('IndexCtrl', function($location, $routeParams,
             $location.path('/thread/' + thread + '/' + last);
         };
 
+    }, function(error) {
+        Utils.apiError(error.status);
     });
 
 

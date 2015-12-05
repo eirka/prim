@@ -45,6 +45,12 @@ angular.module('prim').config(function($routeProvider, $locationProvider, $compi
             controller: 'TagCtrl',
             controllerAs: 'tag'
         })
+        .when('/favorites', {
+            title: 'Favorites',
+            templateUrl: 'pages/favorites.html',
+            controller: 'FavoritesCtrl',
+            controllerAs: 'favorites'
+        })
         .when('/favorites/:page', {
             title: 'Favorites',
             templateUrl: 'pages/favorites.html',

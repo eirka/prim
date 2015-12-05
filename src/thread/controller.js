@@ -55,6 +55,8 @@ angular.module('prim').controller('ThreadCtrl', function($window, $location, $sc
             }
         });
 
+    }, function(error) {
+        Utils.apiError(error.status);
     });
 
     // add post num to comment box

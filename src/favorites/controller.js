@@ -27,6 +27,8 @@ angular.module('prim').controller('FavoritesCtrl', function($scope, $routeParams
             image.thumbnail = Utils.getThumbSrc(image.thumbnail, image.filename);
         });
 
+    }, function(error) {
+        Utils.apiError(error.status);
     });
 
     hotkeys.bindTo($scope)

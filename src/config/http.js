@@ -43,8 +43,6 @@ angular.module('prim').factory('errorInterceptor', function($q, $location, toast
                 // if unauthorized forward to the login page
                 toaster.pop('error', rejection.data.error_message);
                 $location.path('/account');
-            } else if (angular.equals(rejection.status, 404)) {
-                Utils.apiError(404);
             }
             return $q.reject(rejection);
         }

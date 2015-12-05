@@ -1,7 +1,11 @@
 <div class="account_header">
     <div class="user_info">
-        <div class="user_avatar">
-            <img ng-if="account.whoami.avatar" ng-src="{{account.whoami.avatar}}" />
+        <div ng-if="account.whoami.avatar" class="user_avatar">
+            <div class="avatar avatar-medium">
+                <div class="avatar-inner">
+                    <img ng-src="{{account.whoami.avatar}}" />
+                </div>
+            </div>
         </div>
         <div class="user_name">
             <span ng-bind="::account.whoami.name"></span>

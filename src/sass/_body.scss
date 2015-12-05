@@ -31,3 +31,16 @@ input[name="file"] {
     font-size: small;
     display: block;
 }
+
+p {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    overflow: hidden;
+    white-space: pre-line;
+    margin: 0;
+
+    & a {
+        word-break: break-all;
+    }
+}

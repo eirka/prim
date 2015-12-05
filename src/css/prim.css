@@ -1025,7 +1025,7 @@ textarea.form-control {
   padding: 0.5em 0;
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  flex-wrap: reverse-wrap;
   align-items: center; }
   .header_bar:before, .header_bar:after {
     content: " ";
@@ -1045,10 +1045,7 @@ textarea.form-control {
 /* nav menu */
 .nav_menu {
   order: 1;
-  flex: 0 0 50%; }
-  @media screen and (min-width: 50em) {
-    .nav_menu {
-      flex: 0 0 auto; } }
+  flex: 0 0 auto; }
   .nav_menu ul {
     position: relative;
     display: inline-block;
@@ -1087,11 +1084,8 @@ textarea.form-control {
 
 /* nav items */
 .nav_items {
-  order: 3;
-  flex: 2 1 auto; }
-  @media screen and (min-width: 50em) {
-    .nav_items {
-      order: 2; } }
+  order: 2;
+  flex: 1 1 auto; }
   .nav_items ul {
     position: relative;
     display: inline-block;
@@ -1110,12 +1104,9 @@ textarea.form-control {
 
 /* user menu */
 .user_menu {
-  order: 4;
-  flex: 0 0 auto; }
-  @media screen and (min-width: 50em) {
-    .user_menu {
-      order: 3;
-      margin-right: 0.5em; } }
+  order: 3;
+  flex: 0 0 auto;
+  margin-right: 0.5em; }
   .user_menu ul {
     position: relative;
     display: inline-block;
@@ -1153,13 +1144,8 @@ textarea.form-control {
 
 /* logo */
 .site_logo {
-  order: 2;
-  flex: 0 0 50%;
-  text-align: right; }
-  @media screen and (min-width: 50em) {
-    .site_logo {
-      order: 4;
-      flex: 0 0 auto; } }
+  order: 4;
+  flex: 0 0 auto; }
   .site_logo img {
     display: inline-block;
     max-width: 10em;

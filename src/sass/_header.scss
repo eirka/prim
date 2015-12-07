@@ -47,33 +47,6 @@
     }
 }
 
-/* nav menu */
-
-.nav_menu {
-    order: 1;
-
-    & ul {
-        position: relative;
-        display: inline-block;
-        list-style: none;
-        padding: 0;
-        margin: 0;
-
-        & li {
-            list-style-type: none;
-            display: inline-block;
-            border-radius: 3px;
-
-            & a {
-                list-style-type: none;
-                display: block;
-                font-size: 1em;
-                padding: 0.5em;
-            }
-        }
-    }
-}
-
 /* nav items */
 
 .nav_items {
@@ -95,6 +68,33 @@
                 list-style-type: none;
                 display: block;
                 border-radius: 3px;
+                font-size: 1em;
+                padding: 0.5em;
+            }
+        }
+    }
+}
+
+/* nav menu */
+
+.nav_menu {
+    order: 1;
+
+    & ul {
+        position: relative;
+        display: inline-block;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        & li {
+            list-style-type: none;
+            display: inline-block;
+            border-radius: 3px;
+
+            & a {
+                list-style-type: none;
+                display: block;
                 font-size: 1em;
                 padding: 0.5em;
             }

@@ -1064,25 +1064,6 @@ textarea.form-control {
         width: auto;
         margin-left: auto; } }
 
-/* nav menu */
-.nav_menu {
-  order: 1; }
-  .nav_menu ul {
-    position: relative;
-    display: inline-block;
-    list-style: none;
-    padding: 0;
-    margin: 0; }
-    .nav_menu ul li {
-      list-style-type: none;
-      display: inline-block;
-      border-radius: 3px; }
-      .nav_menu ul li a {
-        list-style-type: none;
-        display: block;
-        font-size: 1em;
-        padding: 0.5em; }
-
 /* nav items */
 .nav_items {
   order: 2;
@@ -1100,6 +1081,25 @@ textarea.form-control {
         list-style-type: none;
         display: block;
         border-radius: 3px;
+        font-size: 1em;
+        padding: 0.5em; }
+
+/* nav menu */
+.nav_menu {
+  order: 1; }
+  .nav_menu ul {
+    position: relative;
+    display: inline-block;
+    list-style: none;
+    padding: 0;
+    margin: 0; }
+    .nav_menu ul li {
+      list-style-type: none;
+      display: inline-block;
+      border-radius: 3px; }
+      .nav_menu ul li a {
+        list-style-type: none;
+        display: block;
         font-size: 1em;
         padding: 0.5em; }
 

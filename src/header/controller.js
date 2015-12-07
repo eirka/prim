@@ -21,12 +21,14 @@ angular.module('prim').controller('NavMenuCtrl', function($route, toaster, user_
 
 });
 
-angular.module('prim').controller('UserMenuCtrl', function($route, toaster, user_messages, AuthService) {
+angular.module('prim').controller('UserMenuCtrl', function($route, toaster, user_messages, AuthService, Utils) {
 
     // using controllerAs
     var self = this;
 
     self.visible = false;
+
+    self.usergroupClass = Utils.usergroupClass;
 
     // toggle menu visibility
     self.toggle = function() {

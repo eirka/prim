@@ -1082,31 +1082,6 @@ textarea.form-control {
         display: block;
         font-size: 1em;
         padding: 0.5em; }
-    .nav_menu ul ul {
-      display: block;
-      z-index: 900;
-      text-align: left;
-      border-radius: 3px;
-      overflow: hidden;
-      padding: 0;
-      position: absolute;
-      top: 100%; }
-      .nav_menu ul ul.ng-enter, .nav_menu ul ul.ng-leave {
-        transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s; }
-      .nav_menu ul ul.ng-enter, .nav_menu ul ul.ng-leave.ng-leave-active {
-        opacity: 0;
-        top: 50px; }
-      .nav_menu ul ul.ng-leave, .nav_menu ul ul.ng-enter.ng-enter-active {
-        opacity: 1;
-        top: 100%; }
-    .nav_menu ul ul li {
-      display: list-item;
-      list-style-type: none;
-      border-radius: 0; }
-    .nav_menu ul ul li a {
-      display: inline-block;
-      padding: 0.5em 2em;
-      font-size: 1.1em; }
 
 /* nav items */
 .nav_items {
@@ -1128,15 +1103,6 @@ textarea.form-control {
         font-size: 1em;
         padding: 0.5em; }
 
-/* logo */
-.site_logo {
-  order: 2; }
-  .site_logo img {
-    display: inline-block;
-    max-width: 10em;
-    height: auto;
-    max-height: 2em; }
-
 /* user menu */
 .user_menu {
   order: 1;
@@ -1153,39 +1119,75 @@ textarea.form-control {
     .user_menu ul li {
       list-style-type: none;
       display: inline-block; }
-    .user_menu ul ul {
-      text-align: left;
-      border-radius: 3px;
-      overflow: hidden;
-      padding: 0;
-      position: absolute;
-      top: 100%;
-      display: block;
-      z-index: 900; }
-      .user_menu ul ul.ng-enter, .user_menu ul ul.ng-leave {
-        transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s; }
-      .user_menu ul ul.ng-enter, .user_menu ul ul.ng-leave.ng-leave-active {
-        opacity: 0;
-        top: 50px; }
-      .user_menu ul ul.ng-leave, .user_menu ul ul.ng-enter.ng-enter-active {
-        opacity: 1;
-        top: 100%; }
-      @media screen and (min-width: 50em) {
-        .user_menu ul ul {
-          left: auto;
-          right: 0; } }
-    .user_menu ul ul li {
-      display: list-item;
-      list-style-type: none;
-      border-radius: 0; }
-    .user_menu ul ul i {
-      display: inline;
-      margin-right: 0.5em;
-      font-size: 0.9em; }
-    .user_menu ul ul li a {
-      display: inline-block;
-      padding: 0.5em 1em;
-      font-size: 1.1em; }
+    @media screen and (min-width: 50em) {
+      .user_menu ul ul {
+        left: auto;
+        right: -50%; } }
+
+/* popup */
+.nav_menu ul ul,
+.user_menu ul ul {
+  text-align: left;
+  border-radius: 3px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  top: 100%;
+  display: block;
+  z-index: 900;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25); }
+  .nav_menu ul ul.ng-enter, .nav_menu ul ul.ng-leave,
+  .user_menu ul ul.ng-enter,
+  .user_menu ul ul.ng-leave {
+    transition: all ease 0.2s; }
+  .nav_menu ul ul.ng-enter, .nav_menu ul ul.ng-leave.ng-leave-active,
+  .user_menu ul ul.ng-enter,
+  .user_menu ul ul.ng-leave.ng-leave-active {
+    opacity: 0;
+    top: 50px; }
+  .nav_menu ul ul.ng-leave, .nav_menu ul ul.ng-enter.ng-enter-active,
+  .user_menu ul ul.ng-leave,
+  .user_menu ul ul.ng-enter.ng-enter-active {
+    opacity: 1;
+    top: 100%; }
+  .nav_menu ul ul li,
+  .user_menu ul ul li {
+    display: list-item;
+    list-style-type: none;
+    border-radius: 0; }
+  .nav_menu ul ul i,
+  .user_menu ul ul i {
+    display: inline;
+    margin-right: 0.5em;
+    font-size: 0.9em; }
+  .nav_menu ul ul li a,
+  .user_menu ul ul li a {
+    display: inline-block;
+    padding: 0.3em 1.5em;
+    font-size: 1.1em; }
+  .nav_menu ul ul .username,
+  .user_menu ul ul .username {
+    width: 100%;
+    text-align: center;
+    padding: 0.3em 0;
+    cursor: pointer; }
+  .nav_menu ul ul .divider,
+  .user_menu ul ul .divider {
+    padding-top: 1px;
+    margin: 5px 1px 6px;
+    border-bottom: 1px solid #DADADA; }
+  .nav_menu ul ul .divider:hover,
+  .user_menu ul ul .divider:hover {
+    background: transparent; }
+
+/* logo */
+.site_logo {
+  order: 2; }
+  .site_logo img {
+    display: inline-block;
+    max-width: 10em;
+    height: auto;
+    max-height: 2em; }
 
 /* header css */
 .footer {
@@ -1374,31 +1376,6 @@ textarea.form-control {
   height: auto;
   display: block;
   margin: 0 auto; }
-
-/* external image embed */
-.external_image {
-  max-width: 200px;
-  max-height: 150px;
-  height: auto;
-  border: 1px solid #444;
-  margin: 0.2em; }
-
-/* video embed div */
-.auto-resizable-iframe {
-  max-width: 420px;
-  padding: 0.5em; }
-
-.auto-resizable-iframe > div {
-  position: relative;
-  padding-bottom: 75%;
-  height: 0px; }
-
-.auto-resizable-iframe iframe {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  width: 100%;
-  height: 100%; }
 
 /* image grid */
 .image_grid {
@@ -1965,6 +1942,32 @@ textarea.form-control {
   height: 64px;
   width: 64px; }
 
+/* external image embed */
+.external_image {
+  max-width: 200px;
+  max-height: 150px;
+  height: auto;
+  border: 1px solid #444;
+  margin: 0.2em; }
+
+/* video embed div */
+.auto-resizable-iframe {
+  max-width: 420px;
+  padding: 0.5em; }
+
+.auto-resizable-iframe > div {
+  position: relative;
+  padding-bottom: 75%;
+  height: 0px; }
+
+.auto-resizable-iframe iframe {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%; }
+
+/* settings box css */
 /* global css */
 html {
   height: 100%;

@@ -1,3 +1,10 @@
+<li>
+    <div class="username">
+        <span ng-bind="authState.name" ng-class="usermenu.usergroupClass(authState.ibdata.group)"></span>
+    </div>
+</li>
+<li class="divider"></li>
 <li><a href="favorites"><i style="color:#D67474;" class="fa fa-heart"></i>Favorites</a></li>
+<li class="divider"></li>
 <li><a href="account"><i class="fa fa-cog"></i>Settings</a></li>
 <li><a ng-click="usermenu.logOut()" href><i class="fa fa-plug"></i>Logout</a></li>

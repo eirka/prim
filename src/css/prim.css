@@ -1098,7 +1098,6 @@ textarea.form-control {
       display: inline-block;
       border-radius: 3px; }
       .nav_menu ul li a {
-        list-style-type: none;
         display: block;
         font-size: 1em;
         padding: 0.5em; }
@@ -1152,19 +1151,18 @@ textarea.form-control {
     top: 100%; }
   .nav_menu ul ul li,
   .user_menu ul ul li {
-    display: list-item;
     list-style-type: none;
-    border-radius: 0; }
-  .nav_menu ul ul i,
-  .user_menu ul ul i {
-    display: inline;
-    margin-right: 0.5em;
-    font-size: 0.9em; }
-  .nav_menu ul ul li a,
-  .user_menu ul ul li a {
-    display: inline-block;
-    padding: 0.3em 1.5em;
-    font-size: 1.1em; }
+    display: list-item; }
+    .nav_menu ul ul li i,
+    .user_menu ul ul li i {
+      display: inline;
+      margin-right: 0.5em;
+      font-size: 0.9em; }
+    .nav_menu ul ul li a,
+    .user_menu ul ul li a {
+      display: block;
+      padding: 0.3em 1.5em;
+      font-size: 1.1em; }
   .nav_menu ul ul .username,
   .user_menu ul ul .username {
     width: 100%;

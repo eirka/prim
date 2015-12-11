@@ -93,7 +93,6 @@
             border-radius: 3px;
 
             & a {
-                list-style-type: none;
                 display: block;
                 font-size: 1em;
                 padding: 0.5em;
@@ -167,21 +166,20 @@
             }
 
             & li {
-                display: list-item;
                 list-style-type: none;
-                border-radius: 0;
-            }
+                display: list-item;
 
-            & i {
-                display: inline;
-                margin-right: 0.5em;
-                font-size: 0.9em;
-            }
+                & i {
+                    display: inline;
+                    margin-right: 0.5em;
+                    font-size: 0.9em;
+                }
 
-            & li a {
-                display: inline-block;
-                padding: 0.3em 1.5em;
-                font-size: 1.1em;
+                & a {
+                    display: block;
+                    padding: 0.3em 1.5em;
+                    font-size: 1.1em;
+                }
             }
 
             & .username {

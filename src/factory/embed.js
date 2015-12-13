@@ -3,8 +3,8 @@ angular.module('prim').factory('embed', function() {
     // global url regex
     var urlRegex = /(https?:\/\/|(www\.)|[A-Za-z0-9._%+-]+@)\S*[^\s.;,(){}<>"\u201d\u2019]/ig;
 
-    // detects protocol to see if its missing
-    var protocolRegex = /^[a-z]+\:\/\//i;
+    // detects an email
+    var emailRegex = /(\S{3,})@(\S*[^\s.;,(){}<>"\u201d\u2019])/i;
 
     // youtube regex
     var youtubeRegex = /(https?)?:\/\/(www\.)?(?:youtube\.com\/\S*(?:(?:\/e(?:mbed))?\/|watch\?(?:\S*?&?v\=))|youtu\.be\/)([a-zA-Z0-9_-]{6,11})/i;
@@ -27,13 +27,13 @@ angular.module('prim').factory('embed', function() {
             }
 
             // replace all the items with our directives
-            strReplaced = input.replace(urlRegex, function(text) {
+            strReplaced = input.replace(urlRegex, function(url) {
 
-                var url = text;
+                // check for an email
+                if (emailRegex.test(url)) {
+                    var match = emailRegex.exec(url)
 
-                // add a protocol to the link if there isnt one
-                if (!protocolRegex.test(text)) {
-                    url = 'http://' + text;
+                    return match[1] + ' at ' + match[2]
                 }
 
                 // embed image

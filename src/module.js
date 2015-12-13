@@ -8,6 +8,8 @@ require('angular-storage');
 require('angular-jwt');
 require('angular-animate');
 require('angularjs-toaster');
+require('angulartics');
+require('angulartics-google-analytics');
 
 // our dependencies 
 angular.module('prim', [
@@ -20,5 +22,7 @@ angular.module('prim', [
     'cfp.hotkeys',
     'angular-storage',
     'angular-jwt',
-    'toaster'
+    'toaster',
+    'angulartics',
+    'angulartics.google.analytics'
 ]);

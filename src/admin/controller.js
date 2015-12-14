@@ -107,8 +107,9 @@ angular.module('prim').controller('UpdateTagCtrl', function($scope, $route, Hand
     });
 
     // watch for the tag name from the parent resource
-    $scope.$watch('tag.data.tag', function(n) {
-        self.name = n;
+    $scope.$watchGroup(['tag.data.tag', 'tag.data.type'], function(n) {
+        self.name = n[0];
+        self.selected = n[1];
     }, true);
 
     // Function for adding a tag, updates tag list on success

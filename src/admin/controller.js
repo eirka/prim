@@ -106,6 +106,11 @@ angular.module('prim').controller('UpdateTagCtrl', function($scope, $route, Hand
         Utils.apiError(error.status);
     });
 
+    // watch for the tag name from the parent resource
+    $scope.$watch('tag.data.tag', function(n) {
+        self.name = n;
+    }, true);
+
     // Function for adding a tag, updates tag list on success
     self.updateTag = function(tag_id) {
         ModHandlers.updatetag.save({

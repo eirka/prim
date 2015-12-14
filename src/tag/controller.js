@@ -1,7 +1,10 @@
-angular.module('prim').controller('TagCtrl', function($scope, $routeParams, $location, hotkeys, Handlers, Utils) {
+angular.module('prim').controller('TagCtrl', function($scope, $routeParams, $location, hotkeys, Handlers, Utils, AuthService) {
 
     // using controllerAs
     var self = this;
+
+    // if mod controls should be shown or not
+    self.showModControls = AuthService.showModControls();
 
     // selects a row color
     self.rowClass = function(type) {

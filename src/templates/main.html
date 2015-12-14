@@ -1,28 +1,7 @@
-<div class="postbox" ng-controller="IndexFormCtrl as postform">
+<div class="postbox">
     <div class="postbox_box">
         <div class="postbox_form">
-            <form role="form" name="newthreadform" action="{{postform.getFormAction('/post/thread/new')}}" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="ib" ng-value="index.ib_id" />
-                <input type="hidden" name="askey" ng-value="index.as_key" />
-                <input ng-if="authState.isAuthenticated" type="hidden" name="access_token" ng-value="postform.token" />
-                <div class="form-group">
-                    <div class="form-control userinfo">
-                        <span ng-bind="authState.name" ng-class="index.usergroupClass(authState.ibdata.group)"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <input type="text" id="title" ng-required="true" name="title" class="form-control" ng-minlength="3" ng-maxlength="40" placeholder="Title" ng-model="postform.form.title">
-                </div>
-                <div class="form-group">
-                    <textarea id="comment" name="comment" ng-required="true" class="form-control" rows="3" ng-minlength="3" ng-maxlength="1000" placeholder="Comment" ng-model="postform.form.comment"></textarea>
-                </div>
-                <div class="form-group">
-                    <input id="file" type="file" name="file" ng-model="file" validate-file ng-required="true">
-                </div>
-                <div class="form-group">
-                    <button ng-disabled="newthreadform.$invalid" class="button button-block button-primary" type="submit" value="Submit">New Thread</button>
-                </div>
-            </form>
+            <ng-include src="'pages/forms/main.html'"></ng-include>
         </div>
     </div>
 </div>

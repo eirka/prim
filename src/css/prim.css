@@ -1679,13 +1679,34 @@ textarea.form-control {
     padding: 1em;
     text-align: center; }
 
-.tagpage_title {
-  padding: 0.6em;
-  font-size: 1.5em;
-  text-align: center; }
-  @media screen and (min-width: 50em) {
-    .tagpage_title {
-      text-align: left; } }
+.tagpage_header {
+  padding: 1em; }
+  .tagpage_header:before, .tagpage_header:after {
+    content: " ";
+    display: table; }
+  .tagpage_header:after {
+    clear: both; }
+  .tagpage_header .tag_title {
+    padding: 0.6em;
+    font-size: 1.5em;
+    text-align: center;
+    padding: 0.5em; }
+    @media screen and (min-width: 50em) {
+      .tagpage_header .tag_title {
+        text-align: left; } }
+    @media screen and (min-width: 50em) {
+      .tagpage_header .tag_title {
+        padding: 0.2em;
+        float: left;
+        max-width: 50%; } }
+  .tagpage_header .tag_controls {
+    text-align: center;
+    display: block; }
+    .tagpage_header .tag_controls .form-group {
+      margin: 0; }
+    @media screen and (min-width: 50em) {
+      .tagpage_header .tag_controls {
+        float: right; } }
 
 .tagpage_nav {
   text-align: center;

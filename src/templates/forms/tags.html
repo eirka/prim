@@ -1,0 +1,11 @@
+<form role="form" class="form-inline" ng-submit="newtag.newTag()" ng-controller="NewTagsCtrl as newtag">
+    <div class="form-group">
+        <select class="form-control" ng-init="newtag.selected=1" ng-options="tag.id as tag.type for tag in newtag.tagtypes" ng-model="newtag.selected"></select>
+    </div>
+    <div class="form-group">
+        <input class="form-control" type="text" maxlength="128" id="name" ng-minlength="3" ng-maxlength="128" placeholder="New Tag" ng-required="true" ng-model="newtag.name">
+    </div>
+    <div class="form-group">
+        <button class="form-control button button-primary" type="submit">New</button>
+    </div>
+</form>

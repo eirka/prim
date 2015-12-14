@@ -1,4 +1,4 @@
-angular.module('prim').controller('TagsCtrl', function($routeParams, Handlers, ModHandlers, toaster, config, internal, Utils, AuthService) {
+angular.module('prim').controller('TagsCtrl', function($scope, $routeParams, hotkeys, Handlers, ModHandlers, toaster, config, internal, Utils, AuthService) {
 
     // using controllerAs
     var self = this;
@@ -33,6 +33,23 @@ angular.module('prim').controller('TagsCtrl', function($routeParams, Handlers, M
         return rowclass
     }
 
+    // set default column and order for table sorting
+    self.sort = {
+        column: 'total',
+        desc: true
+    };
+
+    // reverse the sorting or change the column
+    self.changeSorting = function(column) {
+        var sort = self.sort;
+        if (angular.equals(sort.column, column)) {
+            sort.desc = !sort.desc;
+        } else {
+            sort.column = column;
+            sort.desc = false;
+        }
+    };
+
     // this is a function so we can reload it if someone makes a new tag
     self.updateTags = function() {
         self.notags = false;
@@ -61,26 +78,41 @@ angular.module('prim').controller('TagsCtrl', function($routeParams, Handlers, M
     // initial load of tags
     self.updateTags();
 
+    hotkeys.bindTo($scope)
+        .add({
+            combo: 'shift+left',
+            description: 'Previous Page',
+            callback: function() {
+                if (self.pagination.currentPage > 1) {
+                    var page = self.pagination.currentPage - 1;
+                    $location.path('/tags/' + $routeParams.id + '/' + page);
+                }
+            }
+        })
+        .add({
+            combo: 'shift+right',
+            description: 'Next Page',
+            callback: function() {
+                if (self.pagination.currentPage < self.pagination.numPages) {
+                    var page = self.pagination.currentPage + 1;
+                    $location.path('/tags/' + $routeParams.id + '/' + page);
+                }
+            }
+        });
+
+});
+
+angular.module('prim').controller('NewTagsCtrl', function($scope, Handlers, toaster, config, internal) {
+
+    // using controllerAs
+    var self = this;
+
     // Get tag types for selector
     Handlers.tagtypes.get(function(data) {
         self.tagtypes = data.tagtypes;
     }, function(error) {
         Utils.apiError(error.status);
     });
-
-    // Function for adding a tag, updates tag list on success
-    self.deleteTag = function(tag_id) {
-        if (confirm("Are you sure you want to delete this tag?")) {
-            ModHandlers.deletetag.delete({
-                id: tag_id
-            }, function(data) {
-                self.updateTags();
-                toaster.pop('success', data.success_message);
-            }, function(error) {
-                toaster.pop('error', error.data.error_message);
-            });
-        };
-    };
 
     // Function for adding a tag, updates tag list on success
     self.newTag = function() {
@@ -90,28 +122,11 @@ angular.module('prim').controller('TagsCtrl', function($routeParams, Handlers, M
             ib: config.ib_id,
             askey: internal.as_key
         }, function(data) {
-            self.updateTags();
+            $scope.tags.updateTags();
             toaster.pop('success', data.success_message);
         }, function(error) {
             toaster.pop('error', error.data.error_message);
         });
-    };
-
-    // set default column and order for table sorting
-    self.sort = {
-        column: 'total',
-        desc: true
-    };
-
-    // reverse the sorting or change the column
-    self.changeSorting = function(column) {
-        var sort = self.sort;
-        if (angular.equals(sort.column, column)) {
-            sort.desc = !sort.desc;
-        } else {
-            sort.column = column;
-            sort.desc = false;
-        }
     };
 
 });

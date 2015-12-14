@@ -4,6 +4,7 @@ var ngAnnotate = require('gulp-ng-annotate');
 var uglify = require('gulp-uglify');
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
+var buffer = require('vinyl-buffer');
 var runSequence = require('run-sequence');
 var del = require('del');
 var ngHtml2Js = require("gulp-ng-html2js");
@@ -11,9 +12,11 @@ var htmlmin = require('gulp-htmlmin');
 var csso = require('gulp-csso');
 var postcss = require('gulp-postcss');
 var autoprefixer = require('autoprefixer');
+var glob = require('glob');
+var nano = require('gulp-cssnano');
 
 gulp.task('default', function(callback) {
-    runSequence('clean', 'prim', 'templates', 'ui-bootstrap', 'app', 'browserify', 'css', callback);
+    runSequence('clean', 'prim', 'templates', 'ui-bootstrap', 'browserify', 'css', callback);
 });
 
 // clean env
@@ -28,8 +31,7 @@ gulp.task('prim', function() {
             './src/**/*.js'
         ])
         .pipe(ngAnnotate())
-        .pipe(concat('prim.min.js'))
-        .pipe(uglify())
+        .pipe(concat('prim.js'))
         .pipe(gulp.dest('./build'));
 });
 
@@ -48,7 +50,6 @@ gulp.task('templates', function() {
         }))
         .pipe(ngAnnotate())
         .pipe(concat('templates.js'))
-        .pipe(uglify())
         .pipe(gulp.dest('./build'));
 });
 
@@ -56,22 +57,24 @@ gulp.task('templates', function() {
 gulp.task('ui-bootstrap', function() {
     return gulp.src(['./ui-bootstrap.0.13.js'])
         .pipe(ngAnnotate())
-        .pipe(uglify())
-        .pipe(gulp.dest('./build'));
-});
-
-// concat the build dir
-gulp.task('app', function() {
-    return gulp.src(['./build/*.js'])
-        .pipe(concat('app.js'))
         .pipe(gulp.dest('./build'));
 });
 
 // browserify the app and place in dist
 gulp.task('browserify', function() {
-    return browserify('./build/app.js')
-        .bundle()
+    // get all our files
+    var files = glob.sync('./build/*.js');
+
+    // new browserify
+    var b = browserify({
+        entries: files
+    });
+
+    // bundle and uglify the file
+    return b.bundle()
         .pipe(source('prim.js'))
+        .pipe(buffer())
+        .pipe(uglify())
         .pipe(gulp.dest('./dist'))
 });
 
@@ -82,9 +85,14 @@ gulp.task('css', function() {
             './node_modules/angularjs-toaster/toaster.min.css'
         ])
         .pipe(concat('prim.css'))
+        .pipe(nano({
+            discardComments: {
+                removeAll: true
+            }
+        }))
+        .pipe(csso())
         .pipe(postcss([autoprefixer({
             browsers: ['last 2 versions']
         })]))
-        .pipe(csso())
         .pipe(gulp.dest('./dist'));
 });

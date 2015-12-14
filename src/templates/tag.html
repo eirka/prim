@@ -1,12 +1,17 @@
 <div class="tagpage">
     <div class="tagpage_container">
-        <div class="tagpage_title" ng-class="tag.rowClass(tag.data.type)">
-            <span ng-switch="tag.data.type">
-            <span ng-switch-when="1" ng-bind="'Tag: ' + tag.data.tag"></span>
-            <span ng-switch-when="2" ng-bind="'Artist: ' + tag.data.tag"></span>
-            <span ng-switch-when="3" ng-bind="'Character: ' + tag.data.tag"></span>
-            <span ng-switch-when="4" ng-bind="'Copyright: ' + tag.data.tag"></span>
-            </span>
+        <div class="tagpage_header" ng-class="tag.rowClass(tag.data.type)">
+            <div class="tag_title">
+                <span ng-switch="tag.data.type">
+                <span ng-switch-when="1" ng-bind="'Tag: ' + tag.data.tag"></span>
+                <span ng-switch-when="2" ng-bind="'Artist: ' + tag.data.tag"></span>
+                <span ng-switch-when="3" ng-bind="'Character: ' + tag.data.tag"></span>
+                <span ng-switch-when="4" ng-bind="'Copyright: ' + tag.data.tag"></span>
+                </span>
+            </div>
+            <div ng-if="tag.showModControls" class="tag_controls">
+                <ng-include src="'pages/forms/tag.html'"></ng-include>
+            </div>
         </div>
         <div class="tagpage_nav">
             <pagination all-link="true" boundary-links="true" rotate="true" direction-links="false" page-name="tag/{{tag.data.id}}" total-items="tag.pagination.totalItems" max-size="tag.pagination.maxSize" ng-model="tag.pagination.currentPage" items-per-page="tag.pagination.itemsPerPage" num-pages="tag.pagination.numPages">

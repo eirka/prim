@@ -26,6 +26,8 @@ angular.module('prim').factory('ModHandlers', function($resource, config) {
         'deleteimagetag': $resource(config.api_srv + '/admin/imagetag/:image/:tag', {
             image: '@image',
             tag: '@tag'
-        })
+        }),
+        // login
+        'updatetag': $resource(config.api_srv + '/admin/tag', {}),
     };
 });

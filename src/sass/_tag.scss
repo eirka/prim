@@ -23,8 +23,35 @@
     }
 }
 
-.tagpage_title {
-    @include boxTitle;
+.tagpage_header {
+    @include clearfix;
+
+    padding: 1em;
+
+    & .tag_title {
+        @include boxTitle;
+
+        padding: 0.5em;
+
+        @media #{$screenSmall} {
+            padding: 0.2em;
+            float: left;
+            max-width: 50%;
+        }
+    }
+
+    & .tag_controls {
+        text-align: center;
+        display: block;
+
+        & .form-group {
+            margin: 0;
+        }
+
+        @media #{$screenSmall} {
+            float: right;
+        }
+    }
 }
 
 .tagpage_nav {

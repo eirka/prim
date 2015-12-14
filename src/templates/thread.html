@@ -1,25 +1,7 @@
-<div class="postbox" ng-controller="ThreadFormCtrl as postform">
+<div class="postbox">
     <div class="postbox_box">
         <div class="postbox_form">
-            <form role="form" name="replyform" action="{{postform.getFormAction('/post/thread/reply')}}" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="askey" ng-value="thread.as_key" />
-                <input type="hidden" name="thread" ng-value="thread.data.id" />
-                <input ng-if="authState.isAuthenticated" type="hidden" name="access_token" ng-value="postform.token" />
-                <div class="form-group">
-                    <div class="form-control userinfo">
-                        <span ng-bind="authState.name" ng-class="thread.usergroupClass(authState.ibdata.group)"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <textarea id="comment" name="comment" ng-required="!file" ng-model="thread.quote" class="form-control" rows="3" ng-minlength="3" ng-maxlength="1000" placeholder="Comment"></textarea>
-                </div>
-                <div class="form-group">
-                    <input id="file" type="file" name="file" ng-model="file" validate-file ng-required="!thread.quote">
-                </div>
-                <div class="form-group">
-                    <button ng-disabled="replyform.$invalid" class="button button-block button-primary" type="submit" value="Submit">Reply</button>
-                </div>
-            </form>
+            <ng-include src="'pages/forms/thread.html'"></ng-include>
         </div>
         <div class="postbox_pagination">
             <pagination all-link="true" boundary-links="true" rotate="true" direction-links="false" page-name="thread/{{thread.data.id}}" total-items="thread.pagination.totalItems" max-size="thread.pagination.maxSize" ng-model="thread.pagination.currentPage" items-per-page="thread.pagination.itemsPerPage" num-pages="thread.pagination.numPages">

@@ -5,40 +5,26 @@
     <base href="/">
     <title data-ng-bind="page.title">Prim</title>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="" />
-    <link rel="stylesheet" type="text/css" href="/prim.css" />
-    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <link rel="stylesheet" href="/prim.css" />
+    <link rel="stylesheet" href="/css/custom.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <script src="/prim.js"></script>
-    <script src="/settings.js"></script>
+    <script>
+    angular.module('prim').constant('config', {
+        ib_id: 1,
+        title: 'Prim',
+        img_srv: '//images.website.com',
+        api_srv: '//api.website.com'
+    });
+    </script>
 </head>
 
 <body>
-    <top-box></top-box>
-    <toaster-container toaster-options="{'position-class':'toast-bottom-right','limit':5}"></toaster-container>
+    <ng-include src="'pages/global.html'"></ng-include>
     <div class="header">
-        <div class="header_top">
-            <div class="header_navigation">
-                <ul>
-                    <li class="n1"><a href="/" title="Navigation"><i class="fa fa-fw fa-bars"></i></a>
-                        <ul>
-                            <li><a href="/">Imageboards</a></li>
-                        </ul>
-                    </li>
-                    <li class="n2"><a href="trending" title="New and Popular"><i class="fa fa-fw fa-bolt"></i></a></li>
-                    <li class="n3"><a href="directory" title="Directory"><i class="fa fa-fw fa-list"></i></a></li>
-                    <li class="n4"><a href="tags" title="Tags"><i class="fa fa-fw fa-tags"></i></a></li>
-                    <li class="n5"><a href="account" title="Account"><i class="fa fa-fw fa-user"></i></a></li>
-                    <li class="n6" ng-if="authState.isAuthenticated" ng-cloak><a href="favorites/1" title="Favorites"><i class="fa fa-fw fa-heart"></i></a></li>
-                </ul>
-            </div>
-            <div class="site_logo">
-                <a href="/">
-                    <img src="/logo.png" alt="Prim" />
-                </a>
-            </div>
-        </div>
+        <ng-include src="'pages/header.html'"></ng-include>
     </div>
     <div ng-view></div>
 </body>

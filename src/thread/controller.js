@@ -18,6 +18,14 @@ angular.module('prim').controller('ThreadCtrl', function($window, $location, $sc
     // get quote if there is one
     self.quote = Utils.getQuote();
 
+    // add post num to comment box
+    self.replyQuote = function(id) {
+        if (angular.isDefined(id)) {
+            self.quote += " >>" + id + " ";
+            $window.scrollTo(0, 0);
+        }
+    };
+
     // clear the quote if page change
     $scope.$on('$locationChangeStart', function() {
         Utils.clearQuote();
@@ -58,12 +66,6 @@ angular.module('prim').controller('ThreadCtrl', function($window, $location, $sc
     }, function(error) {
         Utils.apiError(error.status);
     });
-
-    // add post num to comment box
-    self.replyQuote = function(id) {
-        self.quote += " >>" + id + " ";
-        $window.scrollTo(0, 0);
-    };
 
     hotkeys.bindTo($scope)
         .add({

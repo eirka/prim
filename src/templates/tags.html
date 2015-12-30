@@ -2,12 +2,17 @@
     <div class="taglist_container">
         <div class="tags_list">
             <div class="tags_bar">
-                <ng-include src="'pages/forms/tags.html'"></ng-include>
+                <div class="tags_input">
+                    <ng-include src="'pages/forms/tags.html'"></ng-include>
+                </div>
+                <div class="tags_search">
+                    <input type="text" class="form-control" ng-model="tags.searchterm" ng-model-options="{ debounce: 500 }" ng-required="true" ng-change="tags.searchTags()" ng-minlength="3" ng-maxlength="128" placeholder="Search">
+                </div>
             </div>
-            <div ng-if="tags.notags" class="no_tags">
+            <div ng-if="!tags.data.length" class="no_tags">
                 <span>No tags <i class="fa fa-frown-o"></i></span>
             </div>
-            <table ng-if="!tags.notags">
+            <table ng-if="tags.data.length">
                 <thead>
                     <tr>
                         <th width="6%"><a href="" ng-click="tags.changeSorting('type')">Type</a></th>

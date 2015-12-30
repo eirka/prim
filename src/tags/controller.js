@@ -13,24 +13,16 @@ angular.module('prim').controller('TagsCtrl', function($scope, $routeParams, hot
 
     // selects a row color
     self.rowClass = function(type) {
-        var rowclass = "";
-
         switch (type) {
             case 2:
-                rowclass = "row-artist";
-                break;
+                return "row-artist";
             case 3:
-                rowclass = "row-character";
-                break;
+                return "row-character";
             case 4:
-                rowclass = "row-copyright";
-                break;
+                return "row-copyright";
             default:
-                rowclass = "";
-                break;
+                return;
         }
-
-        return rowclass
     }
 
     // set default column and order for table sorting
@@ -52,7 +44,6 @@ angular.module('prim').controller('TagsCtrl', function($scope, $routeParams, hot
 
     // this is a function so we can reload it if someone makes a new tag
     self.updateTags = function() {
-        self.notags = false;
         Handlers.tags.get({
             page: $routeParams.page
         }, function(data) {
@@ -66,17 +57,26 @@ angular.module('prim').controller('TagsCtrl', function($scope, $routeParams, hot
                 maxSize: 3
             };
         }, function(error) {
-            if (angular.equals(error.status, 404)) {
-                self.notags = true;
-            } else {
-                Utils.apiError(error.status);
-            }
+            Utils.apiError(error.status);
         });
         self.error = null;
     };
 
     // initial load of tags
     self.updateTags();
+
+    // async tag search
+    self.searchTags = function() {
+        if (self.searchterm) {
+            return Handlers.tagsearch.get({
+                search: self.searchterm
+            }).$promise.then(function(data) {
+                return self.data = data.tagsearch;
+            });
+        } else {
+            self.updateTags();
+        }
+    };
 
     hotkeys.bindTo($scope)
         .add({

@@ -1621,6 +1621,24 @@ textarea.form-control {
 .tags_bar {
   text-align: center;
   padding: 0.5em; }
+  .tags_bar:before, .tags_bar:after {
+    content: " ";
+    display: table; }
+  .tags_bar:after {
+    clear: both; }
+  .tags_bar .tags_input .form-group {
+    margin-bottom: 0.2em; }
+  @media screen and (min-width: 50em) {
+    .tags_bar .tags_input {
+      float: left;
+      max-width: 50%; } }
+  .tags_bar .tags_search {
+    margin-top: 1em; }
+    @media screen and (min-width: 50em) {
+      .tags_bar .tags_search {
+        margin: 0;
+        float: right;
+        max-width: 50%; } }
 
 /* error css */
 .error {

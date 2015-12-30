@@ -14,7 +14,7 @@ angular.module('prim').factory('Utils', function($location, config) {
     return {
         // sets the quote
         setQuote: function(quote) {
-            if (anguar.isDefined(quote)) {
+            if (angular.isDefined(quote)) {
                 commentQuote += ">>" + quote + " ";
             }
         },

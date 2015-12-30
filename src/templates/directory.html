@@ -1,10 +1,10 @@
 <div class="directory">
     <div class="directory_container">
         <div class="directory_list">
-            <div ng-if="directory.nothreads" class="no_threads">
+            <div ng-if="!directory.data.length" class="no_threads">
                 <span>No threads <i class="fa fa-frown-o"></i></span>
             </div>
-            <table ng-if="!directory.nothreads">
+            <table ng-if="directory.data.length">
                 <thead>
                     <tr>
                         <th style="text-align:left;"><a href="" ng-click="directory.changeSorting('title')">Title</a></th>
@@ -14,7 +14,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="thread in directory.data.directory | orderBy:directory.sort.column:directory.sort.desc track by thread.id">
+                    <tr ng-repeat="thread in directory.data | orderBy:directory.sort.column:directory.sort.desc track by thread.id">
                         <td style="width:auto;text-align:left;">
                             <i ng-if="thread.closed" title="Closed" class="fa fa-lock"></i>
                             <i ng-if="thread.sticky" title="Sticky" class="fa fa-thumb-tack"></i>

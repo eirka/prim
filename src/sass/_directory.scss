@@ -60,6 +60,29 @@
 }
 
 .tags_bar {
+    @include clearfix;
+
     text-align: center;
     padding: 0.5em;
+
+    & .tags_input {
+        & .form-group {
+            margin-bottom: 0.2em;
+        }
+
+        @media #{$screenSmall} {
+            float: left;
+            max-width: 50%;
+        }
+    }
+
+    & .tags_search {
+        margin-top: 1em;
+
+        @media #{$screenSmall} {
+            margin: 0;
+            float: right;
+            max-width: 50%;
+        }
+    }
 }

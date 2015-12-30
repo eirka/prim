@@ -3,17 +3,11 @@ angular.module('prim').controller('DirectoryCtrl', function(Handlers, Utils) {
     // using controllerAs
     var self = this;
 
-    self.nothreads = false;
-
     // Get the directory json from pram
     Handlers.directory.get(function(data) {
-        self.data = data;
+        self.data = data.directory;
     }, function(error) {
-        if (angular.equals(error.status, 404)) {
-            self.nothreads = true;
-        } else {
-            Utils.apiError(error.status);
-        }
+        Utils.apiError(error.status);
     });
 
     // set default column and order for table sorting

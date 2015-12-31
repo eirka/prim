@@ -23,7 +23,7 @@
                         </td>
                         <td style="width:3em;text-align:center;" align="center" ng-bind="thread.postcount"></td>
                         <td style="width:3em;text-align:center;" align="center" ng-bind="thread.images"></td>
-                        <td style="width:20%;text-align:center;" align="center" ng-bind="thread.last_post"></td>
+                        <td style="width:20%;text-align:center;" align="center" ng-bind="thread.last_post | date:'short'"></td>
                     </tr>
                 </tbody>
             </table>

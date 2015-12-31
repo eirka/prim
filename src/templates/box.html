@@ -10,7 +10,7 @@
                 </div>
             </div>
             <span class="post_info" ng-class="usergroupClass(quotebox.post.group)" ng-bind="quotebox.post.name"></span>
-            <span class="post_info" ng-bind="quotebox.post.time"></span>
+            <span class="post_info" ng-bind="quotebox.post.time | date:'short'"></span>
             <span class="label label-light" ng-bind="'#'+{{::quotebox.post.num}}" href></span>
         </div>
         <div class="quotebox_comment">

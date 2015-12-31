@@ -51,7 +51,7 @@
                             <span ng-class="thread.usergroupClass(post.group)" ng-bind="post.name"></span>
                         </div>
                         <div class="info_item">
-                            <span ng-bind="post.time"></span>
+                            <span ng-bind="post.time | date:'short'"></span>
                         </div>
                         <div class="info_item">
                             <a class="label label-light" ng-bind="'#'+{{post.num}}" ng-click="thread.replyQuote(post.num)" href></a>

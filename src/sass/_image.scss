@@ -28,6 +28,10 @@
         padding: 0.5em;
     }
 
+    & button {
+        border-radius: 0;
+    }
+
     & .tags {
         display: inline;
         position: relative;

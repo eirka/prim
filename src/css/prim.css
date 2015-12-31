@@ -1318,6 +1318,8 @@ textarea.form-control {
   padding: 0.5em; }
   .image_info .no_tags {
     padding: 0.5em; }
+  .image_info button {
+    border-radius: 0; }
   .image_info .tags {
     display: inline;
     position: relative; }

@@ -14,6 +14,7 @@ var postcss = require('gulp-postcss');
 var autoprefixer = require('autoprefixer');
 var glob = require('glob');
 var nano = require('gulp-cssnano');
+var rev = require('gulp-rev');
 
 gulp.task('default', function(callback) {
     runSequence('clean', 'prim', 'templates', 'ui-bootstrap', 'browserify', 'css', callback);
@@ -75,6 +76,7 @@ gulp.task('browserify', function() {
         .pipe(source('prim.js'))
         .pipe(buffer())
         .pipe(uglify())
+        .pipe(rev())
         .pipe(gulp.dest('./dist'))
 });
 
@@ -94,5 +96,6 @@ gulp.task('css', function() {
         .pipe(postcss([autoprefixer({
             browsers: ['last 2 versions']
         })]))
+        .pipe(rev())
         .pipe(gulp.dest('./dist'));
 });

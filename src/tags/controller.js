@@ -85,7 +85,7 @@ angular.module('prim').controller('TagsCtrl', function($scope, $routeParams, $lo
             callback: function() {
                 if (self.pagination.currentPage > 1) {
                     var page = self.pagination.currentPage - 1;
-                    $location.path('/tags/' + $routeParams.id + '/' + page);
+                    $location.path('/tags/' + page);
                 }
             }
         })
@@ -95,7 +95,7 @@ angular.module('prim').controller('TagsCtrl', function($scope, $routeParams, $lo
             callback: function() {
                 if (self.pagination.currentPage < self.pagination.numPages) {
                     var page = self.pagination.currentPage + 1;
-                    $location.path('/tags/' + $routeParams.id + '/' + page);
+                    $location.path('/tags/' + page);
                 }
             }
         });

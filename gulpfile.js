@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var util = require('gulp-util');
 var gulpif = require('gulp-if');
+var rsync = require('gulp-rsync');
 var concat = require('gulp-concat');
 var ngAnnotate = require('gulp-ng-annotate');
 var uglify = require('gulp-uglify');
@@ -18,10 +19,11 @@ var glob = require('glob');
 var nano = require('gulp-cssnano');
 var rev = require('gulp-rev');
 
+// dev flag 
 var isDev = util.env.dev;
 
 gulp.task('default', function(callback) {
-    runSequence('clean', 'prim', 'templates', 'ui-bootstrap', 'browserify', 'css', callback);
+    runSequence('clean', 'prim', 'templates', 'ui-bootstrap', 'browserify', 'css', 'deploy', callback);
 });
 
 // clean env
@@ -84,6 +86,7 @@ gulp.task('browserify', function() {
         .pipe(gulp.dest('./dist'))
 });
 
+// optimize css and autoprefix
 gulp.task('css', function() {
     return gulp.src([
             './src/css/prim.css',
@@ -102,4 +105,15 @@ gulp.task('css', function() {
         })]))
         .pipe(gulpif(!isDev, rev()))
         .pipe(gulp.dest('./dist'));
+});
+
+// upload to dev server
+gulp.task('deploy', function() {
+    return gulp.src(['./dist/*'])
+        .pipe(gulpif(isDev, rsync({
+            username: 'root',
+            root: 'dist',
+            hostname: 'dev.trish.io',
+            destination: '/data/prim/assets/prim'
+        })));
 });

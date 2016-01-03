@@ -1,4 +1,6 @@
 var gulp = require('gulp');
+var util = require('gulp-util');
+var gulpif = require('gulp-if');
 var concat = require('gulp-concat');
 var ngAnnotate = require('gulp-ng-annotate');
 var uglify = require('gulp-uglify');
@@ -15,6 +17,8 @@ var autoprefixer = require('autoprefixer');
 var glob = require('glob');
 var nano = require('gulp-cssnano');
 var rev = require('gulp-rev');
+
+var isDev = util.env.dev;
 
 gulp.task('default', function(callback) {
     runSequence('clean', 'prim', 'templates', 'ui-bootstrap', 'browserify', 'css', callback);
@@ -76,7 +80,7 @@ gulp.task('browserify', function() {
         .pipe(source('prim.js'))
         .pipe(buffer())
         .pipe(uglify())
-        .pipe(rev())
+        .pipe(gulpif(!isDev, rev()))
         .pipe(gulp.dest('./dist'))
 });
 
@@ -96,6 +100,6 @@ gulp.task('css', function() {
         .pipe(postcss([autoprefixer({
             browsers: ['last 2 versions']
         })]))
-        .pipe(rev())
+        .pipe(gulpif(!isDev, rev()))
         .pipe(gulp.dest('./dist'));
 });

@@ -1,5 +1,5 @@
 // controller for nav menu
-angular.module('prim').controller('NavMenuCtrl', function($route, toaster, user_messages, AuthService) {
+angular.module('prim').controller('NavMenuCtrl', function() {
 
     // using controllerAs
     var self = this;
@@ -9,15 +9,15 @@ angular.module('prim').controller('NavMenuCtrl', function($route, toaster, user_
     // toggle menu visibility
     self.toggle = function() {
         self.visible = !self.visible;
-    }
+    };
 
     self.open = function() {
         self.visible = true;
-    }
+    };
 
     self.close = function() {
         self.visible = false;
-    }
+    };
 
 });
 
@@ -33,21 +33,21 @@ angular.module('prim').controller('UserMenuCtrl', function($route, toaster, user
     // toggle menu visibility
     self.toggle = function() {
         self.visible = !self.visible;
-    }
+    };
 
     self.open = function() {
         self.visible = true;
-    }
+    };
 
     self.close = function() {
         self.visible = false;
-    }
+    };
 
     // log out
     self.logOut = function() {
         AuthService.destroySession();
-        $route.reload()
+        $route.reload();
         toaster.pop('success', user_messages.loggedOut);
-    }
+    };
 
 });

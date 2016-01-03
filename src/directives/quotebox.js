@@ -7,7 +7,7 @@ angular.module('prim').directive('commentQuotes', function() {
             thread: '='
         },
         templateUrl: "pages/hover.html",
-        link: function(scope, element, attrs) {
+        link: function(scope) {
 
             // Hoverbox code
             scope.show = false;
@@ -15,15 +15,15 @@ angular.module('prim').directive('commentQuotes', function() {
             // toggle menu visibility
             scope.toggle = function() {
                 scope.show = !scope.show;
-            }
+            };
 
             scope.open = function() {
                 scope.show = true;
-            }
+            };
 
             scope.close = function() {
                 scope.show = false;
-            }
+            };
 
         }
     };
@@ -36,7 +36,7 @@ angular.module('prim').directive('hoverBox', function(Handlers, Utils) {
         restrict: 'E',
         scope: false,
         templateUrl: "pages/box.html",
-        link: function(scope, element, attrs) {
+        link: function(scope) {
 
             // selects usergroup class
             scope.usergroupClass = Utils.usergroupClass;

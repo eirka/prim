@@ -4,7 +4,7 @@ angular.module('prim').factory('AuthService', function($rootScope, GlobalStore, 
     // holds default ib data
     var defaultIbData = {
         group: 1
-    }
+    };
 
     // holds a default auth state
     var defaultAuthState = {
@@ -27,14 +27,14 @@ angular.module('prim').factory('AuthService', function($rootScope, GlobalStore, 
             if ($rootScope.authState.isAuthenticated) {
                 switch ($rootScope.authState.ibdata.group) {
                     case 3:
-                        return true
+                        return true;
                     case 4:
-                        return true
+                        return true;
                     default:
-                        return false
+                        return false;
                 }
             }
-            return false
+            return false;
         },
         // promise to the whoami handler
         queryWhoAmI: function() {
@@ -71,7 +71,7 @@ angular.module('prim').factory('AuthService', function($rootScope, GlobalStore, 
                 // if expired reset and delete
                 if (jwtHelper.isTokenExpired(token)) {
                     self.destroySession();
-                    return
+                    return;
                 }
 
                 // query whoami for user data
@@ -90,20 +90,20 @@ angular.module('prim').factory('AuthService', function($rootScope, GlobalStore, 
                     // set our per ib data
                     $rootScope.authState.ibdata = {
                         group: data.user.group
-                    }
+                    };
 
                     // cache ib data
                     self.saveIbData($rootScope.authState.ibdata);
 
-                    return
+                    return;
 
-                }, function(error) {
+                }, function() {
                     // purge session if theres an error
                     self.destroySession();
-                    return
+                    return;
                 });
 
-            };
+            }
         },
         // sets authstate to anon and removed all cached info
         destroySession: function() {

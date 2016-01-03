@@ -1,4 +1,4 @@
-angular.module('prim').controller('TagsCtrl', function($scope, $routeParams, hotkeys, Handlers, ModHandlers, toaster, config, internal, Utils, AuthService) {
+angular.module('prim').controller('TagsCtrl', function($scope, $routeParams, $location, hotkeys, Handlers, ModHandlers, toaster, config, internal, Utils, AuthService) {
 
     // using controllerAs
     var self = this;
@@ -23,7 +23,7 @@ angular.module('prim').controller('TagsCtrl', function($scope, $routeParams, hot
             default:
                 return;
         }
-    }
+    };
 
     // set default column and order for table sorting
     self.sort = {
@@ -102,7 +102,7 @@ angular.module('prim').controller('TagsCtrl', function($scope, $routeParams, hot
 
 });
 
-angular.module('prim').controller('NewTagsCtrl', function($scope, Handlers, toaster, config, internal) {
+angular.module('prim').controller('NewTagsCtrl', function($scope, Handlers, toaster, config, internal, Utils) {
 
     // using controllerAs
     var self = this;

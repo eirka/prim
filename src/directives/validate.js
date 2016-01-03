@@ -4,7 +4,7 @@ angular.module('prim').directive('validationError', function() {
         restrict: 'A',
         require: 'ngModel',
         link: function(scope, elm, attrs, ctl) {
-            scope.$watch(attrs['validationError'], function(errorMsg) {
+            scope.$watch(attrs.validationError, function(errorMsg) {
                 elm[0].setCustomValidity(errorMsg);
                 ctl.$setValidity('validationError', errorMsg ? false : true);
             });
@@ -26,5 +26,5 @@ angular.module('prim').directive('validateFile', function() {
                 });
             });
         }
-    }
+    };
 });

@@ -5,7 +5,7 @@ angular.module('prim').directive('clickOff', function($document) {
         scope: {
             callback: '=clickOff'
         },
-        link: function(scope, element, attr, ctrl) {
+        link: function(scope, element) {
 
             var handler = function(event) {
                 if (!element[0].contains(event.target)) {
@@ -24,5 +24,5 @@ angular.module('prim').directive('clickOff', function($document) {
             });
 
         }
-    }
+    };
 });

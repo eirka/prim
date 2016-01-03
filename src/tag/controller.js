@@ -20,7 +20,7 @@ angular.module('prim').controller('TagCtrl', function($scope, $routeParams, $loc
             default:
                 return "";
         }
-    }
+    };
 
     // go to page 1 if something is fishy
     if (angular.isUndefined($routeParams.page)) {

@@ -40,7 +40,7 @@ angular.module('prim').controller('IndexCtrl', function($location, $routeParams,
                 if (angular.isDefined(post.thumbnail)) {
                     post.thumbnail = Utils.getThumbSrc(post.thumbnail, post.filename);
                 }
-            })
+            });
         });
 
         // Add quote post num to scope and forward to threads last page

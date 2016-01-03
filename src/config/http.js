@@ -11,10 +11,10 @@ angular.module('prim').config(function($httpProvider, jwtInterceptorProvider) {
                 // reset the auth state
                 AuthService.destroySession();
                 return null;
-            };
+            }
 
             return idToken;
-        };
+        }
 
         return null;
     }];

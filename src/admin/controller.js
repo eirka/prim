@@ -1,5 +1,5 @@
 // mod functions for threads
-angular.module('prim').controller('ThreadModCtrl', function($location, $route, toaster, ModHandlers, Utils) {
+angular.module('prim').controller('ThreadModCtrl', function($location, $route, toaster, ModHandlers) {
 
     // using controllerAs
     var self = this;
@@ -28,8 +28,6 @@ angular.module('prim').controller('ThreadModCtrl', function($location, $route, t
         });
     };
 
-
-
     // delete a thread
     self.deleteThread = function(thread_id) {
         if (confirm("Are you sure you want to delete this thread?")) {
@@ -41,14 +39,14 @@ angular.module('prim').controller('ThreadModCtrl', function($location, $route, t
             }, function(error) {
                 toaster.pop('error', error.data.error_message);
             });
-        };
+        }
     };
 
 });
 
 
 // mod functions for threads
-angular.module('prim').controller('PostModCtrl', function($route, toaster, ModHandlers, Utils) {
+angular.module('prim').controller('PostModCtrl', function($route, toaster, ModHandlers) {
 
     // using controllerAs
     var self = this;
@@ -65,7 +63,7 @@ angular.module('prim').controller('PostModCtrl', function($route, toaster, ModHa
             }, function(error) {
                 toaster.pop('error', error.data.error_message);
             });
-        };
+        }
     };
 
 });
@@ -87,14 +85,14 @@ angular.module('prim').controller('DeleteTagCtrl', function($scope, ModHandlers,
             }, function(error) {
                 toaster.pop('error', error.data.error_message);
             });
-        };
+        }
     };
 
 });
 
 
 // updates a tag
-angular.module('prim').controller('UpdateTagCtrl', function($scope, $route, Handlers, ModHandlers, toaster, config, internal) {
+angular.module('prim').controller('UpdateTagCtrl', function($scope, $route, Handlers, ModHandlers, toaster, config, internal, Utils) {
 
     // using controllerAs
     var self = this;
@@ -113,7 +111,7 @@ angular.module('prim').controller('UpdateTagCtrl', function($scope, $route, Hand
     }, true);
 
     // Function for adding a tag, updates tag list on success
-    self.updateTag = function(tag_id) {
+    self.updateTag = function() {
         ModHandlers.updatetag.save({
             id: $scope.tag.data.id,
             ib: config.ib_id,

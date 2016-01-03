@@ -6,7 +6,6 @@ angular.module('prim').factory('embed', function() {
     // detects protocol to see if its missing
     var protocolRegex = /^[a-z]+\:\/\//i;
 
-
     // detects an email
     var emailRegex = /(\S{3,})@(\S*[^\s.;,(){}<>"\u201d\u2019])/i;
 

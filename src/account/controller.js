@@ -18,16 +18,16 @@ angular.module('prim').controller('AccountCtrl', function($route, toaster, user_
         // set text if theres no email
         if (angular.equals(self.whoami.email, "")) {
             self.whoami.email = user_messages.noEmail;
-        };
+        }
 
     });
 
     // log out
     self.logOut = function() {
         AuthService.destroySession();
-        $route.reload()
+        $route.reload();
         toaster.pop('success', user_messages.loggedOut);
-    }
+    };
 
 });
 
@@ -68,7 +68,7 @@ angular.module('prim').controller('EmailCtrl', function($route, toaster, config,
             // clear form 
             self.form = {};
             // reload
-            $route.reload()
+            $route.reload();
         }, function(error) {
             toaster.pop('error', error.data.error_message);
         });

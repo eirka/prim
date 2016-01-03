@@ -14,13 +14,6 @@ angular.module('prim').provider("emoticons", function emoticonsProvider() {
     var tokenSearchPattern = /:([\w+-]+):/g;
     var tokenValidationPattern = /^([\w+-]+)$/i;
 
-    // Expose the public API for the provider.
-    return ({
-        setImageServer: setImageServer,
-        setTokens: setTokens,
-        $get: emoticons
-    });
-
     function setImageServer(server) {
         return imgsrv = server;
     }
@@ -49,14 +42,29 @@ angular.module('prim').provider("emoticons", function emoticonsProvider() {
     // I am the actual emoticons service.
     function emoticons() {
 
+        // Rather than having to convert tokens to tags over and over again,
+        // we can pre-compose the HTML tags during service initialization.
+        // This way, we only eat that cost once. Returns a hash of tokens
+        // mapped to their corresponding HTML tag.
+        function createTokenMap(tokens) {
+
+            var tagMap = {};
+
+            for (var i = 0, length = tokens.length; i < length; i++) {
+
+                var token = tokens[i];
+
+                tagMap[token.text] = createTokenTag(token);
+
+            }
+
+            return (tagMap);
+
+        }
+
         // I am a hash that maps the token values to pre-composed HTML tag
         // that represents the emoticon markup.
         var tokenMap = createTokenMap(tokens);
-
-        // Return the public API.
-        return ({
-            injectTags: injectTags
-        });
 
         // I take plain-text content and replace the emoticon tokens with
         // actual HTML tags that represent the graphical emotions.
@@ -78,31 +86,23 @@ angular.module('prim').provider("emoticons", function emoticonsProvider() {
 
         }
 
-        // Rather than having to convert tokens to tags over and over again,
-        // we can pre-compose the HTML tags during service initialization.
-        // This way, we only eat that cost once. Returns a hash of tokens
-        // mapped to their corresponding HTML tag.
-        function createTokenMap(tokens) {
-
-            var tagMap = {};
-
-            for (var i = 0, length = tokens.length; i < length; i++) {
-
-                var token = tokens[i];
-
-                tagMap[token.text] = createTokenTag(token);
-
-            }
-
-            return (tagMap);
-
-        }
-
         // I create an HTML tag that represents the given token.
         function createTokenTag(token) {
             return ('<img class="emoticon" title=":' + token.text + ':" src="' + imgsrv + '/emoticons/' + token.image + '" />');
         }
 
+        // Return the public API.
+        return ({
+            injectTags: injectTags
+        });
+
     }
+
+    // Expose the public API for the provider.
+    return ({
+        setImageServer: setImageServer,
+        setTokens: setTokens,
+        $get: emoticons
+    });
 
 });

@@ -8,7 +8,7 @@ angular.module('prim').directive('commentHandler', function() {
             thread: '='
         },
         templateUrl: "pages/comment.html",
-        link: function(scope, element, attrs) {
+        link: function(scope) {
             // array for quote ids
             var quotes = [];
             // regex for quotes
@@ -28,7 +28,7 @@ angular.module('prim').directive('commentHandler', function() {
             }
 
             // remove the quotes
-            var comment = raw.replace(re, '')
+            var comment = raw.replace(re, '');
 
             // this is all the collected quote ids
             scope.post.quote_id = quotes;
@@ -49,7 +49,7 @@ angular.module('prim').directive('commentFormatter', function($sanitize, $compil
         scope: {
             comment: '='
         },
-        link: function(scope, element, attrs) {
+        link: function(scope, element) {
 
             var comment = scope.comment;
 

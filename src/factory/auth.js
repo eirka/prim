@@ -108,6 +108,9 @@ angular.module('prim').factory('AuthService', function($rootScope, GlobalStore, 
         // sets authstate to anon and removed all cached info
         destroySession: function() {
             localStorage.clear();
+            // explicitly remove jwt token or else it will be cached
+            GlobalStore.remove(tokenstorename);
+            // set the state back to default
             $rootScope.authState = defaultAuthState;
         },
         // saves the user cache
@@ -132,7 +135,18 @@ angular.module('prim').factory('AuthService', function($rootScope, GlobalStore, 
         },
         // retrieves the jwt token
         getToken: function() {
-            return GlobalStore.get(tokenstorename);
+            var self = this;
+            var token = GlobalStore.get(tokenstorename);
+            if (token) {
+                // if the token is expired remove it
+                if (jwtHelper.isTokenExpired(token)) {
+                    // reset the auth state
+                    self.destroySession();
+                    return null;
+                }
+                return token;
+            }
+            return null;
         }
     };
 });

@@ -6,6 +6,9 @@ angular.module('prim').controller('IndexCtrl', function($location, $routeParams,
     // set antispam key 
     self.as_key = internal.as_key;
 
+    // set csrf token
+    self.csrf_token = config.csrf_token;
+
     // Set imageboard id
     self.ib_id = config.ib_id;
 

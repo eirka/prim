@@ -6,6 +6,9 @@ angular.module('prim').controller('ThreadCtrl', function($window, $location, $sc
     // set antispam key 
     self.as_key = internal.as_key;
 
+    // set csrf token
+    self.csrf_token = config.csrf_token;
+
     // Variable for grid or list view as default
     self.layout = 'list';
 

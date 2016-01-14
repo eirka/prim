@@ -115,7 +115,9 @@ angular.module('prim').factory('AuthService', function($rootScope, GlobalStore, 
         },
         // saves the user cache
         saveIbData: function(data) {
-            LocalStore.set(ibstorename, data);
+            if (angular.isDefined(data)) {
+                LocalStore.set(ibstorename, data);
+            }
         },
         // gets the user cache
         getIbData: function() {
@@ -123,7 +125,9 @@ angular.module('prim').factory('AuthService', function($rootScope, GlobalStore, 
         },
         // saves the user cache
         saveUserCache: function(cache) {
-            GlobalStore.set(cachestorename, cache);
+            if (angular.isDefined(cache)) {
+                GlobalStore.set(cachestorename, cache);
+            }
         },
         // gets the user cache
         getUserCache: function() {
@@ -131,7 +135,9 @@ angular.module('prim').factory('AuthService', function($rootScope, GlobalStore, 
         },
         // saves the jwt token
         saveToken: function(token) {
-            GlobalStore.set(tokenstorename, token);
+            if (angular.isDefined(token)) {
+                GlobalStore.set(tokenstorename, token);
+            }
         },
         // retrieves the jwt token
         getToken: function() {

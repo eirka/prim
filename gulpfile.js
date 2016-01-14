@@ -18,6 +18,7 @@ var autoprefixer = require('autoprefixer');
 var glob = require('glob');
 var nano = require('gulp-cssnano');
 var rev = require('gulp-rev');
+var bump = require('gulp-bump');
 
 // dev flag 
 var isDev = util.env.dev;
@@ -105,6 +106,13 @@ gulp.task('css', function() {
         })]))
         .pipe(gulpif(!isDev, rev()))
         .pipe(gulp.dest('./dist'));
+});
+
+// bump the version
+gulp.task('bump', function() {
+    gulp.src('./package.json')
+        .pipe(gulpif(!isDev, bump()))
+        .pipe(gulp.dest('./'));
 });
 
 // upload to dev server

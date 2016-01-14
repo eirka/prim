@@ -14,14 +14,14 @@ require('angulartics-google-analytics');
 // our dependencies 
 angular.module('prim', [
     'ui.bootstrap',
-    'ngSanitize',
-    'ngAnimate',
+    'ngResource',
     'ngCookies',
     'ngRoute',
-    'ngResource',
+    'ngSanitize',
     'cfp.hotkeys',
     'angular-storage',
     'angular-jwt',
+    'ngAnimate',
     'toaster',
     'angulartics',
     'angulartics.google.analytics'

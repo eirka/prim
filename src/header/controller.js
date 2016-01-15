@@ -28,7 +28,14 @@ angular.module('prim').controller('UserMenuCtrl', function($route, toaster, user
 
     self.visible = false;
 
+    // if mod controls should be shown or not
+    self.showModControls = AuthService.showModControls();
+
+    // get usergroup class
     self.usergroupClass = Utils.usergroupClass;
+
+    // log out
+    self.logOut = AuthService.logOut;
 
     // toggle menu visibility
     self.toggle = function() {
@@ -43,11 +50,6 @@ angular.module('prim').controller('UserMenuCtrl', function($route, toaster, user
         self.visible = false;
     };
 
-    // log out
-    self.logOut = function() {
-        AuthService.destroySession();
-        $route.reload();
-        toaster.pop('success', user_messages.loggedOut);
-    };
+
 
 });

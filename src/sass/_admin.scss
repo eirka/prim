@@ -1,0 +1,29 @@
+@import "variables";
+@import "mixins";
+
+/* tag page css */
+
+.admin {
+    padding: 1em 0;
+}
+
+.admin_container {
+    @include mediaWidths;
+
+    @include shadow;
+
+    border-radius: 6px;
+    overflow: hidden;
+    width: $boxWidthRel;
+    margin: 0 auto;
+    padding: 1em;
+
+    & .board_stats {
+        width: 80%;
+        height: auto;
+        margin: auto;
+        border-radius: 6px;
+        overflow: hidden;
+        padding: 1em;
+    }
+}

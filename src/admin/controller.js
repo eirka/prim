@@ -1,3 +1,45 @@
+// imageboard statistics
+angular.module('prim').controller('BoardStatisticsCtrl', function($route, dateFilter, ModHandlers, Utils) {
+
+    // using controllerAs
+    var self = this;
+
+    // chart labels
+    self.labels = [];
+    // the chart series names
+    self.series = [];
+    // the chart datapoints
+    self.data = [];
+
+    self.colors = ['#BF4848', '#4883BF'];
+
+    // chart options
+    self.options = {
+        scaleShowGridLines: false,
+        scaleShowLabels: false,
+        pointDot: false,
+        datasetStroke: false,
+        scaleFontSize: 8,
+    };
+
+    // Get the image json from pram
+    ModHandlers.statistics.get({}, function(data) {
+        // format the dates
+        angular.forEach(data.labels, function(value) {
+            self.labels.push(dateFilter(value, 'short'));
+        });
+        // push the data
+        angular.forEach(data.series, function(value) {
+            self.series.push(value.name);
+            self.data.push(value.data);
+        });
+
+    }, function(error) {
+        Utils.apiError(error.status);
+    });
+
+});
+
 // mod functions for threads
 angular.module('prim').controller('ThreadModCtrl', function($location, $route, toaster, ModHandlers) {
 

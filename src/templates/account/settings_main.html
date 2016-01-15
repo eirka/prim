@@ -1,8 +1,13 @@
-<div class="account_row">
-    <div class="account_subcontainer left">
-        <ng-include src="'pages/account/password.html'"></ng-include>
+<div class="settings_container">
+    <div class="settings_menu">
+        <a class="button button-settings" ng-href="" href>Account Settings</a>
     </div>
-    <div class="account_subcontainer right">
-        <ng-include src="'pages/account/email.html'"></ng-include>
+    <div class="settings_box">
+        <div class="settings_subcontainer">
+            <ng-include src="'pages/account/password.html'"></ng-include>
+        </div>
+        <div class="settings_subcontainer">
+            <ng-include src="'pages/account/email.html'"></ng-include>
+        </div>
     </div>
 </div>

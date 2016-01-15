@@ -3,6 +3,9 @@ angular.module('prim').controller('AccountCtrl', function($route, toaster, user_
     // using controllerAs
     var self = this;
 
+    // log out
+    self.logOut = AuthService.logOut;
+
     // get whoami
     AuthService.queryWhoAmI().$promise.then(function(data) {
 
@@ -21,13 +24,6 @@ angular.module('prim').controller('AccountCtrl', function($route, toaster, user_
         }
 
     });
-
-    // log out
-    self.logOut = function() {
-        AuthService.destroySession();
-        $route.reload();
-        toaster.pop('success', user_messages.loggedOut);
-    };
 
 });
 

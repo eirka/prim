@@ -24,7 +24,7 @@ var bump = require('gulp-bump');
 var isDev = util.env.dev;
 
 gulp.task('default', function(callback) {
-    runSequence('clean', 'prim', 'templates', 'ui-bootstrap', 'browserify', 'css', 'deploy', callback);
+    runSequence('clean', 'prim', 'templates', 'ui-bootstrap', 'browserify', 'css', 'bump', 'deploy', callback);
 });
 
 // clean env
@@ -92,7 +92,8 @@ gulp.task('css', function() {
     return gulp.src([
             './src/css/prim.css',
             './node_modules/angular-hotkeys/build/hotkeys.min.css',
-            './node_modules/angularjs-toaster/toaster.min.css'
+            './node_modules/angularjs-toaster/toaster.min.css',
+            './node_modules/angular-chart.js/dist/angular-chart.min.css'
         ])
         .pipe(concat('prim.css'))
         .pipe(nano({

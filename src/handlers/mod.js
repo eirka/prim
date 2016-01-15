@@ -1,6 +1,10 @@
 // handlers for mod and admin functions
 angular.module('prim').factory('ModHandlers', function($resource, config) {
     return {
+        // board statistics
+        'statistics': $resource(config.api_srv + '/admin/statistics/:ib', {
+            ib: config.ib_id
+        }),
         // delete a thread
         'deletethread': $resource(config.api_srv + '/admin/thread/:id', {
             id: '@id'

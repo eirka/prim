@@ -1,10 +1,11 @@
 {
   "name": "prim",
-  "version": "1.5.0",
+  "version": "1.5.2",
   "description": "AngularJS frontend for Pram API",
   "dependencies": {
     "angular": "^1.4.8",
     "angular-animate": "^1.4.8",
+    "angular-chart.js": "^0.8.8",
     "angular-cookies": "^1.4.8",
     "angular-hotkeys": "^1.6.0",
     "angular-jwt": "^0.0.9",
@@ -28,7 +29,8 @@
     "angularjs-toaster": "./node_modules/angularjs-toaster/toaster.min.js",
     "angular-jwt": "./node_modules/angular-jwt/dist/angular-jwt.min.js",
     "angulartics": "./node_modules/angulartics/dist/angulartics.min.js",
-    "angulartics-google-analytics": "./node_modules/angulartics-google-analytics/dist/angulartics-google-analytics.min.js"
+    "angulartics-google-analytics": "./node_modules/angulartics-google-analytics/dist/angulartics-google-analytics.min.js",
+    "angular-chart.js": "./node_modules/angular-chart.js/dist/angular-chart.min.js"
   },
   "devDependencies": {
     "autoprefixer": "^6.1.2",

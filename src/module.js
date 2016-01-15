@@ -10,6 +10,7 @@ require('angular-animate');
 require('angularjs-toaster');
 require('angulartics');
 require('angulartics-google-analytics');
+require('angular-chart.js');
 
 // our dependencies 
 angular.module('prim', [
@@ -24,5 +25,6 @@ angular.module('prim', [
     'ngAnimate',
     'toaster',
     'angulartics',
-    'angulartics.google.analytics'
+    'angulartics.google.analytics',
+    'chart.js'
 ]);

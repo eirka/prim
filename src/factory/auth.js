@@ -1,5 +1,5 @@
 // provides numerous functions for the auth system
-angular.module('prim').factory('AuthService', function($rootScope, GlobalStore, LocalStore, jwtHelper, UserHandlers, Utils) {
+angular.module('prim').factory('AuthService', function($rootScope, $route, toaster, user_messages, GlobalStore, LocalStore, jwtHelper, UserHandlers, Utils) {
 
     // holds default ib data
     var defaultIbData = {
@@ -21,7 +21,7 @@ angular.module('prim').factory('AuthService', function($rootScope, GlobalStore, 
     // our ibdata store key
     var ibstorename = 'data';
 
-    return {
+    var AuthService = {
         // show mod controls if user is mod or admin
         showModControls: function() {
             if ($rootScope.authState.isAuthenticated) {
@@ -42,11 +42,9 @@ angular.module('prim').factory('AuthService', function($rootScope, GlobalStore, 
         },
         // set the state to the cached data if available
         setCachedState: function() {
-            var self = this;
-
             // get the cached data if it exists
-            var cachedAuthState = self.getUserCache();
-            var cachedIbState = self.getIbData();
+            var cachedAuthState = AuthService.getUserCache();
+            var cachedIbState = AuthService.getIbData();
 
             // set our state to the cached version, or default if it isnt there
             if (cachedAuthState && cachedIbState) {
@@ -58,24 +56,22 @@ angular.module('prim').factory('AuthService', function($rootScope, GlobalStore, 
         },
         // handles the creation of key and cache store and also queries whoami handler for fresh info
         setAuthState: function() {
-            var self = this;
-
             // try and set the cached state first 
-            self.setCachedState();
+            AuthService.setCachedState();
 
             // get the jwt token
-            var token = self.getToken();
+            var token = AuthService.getToken();
 
             // get a refreshed whois if there is a token
             if (token) {
                 // if expired reset and delete
                 if (jwtHelper.isTokenExpired(token)) {
-                    self.destroySession();
+                    AuthService.destroySession();
                     return;
                 }
 
                 // query whoami for user data
-                self.queryWhoAmI().$promise.then(function(data) {
+                AuthService.queryWhoAmI().$promise.then(function(data) {
                     // set the authstate to the whoami data
                     $rootScope.authState = {
                         id: data.user.id,
@@ -85,7 +81,7 @@ angular.module('prim').factory('AuthService', function($rootScope, GlobalStore, 
                     };
 
                     // cache user data
-                    self.saveUserCache($rootScope.authState);
+                    AuthService.saveUserCache($rootScope.authState);
 
                     // set our per ib data
                     $rootScope.authState.ibdata = {
@@ -93,13 +89,13 @@ angular.module('prim').factory('AuthService', function($rootScope, GlobalStore, 
                     };
 
                     // cache ib data
-                    self.saveIbData($rootScope.authState.ibdata);
+                    AuthService.saveIbData($rootScope.authState.ibdata);
 
                     return;
 
                 }, function() {
                     // purge session if theres an error
-                    self.destroySession();
+                    AuthService.destroySession();
                     return;
                 });
 
@@ -141,18 +137,26 @@ angular.module('prim').factory('AuthService', function($rootScope, GlobalStore, 
         },
         // retrieves the jwt token
         getToken: function() {
-            var self = this;
             var token = GlobalStore.get(tokenstorename);
             if (token) {
                 // if the token is expired remove it
                 if (jwtHelper.isTokenExpired(token)) {
                     // reset the auth state
-                    self.destroySession();
+                    AuthService.destroySession();
                     return null;
                 }
                 return token;
             }
             return null;
+        },
+        // log out the user
+        logOut: function() {
+            AuthService.destroySession();
+            $route.reload();
+            toaster.pop('success', user_messages.loggedOut);
         }
     };
+
+    return AuthService;
+
 });

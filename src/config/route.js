@@ -65,6 +65,10 @@ angular.module('prim').config(function($routeProvider, $locationProvider, $compi
             title: 'Account',
             templateUrl: 'pages/account.html'
         })
+        .when('/admin', {
+            title: 'Admin Panel',
+            templateUrl: 'pages/admin.html'
+        })
         .when('/error', {
             templateUrl: 'pages/error.html',
             controller: 'errorHandler',

@@ -3,6 +3,9 @@ angular.module('prim').controller('FavoritesCtrl', function($scope, $routeParams
     // using controllerAs
     var self = this;
 
+    // make thumbnail source 
+    self.getThumbSrc = Utils.getThumbSrc;
+
     // go to page 1 if something is fishy
     if (angular.isUndefined($routeParams.page)) {
         $routeParams.page = 1;
@@ -21,12 +24,6 @@ angular.module('prim').controller('FavoritesCtrl', function($scope, $routeParams
             itemsPerPage: data.favorites.per_page,
             maxSize: 3
         };
-
-        // modify content
-        angular.forEach(self.data.images, function(image) {
-            image.thumbnail = Utils.getThumbSrc(image.thumbnail, image.filename);
-        });
-
     }, function(error) {
         Utils.apiError(error.status);
     });

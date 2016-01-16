@@ -34,7 +34,7 @@
         </div>
         <div ng-show="thread.layout == 'list'" ng-repeat="post in ::thread.data.posts track by post.id" id="reply-{{post.num}}" class="thread_row">
             <div class="thread_row_image" ng-if="!!post.thumbnail">
-                <a ng-href="image/{{post.img_id}}" href><img ng-src="{{post.thumbnail}}" height="{{post.tn_height}}" width="{{post.tn_width}}">
+                <a ng-href="image/{{post.img_id}}" href><img ng-src="{{thread.getThumbSrc(post.thumbnail, post.filename)}}" height="{{post.tn_height}}" width="{{post.tn_width}}">
                 </a>
             </div>
             <div class="thread_content" ng-class="{ 'noimage': !post.thumbnail }">
@@ -43,7 +43,7 @@
                         <div ng-if="post.group != 1" class="info_item">
                             <div class="avatar avatar-xsmall">
                                 <div class="avatar-inner">
-                                    <img ng-src="{{post.avatar}}" />
+                                    <img ng-src="{{thread.getAvatar(post.avatar)}}" />
                                 </div>
                             </div>
                         </div>
@@ -66,7 +66,7 @@
         </div>
         <div ng-if="thread.layout == 'grid'" class="image_grid">
             <a ng-repeat="post in ::thread.data.posts track by post.id" ng-if="!!post.thumbnail" ng-href="image/{{post.img_id}}" href>
-                <img ng-src="{{post.thumbnail}}" height="{{post.tn_height}}" width="{{post.tn_width}}">
+                <img ng-src="{{thread.getThumbSrc(post.thumbnail, post.filename)}}" height="{{post.tn_height}}" width="{{post.tn_width}}">
             </a>
         </div>
     </div>

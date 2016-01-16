@@ -8,7 +8,7 @@
         </div>
         <div ng-if="favorites.pagination.totalItems != 0" class="image_grid">
             <a ng-repeat="image in ::favorites.data.images track by image.id" ng-href="image/{{image.id}}" href>
-                <img ng-src="{{image.thumbnail}}" height="{{image.tn_height}}" width="{{image.tn_width}}">
+                <img ng-src="{{favorites.getThumbSrc(image.thumbnail, image.filename)}}" height="{{image.tn_height}}" width="{{image.tn_width}}">
             </a>
         </div>
         <div ng-if="favorites.pagination.totalItems == 0" class="no_favorites">

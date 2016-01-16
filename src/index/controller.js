@@ -12,6 +12,12 @@ angular.module('prim').controller('IndexCtrl', function($location, $routeParams,
     // selects usergroup class
     self.usergroupClass = Utils.usergroupClass;
 
+    // get avatar
+    self.getAvatar = Utils.getAvatar;
+
+    // make thumbnail source 
+    self.getThumbSrc = Utils.getThumbSrc;
+
     // go to page 1 if something is fishy
     if (angular.isUndefined($routeParams.page)) {
         $routeParams.page = 1;
@@ -30,18 +36,6 @@ angular.module('prim').controller('IndexCtrl', function($location, $routeParams,
             itemsPerPage: data.index.per_page,
             maxSize: 5
         };
-
-        // modify content
-        angular.forEach(self.data, function(thread) {
-            angular.forEach(thread.posts, function(post) {
-                // set avatar
-                post.avatar = Utils.getAvatar(post.avatar);
-                // set thumbnail
-                if (angular.isDefined(post.thumbnail)) {
-                    post.thumbnail = Utils.getThumbSrc(post.thumbnail, post.filename);
-                }
-            });
-        });
 
         // Add quote post num to scope and forward to threads last page
         self.replyQuote = function(id, thread, last) {
@@ -88,6 +82,6 @@ angular.module('prim').controller('IndexFormCtrl', function($scope, AuthService,
     self.getFormAction = Utils.getFormAction;
 
     // get jwt token for form
-    self.token = AuthService.getToken();
+    self.getToken = AuthService.getToken;
 
 });

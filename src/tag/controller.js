@@ -6,6 +6,9 @@ angular.module('prim').controller('TagCtrl', function($scope, $routeParams, $loc
     // if mod controls should be shown or not
     self.showModControls = AuthService.showModControls;
 
+    // make thumbnail source 
+    self.getThumbSrc = Utils.getThumbSrc;
+
     // selects a row color
     self.rowClass = function(type) {
         switch (type) {
@@ -43,12 +46,6 @@ angular.module('prim').controller('TagCtrl', function($scope, $routeParams, $loc
             itemsPerPage: data.tag.per_page,
             maxSize: 3
         };
-
-        // modify content
-        angular.forEach(self.data.images, function(image) {
-            image.thumbnail = Utils.getThumbSrc(image.thumbnail, image.filename);
-        });
-
     }, function(error) {
         Utils.apiError(error.status);
     });

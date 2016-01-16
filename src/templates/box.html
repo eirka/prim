@@ -1,12 +1,12 @@
 <div ng-if="!!quotebox.post" class="quotebox">
     <div ng-if="quotebox.post.thumbnail != null">
-        <a ng-href="image/{{quotebox.post.img_id}}" href><img class="quotebox_image" ng-src="{{quotebox.post.thumbnail}}" height="{{quotebox.post.tn_height}}" width="{{quotebox.post.tn_width}}"></a>
+        <a ng-href="image/{{quotebox.post.img_id}}" href><img class="quotebox_image" ng-src="{{getThumbSrc(quotebox.post.thumbnail, quotebox.post.filename)}}" height="{{quotebox.post.tn_height}}" width="{{quotebox.post.tn_width}}"></a>
     </div>
     <div class="content">
         <div class="info">
             <div ng-if="quotebox.post.group != 1" class="avatar avatar-xsmall">
                 <div class="avatar-inner">
-                    <img ng-src="{{quotebox.post.avatar}}" />
+                    <img ng-src="{{getAvatar(quotebox.post.avatar)}}" />
                 </div>
             </div>
             <span class="post_info" ng-class="usergroupClass(quotebox.post.group)" ng-bind="quotebox.post.name"></span>

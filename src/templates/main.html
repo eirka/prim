@@ -42,7 +42,7 @@
         <div ng-repeat="post in ::thread.posts track by post.id" class="index_row">
             <div class="index_row_image" ng-if="!!post.thumbnail">
                 <a ng-href="image/{{post.img_id}}" href>
-                    <img ng-src="{{post.thumbnail}}" height="{{post.tn_height}}" width="{{post.tn_width}}">
+                    <img ng-src="{{index.getThumbSrc(post.thumbnail, post.filename)}}" height="{{post.tn_height}}" width="{{post.tn_width}}">
                 </a>
             </div>
             <div class="thread_content" ng-class="{ 'noimage': !post.thumbnail }">
@@ -51,7 +51,7 @@
                         <div ng-if="post.group != 1" class="info_item">
                             <div class="avatar avatar-xsmall">
                                 <div class="avatar-inner">
-                                    <img ng-src="{{post.avatar}}" />
+                                    <img ng-src="{{index.getAvatar(post.avatar)}}" />
                                 </div>
                             </div>
                         </div>

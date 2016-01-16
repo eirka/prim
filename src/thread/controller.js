@@ -18,6 +18,12 @@ angular.module('prim').controller('ThreadCtrl', function($window, $location, $sc
     // get quote if there is one
     self.quote = Utils.getQuote();
 
+    // get avatar
+    self.getAvatar = Utils.getAvatar;
+
+    // make thumbnail source 
+    self.getThumbSrc = Utils.getThumbSrc;
+
     // add post num to comment box
     self.replyQuote = function(id) {
         if (angular.isDefined(id)) {
@@ -52,17 +58,6 @@ angular.module('prim').controller('ThreadCtrl', function($window, $location, $sc
             itemsPerPage: data.thread.per_page,
             maxSize: 3
         };
-
-        // modify content
-        angular.forEach(self.data.posts, function(post) {
-            // set avatar
-            post.avatar = Utils.getAvatar(post.avatar);
-            // set thumbnail
-            if (angular.isDefined(post.thumbnail)) {
-                post.thumbnail = Utils.getThumbSrc(post.thumbnail, post.filename);
-            }
-        });
-
     }, function(error) {
         Utils.apiError(error.status);
     });
@@ -116,6 +111,6 @@ angular.module('prim').controller('ThreadFormCtrl', function($scope, AuthService
     self.getFormAction = Utils.getFormAction;
 
     // get jwt token for form
-    self.token = AuthService.getToken();
+    self.getToken = AuthService.getToken;
 
 });

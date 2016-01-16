@@ -41,20 +41,17 @@ angular.module('prim').directive('hoverBox', function(Handlers, Utils) {
             // selects usergroup class
             scope.usergroupClass = Utils.usergroupClass;
 
+            // get avatar
+            scope.getAvatar = Utils.getAvatar;
+
+            // make thumbnail source 
+            scope.getThumbSrc = Utils.getThumbSrc;
+
             Handlers.post.get({
                 thread: scope.thread,
                 id: scope.id
             }, function(data) {
-
                 scope.quotebox = data;
-
-                scope.quotebox.post.avatar = Utils.getAvatar(data.post.avatar);
-
-                // set thumbnail
-                if (angular.isDefined(data.post.thumbnail)) {
-                    scope.quotebox.post.thumbnail = Utils.getThumbSrc(data.post.thumbnail, data.post.filename);
-                }
-
             }, function(error) {
                 scope.error = error.data;
             });

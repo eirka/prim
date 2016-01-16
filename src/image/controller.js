@@ -6,6 +6,9 @@ angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $l
     // if mod controls should be shown or not
     self.showModControls = AuthService.showModControls;
 
+    // generate image src link
+    self.getImgSrc = Utils.getImgSrc;
+
     // Get the image json from pram
     Handlers.image.get({
         id: $routeParams.id
@@ -13,9 +16,8 @@ angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $l
         self.data = data;
         // Set page title from image id
         $scope.page.setTitle('Image ' + self.data.image.id);
+        // set tags
         self.tags = data.image.tags;
-        // generate image src link
-        self.src = Utils.getImgSrc(data.image.filename);
         // get file ext to check if video or image
         self.ext = data.image.filename.split('.').pop();
     }, function(error) {

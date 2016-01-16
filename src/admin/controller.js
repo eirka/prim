@@ -113,7 +113,7 @@ angular.module('prim').controller('PostModCtrl', function($route, toaster, ModHa
 });
 
 // deletes a tag on the tags page
-angular.module('prim').controller('DeleteTagCtrl', function($scope, ModHandlers, toaster) {
+angular.module('prim').controller('DeleteTagCtrl', function($scope, $location, ModHandlers, toaster) {
 
     // using controllerAs
     var self = this;
@@ -124,7 +124,7 @@ angular.module('prim').controller('DeleteTagCtrl', function($scope, ModHandlers,
             ModHandlers.deletetag.delete({
                 id: tag_id
             }, function(data) {
-                $scope.tags.updateTags();
+                $location.path("/tags");
                 toaster.pop('success', data.success_message);
             }, function(error) {
                 toaster.pop('error', error.data.error_message);

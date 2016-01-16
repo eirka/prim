@@ -2135,9 +2135,12 @@ textarea.form-control {
     .admin_container {
       width: 78em; } }
   .admin_container .board_stats {
-    width: 80%;
+    width: 100%;
     height: auto;
     margin: auto;
     border-radius: 6px;
     overflow: hidden;
     padding: 1em; }
+    @media screen and (min-width: 50em) {
+      .admin_container .board_stats {
+        width: 80%; } }

@@ -13,7 +13,7 @@ angular.module('prim').controller('ThreadCtrl', function($window, $location, $sc
     self.layout = 'list';
 
     // if mod controls should be shown or not
-    self.showModControls = AuthService.showModControls();
+    self.showModControls = AuthService.showModControls;
 
     // selects usergroup class
     self.usergroupClass = Utils.usergroupClass;

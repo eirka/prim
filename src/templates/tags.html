@@ -29,7 +29,7 @@
                             <i ng-switch-when="4" title="Copyright" class="fa fa-copyright"></i>
                         </td>
                         <td>
-                            <a ng-href="tag/{{tag.id}}/1" rel="nofollow" href ng-bind="tag.tag"></a> <i ng-if="tags.showModControls" class="fa fa-times" title="Delete Tag" ng-click="deletetag.deleteTag(tag.id)" ng-controller="DeleteTagCtrl as deletetag"></i>
+                            <a ng-href="tag/{{tag.id}}/1" rel="nofollow" href ng-bind="tag.tag"></a> <i ng-if="tags.showModControls()" class="fa fa-times" title="Delete Tag" ng-click="deletetag.deleteTag(tag.id)" ng-controller="DeleteTagCtrl as deletetag"></i>
                         </td>
                         <td align="center" ng-bind="tag.total"></td>
                     </tr>

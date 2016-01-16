@@ -19,11 +19,15 @@
     padding: 1em;
 
     & .board_stats {
-        width: 80%;
+        width: 100%;
         height: auto;
         margin: auto;
         border-radius: 6px;
         overflow: hidden;
         padding: 1em;
+
+        @media #{$screenSmall} {
+            width: 80%;
+        }
     }
 }

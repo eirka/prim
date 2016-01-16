@@ -4,7 +4,7 @@ angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $l
     var self = this;
 
     // if mod controls should be shown or not
-    self.showModControls = AuthService.showModControls();
+    self.showModControls = AuthService.showModControls;
 
     // Get the image json from pram
     Handlers.image.get({
@@ -45,7 +45,8 @@ angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $l
         return Handlers.tagsearch.get({
             search: term
         }).$promise.then(function(data) {
-            return self.tagList = $filter('limitTo')(data.tagsearch, 6);
+            self.tagList = $filter('limitTo')(data.tagsearch, 6);
+            return self.tagList;
         });
     };
 

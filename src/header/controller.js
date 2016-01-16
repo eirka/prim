@@ -29,7 +29,7 @@ angular.module('prim').controller('UserMenuCtrl', function($route, toaster, user
     self.visible = false;
 
     // if mod controls should be shown or not
-    self.showModControls = AuthService.showModControls();
+    self.showModControls = AuthService.showModControls;
 
     // get usergroup class
     self.usergroupClass = Utils.usergroupClass;
@@ -49,7 +49,5 @@ angular.module('prim').controller('UserMenuCtrl', function($route, toaster, user
     self.close = function() {
         self.visible = false;
     };
-
-
 
 });

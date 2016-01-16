@@ -9,7 +9,7 @@
                 <span ng-switch-when="4" ng-bind="'Copyright: ' + tag.data.tag"></span>
                 </span>
             </div>
-            <div ng-if="tag.showModControls" class="tag_controls">
+            <div ng-if="tag.showModControls()" class="tag_controls">
                 <ng-include src="'pages/forms/tag.html'"></ng-include>
             </div>
         </div>

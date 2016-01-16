@@ -4,7 +4,7 @@ angular.module('prim').controller('TagsCtrl', function($scope, $routeParams, $lo
     var self = this;
 
     // if mod controls should be shown or not
-    self.showModControls = AuthService.showModControls();
+    self.showModControls = AuthService.showModControls;
 
     // go to page 1 if something is fishy
     if (angular.isUndefined($routeParams.page)) {
@@ -71,7 +71,8 @@ angular.module('prim').controller('TagsCtrl', function($scope, $routeParams, $lo
             return Handlers.tagsearch.get({
                 search: self.searchterm
             }).$promise.then(function(data) {
-                return self.data = data.tagsearch;
+                self.data = data.tagsearch;
+                return self.data;
             });
         } else {
             self.updateTags();

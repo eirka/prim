@@ -64,14 +64,9 @@ angular.module('prim').factory('AuthService', function($rootScope, $route, toast
 
             // get a refreshed whois if there is a token
             if (token) {
-                // if expired reset and delete
-                if (jwtHelper.isTokenExpired(token)) {
-                    AuthService.destroySession();
-                    return;
-                }
-
                 // query whoami for user data
                 AuthService.queryWhoAmI().$promise.then(function(data) {
+
                     // set the authstate to the whoami data
                     $rootScope.authState = {
                         id: data.user.id,

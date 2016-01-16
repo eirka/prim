@@ -20,13 +20,15 @@ angular.module('prim').controller('BoardStatisticsCtrl', function($route, dateFi
         pointDot: false,
         datasetStroke: false,
         scaleFontSize: 8,
+        scaleSteps: 10,
+        bezierCurve: false,
     };
 
     // Get the image json from pram
     ModHandlers.statistics.get({}, function(data) {
         // format the dates
         angular.forEach(data.labels, function(value) {
-            self.labels.push(dateFilter(value, 'short'));
+            self.labels.push(dateFilter(value, 'M/d h:mma'));
         });
         // push the data
         angular.forEach(data.series, function(value) {

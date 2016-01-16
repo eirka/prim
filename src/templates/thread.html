@@ -15,7 +15,7 @@
                 <span ng-bind="thread.data.title"></span>
             </div>
             <div class="thread_buttons">
-                <div ng-if="thread.showModControls" class="thread_mod_buttons" ng-controller="ThreadModCtrl as threadmod">
+                <div ng-if="thread.showModControls()" class="thread_mod_buttons" ng-controller="ThreadModCtrl as threadmod">
                     <a title="Delete" class="button button-danger fa fa-trash-o" ng-click="threadmod.deleteThread(thread.data.id)" href></a>
                     <a ng-if="!thread.data.closed" title="Close" class="button button-default fa fa-unlock-alt" ng-click="threadmod.closeThread(thread.data.id)" href></a>
                     <a ng-if="thread.data.closed" title="Open" class="button button-success fa fa-lock" ng-click="threadmod.closeThread(thread.data.id)" href></a>
@@ -56,7 +56,7 @@
                         <div class="info_item">
                             <a class="label label-light" ng-bind="'#'+{{post.num}}" ng-click="thread.replyQuote(post.num)" href></a>
                         </div>
-                        <div ng-if="thread.showModControls" class="post_mod_buttons" ng-controller="PostModCtrl as postmod">
+                        <div ng-if="thread.showModControls()" class="post_mod_buttons" ng-controller="PostModCtrl as postmod">
                             <a title="Delete" class="button button-danger button-small fa fa-trash-o" ng-click="postmod.deletePost(thread.data.id, post.num)" href></a>
                         </div>
                     </div>

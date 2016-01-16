@@ -1,4 +1,4 @@
-angular.module('prim').controller('TagsCtrl', function($scope, $routeParams, $location, hotkeys, Handlers, ModHandlers, toaster, config, internal, Utils) {
+angular.module('prim').controller('TagsCtrl', function($scope, $routeParams, $location, hotkeys, Handlers, ModHandlers, toaster, config, Utils) {
 
     // using controllerAs
     var self = this;
@@ -100,7 +100,7 @@ angular.module('prim').controller('TagsCtrl', function($scope, $routeParams, $lo
 
 });
 
-angular.module('prim').controller('NewTagsCtrl', function($scope, Handlers, toaster, config, internal, Utils) {
+angular.module('prim').controller('NewTagsCtrl', function($scope, Handlers, toaster, config, Utils) {
 
     // using controllerAs
     var self = this;
@@ -117,8 +117,7 @@ angular.module('prim').controller('NewTagsCtrl', function($scope, Handlers, toas
         Handlers.newtag.save({
             name: self.name,
             type: self.selected,
-            ib: config.ib_id,
-            askey: internal.as_key
+            ib: config.ib_id
         }, function(data) {
             $scope.tags.updateTags();
             toaster.pop('success', data.success_message);

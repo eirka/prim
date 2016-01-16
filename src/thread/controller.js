@@ -1,10 +1,7 @@
-angular.module('prim').controller('ThreadCtrl', function($window, $location, $scope, $routeParams, hotkeys, config, internal, Handlers, Utils, AuthService) {
+angular.module('prim').controller('ThreadCtrl', function($window, $location, $scope, $routeParams, hotkeys, config, Handlers, Utils, AuthService) {
 
     // using controllerAs
     var self = this;
-
-    // set antispam key 
-    self.as_key = internal.as_key;
 
     // set csrf token
     self.csrf_token = config.csrf_token;

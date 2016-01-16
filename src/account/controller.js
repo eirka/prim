@@ -27,7 +27,7 @@ angular.module('prim').controller('AccountCtrl', function($route, toaster, user_
 
 });
 
-angular.module('prim').controller('PasswordCtrl', function(toaster, config, internal, UserHandlers) {
+angular.module('prim').controller('PasswordCtrl', function(toaster, config, UserHandlers) {
 
     // using controllerAs
     var self = this;
@@ -49,7 +49,7 @@ angular.module('prim').controller('PasswordCtrl', function(toaster, config, inte
 
 });
 
-angular.module('prim').controller('EmailCtrl', function($route, toaster, config, internal, UserHandlers) {
+angular.module('prim').controller('EmailCtrl', function($route, toaster, config, UserHandlers) {
 
     // using controllerAs
     var self = this;
@@ -72,7 +72,7 @@ angular.module('prim').controller('EmailCtrl', function($route, toaster, config,
 
 });
 
-angular.module('prim').controller('RegisterCtrl', function(toaster, config, internal, UserHandlers) {
+angular.module('prim').controller('RegisterCtrl', function(toaster, config, UserHandlers) {
 
     // using controllerAs
     var self = this;
@@ -81,7 +81,6 @@ angular.module('prim').controller('RegisterCtrl', function(toaster, config, inte
     self.newUser = function() {
         UserHandlers.register.save({
             ib: config.ib_id,
-            askey: internal.as_key,
             name: self.form.name,
             email: self.form.email,
             password: self.form.password
@@ -96,7 +95,7 @@ angular.module('prim').controller('RegisterCtrl', function(toaster, config, inte
 
 });
 
-angular.module('prim').controller('LoginCtrl', function($location, toaster, config, internal, UserHandlers, AuthService) {
+angular.module('prim').controller('LoginCtrl', function($location, toaster, config, UserHandlers, AuthService) {
 
     // using controllerAs
     var self = this;
@@ -105,7 +104,6 @@ angular.module('prim').controller('LoginCtrl', function($location, toaster, conf
     self.logIn = function() {
         UserHandlers.login.save({
             ib: config.ib_id,
-            askey: internal.as_key,
             name: self.form.name,
             password: self.form.password
         }, function(data) {

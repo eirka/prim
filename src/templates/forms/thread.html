@@ -1,5 +1,4 @@
 <form role="form" name="replyform" action="{{postform.getFormAction('/post/thread/reply')}}" method="post" enctype="multipart/form-data" ng-controller="ThreadFormCtrl as postform">
-    <input type="hidden" name="askey" ng-value="thread.as_key" />
     <input type="hidden" name="csrf_token" ng-value="thread.csrf_token" />
     <input type="hidden" name="thread" ng-value="thread.data.id" />
     <input ng-if="authState.isAuthenticated" type="hidden" name="access_token" ng-value="postform.token" />

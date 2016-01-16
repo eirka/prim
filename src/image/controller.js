@@ -1,4 +1,4 @@
-angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $location, $filter, Handlers, UserHandlers, ModHandlers, toaster, user_messages, hotkeys, Utils, AuthService, config, internal) {
+angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $location, $filter, Handlers, UserHandlers, ModHandlers, toaster, user_messages, hotkeys, Utils, AuthService, config) {
 
     // using controllerAs
     var self = this;
@@ -79,8 +79,7 @@ angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $l
             Handlers.addtag.save({
                 tag: self.selected,
                 image: self.data.image.id,
-                ib: config.ib_id,
-                askey: internal.as_key
+                ib: config.ib_id
             }, function(data) {
                 self.updateTags();
                 toaster.pop('success', data.success_message);

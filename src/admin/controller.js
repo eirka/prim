@@ -136,7 +136,7 @@ angular.module('prim').controller('DeleteTagCtrl', function($scope, $location, M
 
 
 // updates a tag
-angular.module('prim').controller('UpdateTagCtrl', function($scope, $route, Handlers, ModHandlers, toaster, config, internal, Utils) {
+angular.module('prim').controller('UpdateTagCtrl', function($scope, $route, Handlers, ModHandlers, toaster, config, Utils) {
 
     // using controllerAs
     var self = this;
@@ -160,8 +160,7 @@ angular.module('prim').controller('UpdateTagCtrl', function($scope, $route, Hand
             id: $scope.tag.data.id,
             ib: config.ib_id,
             name: self.name,
-            type: self.selected,
-            askey: internal.as_key
+            type: self.selected
         }, function(data) {
             $route.reload();
             toaster.pop('success', data.success_message);

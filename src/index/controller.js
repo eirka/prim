@@ -1,10 +1,7 @@
-angular.module('prim').controller('IndexCtrl', function($location, $routeParams, $scope, $route, hotkeys, config, internal, Handlers, Utils) {
+angular.module('prim').controller('IndexCtrl', function($location, $routeParams, $scope, $route, hotkeys, config, Handlers, Utils) {
 
     // using controllerAs
     var self = this;
-
-    // set antispam key 
-    self.as_key = internal.as_key;
 
     // set csrf token
     self.csrf_token = config.csrf_token;

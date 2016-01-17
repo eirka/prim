@@ -84,7 +84,7 @@ angular.module('prim').controller('TagsCtrl', function($scope, $routeParams, $lo
 
 });
 
-angular.module('prim').controller('NewTagsCtrl', function($scope, Handlers, toaster, config, Utils) {
+angular.module('prim').controller('NewTagsCtrl', function(Handlers, toaster, config, Utils) {
 
     // using controllerAs
     var self = this;
@@ -103,7 +103,6 @@ angular.module('prim').controller('NewTagsCtrl', function($scope, Handlers, toas
             type: self.selected,
             ib: config.ib_id
         }, function(data) {
-            $scope.tags.updateTags();
             toaster.pop('success', data.success_message);
         }, function(error) {
             toaster.pop('error', error.data.error_message);

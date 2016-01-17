@@ -19,7 +19,7 @@ angular.module('prim').controller('BoardStatisticsCtrl', function($route, dateFi
     // the chart series names
     self.series = [];
     // the chart datapoints
-    self.data = [];
+    self.chartdata = [];
 
     self.colors = ['#BF4848', '#4883BF'];
 
@@ -35,16 +35,17 @@ angular.module('prim').controller('BoardStatisticsCtrl', function($route, dateFi
 
     // Get the image json from pram
     ModHandlers.statistics.get({}, function(data) {
-        self.hits = data.hits;
-        self.visitors = data.visitors;
+        self.data = data;
+
         // format the dates
         angular.forEach(data.labels, function(value) {
             self.labels.push(dateFilter(value, 'M/d h:mma'));
         });
+
         // push the data
         angular.forEach(data.series, function(value) {
             self.series.push(value.name);
-            self.data.push(value.data);
+            self.chartdata.push(value.data);
         });
 
     }, function(error) {

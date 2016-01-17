@@ -15,6 +15,7 @@
         border-radius: 6px;
         overflow: hidden;
         padding: 1em;
+        margin-bottom: 0.5em;
 
         @media #{$screenSmall} {
             width: 80%;
@@ -31,21 +32,31 @@
         }
 
         & .stats_info {
-            margin-top: 0.5em;
+            margin-top: 1em;
+            display: table;
+            width: 100%;
+            table-layout: fixed;
 
             & .info_box {
+                display: table-cell;
                 text-align: center;
-                display: inline-block;
-                margin: auto;
-                width: 50%;
 
                 & .stat {
-                    font-size: 2.4em;
+                    font-size: 2em;
                     font-weight: 600;
+
+                    @media #{$screenSmall} {
+                        font-size: 2.4em;
+                        font-weight: 600;
+                    }
                 }
 
                 & .label {
-                    font-size: 1.2em;
+                    font-size: 1em;
+
+                    @media #{$screenSmall} {
+                        font-size: 1.2em;
+                    }
                 }
             }
         }

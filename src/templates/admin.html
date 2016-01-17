@@ -1,7 +1,31 @@
 <div class="admin">
-    <div class="admin_container">
-        <div class="board_stats" ng-controller="BoardStatisticsCtrl as stats">
-            <canvas id="line" class="chart chart-line" chart-colours="stats.colors" chart-data="stats.data" chart-options="stats.options" chart-labels="stats.labels" chart-series="stats.series"></canvas>
+    <div class="settings_container">
+        <div class="settings_menu">
+            <a class="button button-settings" ng-href="" href>Activity</a>
+        </div>
+        <div class="settings_box">
+            <div class="admin_container">
+                <div class="board_stats" ng-controller="BoardStatisticsCtrl as stats">
+                    <div class="stats_title">
+                        <strong>LAST 24 HOURS</strong>
+                    </div>
+                    <div class="stats_chart">
+                        <canvas id="line" class="chart chart-line" chart-colours="stats.colors" chart-data="stats.data" chart-options="stats.options" chart-labels="stats.labels" chart-series="stats.series"></canvas>
+                    </div>
+                    <div class="stats_info">
+                        <div class="info_box">
+                            <span class="stat" ng-bind="stats.visitors"></span>
+                            <br />
+                            <span class="label">Unique Visitors</span>
+                        </div>
+                        <div class="info_box">
+                            <span class="stat" ng-bind="stats.hits"></span>
+                            <br />
+                            <span class="label">Total Hits</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

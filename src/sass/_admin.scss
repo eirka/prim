@@ -8,16 +8,6 @@
 }
 
 .admin_container {
-    @include mediaWidths;
-
-    @include shadow;
-
-    border-radius: 6px;
-    overflow: hidden;
-    width: $boxWidthRel;
-    margin: 0 auto;
-    padding: 1em;
-
     & .board_stats {
         width: 100%;
         height: auto;
@@ -28,6 +18,36 @@
 
         @media #{$screenSmall} {
             width: 80%;
+        }
+
+        & .stats_title {
+            margin-bottom: 0.5em;
+        }
+
+        & .stats_chart {
+            max-width: 40em;
+            height: auto;
+            margin: auto;
+        }
+
+        & .stats_info {
+            margin-top: 0.5em;
+
+            & .info_box {
+                text-align: center;
+                display: inline-block;
+                margin: auto;
+                width: 50%;
+
+                & .stat {
+                    font-size: 2.4em;
+                    font-weight: 600;
+                }
+
+                & .label {
+                    font-size: 1.2em;
+                }
+            }
         }
     }
 }

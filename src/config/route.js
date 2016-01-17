@@ -202,7 +202,9 @@ angular.module('prim').config(function($routeProvider, $locationProvider, $compi
         })
         .when('/admin', {
             title: 'Admin Panel',
-            templateUrl: 'pages/admin.html'
+            templateUrl: 'pages/admin.html',
+            controller: 'AdminCtrl',
+            controllerAs: 'admin'
         })
         .when('/error', {
             templateUrl: 'pages/error.html',

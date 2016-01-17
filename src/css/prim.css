@@ -2118,29 +2118,31 @@ textarea.form-control {
 .admin {
   padding: 1em 0; }
 
-.admin_container {
-  box-shadow: 0 2px 3px #ccc;
+.admin_container .board_stats {
+  width: 100%;
+  height: auto;
+  margin: auto;
   border-radius: 6px;
   overflow: hidden;
-  width: 90%;
-  margin: 0 auto;
   padding: 1em; }
   @media screen and (min-width: 50em) {
-    .admin_container {
-      width: 48em; } }
-  @media screen and (min-width: 65em) {
-    .admin_container {
-      width: 63em; } }
-  @media screen and (min-width: 80em) {
-    .admin_container {
-      width: 78em; } }
-  .admin_container .board_stats {
-    width: 100%;
+    .admin_container .board_stats {
+      width: 80%; } }
+  .admin_container .board_stats .stats_title {
+    margin-bottom: 0.5em; }
+  .admin_container .board_stats .stats_chart {
+    max-width: 40em;
     height: auto;
-    margin: auto;
-    border-radius: 6px;
-    overflow: hidden;
-    padding: 1em; }
-    @media screen and (min-width: 50em) {
-      .admin_container .board_stats {
-        width: 80%; } }
+    margin: auto; }
+  .admin_container .board_stats .stats_info {
+    margin-top: 0.5em; }
+    .admin_container .board_stats .stats_info .info_box {
+      text-align: center;
+      display: inline-block;
+      margin: auto;
+      width: 50%; }
+      .admin_container .board_stats .stats_info .info_box .stat {
+        font-size: 2.4em;
+        font-weight: 600; }
+      .admin_container .board_stats .stats_info .info_box .label {
+        font-size: 1.2em; }

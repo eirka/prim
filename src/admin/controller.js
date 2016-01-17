@@ -1,3 +1,13 @@
+// global admin panel controller
+angular.module('prim').controller('AdminCtrl', function() {
+
+    // using controllerAs
+    var self = this;
+
+    self.data = {};
+
+});
+
 // imageboard statistics
 angular.module('prim').controller('BoardStatisticsCtrl', function($route, dateFilter, ModHandlers, Utils) {
 
@@ -16,7 +26,6 @@ angular.module('prim').controller('BoardStatisticsCtrl', function($route, dateFi
     // chart options
     self.options = {
         scaleShowGridLines: false,
-        scaleShowLabels: false,
         pointDot: false,
         datasetStroke: false,
         scaleFontSize: 8,
@@ -26,6 +35,8 @@ angular.module('prim').controller('BoardStatisticsCtrl', function($route, dateFi
 
     // Get the image json from pram
     ModHandlers.statistics.get({}, function(data) {
+        self.hits = data.hits;
+        self.visitors = data.visitors;
         // format the dates
         angular.forEach(data.labels, function(value) {
             self.labels.push(dateFilter(value, 'M/d h:mma'));

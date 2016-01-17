@@ -1,4 +1,4 @@
-angular.module('prim').controller('FavoritesCtrl', function($scope, $routeParams, $location, hotkeys, UserHandlers, Utils) {
+angular.module('prim').controller('FavoritesCtrl', function($scope, $routeParams, $location, data, hotkeys, Utils) {
 
     // using controllerAs
     var self = this;
@@ -6,15 +6,7 @@ angular.module('prim').controller('FavoritesCtrl', function($scope, $routeParams
     // make thumbnail source 
     self.getThumbSrc = Utils.getThumbSrc;
 
-    // go to page 1 if something is fishy
-    if (angular.isUndefined($routeParams.page)) {
-        $routeParams.page = 1;
-    }
-
-    // Get tag page json
-    UserHandlers.favorites.get({
-        page: $routeParams.page
-    }, function(data) {
+    if (angular.isDefined(data)) {
         self.data = data.favorites.items;
         // Pagination items from json
         self.pagination = {
@@ -24,9 +16,7 @@ angular.module('prim').controller('FavoritesCtrl', function($scope, $routeParams
             itemsPerPage: data.favorites.per_page,
             maxSize: 3
         };
-    }, function(error) {
-        Utils.apiError(error.status);
-    });
+    }
 
     hotkeys.bindTo($scope)
         .add({

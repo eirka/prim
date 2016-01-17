@@ -24,7 +24,7 @@ angular.module('prim').controller('NewCtrl', function(Handlers, Utils) {
     self.getThumbSrc = Utils.getThumbSrc;
 
     // Get tag page json
-    Handlers.new.get(function(data) {
+    Handlers.newest.get(function(data) {
         self.data = data.new;
     }, function(error) {
         Utils.apiError(error.status);

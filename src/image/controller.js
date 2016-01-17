@@ -1,4 +1,4 @@
-angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $location, $filter, Handlers, UserHandlers, ModHandlers, toaster, user_messages, hotkeys, Utils, AuthService, config) {
+angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $location, $filter, data, Handlers, UserHandlers, ModHandlers, toaster, user_messages, hotkeys, Utils, AuthService, config) {
 
     // using controllerAs
     var self = this;
@@ -9,10 +9,7 @@ angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $l
     // generate image src link
     self.getImgSrc = Utils.getImgSrc;
 
-    // Get the image json from pram
-    Handlers.image.get({
-        id: $routeParams.id
-    }, function(data) {
+    if (angular.isDefined(data)) {
         self.data = data;
         // Set page title from image id
         $scope.page.setTitle('Image ' + self.data.image.id);
@@ -20,9 +17,7 @@ angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $l
         self.tags = data.image.tags;
         // get file ext to check if video or image
         self.ext = data.image.filename.split('.').pop();
-    }, function(error) {
-        Utils.apiError(error.status);
-    });
+    }
 
     // check to see if an image is starred or not
     self.checkFavorite = function() {

@@ -36,7 +36,7 @@ angular.module('prim').factory('Handlers', function($resource, config) {
             ib: config.ib_id
         }),
         // trending
-        'new': $resource(config.api_srv + '/get/new/:ib', {
+        'newest': $resource(config.api_srv + '/get/new/:ib', {
             ib: config.ib_id
         }),
         // trending

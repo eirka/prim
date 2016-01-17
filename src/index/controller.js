@@ -1,4 +1,4 @@
-angular.module('prim').controller('IndexCtrl', function($location, $routeParams, $scope, $route, hotkeys, config, Handlers, Utils) {
+angular.module('prim').controller('IndexCtrl', function($location, $scope, $route, data, hotkeys, config, Utils) {
 
     // using controllerAs
     var self = this;
@@ -18,15 +18,7 @@ angular.module('prim').controller('IndexCtrl', function($location, $routeParams,
     // make thumbnail source 
     self.getThumbSrc = Utils.getThumbSrc;
 
-    // go to page 1 if something is fishy
-    if (angular.isUndefined($routeParams.page)) {
-        $routeParams.page = 1;
-    }
-
-    // Get index json
-    Handlers.index.get({
-        page: $routeParams.page
-    }, function(data) {
+    if (angular.isDefined(data)) {
         self.data = data.index.items;
         // Pagination items from json
         self.pagination = {
@@ -36,17 +28,13 @@ angular.module('prim').controller('IndexCtrl', function($location, $routeParams,
             itemsPerPage: data.index.per_page,
             maxSize: 5
         };
+    }
 
-        // Add quote post num to scope and forward to threads last page
-        self.replyQuote = function(id, thread, last) {
-            Utils.setQuote(id);
-            $location.path('/thread/' + thread + '/' + last);
-        };
-
-    }, function(error) {
-        Utils.apiError(error.status);
-    });
-
+    // Add quote post num to scope and forward to threads last page
+    self.replyQuote = function(id, thread, last) {
+        Utils.setQuote(id);
+        $location.path('/thread/' + thread + '/' + last);
+    };
 
     hotkeys.bindTo($scope)
         .add({

@@ -1,11 +1,18 @@
-angular.module('prim').controller('TagsCtrl', function($scope, $routeParams, $location, hotkeys, Handlers, ModHandlers, toaster, config, Utils) {
+angular.module('prim').controller('TagsCtrl', function($scope, $routeParams, $location, data, hotkeys, Handlers) {
 
     // using controllerAs
     var self = this;
 
-    // go to page 1 if something is fishy
-    if (angular.isUndefined($routeParams.page)) {
-        $routeParams.page = 1;
+    if (angular.isDefined(data)) {
+        self.data = data.tags.items;
+        // Pagination items from json
+        self.pagination = {
+            totalItems: data.tags.total,
+            currentPage: data.tags.current_page,
+            numPages: data.tags.pages,
+            itemsPerPage: data.tags.per_page,
+            maxSize: 3
+        };
     }
 
     // selects a row color
@@ -38,29 +45,6 @@ angular.module('prim').controller('TagsCtrl', function($scope, $routeParams, $lo
             sort.desc = false;
         }
     };
-
-    // this is a function so we can reload it if someone makes a new tag
-    self.updateTags = function() {
-        Handlers.tags.get({
-            page: $routeParams.page
-        }, function(data) {
-            self.data = data.tags.items;
-            // Pagination items from json
-            self.pagination = {
-                totalItems: data.tags.total,
-                currentPage: data.tags.current_page,
-                numPages: data.tags.pages,
-                itemsPerPage: data.tags.per_page,
-                maxSize: 3
-            };
-        }, function(error) {
-            Utils.apiError(error.status);
-        });
-        self.error = null;
-    };
-
-    // initial load of tags
-    self.updateTags();
 
     // async tag search
     self.searchTags = function() {

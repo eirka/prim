@@ -1,4 +1,4 @@
-angular.module('prim').controller('TagCtrl', function($scope, $routeParams, $location, hotkeys, Handlers, Utils, AuthService) {
+angular.module('prim').controller('TagCtrl', function($scope, $routeParams, $location, data, hotkeys, Utils, AuthService) {
 
     // using controllerAs
     var self = this;
@@ -8,6 +8,20 @@ angular.module('prim').controller('TagCtrl', function($scope, $routeParams, $loc
 
     // make thumbnail source 
     self.getThumbSrc = Utils.getThumbSrc;
+
+    if (angular.isDefined(data)) {
+        self.data = data.tag.items;
+        // Set page title with tag name
+        $scope.page.setTitle(self.data.tag);
+        // Pagination items from json
+        self.pagination = {
+            totalItems: data.tag.total,
+            currentPage: data.tag.current_page,
+            numPages: data.tag.pages,
+            itemsPerPage: data.tag.per_page,
+            maxSize: 3
+        };
+    }
 
     // selects a row color
     self.rowClass = function(type) {
@@ -24,31 +38,6 @@ angular.module('prim').controller('TagCtrl', function($scope, $routeParams, $loc
                 return "";
         }
     };
-
-    // go to page 1 if something is fishy
-    if (angular.isUndefined($routeParams.page)) {
-        $routeParams.page = 1;
-    }
-
-    // Get tag page json
-    Handlers.tag.get({
-        id: $routeParams.id,
-        page: $routeParams.page
-    }, function(data) {
-        self.data = data.tag.items;
-        // Set page title with tag name
-        $scope.page.setTitle(self.data.tag);
-        // Pagination items from json
-        self.pagination = {
-            totalItems: data.tag.total,
-            currentPage: data.tag.current_page,
-            numPages: data.tag.pages,
-            itemsPerPage: data.tag.per_page,
-            maxSize: 3
-        };
-    }, function(error) {
-        Utils.apiError(error.status);
-    });
 
     hotkeys.bindTo($scope)
         .add({

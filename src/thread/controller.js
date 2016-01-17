@@ -1,4 +1,4 @@
-angular.module('prim').controller('ThreadCtrl', function($window, $location, $scope, $routeParams, hotkeys, config, Handlers, Utils, AuthService) {
+angular.module('prim').controller('ThreadCtrl', function($window, $location, $scope, $routeParams, data, hotkeys, config, Utils, AuthService) {
 
     // using controllerAs
     var self = this;
@@ -37,16 +37,7 @@ angular.module('prim').controller('ThreadCtrl', function($window, $location, $sc
         Utils.clearQuote();
     });
 
-    // go to page 1 if something is fishy
-    if (angular.isUndefined($routeParams.page)) {
-        $routeParams.page = 1;
-    }
-
-    // Get thread json and set scope
-    Handlers.thread.get({
-        id: $routeParams.id,
-        page: $routeParams.page
-    }, function(data) {
+    if (angular.isDefined(data)) {
         self.data = data.thread.items;
         // Set page title from thread title
         $scope.page.setTitle(self.data.title);
@@ -58,9 +49,7 @@ angular.module('prim').controller('ThreadCtrl', function($window, $location, $sc
             itemsPerPage: data.thread.per_page,
             maxSize: 3
         };
-    }, function(error) {
-        Utils.apiError(error.status);
-    });
+    }
 
     hotkeys.bindTo($scope)
         .add({

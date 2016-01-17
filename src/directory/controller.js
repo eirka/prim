@@ -1,14 +1,11 @@
-angular.module('prim').controller('DirectoryCtrl', function(Handlers, Utils) {
+angular.module('prim').controller('DirectoryCtrl', function(data) {
 
     // using controllerAs
     var self = this;
 
-    // Get the directory json from pram
-    Handlers.directory.get(function(data) {
+    if (angular.isDefined(data)) {
         self.data = data.directory;
-    }, function(error) {
-        Utils.apiError(error.status);
-    });
+    }
 
     // set default column and order for table sorting
     self.sort = {

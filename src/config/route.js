@@ -4,62 +4,172 @@ angular.module('prim').config(function($routeProvider, $locationProvider, $compi
             title: 'Index',
             templateUrl: 'pages/main.html',
             controller: 'IndexCtrl',
-            controllerAs: 'index'
+            controllerAs: 'index',
+            resolve: {
+                data: function($route, Handlers, Utils) {
+                    return Handlers.index.get({
+                        page: 1
+                    }).$promise.then(function(data) {
+                        return data;
+                    }, function(error) {
+                        Utils.apiError(error.status);
+                    });
+                }
+            }
         })
         .when('/page/:page', {
             title: 'Index',
             templateUrl: 'pages/main.html',
             controller: 'IndexCtrl',
-            controllerAs: 'index'
+            controllerAs: 'index',
+            resolve: {
+                data: function($route, Handlers, Utils) {
+                    return Handlers.index.get({
+                        page: $route.current.params.page
+                    }).$promise.then(function(data) {
+                        return data;
+                    }, function(error) {
+                        Utils.apiError(error.status);
+                    });
+                }
+            }
         })
         .when('/thread/:id/:page', {
             templateUrl: 'pages/thread.html',
             controller: 'ThreadCtrl',
-            controllerAs: 'thread'
+            controllerAs: 'thread',
+            resolve: {
+                data: function($route, Handlers, Utils) {
+                    return Handlers.thread.get({
+                        id: $route.current.params.id,
+                        page: $route.current.params.page
+                    }).$promise.then(function(data) {
+                        return data;
+                    }, function(error) {
+                        Utils.apiError(error.status);
+                    });
+                }
+            }
         })
         .when('/directory', {
             title: 'Threads',
             templateUrl: 'pages/directory.html',
             controller: 'DirectoryCtrl',
-            controllerAs: 'directory'
+            controllerAs: 'directory',
+            resolve: {
+                data: function($route, Handlers, Utils) {
+                    return Handlers.directory.get().$promise.then(function(data) {
+                        return data;
+                    }, function(error) {
+                        Utils.apiError(error.status);
+                    });
+                }
+            }
         })
         .when('/image/:id', {
             templateUrl: 'pages/image.html',
             controller: 'ImageCtrl',
-            controllerAs: 'image'
+            controllerAs: 'image',
+            resolve: {
+                data: function($route, Handlers, Utils) {
+                    return Handlers.image.get({
+                        id: $route.current.params.id
+                    }).$promise.then(function(data) {
+                        return data;
+                    }, function(error) {
+                        Utils.apiError(error.status);
+                    });
+                }
+            }
         })
         .when('/tags', {
             title: 'Tags',
             templateUrl: 'pages/tags.html',
             controller: 'TagsCtrl',
-            controllerAs: 'tags'
+            controllerAs: 'tags',
+            resolve: {
+                data: function($route, Handlers, Utils) {
+                    return Handlers.tags.get({
+                        page: 1
+                    }).$promise.then(function(data) {
+                        return data;
+                    }, function(error) {
+                        Utils.apiError(error.status);
+                    });
+                }
+            }
         })
         .when('/tags/:page', {
             title: 'Tags',
             templateUrl: 'pages/tags.html',
             controller: 'TagsCtrl',
-            controllerAs: 'tags'
+            controllerAs: 'tags',
+            resolve: {
+                data: function($route, Handlers, Utils) {
+                    return Handlers.tags.get({
+                        page: $route.current.params.page
+                    }).$promise.then(function(data) {
+                        return data;
+                    }, function(error) {
+                        Utils.apiError(error.status);
+                    });
+                }
+            }
         })
         .when('/tag/:id/:page', {
             templateUrl: 'pages/tag.html',
             controller: 'TagCtrl',
-            controllerAs: 'tag'
+            controllerAs: 'tag',
+            resolve: {
+                data: function($route, Handlers, Utils) {
+                    return Handlers.tag.get({
+                        id: $route.current.params.id,
+                        page: $route.current.params.page
+                    }).$promise.then(function(data) {
+                        return data;
+                    }, function(error) {
+                        Utils.apiError(error.status);
+                    });
+                }
+            }
+        })
+        .when('/trending', {
+            title: 'Trending',
+            templateUrl: 'pages/trending.html'
         })
         .when('/favorites', {
             title: 'Favorites',
             templateUrl: 'pages/favorites.html',
             controller: 'FavoritesCtrl',
-            controllerAs: 'favorites'
+            controllerAs: 'favorites',
+            resolve: {
+                data: function($route, UserHandlers, Utils) {
+                    return UserHandlers.favorites.get({
+                        page: 1
+                    }).$promise.then(function(data) {
+                        return data;
+                    }, function(error) {
+                        Utils.apiError(error.status);
+                    });
+                }
+            }
         })
         .when('/favorites/:page', {
             title: 'Favorites',
             templateUrl: 'pages/favorites.html',
             controller: 'FavoritesCtrl',
-            controllerAs: 'favorites'
-        })
-        .when('/trending', {
-            title: 'Trending',
-            templateUrl: 'pages/trending.html'
+            controllerAs: 'favorites',
+            resolve: {
+                data: function($route, UserHandlers, Utils) {
+                    return UserHandlers.favorites.get({
+                        page: $route.current.params.page
+                    }).$promise.then(function(data) {
+                        return data;
+                    }, function(error) {
+                        Utils.apiError(error.status);
+                    });
+                }
+            }
         })
         .when('/account', {
             title: 'Account',

@@ -1,4 +1,4 @@
-angular.module('prim').controller('PopularCtrl', function(Handlers, Utils) {
+angular.module('prim').controller('TrendingCtrl', function(popular, newest, favorited, Handlers, Utils) {
 
     // using controllerAs
     var self = this;
@@ -6,45 +6,16 @@ angular.module('prim').controller('PopularCtrl', function(Handlers, Utils) {
     // make thumbnail source 
     self.getThumbSrc = Utils.getThumbSrc;
 
-    // Get tag page json
-    Handlers.popular.get(function(data) {
-        self.data = data.popular;
-    }, function(error) {
-        Utils.apiError(error.status);
-    });
+    if (angular.isDefined(popular)) {
+        self.popular = popular.popular;
+    }
 
-});
+    if (angular.isDefined(newest)) {
+        self.newest = newest.new;
+    }
 
-angular.module('prim').controller('NewCtrl', function(Handlers, Utils) {
-
-    // using controllerAs
-    var self = this;
-
-    // make thumbnail source 
-    self.getThumbSrc = Utils.getThumbSrc;
-
-    // Get tag page json
-    Handlers.newest.get(function(data) {
-        self.data = data.new;
-    }, function(error) {
-        Utils.apiError(error.status);
-    });
-
-});
-
-angular.module('prim').controller('FavoritedCtrl', function(Handlers, Utils) {
-
-    // using controllerAs
-    var self = this;
-
-    // make thumbnail source 
-    self.getThumbSrc = Utils.getThumbSrc;
-
-    // Get tag page json
-    Handlers.favorited.get(function(data) {
-        self.data = data.favorited;
-    }, function(error) {
-        Utils.apiError(error.status);
-    });
+    if (angular.isDefined(favorited)) {
+        self.favorited = favorited.favorited;
+    }
 
 });

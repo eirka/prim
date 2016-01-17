@@ -135,7 +135,32 @@ angular.module('prim').config(function($routeProvider, $locationProvider, $compi
         })
         .when('/trending', {
             title: 'Trending',
-            templateUrl: 'pages/trending.html'
+            controller: 'TrendingCtrl',
+            controllerAs: 'trending',
+            templateUrl: 'pages/trending.html',
+            resolve: {
+                popular: function(Handlers, Utils) {
+                    return Handlers.popular.get().$promise.then(function(data) {
+                        return data;
+                    }, function(error) {
+                        Utils.apiError(error.status);
+                    });
+                },
+                newest: function(Handlers, Utils) {
+                    return Handlers.newest.get().$promise.then(function(data) {
+                        return data;
+                    }, function(error) {
+                        Utils.apiError(error.status);
+                    });
+                },
+                favorited: function(Handlers, Utils) {
+                    return Handlers.favorited.get().$promise.then(function(data) {
+                        return data;
+                    }, function(error) {
+                        Utils.apiError(error.status);
+                    });
+                },
+            }
         })
         .when('/favorites', {
             title: 'Favorites',

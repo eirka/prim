@@ -1,39 +1,39 @@
 <div class="trending">
     <div class="trending_col">
-        <div class="new_container" ng-controller="NewCtrl as new">
+        <div class="new_container">
             <div>
                 <div class="new_title">
                     <i class="fa fa-star-o"></i><span>New</span>
                 </div>
-                <div ng-if="new.data" class="image_grid">
-                    <a ng-repeat="image in ::new.data track by image.id" ng-href="image/{{image.id}}" href>
-                        <img ng-src="{{new.getThumbSrc(image.thumbnail, image.filename)}}" height="{{image.tn_height}}" width="{{image.tn_width}}">
+                <div ng-if="trending.newest" class="image_grid">
+                    <a ng-repeat="image in trending.newest track by image.id" ng-href="image/{{image.id}}" href>
+                        <img ng-src="{{trending.getThumbSrc(image.thumbnail, image.filename)}}" height="{{image.tn_height}}" width="{{image.tn_width}}">
                     </a>
                 </div>
             </div>
         </div>
-        <div class="favorited_container" ng-controller="FavoritedCtrl as favorited">
+        <div class="favorited_container">
             <div>
                 <div class="favorited_title">
                     <i class="fa fa-heart"></i><span>Favorites</span>
                 </div>
-                <div ng-if="favorited.data" class="image_grid">
-                    <a ng-repeat="image in ::favorited.data track by image.id" ng-href="image/{{image.id}}" href>
-                        <img ng-src="{{favorited.getThumbSrc(image.thumbnail, image.filename)}}" height="{{image.tn_height}}" width="{{image.tn_width}}">
+                <div ng-if="trending.favorited" class="image_grid">
+                    <a ng-repeat="image in trending.favorited track by image.id" ng-href="image/{{image.id}}" href>
+                        <img ng-src="{{trending.getThumbSrc(image.thumbnail, image.filename)}}" height="{{image.tn_height}}" width="{{image.tn_width}}">
                     </a>
                 </div>
             </div>
         </div>
     </div>
     <div class="trending_col">
-        <div class="popular_container" ng-controller="PopularCtrl as popular">
+        <div class="popular_container">
             <div>
                 <div class="popular_title">
                     <i class="fa fa-thumbs-o-up"></i><span>Popular</span>
                 </div>
-                <div ng-if="popular.data" class="image_grid">
-                    <a ng-repeat="image in ::popular.data track by image.id" ng-href="image/{{image.id}}" href>
-                        <img ng-src="{{popular.getThumbSrc(image.thumbnail, image.filename)}}" height="{{image.tn_height}}" width="{{image.tn_width}}">
+                <div ng-if="trending.popular" class="image_grid">
+                    <a ng-repeat="image in trending.popular track by image.id" ng-href="image/{{image.id}}" href>
+                        <img ng-src="{{trending.getThumbSrc(image.thumbnail, image.filename)}}" height="{{image.tn_height}}" width="{{image.tn_width}}">
                     </a>
                 </div>
             </div>

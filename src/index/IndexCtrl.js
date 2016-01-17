@@ -1,3 +1,4 @@
+// IndexCtrl is the controller for the index pages
 angular.module('prim').controller('IndexCtrl', function($location, $scope, $route, data, hotkeys, config, Utils) {
 
     // using controllerAs
@@ -57,19 +58,5 @@ angular.module('prim').controller('IndexCtrl', function($location, $scope, $rout
                 }
             }
         });
-
-});
-
-// handles the page post form
-angular.module('prim').controller('IndexFormCtrl', function($scope, AuthService, Utils) {
-
-    // using controllerAs
-    var self = this;
-
-    // generate post form action
-    self.getFormAction = Utils.getFormAction;
-
-    // get jwt token for form
-    self.getToken = AuthService.getToken;
 
 });

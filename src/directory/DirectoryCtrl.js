@@ -1,3 +1,4 @@
+// DirectoryCtrl is the controller for the directory page
 angular.module('prim').controller('DirectoryCtrl', function(data) {
 
     // using controllerAs

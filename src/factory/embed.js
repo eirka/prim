@@ -1,3 +1,4 @@
+// embed adds links, youtubes, and images to posts
 angular.module('prim').factory('embed', function() {
 
     // global url regex from https://gist.github.com/dperini/729294
@@ -58,45 +59,6 @@ angular.module('prim').factory('embed', function() {
             });
 
             return strReplaced;
-        }
-    };
-});
-
-// link embed template
-angular.module('prim').directive('linkEmbed', function() {
-    return {
-        restrict: 'E',
-        scope: {
-            url: "@"
-        },
-        template: '<a ng-href="{{url}}" target="_blank" href>{{url}}</a>'
-    };
-});
-
-// image embed template
-angular.module('prim').directive('imageEmbed', function() {
-    return {
-        restrict: 'E',
-        scope: {
-            url: "@"
-        },
-        template: '<a ng-href="{{url}}" target="_blank" href><img class="external_image" ng-src="{{url}}" /></a>'
-    };
-});
-
-// youtube embed template
-angular.module('prim').directive('youtubeEmbed', function($sce) {
-    return {
-        restrict: 'E',
-        scope: {
-            url: "@"
-        },
-        template: '<div class="auto-resizable-iframe"><div><iframe ng-src="{{video}}" frameborder="0" allowfullscreen></iframe></div></div>',
-        link: function(scope) {
-
-            // create video link
-            scope.video = $sce.trustAsResourceUrl("https://www.youtube.com/embed/" + scope.url);
-
         }
     };
 });

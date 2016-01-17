@@ -1,4 +1,5 @@
-angular.module('prim').config(function($routeProvider, $locationProvider, $compileProvider) {
+// the routes for the application
+angular.module('prim').config(function($routeProvider) {
     $routeProvider
         .when('/', {
             title: 'Index',
@@ -215,6 +216,4 @@ angular.module('prim').config(function($routeProvider, $locationProvider, $compi
             redirectTo: '/error'
         });
 
-    $compileProvider.debugInfoEnabled(false);
-    $locationProvider.html5Mode(true);
 });

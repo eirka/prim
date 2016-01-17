@@ -1,4 +1,8 @@
-angular.module('prim').config(function($httpProvider, jwtInterceptorProvider) {
+// configures the http provider
+angular.module('prim').config(function($httpProvider, $locationProvider, jwtInterceptorProvider) {
+
+    // turns on html5 pushstate mode
+    $locationProvider.html5Mode(true);
 
     // we want all the credentials
     $httpProvider.defaults.withCredentials = true;
@@ -19,10 +23,11 @@ angular.module('prim').config(function($httpProvider, jwtInterceptorProvider) {
 
 });
 
-// our error interceptor
+// error interceptor
 angular.module('prim').factory('errorInterceptor', function($q, $location, toaster, Utils) {
     return {
         'responseError': function(rejection) {
+            // if there is a weird error the app probably cant contact the api server
             if (angular.equals(rejection.status, -1)) {
                 Utils.apiError(502);
             } else if (angular.equals(rejection.status, 401)) {

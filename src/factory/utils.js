@@ -1,3 +1,4 @@
+// Utils provides numerous services to controllers
 angular.module('prim').factory('Utils', function($location, config) {
 
     // holds the quote text

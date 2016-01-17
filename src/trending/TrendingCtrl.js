@@ -1,3 +1,4 @@
+// TrendingCtrl is the controller for the trending page
 angular.module('prim').controller('TrendingCtrl', function(popular, newest, favorited, Handlers, Utils) {
 
     // using controllerAs

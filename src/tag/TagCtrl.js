@@ -1,3 +1,4 @@
+// TagCtrl is the controller for the tag pages
 angular.module('prim').controller('TagCtrl', function($scope, $routeParams, $location, data, hotkeys, Utils, AuthService) {
 
     // using controllerAs

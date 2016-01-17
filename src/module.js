@@ -1,3 +1,4 @@
+// require for browserify
 require('angular');
 require('angular-resource');
 require('angular-cookies');
@@ -12,7 +13,7 @@ require('angulartics');
 require('angulartics-google-analytics');
 require('angular-chart.js');
 
-// our dependencies 
+// add the dependencies to our module
 angular.module('prim', [
     'ui.bootstrap',
     'ngResource',

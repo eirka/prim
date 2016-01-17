@@ -1,3 +1,4 @@
+// errorHandler is the controller for the error page
 angular.module('prim').controller('errorHandler', function($scope, Utils) {
 
     // using controllerAs

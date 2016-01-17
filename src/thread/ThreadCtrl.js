@@ -1,3 +1,4 @@
+// ThreadCtrl is the controller for the thread pages
 angular.module('prim').controller('ThreadCtrl', function($window, $location, $scope, $routeParams, data, hotkeys, config, Utils, AuthService) {
 
     // using controllerAs
@@ -86,20 +87,5 @@ angular.module('prim').controller('ThreadCtrl', function($window, $location, $sc
                 }
             }
         });
-
-});
-
-
-// handles the page post form
-angular.module('prim').controller('ThreadFormCtrl', function($scope, AuthService, Utils) {
-
-    // using controllerAs
-    var self = this;
-
-    // generate post form action
-    self.getFormAction = Utils.getFormAction;
-
-    // get jwt token for form
-    self.getToken = AuthService.getToken;
 
 });

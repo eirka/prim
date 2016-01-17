@@ -1,3 +1,4 @@
+// FavoritesCtrl will get the users favorites
 angular.module('prim').controller('FavoritesCtrl', function($scope, $routeParams, $location, data, hotkeys, Utils) {
 
     // using controllerAs

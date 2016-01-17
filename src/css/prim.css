@@ -2074,6 +2074,7 @@ textarea.form-control {
 
 .settings_menu {
   order: 1;
+  height: auto;
   text-align: center;
   padding: 1em; }
   .settings_menu .button-settings {
@@ -2086,33 +2087,34 @@ textarea.form-control {
 
 .settings_box {
   order: 2;
-  height: 100%;
+  height: auto;
   padding: 0.5em; }
   @media screen and (min-width: 50em) {
     .settings_box {
       width: 80%; } }
-  .settings_box .settings_subcontainer {
-    width: 100%;
-    margin: 1em auto;
-    text-align: center;
-    padding: 1em;
-    border-radius: 3px; }
-    .settings_box .settings_subcontainer form {
-      margin: auto; }
-      @media screen and (min-width: 50em) {
-        .settings_box .settings_subcontainer form {
-          max-width: 30em; } }
-    .settings_box .settings_subcontainer .settings_title {
-      padding: 0.6em;
-      font-size: 1.5em;
-      text-align: center;
-      padding: 0; }
-      @media screen and (min-width: 50em) {
-        .settings_box .settings_subcontainer .settings_title {
-          text-align: left; } }
+
+.settings_subcontainer {
+  width: 100%;
+  margin: 1em auto;
+  text-align: center;
+  padding: 1em;
+  border-radius: 3px; }
+  .settings_subcontainer form {
+    margin: auto; }
     @media screen and (min-width: 50em) {
-      .settings_box .settings_subcontainer {
-        width: 80%; } }
+      .settings_subcontainer form {
+        max-width: 30em; } }
+  .settings_subcontainer .settings_title {
+    padding: 0.6em;
+    font-size: 1.5em;
+    text-align: center;
+    padding: 0; }
+    @media screen and (min-width: 50em) {
+      .settings_subcontainer .settings_title {
+        text-align: left; } }
+  @media screen and (min-width: 50em) {
+    .settings_subcontainer {
+      width: 80%; } }
 
 /* tag page css */
 .admin {

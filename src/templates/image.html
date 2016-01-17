@@ -48,7 +48,7 @@
             </div>
             <div class="tag_input">
                 <form ng-submit="image.addTag()">
-                    <input ng-required="true" type="text" class="form-control" typeahead-wait-ms="300" typeahead-min-length="3" typeahead="tag.id as tag.tag for tag in image.searchTags($viewValue)" typeahead-input-formatter="image.formatLabel($model)" ng-model="image.selected" typeahead-editable="false" placeholder="Add Tag">
+                    <input ng-required="true" typeahead-append-to-body="true" type="text" class="form-control" typeahead-wait-ms="300" typeahead-min-length="3" typeahead="tag.id as tag.tag for tag in image.searchTags($viewValue)" typeahead-input-formatter="image.formatLabel($model)" ng-model="image.selected" typeahead-editable="false" placeholder="Add Tag">
                     <button class="button button-block button-primary" type="submit">Add</button>
                 </form>
             </div>

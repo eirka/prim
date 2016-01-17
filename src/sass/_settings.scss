@@ -25,6 +25,7 @@
 
 .settings_menu {
     order: 1;
+    height: auto;
     text-align: center;
     padding: 1em;
 
@@ -41,36 +42,36 @@
 
 .settings_box {
     order: 2;
-    height: 100%;
+    height: auto;
     padding: 0.5em;
 
     @media #{$screenSmall} {
         width: 80%;
     }
+}
 
-    .settings_subcontainer {
-        width: 100%;
-        margin: 1em auto;
-        text-align: center;
-        padding: 1em;
-        border-radius: 3px;
+.settings_subcontainer {
+    width: 100%;
+    margin: 1em auto;
+    text-align: center;
+    padding: 1em;
+    border-radius: 3px;
 
-        & form {
-            margin: auto;
-
-            @media #{$screenSmall} {
-                max-width: 30em;
-            }
-        }
-
-        & .settings_title {
-            @include boxTitle;
-
-            padding: 0;
-        }
+    & form {
+        margin: auto;
 
         @media #{$screenSmall} {
-            width: 80%;
+            max-width: 30em;
         }
+    }
+
+    & .settings_title {
+        @include boxTitle;
+
+        padding: 0;
+    }
+
+    @media #{$screenSmall} {
+        width: 80%;
     }
 }

@@ -6,7 +6,9 @@
                     <ng-include src="'pages/forms/tags.html'"></ng-include>
                 </div>
                 <div class="tags_search">
-                    <input type="text" class="form-control" ng-model="tags.searchterm" ng-model-options="{ debounce: 500 }" ng-required="true" ng-change="tags.searchTags()" ng-minlength="3" ng-maxlength="128" placeholder="Search">
+                    <form role="form" class="form-inline">
+                        <input type="text" class="form-control" ng-model="tags.searchterm" ng-model-options="{ debounce: 500 }" ng-required="true" ng-change="tags.searchTags()" ng-minlength="3" ng-maxlength="128" placeholder="Search">
+                    </form>
                 </div>
             </div>
             <div ng-if="!tags.data.length" class="no_tags">

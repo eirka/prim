@@ -16,6 +16,36 @@ angular.module('prim').factory('embed', function() {
     // image regex
     var imageRegex = /(https?:\/\/|(www\.)|[A-Za-z0-9._%+-]+@)\S*[^\s.;,(){}<>"\u201d\u2019](?:\/[^\/#?]+)+\.(?:jpe?g|gif|png)/i;
 
+    // regex for italic text
+    var italicRegex = /(\*|_)(.*?)\1/ig;
+
+    // regex for bold text
+    var boldRegex = /(\*\*|__)(.*?)\1/ig;
+
+    // link embed
+    var link = function(input) {
+        return '<link-embed url="' + input + '"></link-embed>';
+    };
+
+    // image embed
+    var image = function(input) {
+        return '<image-embed url="' + input + '"></image-embed>';
+    };
+
+    // youtube embed
+    var youtube = function(input) {
+        var match = youtubeRegex.exec(input);
+
+        return '<youtube-embed url="' + match[3] + '"></youtube-embed>';
+    };
+
+    // email embed
+    var email = function(input) {
+        var match = emailRegex.exec(input);
+
+        return match[1] + ' at ' + match[2];
+    };
+
     return {
         // sanitizes the input and adds our embed directives
         filterComment: function(input) {
@@ -25,40 +55,35 @@ angular.module('prim').factory('embed', function() {
                 return;
             }
 
-            // replace all the items with our directives
-            var strReplaced = input.replace(urlRegex, function(url) {
+            return input
+                .replace(urlRegex, function(url) {
 
-                // check for an email
-                if (emailRegex.test(url)) {
-                    var emailmatch = emailRegex.exec(url);
+                    // check for an email
+                    if (emailRegex.test(url)) {
+                        return email(url);
+                    }
 
-                    return emailmatch[1] + ' at ' + emailmatch[2];
-                }
+                    // add a protocol to the link if there isnt one
+                    if (!protocolRegex.test(url)) {
+                        url = 'http://' + url;
+                    }
 
-                // add a protocol to the link if there isnt one
-                if (!protocolRegex.test(url)) {
-                    url = 'http://' + url;
-                }
+                    // embed image
+                    if (imageRegex.test(url)) {
+                        return image(url);
+                    }
 
-                // embed image
-                if (imageRegex.test(url)) {
-                    return '<image-embed url="' + url + '"></image-embed>';
-                }
+                    // embed youtube video
+                    if (youtubeRegex.test(url)) {
+                        return youtube(url);
+                    }
 
-                // embed youtube video
-                if (youtubeRegex.test(url)) {
-                    // just get the video id
-                    var youtubematch = youtubeRegex.exec(url);
+                    return link(url);
 
-                    return '<youtube-embed url="' + youtubematch[3] + '"></youtube-embed>';
-                }
+                })
+                .replace(boldRegex, '<strong>$2</strong>')
+                .replace(italicRegex, '<em>$2</em>');
 
-                // if all else fails create a link
-                return '<link-embed url="' + url + '"></link-embed>';
-
-            });
-
-            return strReplaced;
         }
     };
 });

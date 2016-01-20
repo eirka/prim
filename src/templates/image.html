@@ -21,7 +21,7 @@
             </div>
             <div class="image_box_image">
                 <video ng-if="image.ext == 'webm'" ng-src="{{image.getImgSrc(image.data.image.filename)}}" height="{{::image.data.image.height}}" width="{{::image.data.image.width}}" autoplay loop controls></video>
-                <a ng-if="image.ext != 'webm'" target="_self" ng-href="{{::image.src}}" href><img ng-src="{{image.getImgSrc(image.data.image.filename)}}" height="{{::image.data.image.height}}" width="{{::image.data.image.width}}"></a>
+                <a ng-if="image.ext != 'webm'" target="_self" ng-href="{{image.getImgSrc(image.data.image.filename)}}" href><img ng-src="{{image.getImgSrc(image.data.image.filename)}}" height="{{::image.data.image.height}}" width="{{::image.data.image.width}}"></a>
             </div>
             <div class="image_box_nav">
                 <div class="image_controls">

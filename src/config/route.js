@@ -59,7 +59,26 @@ angular.module('prim').config(function($routeProvider) {
             controllerAs: 'directory',
             resolve: {
                 data: function($route, Handlers, Utils) {
-                    return Handlers.directory.get().$promise.then(function(data) {
+                    return Handlers.directory.get({
+                        page: 1
+                    }).$promise.then(function(data) {
+                        return data;
+                    }, function(error) {
+                        Utils.apiError(error.status);
+                    });
+                }
+            }
+        })
+        .when('/directory/:page', {
+            title: 'Threads',
+            templateUrl: 'pages/directory.html',
+            controller: 'DirectoryCtrl',
+            controllerAs: 'directory',
+            resolve: {
+                data: function($route, Handlers, Utils) {
+                    return Handlers.directory.get({
+                        page: $route.current.params.page
+                    }).$promise.then(function(data) {
                         return data;
                     }, function(error) {
                         Utils.apiError(error.status);

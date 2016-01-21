@@ -56,8 +56,6 @@ angular.module('prim').controller('TagsCtrl', function($scope, $routeParams, $lo
                 self.data = data.tagsearch;
                 return self.data;
             });
-        } else {
-            self.updateTags();
         }
     };
 

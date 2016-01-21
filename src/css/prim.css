@@ -1646,9 +1646,6 @@ textarea.form-control {
   .directory_list table th {
     padding: 0.3em 0.5em; }
 
-.directory_list {
-  padding: 0 0 1.5em 0; }
-
 .tags_list {
   padding: 0; }
 
@@ -1658,27 +1655,36 @@ textarea.form-control {
     .lastpage {
       float: right; } }
 
-.tags_bar {
+.tags_bar,
+.directory_bar {
   text-align: center;
   padding: 0.5em; }
-  .tags_bar:before, .tags_bar:after {
+  .tags_bar:before, .tags_bar:after,
+  .directory_bar:before,
+  .directory_bar:after {
     content: " ";
     display: table; }
-  .tags_bar:after {
+  .tags_bar:after,
+  .directory_bar:after {
     clear: both; }
-  .tags_bar .tags_input .form-group {
-    margin-bottom: 0.2em; }
-  @media screen and (min-width: 50em) {
-    .tags_bar .tags_input {
-      float: left;
-      max-width: 50%; } }
-  .tags_bar .tags_search {
-    margin-top: 1em; }
+  .tags_bar .tags_input,
+  .directory_bar .tags_input {
+    margin-bottom: 0.5em; }
+    .tags_bar .tags_input .form-group,
+    .directory_bar .tags_input .form-group {
+      margin-bottom: 0.2em; }
     @media screen and (min-width: 50em) {
-      .tags_bar .tags_search {
-        margin: 0;
-        float: right;
+      .tags_bar .tags_input,
+      .directory_bar .tags_input {
+        float: left;
         max-width: 50%; } }
+  @media screen and (min-width: 50em) {
+    .tags_bar .tags_search, .tags_bar .directory_search,
+    .directory_bar .tags_search,
+    .directory_bar .directory_search {
+      margin: 0;
+      float: right;
+      max-width: 50%; } }
 
 /* error css */
 .error {

@@ -7,8 +7,9 @@ angular.module('prim').factory('Handlers', function($resource, config) {
             page: '@page'
         }),
         // directory page
-        'directory': $resource(config.api_srv + '/get/directory/:ib', {
-            ib: config.ib_id
+        'directory': $resource(config.api_srv + '/get/directory/:ib/:page', {
+            ib: config.ib_id,
+            page: '@page'
         }),
         // threads
         'thread': $resource(config.api_srv + '/get/thread/:ib/:id/:page', {
@@ -62,6 +63,10 @@ angular.module('prim').factory('Handlers', function($resource, config) {
         }),
         // tag search
         'tagsearch': $resource(config.api_srv + '/get/tagsearch/:ib', {
+            ib: config.ib_id
+        }),
+        // thread search
+        'threadsearch': $resource(config.api_srv + '/get/threadsearch/:ib', {
             ib: config.ib_id
         }),
         // add tag 

@@ -1,6 +1,13 @@
 <div class="directory">
     <div class="directory_container">
         <div class="directory_list">
+            <div class="directory_bar">
+                <div class="directory_search">
+                    <form role="form" class="form-inline">
+                        <input type="text" class="form-control" ng-model="directory.searchterm" ng-model-options="{ debounce: 500 }" ng-required="true" ng-change="directory.searchThreads()" ng-minlength="3" ng-maxlength="128" placeholder="Search">
+                    </form>
+                </div>
+            </div>
             <div ng-if="!directory.data.length" class="no_threads">
                 <span>No threads <i class="fa fa-frown-o"></i></span>
             </div>
@@ -27,6 +34,9 @@
                     </tr>
                 </tbody>
             </table>
+            <div class="directory_bar">
+                <pagination boundary-links="true" rotate="true" direction-links="false" page-name="directory" total-items="directory.pagination.totalItems" max-size="directory.pagination.maxSize" ng-model="directory.pagination.currentPage" items-per-page="directory.pagination.itemsPerPage" num-pages="directory.pagination.numPages">
+            </div>
         </div>
     </div>
 </div>

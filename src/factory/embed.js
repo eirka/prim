@@ -17,10 +17,10 @@ angular.module('prim').factory('embed', function() {
     var imageRegex = /(https?:\/\/|(www\.)|[A-Za-z0-9._%+-]+@)\S*[^\s.;,(){}<>"\u201d\u2019](?:\/[^\/#?]+)+\.(?:jpe?g|gif|png)/i;
 
     // regex for italic text
-    var italicRegex = /(\*|_)(.*?)\1/ig;
+    var italicRegex = /(\*)(.*?)\1/ig;
 
     // regex for bold text
-    var boldRegex = /(\*\*|__)(.*?)\1/ig;
+    var boldRegex = /(\*\*)(.*?)\1/ig;
 
     // link embed
     var link = function(input) {

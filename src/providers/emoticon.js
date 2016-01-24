@@ -15,7 +15,8 @@ angular.module('prim').provider("emoticons", function emoticonsProvider() {
     var tokenValidationPattern = /^([\w+-]+)$/i;
 
     function setImageServer(server) {
-        return imgsrv = server;
+        imgsrv = server;
+        return imgsrv;
     }
 
     // I allow the tokens to be overridden during the configuration phase.
@@ -58,7 +59,7 @@ angular.module('prim').provider("emoticons", function emoticonsProvider() {
 
             }
 
-            return (tagMap);
+            return tagMap;
 
         }
 
@@ -72,7 +73,7 @@ angular.module('prim').provider("emoticons", function emoticonsProvider() {
 
             // If the text is empty, or not text, just pass it through.
             if (!text || !angular.isString(text)) {
-                return (text);
+                return text;
             }
 
             // Search for and replace emoticon markers with HTML tags.
@@ -82,13 +83,13 @@ angular.module('prim').provider("emoticons", function emoticonsProvider() {
                 );
             });
 
-            return (emotionalText);
+            return emotionalText;
 
         }
 
         // I create an HTML tag that represents the given token.
         function createTokenTag(token) {
-            return ('<img class="emoticon" title=":' + token.text + ':" src="' + imgsrv + '/emoticons/' + token.image + '" />');
+            return '<img class="emoticon" title=":' + token.text + ':" src="' + imgsrv + '/emoticons/' + token.image + '" />';
         }
 
         // Return the public API.

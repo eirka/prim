@@ -6,7 +6,7 @@
         <div class="info">
             <div ng-if="quotebox.post.group != 1" class="avatar avatar-xsmall">
                 <div class="avatar-inner">
-                    <img ng-src="{{getAvatar(quotebox.post.avatar)}}" />
+                    <img ng-src="{{getAvatar(quotebox.post.uid)}}" />
                 </div>
             </div>
             <span class="post_info" ng-class="usergroupClass(quotebox.post.group)" ng-bind="quotebox.post.name"></span>

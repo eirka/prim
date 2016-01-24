@@ -1,13 +1,6 @@
 <div class="settings_container">
     <div class="settings_menu">
-        <a class="button button-settings" ng-href="" href>Account Settings</a>
+        <button ng-repeat="button in account.panels" class="button button-settings" ng-click="account.switchPanel(button.name)" href ng-bind="button.name"></button>
     </div>
-    <div class="settings_box">
-        <div class="settings_subcontainer">
-            <ng-include src="'pages/account/password.html'"></ng-include>
-        </div>
-        <div class="settings_subcontainer">
-            <ng-include src="'pages/account/email.html'"></ng-include>
-        </div>
-    </div>
+    <div class="settings_box" ng-include="account.panel"></div>
 </div>

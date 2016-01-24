@@ -1,0 +1,15 @@
+<div class="settings_subcontainer" ng-controller="AvatarFormCtrl as avatar">
+    <form role="form" name="avatarform" action="{{avatar.getFormAction('/post/user/avatar')}}" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <span class="settings_title">Change Avatar</span>
+        </div>
+        <input type="hidden" name="csrf_token" ng-value="account.csrf_token" />
+        <input type="hidden" name="access_token" ng-value="avatar.getToken()" />
+        <div class="form-group">
+            <input id="file" type="file" name="file" ng-model="file" validate-file ng-required="true">
+        </div>
+        <div class="form-group">
+            <button ng-disabled="avatarform.$invalid" class="button button-block button-primary" type="submit" value="Submit">Submit</button>
+        </div>
+    </form>
+</div>

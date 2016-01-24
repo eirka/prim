@@ -1,0 +1,41 @@
+<div class="admin_container" ng-controller="BoardStatisticsCtrl as stats">
+    <div class="board_stats">
+        <div class="stats_title">
+            <strong>LAST 24 HOURS</strong>
+        </div>
+        <div class="stats_chart">
+            <canvas id="line" class="chart chart-line" chart-colours="stats.colors" chart-data="stats.chartdata" chart-options="stats.options" chart-labels="stats.labels" chart-series="stats.series"></canvas>
+        </div>
+        <div class="stats_info">
+            <div class="info_box">
+                <span class="stat" ng-bind="stats.data.visitors"></span>
+                <br />
+                <span class="label">Unique Visitors</span>
+            </div>
+            <div class="info_box">
+                <span class="stat" ng-bind="stats.data.hits"></span>
+                <br />
+                <span class="label">Total Hits</span>
+            </div>
+        </div>
+    </div>
+    <div class="board_stats">
+        <div class="stats_info">
+            <div class="info_box">
+                <span class="stat" ng-bind="stats.data.threads"></span>
+                <br />
+                <span class="label">Threads</span>
+            </div>
+            <div class="info_box">
+                <span class="stat" ng-bind="stats.data.posts"></span>
+                <br />
+                <span class="label">Posts</span>
+            </div>
+            <div class="info_box">
+                <span class="stat" ng-bind="stats.data.images"></span>
+                <br />
+                <span class="label">Images</span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,7 +1,7 @@
 .spinner {
     position: fixed;
-    bottom: 10px;
-    left: 10px;
+    bottom: 20px;
+    left: 5px;
     width: 70px;
     text-align: center;
 }
@@ -9,7 +9,6 @@
 .spinner > div {
     width: 16px;
     height: 16px;
-    background-color: #333;
     border-radius: 100%;
     display: inline-block;
     animation: sk-bouncedelay 1.4s infinite ease-in-out both;

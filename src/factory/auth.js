@@ -72,7 +72,7 @@ angular.module('prim').factory('AuthService', function($rootScope, $route, toast
                         id: data.user.id,
                         name: data.user.name,
                         isAuthenticated: true,
-                        avatar: Utils.getAvatar(data.user.avatar)
+                        avatar: Utils.getAvatar(data.user.id)
                     };
 
                     // cache user data

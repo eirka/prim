@@ -12,6 +12,9 @@ angular.module('prim').factory('Utils', function($location, config) {
     // holds the error code
     var errorCode;
 
+    // to break image cache on avatars
+    var queryDate = new Date().getTime();
+
     return {
         // sets the quote
         setQuote: function(quote) {
@@ -66,7 +69,7 @@ angular.module('prim').factory('Utils', function($location, config) {
         // generates the avatar src
         getAvatar: function(id) {
             if (angular.isDefined(id)) {
-                return config.img_srv + '/avatars/' + id + '.png';
+                return config.img_srv + '/avatars/' + id + '.png?' + queryDate;
             }
         },
         // select the css class depending on user group

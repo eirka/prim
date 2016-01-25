@@ -8,6 +8,8 @@ angular.module('prim').factory('Utils', function($location, config) {
     var imgsrc = config.img_srv + '/src/';
     // thumb source address
     var thumbsrc = config.img_srv + '/thumb/';
+    // avatar source address
+    var avatarsrc = config.img_srv + '/avatars/';
 
     // holds the error code
     var errorCode;
@@ -69,7 +71,7 @@ angular.module('prim').factory('Utils', function($location, config) {
         // generates the avatar src
         getAvatar: function(id) {
             if (angular.isDefined(id)) {
-                return config.img_srv + '/avatars/' + id + '.png?' + queryDate;
+                return avatarsrc + id + '.png?' + queryDate;
             }
         },
         // select the css class depending on user group

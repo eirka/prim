@@ -4,11 +4,8 @@
             <span>Error</span>
             <span ng-bind="error.errorcode"></span>
         </div>
-        <div class="error_message" ng-switch="error.errorcode">
-            <span ng-switch-when="401">You are unauthorized to view this page</span>
-            <span ng-switch-when="404">Couldn't find whatever you were looking for</span>
-            <span ng-switch-when="502">Oh no the API server is probably down</span>
-            <span ng-switch-default>Looks like something went wrong</span>
+        <div class="error_message">
+            <span ng-bind="error.errormessage"></span>
         </div>
     </div>
 </div>

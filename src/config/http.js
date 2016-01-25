@@ -27,11 +27,11 @@ angular.module('prim').config(function($httpProvider, $locationProvider, jwtInte
 angular.module('prim').factory('errorInterceptor', function($q, $location, toaster, Utils) {
     return {
         'responseError': function(rejection) {
-            // if there is a weird error the app probably cant contact the api server
             if (angular.equals(rejection.status, -1)) {
+                // if there is a weird error the app probably cant contact the api server
                 Utils.apiError(502);
-            } else if (angular.equals(rejection.status, 401)) {
-                // if unauthorized forward to the login page
+            } else if (angular.equals(rejection.status, 401) || angular.equals(rejection.status, 403)) {
+                // if unauthorized or forbidden forward to the login page
                 toaster.pop('error', rejection.data.error_message);
                 $location.path('/account');
             }

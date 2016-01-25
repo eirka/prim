@@ -188,14 +188,18 @@ angular.module('prim').config(function($routeProvider) {
             controller: 'FavoritesCtrl',
             controllerAs: 'favorites',
             resolve: {
-                data: function($route, UserHandlers, Utils) {
-                    return UserHandlers.favorites.get({
-                        page: 1
-                    }).$promise.then(function(data) {
-                        return data;
-                    }, function(error) {
-                        Utils.apiError(error.status);
-                    });
+                data: function($rootScope, $location, $route, UserHandlers, Utils) {
+                    if (!$rootScope.authState.isAuthenticated) {
+                        $location.path('/account');
+                    } else {
+                        return UserHandlers.favorites.get({
+                            page: 1
+                        }).$promise.then(function(data) {
+                            return data;
+                        }, function(error) {
+                            Utils.apiError(error.status);
+                        });
+                    }
                 }
             }
         })
@@ -205,14 +209,18 @@ angular.module('prim').config(function($routeProvider) {
             controller: 'FavoritesCtrl',
             controllerAs: 'favorites',
             resolve: {
-                data: function($route, UserHandlers, Utils) {
-                    return UserHandlers.favorites.get({
-                        page: $route.current.params.page
-                    }).$promise.then(function(data) {
-                        return data;
-                    }, function(error) {
-                        Utils.apiError(error.status);
-                    });
+                data: function($rootScope, $location, $route, UserHandlers, Utils) {
+                    if (!$rootScope.authState.isAuthenticated) {
+                        $location.path('/account');
+                    } else {
+                        return UserHandlers.favorites.get({
+                            page: $route.current.params.page
+                        }).$promise.then(function(data) {
+                            return data;
+                        }, function(error) {
+                            Utils.apiError(error.status);
+                        });
+                    }
                 }
             }
         })
@@ -224,7 +232,20 @@ angular.module('prim').config(function($routeProvider) {
             title: 'Admin Panel',
             templateUrl: 'pages/admin.html',
             controller: 'AdminCtrl',
-            controllerAs: 'admin'
+            controllerAs: 'admin',
+            resolve: {
+                auth: function($q, $location, AuthService) {
+                    var deferred = $q.defer();
+                    if (!AuthService.showModControls()) {
+                        console.log('nope');
+                        deferred.reject();
+                        $location.path('/account');
+                    } else {
+                        deferred.resolve();
+                    }
+                    return deferred.promise;
+                }
+            }
         })
         .when('/error', {
             templateUrl: 'pages/error.html',
@@ -232,7 +253,8 @@ angular.module('prim').config(function($routeProvider) {
             controllerAs: 'error'
         })
         .otherwise({
-            redirectTo: '/error'
+            redirectTo: function() {
+                window.location = '/error';
+            }
         });
-
 });

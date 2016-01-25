@@ -14,6 +14,10 @@ angular.module('prim').directive('loadingIndicator', function($rootScope) {
                 scope.isRouteLoading = false;
             });
 
+            $rootScope.$on('$routeChangeError', function() {
+                scope.isRouteLoading = false;
+            });
+
         }
     };
 });

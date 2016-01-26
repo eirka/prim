@@ -237,7 +237,6 @@ angular.module('prim').config(function($routeProvider) {
                 auth: function($q, $location, AuthService) {
                     var deferred = $q.defer();
                     if (!AuthService.showModControls()) {
-                        console.log('nope');
                         deferred.reject();
                         $location.path('/account');
                     } else {

@@ -1049,6 +1049,8 @@ textarea.form-control {
   .quotebox .external_image, .quotebox .quotebox_image {
     max-width: 120px;
     height: auto; }
+  .quotebox .avatar {
+    margin-right: 0.3em; }
 
 .quotebox_comment p {
   text-align: center; }
@@ -1483,8 +1485,16 @@ textarea.form-control {
   .thread_header:after {
     clear: both; }
   .thread_header .thread_mod_buttons {
-    display: inline-block;
-    padding-right: 0.5em; }
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    margin: 0.5em; }
+    .thread_header .thread_mod_buttons a {
+      margin-right: 0.3em; }
+    @media screen and (min-width: 50em) {
+      .thread_header .thread_mod_buttons {
+        float: right;
+        margin: 0; } }
 
 .thread_index_header {
   padding: 1em; }
@@ -1521,6 +1531,8 @@ textarea.form-control {
   border-radius: 4px;
   padding: 0.4em 0.6em;
   margin-right: 0.2em; }
+  .thread_info i {
+    margin-right: 0.2em; }
   .thread_info .col {
     display: inline-block;
     padding: 0 0.1em; }
@@ -1663,10 +1675,8 @@ textarea.form-control {
   padding: 0; }
 
 .lastpage {
-  border: 1px solid #333; }
-  @media screen and (min-width: 50em) {
-    .lastpage {
-      float: right; } }
+  border: 1px solid #333;
+  float: right; }
 
 .tags_bar,
 .directory_bar {
@@ -1853,6 +1863,10 @@ textarea.form-control {
     .popular_title,
     .favorited_title {
       text-align: left; } }
+  .new_title i,
+  .popular_title i,
+  .favorited_title i {
+    margin-right: 0.3em; }
 
 /* account css */
 .account {
@@ -2132,6 +2146,10 @@ textarea.form-control {
     @media screen and (min-width: 50em) {
       .settings_subcontainer .settings_title {
         text-align: left; } }
+  .settings_subcontainer .settings_info {
+    text-align: left;
+    font-size: 0.8em;
+    padding: 0.5em; }
   @media screen and (min-width: 50em) {
     .settings_subcontainer {
       width: 80%; } }

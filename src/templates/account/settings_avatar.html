@@ -7,6 +7,9 @@
         <input type="hidden" name="access_token" ng-value="avatar.getToken()" />
         <div class="form-group">
             <input id="file" type="file" name="file" ng-model="file" validate-file ng-required="true">
+            <div class="settings_info">
+                <em>Minimum size 100x100</em>
+            </div>
         </div>
         <div class="form-group">
             <button ng-disabled="avatarform.$invalid" class="button button-block button-primary" type="submit" value="Submit">Submit</button>

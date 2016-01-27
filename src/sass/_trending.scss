@@ -51,4 +51,8 @@
 .popular_title,
 .favorited_title {
     @include boxTitle;
+
+    & i {
+        margin-right: 0.3em;
+    }
 }

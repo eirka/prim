@@ -71,6 +71,12 @@
         padding: 0;
     }
 
+    & .settings_info {
+        text-align: left;
+        font-size: 0.8em;
+        padding: 0.5em;
+    }
+
     @media #{$screenSmall} {
         width: 80%;
     }

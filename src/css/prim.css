@@ -1359,15 +1359,28 @@ textarea.form-control {
   .image_info button {
     border-radius: 0; }
   .image_info .tags {
-    display: inline;
-    position: relative; }
+    display: inline-block;
+    margin: 0.2em; }
     @media screen and (min-width: 50em) {
       .image_info .tags {
-        display: block; } }
+        margin: 0;
+        width: 100%;
+        display: table; } }
+  .image_info .tag_button {
+    display: inline-block; }
+    @media screen and (min-width: 50em) {
+      .image_info .tag_button {
+        width: 100%;
+        display: table-cell; } }
+  .image_info .mod_button {
+    display: inline-block;
+    padding: 0 0.5em; }
+    @media screen and (min-width: 50em) {
+      .image_info .mod_button {
+        display: table-cell; } }
   .image_info .delete_button {
-    position: absolute;
-    right: 5px;
-    top: 2px; }
+    width: 100%;
+    height: 100%; }
   @media screen and (min-width: 50em) {
     .image_info {
       padding: 0;

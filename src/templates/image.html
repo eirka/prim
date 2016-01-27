@@ -57,8 +57,12 @@
             </div>
             <div ng-if="image.tags">
                 <div class="tags" ng-repeat="tag in image.tags track by tag.id">
-                    <i ng-if="image.showModControls()" class="delete_button fa fa-times" title="Delete Tag" ng-click="image.deleteTag(image.data.image.id, tag.id)"></i>
-                    <a class="tag" ng-class="{'tag-default': tag.type == 1, 'tag-artist': tag.type == 2, 'tag-character': tag.type == 3, 'tag-copyright': tag.type == 4}" ng-bind="::tag.tag" rel="nofollow" ng-href="tag/{{::tag.id}}/1" href> </a>
+                    <div class="tag_button">
+                        <a class="tag" ng-class="{'tag-default': tag.type == 1, 'tag-artist': tag.type == 2, 'tag-character': tag.type == 3, 'tag-copyright': tag.type == 4}" ng-bind="::tag.tag" rel="nofollow" ng-href="tag/{{::tag.id}}/1" href> </a>
+                    </div>
+                    <div ng-if="image.showModControls()" class="mod_button">
+                        <a class="delete_button fa fa-times" title="Delete Tag" ng-click="image.deleteTag(image.data.image.id, tag.id)"></a>
+                    </div>
                 </div>
             </div>
         </div>

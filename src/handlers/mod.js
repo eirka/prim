@@ -37,7 +37,7 @@ angular.module('prim').factory('ModHandlers', function($resource, config) {
             image: '@image',
             tag: '@tag'
         }),
-        // login
+        // update a tags info
         'updatetag': $resource(config.api_srv + '/admin/tag/:ib', {
             ib: config.ib_id
         }),

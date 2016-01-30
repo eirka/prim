@@ -24,4 +24,9 @@ angular.module('prim').controller('AdminCtrl', function(_) {
         return;
     };
 
+    // check if tab is active
+    self.isActive = function(panel) {
+        return angular.equals(panel.template, self.panel);
+    };
+
 });

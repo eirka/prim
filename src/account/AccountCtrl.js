@@ -31,6 +31,11 @@ angular.module('prim').controller('AccountCtrl', function($route, _, toaster, us
         return;
     };
 
+    // check if tab is active
+    self.isActive = function(panel) {
+        return angular.equals(panel.template, self.panel);
+    };
+
     // get whoami
     AuthService.queryWhoAmI().$promise.then(function(data) {
 

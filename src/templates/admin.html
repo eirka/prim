@@ -1,7 +1,7 @@
 <div class="admin">
     <div class="settings_container">
         <div class="settings_menu">
-            <button ng-repeat="button in admin.panels" class="button button-settings" ng-click="admin.switchPanel(button.name)" href ng-bind="button.name"></button>
+            <button ng-repeat="button in admin.panels" ng-class="{active:admin.isActive(button)}" class="button button-settings" ng-click="admin.switchPanel(button.name)" href ng-bind="button.name"></button>
         </div>
         <div class="settings_box" ng-include="admin.panel"></div>
     </div>

@@ -21,7 +21,6 @@ angular.module('prim').controller('UpdateTagCtrl', function($scope, $route, Hand
     self.updateTag = function() {
         ModHandlers.updatetag.save({
             id: $scope.tag.data.id,
-            ib: config.ib_id,
             name: self.name,
             type: self.selected
         }, function(data) {

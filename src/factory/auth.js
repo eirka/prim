@@ -72,7 +72,8 @@ angular.module('prim').factory('AuthService', function($rootScope, $route, toast
                         id: data.user.id,
                         name: data.user.name,
                         isAuthenticated: true,
-                        avatar: Utils.getAvatar(data.user.id)
+                        avatar: Utils.getAvatar(data.user.id),
+                        lastactive: new Date(data.user.last_active)
                     };
 
                     // cache user data
@@ -95,6 +96,17 @@ angular.module('prim').factory('AuthService', function($rootScope, $route, toast
                 });
 
             }
+        },
+        // gets the users last active date
+        getLastActive: function(date) {
+            if (angular.isDefined(date)) {
+                date = new Date(date);
+                if (angular.isDate(date)) {
+                    return $rootScope.authState.lastactive < date;
+                }
+                return false;
+            }
+            return false;
         },
         // sets authstate to anon and removed all cached info
         destroySession: function() {

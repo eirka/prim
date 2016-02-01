@@ -25,6 +25,9 @@ angular.module('prim').controller('ThreadCtrl', function($window, $location, $sc
     // make thumbnail source 
     self.getThumbSrc = Utils.getThumbSrc;
 
+    // compare last active date
+    self.getLastActive = AuthService.getLastActive;
+
     // add post num to comment box
     self.replyQuote = function(id) {
         if (angular.isDefined(id)) {

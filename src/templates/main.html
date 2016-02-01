@@ -64,6 +64,9 @@
                         <div class="info_item">
                             <a class="label label-light" ng-bind="'#'+{{post.num}}" ng-click="index.replyQuote(post.num,thread.id,thread.pages)" href></a>
                         </div>
+                        <div class="info_item" ng-if="authState.isAuthenticated">
+                            <span class="label label-alert" ng-if="index.getLastActive(post.time)">NEW</span>
+                        </div>
                     </div>
                 </div>
                 <comment-handler post="post" thread="thread.id"></comment-handler>

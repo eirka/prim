@@ -56,6 +56,9 @@
                         <div class="info_item">
                             <a class="label label-light" ng-bind="'#'+{{post.num}}" ng-click="thread.replyQuote(post.num)" href></a>
                         </div>
+                        <div class="info_item" ng-if="authState.isAuthenticated">
+                            <span class="label label-alert" ng-if="thread.getLastActive(post.time)">NEW</span>
+                        </div>
                         <div ng-if="thread.showModControls()" class="post_mod_buttons" ng-controller="PostModCtrl as postmod">
                             <a title="Delete" class="button button-danger button-small fa fa-trash-o" ng-click="postmod.deletePost(thread.data.id, post.num)" href></a>
                         </div>

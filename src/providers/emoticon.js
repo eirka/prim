@@ -11,7 +11,6 @@ angular.module('prim').provider("emoticons", function emoticonsProvider() {
 
     // I define the RegExp patterns that are used to search for and validate
     // emoticon tokens.
-    var tokenSearchPattern = /:([\w+-]+):/g;
     var tokenValidationPattern = /^([\w+-]+)$/i;
 
     function setImageServer(server) {
@@ -55,46 +54,19 @@ angular.module('prim').provider("emoticons", function emoticonsProvider() {
 
                 var token = tokens[i];
 
-                tagMap[token.text] = createTokenTag(token);
+                tagMap[token.text] = token;
 
             }
-
             return tagMap;
-
         }
 
         // I am a hash that maps the token values to pre-composed HTML tag
         // that represents the emoticon markup.
         var tokenMap = createTokenMap(tokens);
 
-        // I take plain-text content and replace the emoticon tokens with
-        // actual HTML tags that represent the graphical emotions.
-        function injectTags(text) {
-
-            // If the text is empty, or not text, just pass it through.
-            if (!text || !angular.isString(text)) {
-                return text;
-            }
-
-            // Search for and replace emoticon markers with HTML tags.
-            var emotionalText = text.replace(tokenSearchPattern, function replaceMatch($0, token) {
-                return (
-                    tokenMap.hasOwnProperty(token) ? tokenMap[token] : $0
-                );
-            });
-
-            return emotionalText;
-
-        }
-
-        // I create an HTML tag that represents the given token.
-        function createTokenTag(token) {
-            return '<img class="emoticon" title=":' + token.text + ':" src="' + imgsrv + '/emoticons/' + token.image + '" />';
-        }
-
         // Return the public API.
         return ({
-            injectTags: injectTags
+            tokenMap: tokenMap
         });
 
     }

@@ -1,10 +1,10 @@
 // formats the comment text with emoticons and embeds
-angular.module('prim').directive('commentFormatter', function($compile, emoticons, config) {
+angular.module('prim').directive('commentFormatter', function($compile, emoticons, config, FindAndReplace) {
     // emoticon image path
     var emoticonSrv = config.img_srv + '/emoticons/';
 
     // global url regex from https://gist.github.com/dperini/729294
-    var urlRegex = /(?:(?:https?|ftp):\/\/)?(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,}))\.?)(?::\d{2,5})?(?:[/?#]\S*)?/i;
+    var urlRegex = /(?:(?:https?|ftp):\/\/)?(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,}))\.?)(?::\d{2,5})?(?:[/?#]\S*)?/ig;
 
     // detects protocol to see if its missing
     var protocolRegex = /^[a-z]+\:\/\//i;
@@ -25,22 +25,51 @@ angular.module('prim').directive('commentFormatter', function($compile, emoticon
     var boldRegex = /(\*\*)(.*?)\1/ig;
 
     // regex for emoticons
-    var emoticonRegex = /:([\w+-]+):/g;
+    var emoticonRegex = /:([\w+-]+):/ig;
 
     // link embed
     var link = function(input) {
-        return angular.element('<link-embed/>').attr('url', input);
+        var tag = document.createElement("a");
+        tag.setAttribute("href", input);
+        tag.setAttribute("target", "_blank");
+        tag.textContent = input;
+        return tag;
     };
 
     // image embed
     var image = function(input) {
-        return angular.element('<image-embed/>').attr('url', input);
+        var tag = document.createElement("a");
+        tag.setAttribute("href", input);
+        tag.setAttribute("target", "_blank");
+        var image = document.createElement("img");
+        image.setAttribute("src", input);
+        image.className = "external_image";
+        tag.appendChild(image);
+        return tag;
     };
 
     // youtube embed
     var youtube = function(input) {
         var match = youtubeRegex.exec(input);
-        return angular.element('<youtube-embed/>').attr('url', match[3]);
+        var tag = document.createElement("div");
+        tag.className = "auto-resizable-iframe";
+        var inner = document.createElement("div");
+        tag.appendChild(inner);
+        var iframe = document.createElement("iframe");
+        iframe.setAttribute("src", "https://www.youtube.com/embed/" + match[3]);
+        iframe.setAttribute("frameborder", 0);
+        iframe.setAttribute("allowfullscreen", true);
+        inner.appendChild(iframe);
+        return tag;
+    };
+
+    // emoticon images
+    var emoticon = function(token) {
+        var tag = document.createElement("img");
+        tag.setAttribute("class", "emoticon");
+        tag.setAttribute("title", ":" + token.text + ":");
+        tag.setAttribute("src", emoticonSrv + token.image);
+        return tag;
     };
 
     // email embed
@@ -49,162 +78,82 @@ angular.module('prim').directive('commentFormatter', function($compile, emoticon
         return document.createTextNode(match[1] + ' at ' + match[2]);
     };
 
-    // appends html tags to text node
-    // http://stackoverflow.com/questions/16662393/insert-html-into-text-node-with-javascript
-    var matchText = function(node, regex, callback) {
-        var excludeElements = [
-            'script', 'style', 'iframe', 'canvas', 'a', 'link-embed', 'youtube-embed', 'image-embed'
-        ];
-        var child = node.firstChild;
-        while (child) {
-            switch (child.nodeType) {
-                case 1:
-                    if (excludeElements.indexOf(child.tagName.toLowerCase()) > -1) {
-                        break;
-                    }
-                    matchText(child, regex, callback);
-                    break;
-                case 3:
-                    var bk = 0;
-                    child.data.replace(regex, function replaceMatch(all) {
-                        var args = [].slice.call(arguments),
-                            offset = args[args.length - 2],
-                            newTextNode = child.splitText(offset + bk),
-                            tag;
-                        bk -= child.data.length + all.length;
-
-                        // create new text node
-                        newTextNode.data = newTextNode.data.substr(all.length);
-                        // get the element from the callback
-                        tag = callback.apply(window, [child].concat(args));
-                        if (!tag) {
-                            return;
-                        }
-                        // insert new element and text node
-                        child.parentNode.insertBefore(tag, newTextNode);
-                        // switch to new text node
-                        child = newTextNode;
-                    });
-                    break;
-            }
-            child = child.nextSibling;
-        }
-        return node;
-    };
-
     return {
         restrict: 'E',
         scope: {
             comment: '='
         },
-        template: '<p></p>',
         link: function(scope, element) {
-            // to hold match
-            var match;
-            // the raw comment text, formatted and trimmed
-            var raw = scope.comment.replace(/(\n){3,}/g, '\n\n').trim();
-            // to hold url
-            var url;
-            // to hold index
-            var i;
+            // the directive node
+            element = element[0];
+            // wrap the content in p
+            var node = document.createElement("p");
+            // set the node text to the trimmed comment
+            node.textContent = scope.comment.replace(/(\n){3,}/g, '\n\n').trim();
+            // append to directive
+            element.appendChild(node);
 
-            // this sets the element to inside the template p element
-            var comment = angular.element(element.children());
+            // bold text
+            FindAndReplace.parse(element, {
+                find: boldRegex,
+                wrap: 'strong',
+                replace: '$2'
+            });
 
-            // add a text node if it wasnt an embed
-            function addText(text) {
-                if (!text) {
-                    return;
+            // italic text
+            FindAndReplace.parse(element, {
+                find: italicRegex,
+                wrap: 'em',
+                replace: '$2'
+            });
+
+            // handle link embeds
+            FindAndReplace.parse(element, {
+                find: urlRegex,
+                replace: function(url) {
+                    if (!url) {
+                        return;
+                    }
+
+                    // an object is returned, we want the text
+                    url = url.text;
+
+                    // check for an email
+                    if (emailRegex.test(url)) {
+                        return email(url);
+                    }
+
+                    // add a protocol to the link if there isnt one
+                    if (!protocolRegex.test(url)) {
+                        url = 'http://' + url;
+                    }
+
+                    // embed image
+                    if (imageRegex.test(url)) {
+                        return image(url);
+                    }
+
+                    // embed youtube video
+                    if (youtubeRegex.test(url)) {
+                        return youtube(url);
+                    }
+
+                    return link(url);
                 }
+            });
 
-                // text node so theres no xss
-                var node = document.createElement("span");
-                node.textContent = text;
-
-                // bold text
-                node = matchText(node, boldRegex, function(node, input) {
-                    var match = boldRegex.exec(input);
-                    var span = document.createElement("strong");
-                    span.textContent = match[2];
-                    return span;
-                });
-
-                // italic text
-                node = matchText(node, italicRegex, function(node, input) {
-                    var match = italicRegex.exec(input);
-                    var span = document.createElement("em");
-                    span.textContent = match[2];
-                    return span;
-                });
-
-                // emoticons
-                node = matchText(node, emoticonRegex, function(node, input) {
-                    var match = emoticonRegex.exec(input);
+            // emoticons
+            FindAndReplace.parse(element, {
+                find: emoticonRegex,
+                replace: function(input) {
+                    var match = emoticonRegex.exec(input.text);
                     var token = emoticons.tokenMap[match[1]];
                     if (angular.isDefined(token)) {
-                        var tag = document.createElement("img");
-                        tag.setAttribute("class", "emoticon");
-                        tag.setAttribute("title", ":" + token.text + ":");
-                        tag.setAttribute("src", emoticonSrv + token.image);
-                        return tag;
+                        return emoticon(token);
                     }
-                    return document.createTextNode(input);
-                });
-
-                return comment.append(node);
-            }
-
-            // add an embed directive
-            function addEmbed(url) {
-                if (!url) {
-                    return;
+                    return input.text;
                 }
-
-                // check for an email
-                if (emailRegex.test(url)) {
-                    return comment.append(email(url));
-                }
-
-                // add a protocol to the link if there isnt one
-                if (!protocolRegex.test(url)) {
-                    url = 'http://' + url;
-                }
-
-                // embed image
-                if (imageRegex.test(url)) {
-                    return comment.append($compile(image(url))(scope));
-                }
-
-                // embed youtube video
-                if (youtubeRegex.test(url)) {
-                    return comment.append($compile(youtube(url))(scope));
-                }
-
-                // this is a plain old link
-                return comment.append($compile(link(url))(scope));
-
-            }
-
-            // loop through all matches for embeds
-            while ((match = raw.match(urlRegex))) {
-                // the found url
-                url = match[0];
-
-                // the index of the match
-                i = match.index;
-
-                // add any text up to the index to a text node
-                addText(raw.substr(0, i));
-
-                // add the embeds
-                addEmbed(url);
-
-                // remove the match
-                raw = raw.substring(i + match[0].length);
-            }
-
-            // add the final bit of text
-            addText(raw);
+            });
 
             return;
 

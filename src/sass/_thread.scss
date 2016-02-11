@@ -131,9 +131,9 @@
 }
 
 .thread_content {
+    display: inline-block;
     width: 100%;
     text-align: center;
-    display: table;
     padding: 0.8em;
 
     @media #{$screenSmall} {

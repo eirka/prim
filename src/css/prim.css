@@ -522,14 +522,11 @@ input[name="file"] {
   display: block; }
 
 p {
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  hyphens: auto;
   overflow: hidden;
   white-space: pre-line;
-  margin: 0; }
-  p a {
-    word-break: break-all; }
+  margin: 0;
+  word-wrap: break-word;
+  hyphens: auto; }
 
 /* button css */
 button {
@@ -1581,9 +1578,9 @@ textarea.form-control {
   opacity: 0.6; }
 
 .thread_content {
+  display: inline-block;
   width: 100%;
   text-align: center;
-  display: table;
   padding: 0.8em; }
   @media screen and (min-width: 50em) {
     .thread_content {

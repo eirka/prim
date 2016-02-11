@@ -33,14 +33,9 @@ input[name="file"] {
 }
 
 p {
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    hyphens: auto;
     overflow: hidden;
     white-space: pre-line;
     margin: 0;
-
-    & a {
-        word-break: break-all;
-    }
+    word-wrap: break-word;
+    hyphens: auto;
 }

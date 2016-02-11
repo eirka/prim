@@ -29,6 +29,7 @@ angular.module('prim').directive('commentFormatter', function($compile, emoticon
 
     // link embed
     var link = function(input) {
+        // a element
         var tag = document.createElement("a");
         tag.setAttribute("href", input);
         tag.setAttribute("target", "_blank");
@@ -38,9 +39,11 @@ angular.module('prim').directive('commentFormatter', function($compile, emoticon
 
     // image embed
     var image = function(input) {
+        // a element
         var tag = document.createElement("a");
         tag.setAttribute("href", input);
         tag.setAttribute("target", "_blank");
+        // interior img element
         var image = document.createElement("img");
         image.setAttribute("src", input);
         image.className = "external_image";
@@ -50,11 +53,14 @@ angular.module('prim').directive('commentFormatter', function($compile, emoticon
 
     // youtube embed
     var youtube = function(input) {
+        // container div with responsive class
         var match = youtubeRegex.exec(input);
         var tag = document.createElement("div");
         tag.className = "auto-resizable-iframe";
+        // inner div
         var inner = document.createElement("div");
         tag.appendChild(inner);
+        // youtube iframe
         var iframe = document.createElement("iframe");
         iframe.setAttribute("src", "https://www.youtube.com/embed/" + match[3]);
         iframe.setAttribute("frameborder", 0);
@@ -65,6 +71,7 @@ angular.module('prim').directive('commentFormatter', function($compile, emoticon
 
     // emoticon images
     var emoticon = function(token) {
+        // emoticon img 
         var tag = document.createElement("img");
         tag.setAttribute("class", "emoticon");
         tag.setAttribute("title", ":" + token.text + ":");

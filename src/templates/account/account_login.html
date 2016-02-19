@@ -1,10 +1,10 @@
 <div class="account">
     <div class="account_row">
         <div class="account_subcontainer left">
+            <div class="account_title">
+                Sign in
+            </div>
             <form role="form" name="loginform" ng-submit="login.logIn()" ng-controller="LoginCtrl as login">
-                <div class="form-group">
-                    <span class="account_title">Login</span>
-                </div>
                 <div class="form-group">
                     <input type="text" id="name" class="form-control" placeholder="Name" ng-required="true" ng-model="login.form.name">
                 </div>
@@ -12,15 +12,15 @@
                     <input type="password" id="password" class="form-control" placeholder="Password" ng-required="true" ng-model="login.form.password">
                 </div>
                 <div class="form-group">
-                    <button ng-disabled="loginform.$invalid" class="button button-primary button-block" type="submit" value="Submit">Login</button>
+                    <button ng-disabled="loginform.$invalid" class="button button-primary button-block" type="submit" value="Submit">Sign in</button>
                 </div>
             </form>
         </div>
         <div class="account_subcontainer right">
+            <div class="account_title">
+                Register
+            </div>
             <form role="form" name="registerform" ng-submit="register.newUser()" ng-controller="RegisterCtrl as register">
-                <div class="form-group">
-                    <span class="account_title">Register</span>
-                </div>
                 <div class="form-group">
                     <input type="text" id="name" ng-minlength="3" ng-maxlength="20" class="form-control" placeholder="Name" ng-required="true" ng-model="register.form.name">
                 </div>

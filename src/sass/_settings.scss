@@ -53,12 +53,14 @@
 .settings_subcontainer {
     width: 100%;
     margin: 1em auto;
+    border-radius: 6px;
+    overflow: hidden;
     text-align: center;
-    padding: 1em;
-    border-radius: 3px;
+    margin-bottom: 1em;
 
     & form {
         margin: auto;
+        padding: 1em;
 
         @media #{$screenSmall} {
             max-width: 30em;
@@ -68,7 +70,7 @@
     & .settings_title {
         @include boxTitle;
 
-        padding: 0;
+        padding: 0.5em;
     }
 
     & .settings_info {

@@ -1,8 +1,8 @@
 <div class="settings_subcontainer" ng-controller="AvatarFormCtrl as avatar">
+    <div class="settings_title">
+        Change Avatar
+    </div>
     <form role="form" name="avatarform" action="{{avatar.getFormAction('/post/user/avatar')}}" method="post" enctype="multipart/form-data">
-        <div class="form-group">
-            <span class="settings_title">Change Avatar</span>
-        </div>
         <input type="hidden" name="csrf_token" ng-value="account.csrf_token" />
         <input type="hidden" name="access_token" ng-value="avatar.getToken()" />
         <div class="form-group">

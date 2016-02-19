@@ -40,7 +40,7 @@
         & .user_name {
             font-size: 1.5em;
             padding: 0;
-            padding-left: 0.3em;
+            padding-left: 0.5em;
         }
 
         @media #{$screenSmall} {
@@ -71,14 +71,17 @@
 
         border-radius: 6px;
         overflow: hidden;
-        padding: 1em;
-        text-align: center;
         margin-bottom: 1em;
+        text-align: center;
 
         & .account_title {
             @include boxTitle;
 
-            padding: 0;
+            padding: 0.5em;
+        }
+
+        & form {
+            padding: 1em;
         }
 
         @media #{$screenSmall} {

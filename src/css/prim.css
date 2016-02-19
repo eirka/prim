@@ -1903,7 +1903,7 @@ textarea.form-control {
     .account_header .user_info .user_name {
       font-size: 1.5em;
       padding: 0;
-      padding-left: 0.3em; }
+      padding-left: 0.5em; }
     @media screen and (min-width: 50em) {
       .account_header .user_info {
         float: left;
@@ -1936,17 +1936,18 @@ textarea.form-control {
     box-shadow: 0 2px 3px #ccc;
     border-radius: 6px;
     overflow: hidden;
-    padding: 1em;
-    text-align: center;
-    margin-bottom: 1em; }
+    margin-bottom: 1em;
+    text-align: center; }
     .account_row .account_subcontainer .account_title {
       padding: 0.6em;
       font-size: 1.5em;
       text-align: center;
-      padding: 0; }
+      padding: 0.5em; }
       @media screen and (min-width: 50em) {
         .account_row .account_subcontainer .account_title {
           text-align: left; } }
+    .account_row .account_subcontainer form {
+      padding: 1em; }
     @media screen and (min-width: 50em) {
       .account_row .account_subcontainer {
         float: left; }
@@ -2126,11 +2127,13 @@ textarea.form-control {
 .settings_subcontainer {
   width: 100%;
   margin: 1em auto;
+  border-radius: 6px;
+  overflow: hidden;
   text-align: center;
-  padding: 1em;
-  border-radius: 3px; }
+  margin-bottom: 1em; }
   .settings_subcontainer form {
-    margin: auto; }
+    margin: auto;
+    padding: 1em; }
     @media screen and (min-width: 50em) {
       .settings_subcontainer form {
         max-width: 30em; } }
@@ -2138,7 +2141,7 @@ textarea.form-control {
     padding: 0.6em;
     font-size: 1.5em;
     text-align: center;
-    padding: 0; }
+    padding: 0.5em; }
     @media screen and (min-width: 50em) {
       .settings_subcontainer .settings_title {
         text-align: left; } }

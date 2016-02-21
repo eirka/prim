@@ -1,8 +1,19 @@
 // IndexCtrl is the controller for the index pages
-angular.module('prim').controller('IndexCtrl', function($location, $scope, $route, AuthService, data, hotkeys, config, Utils) {
+angular.module('prim').controller('IndexCtrl', function($location, $scope, $routeParams, $route, AuthService, data, hotkeys, config, Utils) {
 
     // using controllerAs
     var self = this;
+
+    // current page for pagination
+    self.currentPage = $routeParams.page || 1;
+    // watch for pagination changes and change route
+    $scope.$watch(function() {
+        return self.currentPage;
+    }, function(value, old) {
+        if (!angular.equals(value, old)) {
+            $location.path('/page/' + value);
+        }
+    });
 
     // set csrf token
     self.csrf_token = config.csrf_token;
@@ -16,7 +27,7 @@ angular.module('prim').controller('IndexCtrl', function($location, $scope, $rout
     // get avatar
     self.getAvatar = Utils.getAvatar;
 
-    // make thumbnail source 
+    // make thumbnail source
     self.getThumbSrc = Utils.getThumbSrc;
 
     // compare last active date

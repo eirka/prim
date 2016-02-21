@@ -20,7 +20,7 @@ var nano = require('gulp-cssnano');
 var rev = require('gulp-rev');
 var bump = require('gulp-bump');
 
-// dev flag 
+// dev flag
 var isDev = util.env.dev;
 
 gulp.task('default', function(callback) {
@@ -63,7 +63,7 @@ gulp.task('templates', function() {
 
 // build and minify ui-bootstrap
 gulp.task('ui-bootstrap', function() {
-    return gulp.src(['./ui-bootstrap.0.13.js'])
+    return gulp.src(['./ui-bootstrap.1.1.2.js'])
         .pipe(ngAnnotate())
         .pipe(gulp.dest('./build'));
 });

@@ -4,7 +4,18 @@ angular.module('prim').controller('FavoritesCtrl', function($scope, $routeParams
     // using controllerAs
     var self = this;
 
-    // make thumbnail source 
+    // current page for pagination
+    self.currentPage = $routeParams.page || 1;
+    // watch for pagination changes and change route
+    $scope.$watch(function() {
+        return self.currentPage;
+    }, function(value, old) {
+        if (!angular.equals(value, old)) {
+            $location.path('/favorites/' + value);
+        }
+    });
+
+    // make thumbnail source
     self.getThumbSrc = Utils.getThumbSrc;
 
     if (angular.isDefined(data)) {

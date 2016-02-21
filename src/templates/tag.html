@@ -14,7 +14,7 @@
             </div>
         </div>
         <div class="tagpage_nav">
-            <pagination all-link="true" boundary-links="true" rotate="true" direction-links="false" page-name="tag/{{tag.data.id}}" total-items="tag.pagination.totalItems" max-size="tag.pagination.maxSize" ng-model="tag.pagination.currentPage" items-per-page="tag.pagination.itemsPerPage" num-pages="tag.pagination.numPages">
+            <uib-pagination boundary-links="true" rotate="true" direction-links="false" ng-model="tag.currentPage" total-items="tag.pagination.totalItems" max-size="tag.pagination.maxSize" items-per-page="tag.pagination.itemsPerPage" num-pages="tag.pagination.numPages"></uib-pagination>
         </div>
         <div ng-if="tag.pagination.totalItems != 0" class="image_grid">
             <a ng-repeat="image in ::tag.data.images track by image.id" ng-href="image/{{image.id}}" href>
@@ -25,7 +25,7 @@
             <span>No tags <i class="fa fa-frown-o"></i></span>
         </div>
         <div class="tagpage_nav">
-            <pagination all-link="true" boundary-links="true" rotate="true" direction-links="false" page-name="tag/{{tag.data.id}}" total-items="tag.pagination.totalItems" max-size="tag.pagination.maxSize" ng-model="tag.pagination.currentPage" items-per-page="tag.pagination.itemsPerPage" num-pages="tag.pagination.numPages">
+            <uib-pagination boundary-links="true" rotate="true" direction-links="false" ng-model="tag.currentPage" total-items="tag.pagination.totalItems" max-size="tag.pagination.maxSize" items-per-page="tag.pagination.itemsPerPage" num-pages="tag.pagination.numPages"></uib-pagination>
         </div>
     </div>
 </div>

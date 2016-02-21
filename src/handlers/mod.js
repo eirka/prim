@@ -5,6 +5,16 @@ angular.module('prim').factory('ModHandlers', function($resource, config) {
         'statistics': $resource(config.api_srv + '/admin/statistics/:ib', {
             ib: config.ib_id
         }),
+        // board audit log
+        'boardlog': $resource(config.api_srv + '/admin/log/board/:ib/:page', {
+            ib: config.ib_id,
+            page: '@page'
+        }),
+        // mod audit log
+        'modlog': $resource(config.api_srv + '/admin/log/mod/:ib/:page', {
+            ib: config.ib_id,
+            page: '@page'
+        }),
         // delete a thread
         'deletethread': $resource(config.api_srv + '/admin/thread/:ib/:id', {
             ib: config.ib_id,
@@ -42,13 +52,13 @@ angular.module('prim').factory('ModHandlers', function($resource, config) {
             ib: config.ib_id
         }),
         // ban an ip
-        'banip': $resource(config.api_srv + '/admin/banip/:ib/:thread/:id', {
+        'banip': $resource(config.api_srv + '/admin/ban/ip/:ib/:thread/:id', {
             ib: config.ib_id,
             thread: '@thread',
             id: '@id'
         }),
         // ban an image file hash
-        'banfile': $resource(config.api_srv + '/admin/banfile/:ib/:thread/:id', {
+        'banfile': $resource(config.api_srv + '/admin/ban/file/:ib/:thread/:id', {
             ib: config.ib_id,
             thread: '@thread',
             id: '@id'

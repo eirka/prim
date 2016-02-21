@@ -4,7 +4,7 @@
             <span>Favorites</span>
         </div>
         <div class="favorites_nav">
-            <pagination boundary-links="true" rotate="true" direction-links="false" page-name="favorites" total-items="favorites.pagination.totalItems" max-size="favorites.pagination.maxSize" ng-model="favorites.pagination.currentPage" items-per-page="favorites.pagination.itemsPerPage" num-pages="favorites.pagination.numPages">
+            <uib-pagination boundary-links="true" rotate="true" direction-links="false" ng-model="favorites.currentPage" total-items="favorites.pagination.totalItems" max-size="favorites.pagination.maxSize" items-per-page="favorites.pagination.itemsPerPage" num-pages="favorites.pagination.numPages"></uib-pagination>
         </div>
         <div ng-if="favorites.pagination.totalItems != 0" class="image_grid">
             <a ng-repeat="image in ::favorites.data.images track by image.id" ng-href="image/{{image.id}}" href>
@@ -15,7 +15,7 @@
             <span>No favorites <i class="fa fa-frown-o"></i></span>
         </div>
         <div class="favorites_nav">
-            <pagination boundary-links="true" rotate="true" direction-links="false" page-name="favorites" total-items="favorites.pagination.totalItems" max-size="favorites.pagination.maxSize" ng-model="favorites.pagination.currentPage" items-per-page="favorites.pagination.itemsPerPage" num-pages="favorites.pagination.numPages">
+            <uib-pagination boundary-links="true" rotate="true" direction-links="false" ng-model="favorites.currentPage" total-items="favorites.pagination.totalItems" max-size="favorites.pagination.maxSize" items-per-page="favorites.pagination.itemsPerPage" num-pages="favorites.pagination.numPages"></uib-pagination>
         </div>
     </div>
 </div>

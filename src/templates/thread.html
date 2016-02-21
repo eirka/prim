@@ -4,7 +4,7 @@
             <ng-include src="'pages/forms/thread.html'"></ng-include>
         </div>
         <div class="postbox_pagination">
-            <pagination all-link="true" boundary-links="true" rotate="true" direction-links="false" page-name="thread/{{thread.data.id}}" total-items="thread.pagination.totalItems" max-size="thread.pagination.maxSize" ng-model="thread.pagination.currentPage" items-per-page="thread.pagination.itemsPerPage" num-pages="thread.pagination.numPages">
+            <uib-pagination boundary-links="true" rotate="true" direction-links="false" ng-model="thread.currentPage" total-items="thread.pagination.totalItems" max-size="thread.pagination.maxSize" items-per-page="thread.pagination.itemsPerPage" num-pages="thread.pagination.numPages"></uib-pagination>
         </div>
     </div>
 </div>
@@ -68,6 +68,6 @@
 </div>
 <div class="footer">
     <div class="footer_box">
-        <pagination all-link="true" boundary-links="true" rotate="true" direction-links="false" page-name="thread/{{thread.data.id}}" total-items="thread.pagination.totalItems" max-size="thread.pagination.maxSize" ng-model="thread.pagination.currentPage" items-per-page="thread.pagination.itemsPerPage" num-pages="thread.pagination.numPages">
+        <uib-pagination boundary-links="true" rotate="true" direction-links="false" ng-model="thread.currentPage" total-items="thread.pagination.totalItems" max-size="thread.pagination.maxSize" items-per-page="thread.pagination.itemsPerPage" num-pages="thread.pagination.numPages"></uib-pagination>
     </div>
 </div>

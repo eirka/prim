@@ -4,6 +4,17 @@ angular.module('prim').controller('ThreadCtrl', function($window, $location, $sc
     // using controllerAs
     var self = this;
 
+    // current page for pagination
+    self.currentPage = $routeParams.page || 1;
+    // watch for pagination changes and change route
+    $scope.$watch(function() {
+        return self.currentPage;
+    }, function(value, old) {
+        if (!angular.equals(value, old)) {
+            $location.path('/thread/' + $routeParams.id + '/' + value);
+        }
+    });
+
     // set csrf token
     self.csrf_token = config.csrf_token;
 
@@ -22,7 +33,7 @@ angular.module('prim').controller('ThreadCtrl', function($window, $location, $sc
     // get avatar
     self.getAvatar = Utils.getAvatar;
 
-    // make thumbnail source 
+    // make thumbnail source
     self.getThumbSrc = Utils.getThumbSrc;
 
     // compare last active date

@@ -10,6 +10,9 @@ angular.module('prim').controller('AdminCtrl', function(_) {
     self.panels = [{
         name: 'Statistics',
         template: 'pages/admin/statistics.html'
+    }, {
+        name: 'Board Log',
+        template: 'pages/admin/boardlog.html'
     }];
 
     // the default panel

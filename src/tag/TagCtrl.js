@@ -4,10 +4,21 @@ angular.module('prim').controller('TagCtrl', function($scope, $routeParams, $loc
     // using controllerAs
     var self = this;
 
+    // current page for pagination
+    self.currentPage = $routeParams.page || 1;
+    // watch for pagination changes and change route
+    $scope.$watch(function() {
+        return self.currentPage;
+    }, function(value, old) {
+        if (!angular.equals(value, old)) {
+            $location.path('/tag/' + $routeParams.id + '/' + value);
+        }
+    });
+
     // if mod controls should be shown or not
     self.showModControls = AuthService.showModControls;
 
-    // make thumbnail source 
+    // make thumbnail source
     self.getThumbSrc = Utils.getThumbSrc;
 
     if (angular.isDefined(data)) {

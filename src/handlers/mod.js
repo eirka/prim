@@ -41,5 +41,17 @@ angular.module('prim').factory('ModHandlers', function($resource, config) {
         'updatetag': $resource(config.api_srv + '/admin/tag/:ib', {
             ib: config.ib_id
         }),
+        // ban an ip
+        'banip': $resource(config.api_srv + '/admin/banip/:ib/:thread/:id', {
+            ib: config.ib_id,
+            thread: '@thread',
+            id: '@id'
+        }),
+        // ban an image file hash
+        'banfile': $resource(config.api_srv + '/admin/banfile/:ib/:thread/:id', {
+            ib: config.ib_id,
+            thread: '@thread',
+            id: '@id'
+        }),
     };
 });

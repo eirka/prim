@@ -11,6 +11,7 @@ angular.module('prim').factory('AuthService', function($rootScope, $route, toast
         id: 1,
         name: 'Anonymous',
         isAuthenticated: false,
+        avatar: null,
         ibdata: defaultIbData
     };
 
@@ -56,7 +57,7 @@ angular.module('prim').factory('AuthService', function($rootScope, $route, toast
         },
         // handles the creation of key and cache store and also queries whoami handler for fresh info
         setAuthState: function() {
-            // try and set the cached state first 
+            // try and set the cached state first
             AuthService.setCachedState();
 
             // get the jwt token

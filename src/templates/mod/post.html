@@ -1,0 +1,5 @@
+<div class="post_mod_buttons" ng-controller="PostModCtrl as postmod">
+    <a title="Ban IP" class="button button-danger button-small" ng-click="postmod.banIp(thread.data.id, post.num)" href>BAN IP</a>
+    <a ng-if="post.thumbnail" title="Ban File" class="button button-danger button-small" ng-click="postmod.banFile(thread.data.id, post.num)" href>BAN FILE</a>
+    <a title="Delete" class="button button-danger button-small" ng-click="postmod.deletePost(thread.data.id, post.num)" href>DELETE</a>
+</div>

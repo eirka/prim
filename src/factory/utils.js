@@ -3,6 +3,10 @@ angular.module('prim').factory('Utils', function($location, config) {
 
     // holds the quote text
     var commentQuote = "";
+    // holds the error code
+    var errorCode;
+    // to break image cache on avatars
+    var queryDate = new Date().getTime();
 
     // image source address
     var imgsrc = config.img_srv + '/src/';
@@ -11,13 +15,7 @@ angular.module('prim').factory('Utils', function($location, config) {
     // avatar source address
     var avatarsrc = config.img_srv + '/avatars/';
 
-    // holds the error code
-    var errorCode;
-
-    // to break image cache on avatars
-    var queryDate = new Date().getTime();
-
-    return {
+    var Utils = {
         // sets the quote
         setQuote: function(quote) {
             if (angular.isDefined(quote)) {
@@ -26,6 +24,10 @@ angular.module('prim').factory('Utils', function($location, config) {
         },
         // gets the quote
         getQuote: function() {
+            if (angular.isDefined(commentQuote)) {
+                return commentQuote;
+            }
+            Utils.clearQuote();
             return commentQuote;
         },
         clearQuote: function() {
@@ -90,4 +92,7 @@ angular.module('prim').factory('Utils', function($location, config) {
             }
         }
     };
+
+    return Utils;
+
 });

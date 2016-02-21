@@ -6,7 +6,7 @@ angular.module('prim').config(function($httpProvider, $locationProvider, jwtInte
 
     // we want all the credentials
     $httpProvider.defaults.withCredentials = true;
-    // async http requests 
+    // async http requests
     $httpProvider.useApplyAsync(true);
 
     // get the jwt token from storage if its there and add authentication header

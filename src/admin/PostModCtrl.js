@@ -19,4 +19,38 @@ angular.module('prim').controller('PostModCtrl', function($route, toaster, ModHa
         }
     };
 
+    // ban an IP
+    self.banIp = function(thread_id, post_id) {
+        // prompt user for ban reason
+        var reason = prompt("Please enter a reason for the ban");
+        if (reason) {
+            ModHandlers.banip.save({
+                thread: thread_id,
+                id: post_id,
+                reason: reason,
+            }, function(data) {
+                toaster.pop('success', data.success_message);
+            }, function(error) {
+                toaster.pop('error', error.data.error_message);
+            });
+        }
+    };
+
+    // ban an image file
+    self.banFile = function(thread_id, post_id) {
+        // prompt user for ban reason
+        var reason = prompt("Please enter a reason for the ban");
+        if (reason) {
+            ModHandlers.banfile.save({
+                thread: thread_id,
+                id: post_id,
+                reason: reason,
+            }, function(data) {
+                toaster.pop('success', data.success_message);
+            }, function(error) {
+                toaster.pop('error', error.data.error_message);
+            });
+        }
+    };
+
 });

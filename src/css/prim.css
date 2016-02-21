@@ -2194,6 +2194,16 @@ textarea.form-control {
         @media screen and (min-width: 50em) {
           .admin_container .board_stats .stats_info .info_box .label {
             font-size: 1.2em; } }
+.admin_container .admin_nav {
+  width: 100%;
+  padding: 0.5em;
+  text-align: center; }
+.admin_container .admin_log {
+  width: 100%; }
+  .admin_container .admin_log table {
+    width: 100%; }
+  .admin_container .admin_log table td, .admin_container .admin_log table th {
+    padding: 0.3em 0.5em; }
 
 .spinner {
   position: fixed;

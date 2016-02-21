@@ -1,5 +1,5 @@
 // BoardStatisticsCtrl generates a chart and shows the statistics for an imageboard
-angular.module('prim').controller('BoardLogCtrl', function($scope, hotkeys, ModHandlers, Utils) {
+angular.module('prim').controller('ModLogCtrl', function($scope, hotkeys, ModHandlers, Utils) {
 
     // using controllerAs
     var self = this;
@@ -28,15 +28,15 @@ angular.module('prim').controller('BoardLogCtrl', function($scope, hotkeys, ModH
         // update the page if needed
         self.currentPage = page;
         // Get the audit log json
-        ModHandlers.boardlog.get({
+        ModHandlers.modlog.get({
             page: page
         }, function(data) {
-            self.data = data.boardlog.items;
+            self.data = data.modlog.items;
             self.pagination = {
-                totalItems: data.boardlog.total,
-                currentPage: data.boardlog.current_page,
-                numPages: data.boardlog.pages,
-                itemsPerPage: data.boardlog.per_page,
+                totalItems: data.modlog.total,
+                currentPage: data.modlog.current_page,
+                numPages: data.modlog.pages,
+                itemsPerPage: data.modlog.per_page,
                 maxSize: 3
             };
         }, function(error) {

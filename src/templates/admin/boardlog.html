@@ -1,22 +1,28 @@
 <div class="admin_container" ng-controller="BoardLogCtrl as boardlog">
-    <uib-pagination boundary-links="true" rotate="true" direction-links="false" ng-model="boardlog.currentPage" total-items="boardlog.pagination.totalItems" max-size="boardlog.pagination.maxSize" items-per-page="boardlog.pagination.itemsPerPage" num-pages="boardlog.pagination.numPages"></uib-pagination>
-    <table ng-if="boardlog.data.length">
-        <thead>
-            <tr>
-                <th style="text-align:left;">User</th>
-                <th style="text-align:center;">Time</th>
-                <th style="text-align:center;">Action</th>
-                <th style="text-align:center;">Meta</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="entry in boardlog.data | orderBy:boardlog.sort.column:boardlog.sort.desc track by $index">
-                <td ng-bind="entry.user_name"></td>
-                <td ng-bind="entry.log_time | date:'short'"></td>
-                <td ng-bind="entry.log_action"></td>
-                <td ng-bind="entry.log_meta"></td>
-            </tr>
-        </tbody>
-    </table>
-    <uib-pagination boundary-links="true" rotate="true" direction-links="false" ng-model="boardlog.currentPage" total-items="boardlog.pagination.totalItems" max-size="boardlog.pagination.maxSize" items-per-page="boardlog.pagination.itemsPerPage" num-pages="boardlog.pagination.numPages"></uib-pagination>
+    <div class="admin_nav">
+        <uib-pagination boundary-links="true" rotate="true" direction-links="false" ng-model="boardlog.currentPage" total-items="boardlog.pagination.totalItems" max-size="boardlog.pagination.maxSize" items-per-page="boardlog.pagination.itemsPerPage" num-pages="boardlog.pagination.numPages"></uib-pagination>
+    </div>
+    <div class="admin_log">
+        <table ng-if="boardlog.data.length">
+            <thead>
+                <tr>
+                    <th style="text-align:left;">User</th>
+                    <th style="text-align:center;">Time</th>
+                    <th style="text-align:center;">Action</th>
+                    <th style="text-align:center;">Meta</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="entry in boardlog.data | orderBy:boardlog.sort.column:boardlog.sort.desc track by $index">
+                    <td style="text-align:left;" ng-class="boardlog.usergroupClass(entry.user_group)" ng-bind="entry.user_name"></td>
+                    <td style="text-align:center;" ng-bind="entry.log_time | date:'short'"></td>
+                    <td style="text-align:center;" ng-bind="entry.log_action"></td>
+                    <td style="text-align:center;" ng-bind="entry.log_meta"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="admin_nav">
+        <uib-pagination boundary-links="true" rotate="true" direction-links="false" ng-model="boardlog.currentPage" total-items="boardlog.pagination.totalItems" max-size="boardlog.pagination.maxSize" items-per-page="boardlog.pagination.itemsPerPage" num-pages="boardlog.pagination.numPages"></uib-pagination>
+    </div>
 </div>

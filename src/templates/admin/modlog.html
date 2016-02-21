@@ -1,0 +1,28 @@
+<div class="admin_container" ng-controller="ModLogCtrl as modlog">
+    <div class="admin_nav">
+        <uib-pagination boundary-links="true" rotate="true" direction-links="false" ng-model="modlog.currentPage" total-items="modlog.pagination.totalItems" max-size="modlog.pagination.maxSize" items-per-page="modlog.pagination.itemsPerPage" num-pages="modlog.pagination.numPages"></uib-pagination>
+    </div>
+    <div class="admin_log">
+        <table ng-if="modlog.data.length">
+            <thead>
+                <tr>
+                    <th style="text-align:left;">User</th>
+                    <th style="text-align:center;">Time</th>
+                    <th style="text-align:center;">Action</th>
+                    <th style="text-align:center;">Meta</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="entry in modlog.data | orderBy:modlog.sort.column:modlog.sort.desc track by $index">
+                    <td style="text-align:left;" ng-class="modlog.usergroupClass(entry.user_group)" ng-bind="entry.user_name"></td>
+                    <td style="text-align:center;" ng-bind="entry.log_time | date:'short'"></td>
+                    <td style="text-align:center;" ng-bind="entry.log_action"></td>
+                    <td style="text-align:center;" ng-bind="entry.log_meta"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="admin_nav">
+        <uib-pagination boundary-links="true" rotate="true" direction-links="false" ng-model="modlog.currentPage" total-items="modlog.pagination.totalItems" max-size="modlog.pagination.maxSize" items-per-page="modlog.pagination.itemsPerPage" num-pages="modlog.pagination.numPages"></uib-pagination>
+    </div>
+</div>

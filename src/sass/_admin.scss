@@ -61,4 +61,23 @@
             }
         }
     }
+
+    & .admin_nav {
+        width: 100%;
+        padding: 0.5em;
+        text-align: center;
+    }
+
+    & .admin_log {
+        width: 100%;
+
+        & table {
+            width: 100%;
+        }
+
+        & table td,
+        & table th {
+            padding: 0.3em 0.5em;
+        }
+    }
 }

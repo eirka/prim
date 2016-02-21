@@ -13,6 +13,9 @@ angular.module('prim').controller('AdminCtrl', function(_) {
     }, {
         name: 'Board Log',
         template: 'pages/admin/boardlog.html'
+    }, {
+        name: 'Mod Log',
+        template: 'pages/admin/modlog.html'
     }];
 
     // the default panel

@@ -1,6 +1,14 @@
 // ThreadCtrl is the controller for the thread pages
 angular.module('prim').controller('ThreadCtrl', function($window, $location, $scope, $routeParams, data, hotkeys, config, Utils, AuthService) {
 
+    // drawpad controls
+    $scope.drawpad = {
+        visible: false,
+        toggle: function() {
+            $scope.drawpad.visible = !$scope.drawpad.visible;
+        }
+    };
+
     // using controllerAs
     var self = this;
 

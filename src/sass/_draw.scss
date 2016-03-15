@@ -1,0 +1,162 @@
+@import "variables";
+@import "mixins";
+
+/* draw box css */
+
+.draw-pad {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    top: 5rem;
+    z-index: 200;
+    display: inline-block;
+    background: #eee;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid #ddd;
+    box-shadow: 0 1px 3px -2px #121212, inset 0 2px 5px 0 rgba(255, 255, 255, 0.3);
+
+    &.ng-enter,
+    &.ng-leave {
+        transition: all linear 0.2s;
+    }
+
+    &.ng-enter,
+    &.ng-leave.ng-leave-active {
+        opacity: 0;
+        top: -100px;
+    }
+
+    &.ng-leave,
+    &.ng-enter.ng-enter-active {
+        opacity: 1;
+        top: 50px;
+    }
+
+    & button {
+        border: 0;
+        margin: 0;
+        padding: 0;
+    }
+}
+
+.draw-title {
+    background: #CDDAFD;
+    text-align: left;
+    padding: 0.2rem;
+
+    & .close {
+        float: right;
+        padding: 0.1rem;
+    }
+
+    & span {
+        padding: 0.2rem 0.6rem;
+        font-family: monospace;
+        font-size: 0.8rem;
+        color: #333;
+    }
+}
+
+.draw-controls {
+    padding: 0.3rem;
+    text-align: center;
+
+    & button {
+        font-family: monospace;
+        height: 22px;
+        font-size: 0.8rem;
+        background: #ddd;
+        display: inline-block;
+        text-align: center;
+        vertical-align: middle;
+        cursor: pointer;
+        background-image: none;
+        white-space: nowrap;
+        padding: 0.2rem;
+        border-radius: 3px;
+        color: #666;
+        text-decoration: none;
+        box-shadow: 0 1px 3px -2px #121212, inset 0 2px 5px 0 rgba(255, 255, 255, 0.2);
+    }
+
+    & .color-control {
+        position: relative;
+        border: 1px solid #ccc;
+        cursor: pointer;
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        margin: 0 0.4rem;
+        vertical-align: middle;
+
+        & .color-palette {
+            background-color: #eee;
+            border: 1px solid #ccc;
+            border-radius: 2px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px -2px #121212, inset 0 2px 5px 0 rgba(255, 255, 255, 0.3);
+            display: inline-block;
+            margin-left: 5px;
+            position: absolute;
+            left: -10px;
+            top: 25px;
+            margin-left: 0;
+            z-index: 100;
+            width: 230px;
+            height: auto;
+            padding: 2px;
+
+            &.ng-enter,
+            &.ng-leave {
+                transition: all ease 0.2s;
+            }
+
+            &.ng-enter,
+            &.ng-leave.ng-leave-active {
+                opacity: 0;
+                top: 50px;
+            }
+
+            &.ng-leave,
+            &.ng-enter.ng-enter-active {
+                opacity: 1;
+                top: 100%;
+            }
+
+            & .color-bar {
+                height: 18px;
+
+                & .color-option {
+                    display: inline-block;
+                    width: 15px;
+                    height: 18px;
+                }
+
+                & .size-option {
+                    display: inline-block;
+                    width: 15px;
+                    height: 18px;
+                    margin-right: 5px;
+
+                    & span {
+                        display: block;
+                        margin: 0 auto;
+                        margin-top: 6px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.draw-canvas {
+    padding: 0.3rem;
+
+    & .canvas-element {
+        border: 1px solid #ddd;
+        display: block;
+        cursor: crosshair;
+        z-index: 20;
+    }
+}

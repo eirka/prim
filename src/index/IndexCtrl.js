@@ -1,6 +1,14 @@
 // IndexCtrl is the controller for the index pages
 angular.module('prim').controller('IndexCtrl', function($location, $scope, $routeParams, $route, AuthService, data, hotkeys, config, Utils) {
 
+    // drawpad controls
+    $scope.drawpad = {
+        visible: false,
+        toggle: function() {
+            $scope.drawpad.visible = !$scope.drawpad.visible;
+        }
+    };
+
     // using controllerAs
     var self = this;
 

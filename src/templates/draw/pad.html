@@ -1,0 +1,8 @@
+<div class="draw-pad" ng-if="draw.visible">
+    <div class="draw-title">
+        <span><em>LineWriter 95</em></span>
+        <a ng-click="draw.toggle()" class="fa fa-times close" hred></a>
+    </div>
+    <draw-controls ng-if="draw.showControls"></draw-controls>
+    <draw-canvas></draw-canvas>
+</div>

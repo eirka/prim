@@ -41,20 +41,28 @@ textarea.form-control {
 .form-group {
     & .file-input {
         display: inline-block;
-        width: 80%;
+        width: 100%;
 
         & input[name="file"] {
             font-size: small;
             display: inline-block;
             width: 180px;
         }
+
+        @media #{$screenSmall} {
+            width: 80%;
+        }
     }
 
     & .draw-button {
-        display: inline-block;
-        width: 20%;
-        text-align: right;
-        font-size: 0.8em;
+        display: none;
+
+        @media #{$screenSmall} {
+            display: inline-block;
+            width: 20%;
+            text-align: right;
+            font-size: 0.8em;
+        }
     }
 }
 

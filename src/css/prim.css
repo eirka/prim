@@ -2325,7 +2325,7 @@ textarea.form-control {
       top: 25px;
       margin-left: 0;
       z-index: 100;
-      width: 230px;
+      width: 210px;
       height: auto;
       padding: 2px; }
       .draw-controls .color-control .color-palette.ng-enter, .draw-controls .color-control .color-palette.ng-leave {

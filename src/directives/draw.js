@@ -55,6 +55,8 @@ angular.module('prim').directive('drawPad', function(drawConfig) {
             // the default canvas settings
             self.defaultCanvas = function() {
                 if (angular.isDefined(self.ctx)) {
+                    // make lines smooth
+                    self.ctx.lineJoin = self.ctx.lineCap = 'round';
                     // default fill color
                     self.ctx.fillStyle = drawConfig.canvasColor;
                     // default tool
@@ -154,12 +156,14 @@ angular.module('prim').directive('drawPalette', function() {
 
             // set the stroke color
             scope.setColor = function(color) {
+                controller.switchEraser();
                 controller.selected_color = color;
                 controller.ctx.strokeStyle = color;
             };
 
             // set the line width
             scope.setSize = function(size) {
+                controller.switchEraser();
                 controller.line_width = size;
                 controller.ctx.lineWidth = size;
             };
@@ -306,6 +310,20 @@ angular.module('prim').directive('drawCanvas', function($document, drawConfig) {
             var currentX;
             var currentY;
 
+            // shows the line being drawn realtime
+            function drawPath(lX, lY, cX, cY) {
+                if (drawing) {
+                    // begins new line
+                    controller.ctx.beginPath();
+                    // line from
+                    controller.ctx.moveTo(lX, lY);
+                    // to
+                    controller.ctx.lineTo(cX, cY);
+                    // draw it
+                    controller.ctx.stroke();
+                }
+            }
+
             // drawing start
             element.bind('mousedown  touchstart', function(event) {
                 if (angular.isDefined(event.offsetX)) {
@@ -321,20 +339,6 @@ angular.module('prim').directive('drawCanvas', function($document, drawConfig) {
 
                 drawing = true;
             });
-
-            // shows the line being drawn realtime
-            function drawPath(lX, lY, cX, cY) {
-                if (drawing) {
-                    // begins new line
-                    controller.ctx.beginPath();
-                    // line from
-                    controller.ctx.moveTo(lX, lY);
-                    // to
-                    controller.ctx.lineTo(cX, cY);
-                    // draw it
-                    controller.ctx.stroke();
-                }
-            }
 
             // drawing movement
             element.bind('mousemove touchmove', function(event) {

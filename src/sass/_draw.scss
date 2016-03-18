@@ -44,6 +44,7 @@
     background: #CDDAFD;
     text-align: left;
     padding: 0.2rem;
+    user-select: none;
 
     & .close {
         float: right;
@@ -61,6 +62,7 @@
 .draw-controls {
     padding: 0.3rem;
     text-align: center;
+    user-select: none;
 
     & button {
         font-family: monospace;
@@ -78,6 +80,11 @@
         color: #666;
         text-decoration: none;
         box-shadow: 0 1px 3px -2px #121212, inset 0 2px 5px 0 rgba(255, 255, 255, 0.2);
+
+        &.active {
+            background: #828282;
+            color: #eee;
+        }
     }
 
     & .color-control {
@@ -127,22 +134,20 @@
             & .color-bar {
                 height: 18px;
 
-                & .color-option {
+                & .color-option,
+                & .size-option {
                     display: inline-block;
                     width: 15px;
                     height: 18px;
                 }
 
                 & .size-option {
-                    display: inline-block;
-                    width: 15px;
-                    height: 18px;
-                    margin-right: 5px;
+                    text-align: center;
+                    margin-right: 3px;
 
                     & span {
-                        display: block;
-                        margin: 0 auto;
-                        margin-top: 6px;
+                        display: inline-block;
+                        margin-bottom: 5px;
                     }
                 }
             }

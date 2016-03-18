@@ -2274,7 +2274,8 @@ textarea.form-control {
 .draw-title {
   background: #CDDAFD;
   text-align: left;
-  padding: 0.2rem; }
+  padding: 0.2rem;
+  user-select: none; }
   .draw-title .close {
     float: right;
     padding: 0.1rem; }
@@ -2286,7 +2287,8 @@ textarea.form-control {
 
 .draw-controls {
   padding: 0.3rem;
-  text-align: center; }
+  text-align: center;
+  user-select: none; }
   .draw-controls button {
     font-family: monospace;
     height: 22px;
@@ -2303,6 +2305,9 @@ textarea.form-control {
     color: #666;
     text-decoration: none;
     box-shadow: 0 1px 3px -2px #121212, inset 0 2px 5px 0 rgba(255, 255, 255, 0.2); }
+    .draw-controls button.active {
+      background: #828282;
+      color: #eee; }
   .draw-controls .color-control {
     position: relative;
     border: 1px solid #ccc;
@@ -2338,19 +2343,16 @@ textarea.form-control {
         top: 100%; }
       .draw-controls .color-control .color-palette .color-bar {
         height: 18px; }
-        .draw-controls .color-control .color-palette .color-bar .color-option {
+        .draw-controls .color-control .color-palette .color-bar .color-option, .draw-controls .color-control .color-palette .color-bar .size-option {
           display: inline-block;
           width: 15px;
           height: 18px; }
         .draw-controls .color-control .color-palette .color-bar .size-option {
-          display: inline-block;
-          width: 15px;
-          height: 18px;
-          margin-right: 5px; }
+          text-align: center;
+          margin-right: 3px; }
           .draw-controls .color-control .color-palette .color-bar .size-option span {
-            display: block;
-            margin: 0 auto;
-            margin-top: 6px; }
+            display: inline-block;
+            margin-bottom: 5px; }
 
 .draw-canvas {
   padding: 0.3rem; }

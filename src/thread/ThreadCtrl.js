@@ -108,6 +108,13 @@ angular.module('prim').controller('ThreadCtrl', function($window, $location, $sc
                     $location.path('/thread/' + $routeParams.id + '/' + page);
                 }
             }
+        })
+        .add({
+            combo: 'd',
+            description: 'Toggle Drawpad',
+            callback: function() {
+                $scope.drawpad.toggle();
+            }
         });
 
 });

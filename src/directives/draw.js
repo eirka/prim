@@ -1,4 +1,5 @@
 angular.module('prim').constant('drawConfig', {
+    // options
     drawControls: true,
     width: 500,
     height: 500,
@@ -6,7 +7,11 @@ angular.module('prim').constant('drawConfig', {
     lineColor: "#000000",
     lineWidth: 1,
     undoLength: 30,
-    storageKey: "lineWriterCache"
+    storageKey: "lineWriterCache",
+
+    // tools definitions
+    TOOL_PEN: 1,
+    TOOL_ERASER: 2
 });
 
 angular.module('prim').directive('drawPad', function(drawConfig) {
@@ -28,9 +33,10 @@ angular.module('prim').directive('drawPad', function(drawConfig) {
             self.redo_list = [];
             self.undo_list = [];
 
+            // current selected tool
+            self.selected_tool = drawConfig.TOOL_PEN;
             // current selected color
             self.selected_color = drawConfig.lineColor;
-
             // selected line width
             self.line_width = drawConfig.lineWidth;
 
@@ -51,6 +57,8 @@ angular.module('prim').directive('drawPad', function(drawConfig) {
                 if (angular.isDefined(self.ctx)) {
                     // default fill color
                     self.ctx.fillStyle = drawConfig.canvasColor;
+                    // default tool
+                    self.selected_tool = drawConfig.TOOL_PEN;
                     // default stroke color
                     self.ctx.strokeStyle = drawConfig.lineColor;
                     // reset selected color
@@ -108,10 +116,12 @@ angular.module('prim').directive('drawPad', function(drawConfig) {
             // switch stroke color to background for eraser
             self.switchEraser = function(eraser) {
                 if (eraser) {
+                    self.selected_tool = drawConfig.TOOL_ERASER;
                     self.ctx.strokeStyle = drawConfig.canvasColor;
                     self.ctx.lineWidth = 30;
                     return;
                 }
+                self.selected_tool = drawConfig.TOOL_PEN;
                 self.ctx.strokeStyle = self.selected_color;
                 self.ctx.lineWidth = self.line_width;
             };
@@ -158,12 +168,17 @@ angular.module('prim').directive('drawPalette', function() {
     };
 });
 
-angular.module('prim').directive('drawControls', function(drawConfig) {
+angular.module('prim').directive('drawControls', function(drawConfig, hotkeys) {
     return {
         restrict: 'E',
         require: '^drawPad',
         templateUrl: "pages/draw/controls.html",
         link: function(scope, element, attrs, controller) {
+
+            // show what tool is active
+            scope.toolActive = function(tool) {
+                return angular.equals(tool, controller.selected_tool);
+            };
 
             // clear the canvas to default
             scope.reset = function() {
@@ -206,6 +221,44 @@ angular.module('prim').directive('drawControls', function(drawConfig) {
                 document.body.appendChild(link);
                 link.click();
             };
+
+            // keyboard controls
+            hotkeys.bindTo(scope)
+                .add({
+                    combo: 'p',
+                    description: 'Pencil',
+                    callback: function() {
+                        scope.pencil();
+                    }
+                })
+                .add({
+                    combo: 'e',
+                    description: 'Eraser',
+                    callback: function() {
+                        scope.eraser();
+                    }
+                })
+                .add({
+                    combo: 'z',
+                    description: 'Undo',
+                    callback: function() {
+                        scope.undo();
+                    }
+                })
+                .add({
+                    combo: 'y',
+                    description: 'Redo',
+                    callback: function() {
+                        scope.redo();
+                    }
+                })
+                .add({
+                    combo: 's',
+                    description: 'Save',
+                    callback: function() {
+                        scope.save();
+                    }
+                });
 
         }
     };
@@ -269,6 +322,7 @@ angular.module('prim').directive('drawCanvas', function($document, drawConfig) {
                 drawing = true;
             });
 
+            // shows the line being drawn realtime
             function drawPath(lX, lY, cX, cY) {
                 if (drawing) {
                     // begins new line

@@ -79,6 +79,13 @@ angular.module('prim').controller('IndexCtrl', function($location, $scope, $rout
                     $location.path('/page/' + page);
                 }
             }
+        })
+        .add({
+            combo: 'd',
+            description: 'Toggle Drawpad',
+            callback: function() {
+                $scope.drawpad.toggle();
+            }
         });
 
 });

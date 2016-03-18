@@ -1,7 +1,7 @@
 <div class="draw-controls">
     <draw-palette></draw-palette>
-    <button ng-click="pencil()">Draw</button>
-    <button ng-click="eraser()">Erase</button>
+    <button ng-class="{active: toolActive(1)}" ng-click="pencil()">Draw</button>
+    <button ng-class="{active: toolActive(2)}" ng-click="eraser()">Erase</button>
     <button ng-click="undo()">Undo</button>
     <button ng-click="redo()">Redo</button>
     <button ng-click="reset()">Clear</button>

@@ -55,8 +55,6 @@ angular.module('prim').directive('drawPad', function(drawConfig) {
             // the default canvas settings
             self.defaultCanvas = function() {
                 if (angular.isDefined(self.ctx)) {
-                    // make lines smooth
-                    self.ctx.lineJoin = self.ctx.lineCap = 'round';
                     // default fill color
                     self.ctx.fillStyle = drawConfig.canvasColor;
                     // default tool
@@ -303,103 +301,41 @@ angular.module('prim').directive('drawCanvas', function($document, drawConfig) {
             // variable that decides if something should be drawn on mousemove
             var drawing = false;
 
-            // the last coordinates before the current move
-            var lastX;
-            var lastY;
-            // the current coordinates
-            var currentX;
-            var currentY;
+            element.bind('mousedown', function(event) {
+                event.preventDefault();
+                event.stopPropagation();
 
-            // shows the line being drawn realtime
-            function drawPath(lX, lY, cX, cY) {
-                if (drawing) {
-                    // begins new line
-                    controller.ctx.beginPath();
-                    // line from
-                    controller.ctx.moveTo(lX, lY);
-                    // to
-                    controller.ctx.lineTo(cX, cY);
-                    // draw it
-                    controller.ctx.stroke();
-                }
-            }
-
-            // drawing start
-            element.bind('mousedown  touchstart', function(event) {
-                if (angular.isDefined(event.offsetX)) {
-                    lastX = event.offsetX;
-                    lastY = event.offsetY;
-                } else {
-                    lastX = event.layerX - event.currentTarget.offsetLeft;
-                    lastY = event.layerY - event.currentTarget.offsetTop;
-                }
+                drawing = true;
 
                 // save the current canvas for undo/redo
                 controller.saveState();
 
-                drawing = true;
+                controller.ctx.lineJoin = 'round';
+                controller.ctx.lineCap = 'round';
+                controller.ctx.beginPath();
+                controller.ctx.moveTo(event.offsetX, event.offsetY);
+
             });
 
-            // drawing movement
-            element.bind('mousemove touchmove', function(event) {
+            $document.on('mousemove', function(event) {
                 if (drawing) {
-                    // get current mouse position
-                    if (angular.isDefined(event.offsetX)) {
-                        currentX = event.offsetX;
-                        currentY = event.offsetY;
-                    } else {
-                        currentX = event.layerX - event.currentTarget.offsetLeft;
-                        currentY = event.layerY - event.currentTarget.offsetTop;
-                    }
-
-                    // draw the line
-                    drawPath(lastX, lastY, currentX, currentY);
-
-                    // set current coordinates to last one
-                    lastX = currentX;
-                    lastY = currentY;
+                    var canvasOffset = canvas.getBoundingClientRect();
+                    controller.ctx.lineTo(Math.floor(event.pageX - canvasOffset.left), Math.floor(event.pageY - canvasOffset.top));
+                    controller.ctx.stroke();
                 }
             });
 
-            // when the mouse enters the canvas again
-            element.bind('mouseover', function(event) {
-                if (drawing) {
-                    // get current mouse position
-                    if (angular.isDefined(event.offsetX)) {
-                        currentX = event.offsetX;
-                        currentY = event.offsetY;
-                    } else {
-                        currentX = event.layerX - event.currentTarget.offsetLeft;
-                        currentY = event.layerY - event.currentTarget.offsetTop;
-                    }
-
-                    // set current coordinates to last one
-                    lastX = currentX;
-                    lastY = currentY;
-                }
-            });
-
-            // drawing is over
-            element.bind('mouseup touchend', function() {
-                // stop drawing
+            $document.on('mouseup', function() {
                 if (drawing) {
                     drawing = false;
-
-                    // save the current state in localstorage cache
-                    localStorage.setItem(drawConfig.storageKey, canvas.toDataURL('image/png'));
-                }
-            });
-
-            // look for mouseup events on document
-            $document.on('mouseup touchend', function() {
-                if (drawing) {
-                    drawing = false;
+                    controller.ctx.closePath();
                 }
             });
 
             // remove watcher on destroy
             scope.$on('$destroy', function() {
-                $document.off('mouseup touchend');
+                $document.off('mousemove');
+                $document.off('mouseup');
             });
 
         }

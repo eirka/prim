@@ -1,5 +1,5 @@
 // AccountCtrl gets the users whoami
-angular.module('prim').controller('AccountCtrl', function($route, _, toaster, user_messages, AuthService, Utils, config) {
+angular.module('prim').controller('AccountCtrl', function($route, toaster, user_messages, AuthService, Utils, config) {
 
     // using controllerAs
     var self = this;
@@ -25,8 +25,11 @@ angular.module('prim').controller('AccountCtrl', function($route, _, toaster, us
     // panel switcher
     self.switchPanel = function(name) {
         if (angular.isDefined(name)) {
-            var panel = _.find(self.panels, ['name', name]);
-            self.panel = panel.template;
+            angular.forEach(self.panels, function(panel) {
+                if (angular.equals(panel.name, name)) {
+                    self.panel = panel.template;
+                }
+            });
         }
         return;
     };

@@ -1,7 +1,6 @@
 'use strict';
 
 // require for browserify
-window._ = require('lodash/collection');
 require('angular');
 require('angular-resource');
 require('angular-cookies');
@@ -32,6 +31,3 @@ angular.module('prim', [
     'angulartics.google.analytics',
     'chart.js'
 ]);
-
-// add lodash
-angular.module('prim').constant('_', window._);

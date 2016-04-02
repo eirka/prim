@@ -1,5 +1,5 @@
 // AdminCtrl is a stub admin panel controller
-angular.module('prim').controller('AdminCtrl', function(_) {
+angular.module('prim').controller('AdminCtrl', function() {
 
     // using controllerAs
     var self = this;
@@ -24,8 +24,11 @@ angular.module('prim').controller('AdminCtrl', function(_) {
     // panel switcher
     self.switchPanel = function(name) {
         if (angular.isDefined(name)) {
-            var panel = _.find(self.panels, ['name', name]);
-            self.panel = panel.template;
+            angular.forEach(self.panels, function(panel) {
+                if (angular.equals(panel.name, name)) {
+                    self.panel = panel.template;
+                }
+            });
         }
         return;
     };

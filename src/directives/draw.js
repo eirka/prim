@@ -329,6 +329,8 @@ angular.module('prim').directive('drawCanvas', function($document, drawConfig) {
                 if (drawing) {
                     drawing = false;
                     controller.ctx.closePath();
+                    // save the current state in localstorage cache
+                    localStorage.setItem(drawConfig.storageKey, canvas.toDataURL('image/png'));
                 }
             });
 

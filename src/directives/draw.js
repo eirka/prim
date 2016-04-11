@@ -8,6 +8,7 @@ angular.module('prim').constant('drawConfig', {
     lineWidth: 1,
     undoLength: 30,
     storageKey: "lineWriterCache",
+    imageMime: "image/png",
 
     // tools definitions
     TOOL_PEN: 1,
@@ -88,7 +89,7 @@ angular.module('prim').directive('drawPad', function(drawConfig) {
                 }
 
                 // push canvas to undo list or specified list
-                list.push(self.canvas.toDataURL('image/png'));
+                list.push(self.canvas.toDataURL(drawConfig.imageMime));
             };
 
             // restore a saved image state
@@ -218,7 +219,7 @@ angular.module('prim').directive('drawControls', function(drawConfig, hotkeys) {
                 var filename = new Date().getTime() + '.png';
                 // this basically creates a link and clicks it ;D
                 var link = document.createElement('a');
-                link.href = controller.canvas.toDataURL('image/png');
+                link.href = controller.canvas.toDataURL(drawConfig.imageMime);
                 link.download = filename;
                 document.body.appendChild(link);
                 link.click();
@@ -330,7 +331,7 @@ angular.module('prim').directive('drawCanvas', function($document, drawConfig) {
                     drawing = false;
                     controller.ctx.closePath();
                     // save the current state in localstorage cache
-                    localStorage.setItem(drawConfig.storageKey, canvas.toDataURL('image/png'));
+                    localStorage.setItem(drawConfig.storageKey, canvas.toDataURL(drawConfig.imageMime));
                 }
             });
 

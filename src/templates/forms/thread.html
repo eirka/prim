@@ -4,7 +4,7 @@
     <input ng-if="authState.isAuthenticated" type="hidden" name="access_token" ng-value="postform.getToken()" />
     <div class="form-group">
         <div class="form-control userinfo">
-            <span ng-bind="authState.name" ng-class="thread.usergroupClass(authState.ibdata.group)"></span>
+            <span ng-bind="authState.name" ng-class="thread.usergroupClass(ibData.group)"></span>
         </div>
     </div>
     <div class="form-group">

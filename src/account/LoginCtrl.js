@@ -1,5 +1,5 @@
 // LoginCtrl logs a user in and sets the auth state and jwt token
-angular.module('prim').controller('LoginCtrl', function($location, toaster, config, UserHandlers, AuthService) {
+angular.module('prim').controller('LoginCtrl', function($location, toaster, config, UserHandlers, AuthStorage, AuthSession) {
 
     // using controllerAs
     var self = this;
@@ -13,13 +13,13 @@ angular.module('prim').controller('LoginCtrl', function($location, toaster, conf
         }, function(data) {
             self.success = data;
             // get rid of any prior state
-            AuthService.destroySession();
+            AuthStorage.destroySession();
             // save token to storage
-            AuthService.saveToken(self.success.token);
+            AuthStorage.saveToken(self.success.token);
             // set the auth state from the token
-            AuthService.setAuthState();
+            AuthSession.setAuthState();
             toaster.pop('success', data.success_message);
-            // clear form 
+            // clear form
             self.form = {};
         }, function(error) {
             toaster.pop('error', error.data.error_message);

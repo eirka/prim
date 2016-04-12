@@ -1,5 +1,5 @@
 // TagCtrl is the controller for the tag pages
-angular.module('prim').controller('TagCtrl', function($scope, $routeParams, $location, data, hotkeys, Utils, AuthService) {
+angular.module('prim').controller('TagCtrl', function($scope, $routeParams, $location, data, hotkeys, Utils, AuthUtils) {
 
     // using controllerAs
     var self = this;
@@ -16,7 +16,7 @@ angular.module('prim').controller('TagCtrl', function($scope, $routeParams, $loc
     });
 
     // if mod controls should be shown or not
-    self.showModControls = AuthService.showModControls;
+    self.showModControls = AuthUtils.showModControls;
 
     // make thumbnail source
     self.getThumbSrc = Utils.getThumbSrc;

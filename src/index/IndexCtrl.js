@@ -1,5 +1,5 @@
 // IndexCtrl is the controller for the index pages
-angular.module('prim').controller('IndexCtrl', function($location, $scope, $routeParams, $route, AuthService, data, hotkeys, config, Utils) {
+angular.module('prim').controller('IndexCtrl', function($location, $scope, $routeParams, $route, AuthUtils, data, hotkeys, config, Utils) {
 
     // drawpad controls
     $scope.drawpad = {
@@ -39,7 +39,7 @@ angular.module('prim').controller('IndexCtrl', function($location, $scope, $rout
     self.getThumbSrc = Utils.getThumbSrc;
 
     // compare last active date
-    self.getLastActive = AuthService.getLastActive;
+    self.getLastActive = AuthUtils.getLastActive;
 
     if (angular.isDefined(data)) {
         self.data = data.index.items;

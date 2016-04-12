@@ -1,5 +1,5 @@
 // ThreadCtrl is the controller for the thread pages
-angular.module('prim').controller('ThreadCtrl', function($window, $location, $scope, $routeParams, data, hotkeys, config, Utils, AuthService) {
+angular.module('prim').controller('ThreadCtrl', function($window, $location, $scope, $routeParams, data, hotkeys, config, Utils, AuthUtils) {
 
     // drawpad controls
     $scope.drawpad = {
@@ -30,7 +30,7 @@ angular.module('prim').controller('ThreadCtrl', function($window, $location, $sc
     self.layout = 'list';
 
     // if mod controls should be shown or not
-    self.showModControls = AuthService.showModControls;
+    self.showModControls = AuthUtils.showModControls;
 
     // selects usergroup class
     self.usergroupClass = Utils.usergroupClass;
@@ -45,7 +45,7 @@ angular.module('prim').controller('ThreadCtrl', function($window, $location, $sc
     self.getThumbSrc = Utils.getThumbSrc;
 
     // compare last active date
-    self.getLastActive = AuthService.getLastActive;
+    self.getLastActive = AuthUtils.getLastActive;
 
     // add post num to comment box
     self.replyQuote = function(id) {

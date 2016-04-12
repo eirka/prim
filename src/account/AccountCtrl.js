@@ -1,5 +1,5 @@
 // AccountCtrl gets the users whoami
-angular.module('prim').controller('AccountCtrl', function($route, toaster, user_messages, AuthService, Utils, config) {
+angular.module('prim').controller('AccountCtrl', function($route, toaster, user_messages, AuthSession, Utils, config) {
 
     // using controllerAs
     var self = this;
@@ -8,7 +8,7 @@ angular.module('prim').controller('AccountCtrl', function($route, toaster, user_
     self.csrf_token = config.csrf_token;
 
     // log out
-    self.logOut = AuthService.logOut;
+    self.logOut = AuthSession.logOut;
 
     // the list of panels
     self.panels = [{
@@ -40,7 +40,7 @@ angular.module('prim').controller('AccountCtrl', function($route, toaster, user_
     };
 
     // get whoami
-    AuthService.queryWhoAmI().$promise.then(function(data) {
+    AuthSession.queryWhoAmI().$promise.then(function(data) {
 
         // set local whoami data
         self.whoami = {

@@ -1,12 +1,12 @@
 // ImageCtrl is the controller for the image page and does a lot of stuff
 // TODO: it needs to be broken apart, the tag functions need to have their own controller
-angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $location, $filter, data, Handlers, UserHandlers, ModHandlers, toaster, user_messages, hotkeys, Utils, AuthService, config) {
+angular.module('prim').controller('ImageCtrl', function($scope, $routeParams, $location, $filter, data, Handlers, UserHandlers, ModHandlers, toaster, user_messages, hotkeys, Utils, AuthUtils, config) {
 
     // using controllerAs
     var self = this;
 
     // if mod controls should be shown or not
-    self.showModControls = AuthService.showModControls;
+    self.showModControls = AuthUtils.showModControls;
 
     // generate image src link
     self.getImgSrc = Utils.getImgSrc;

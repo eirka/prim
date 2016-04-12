@@ -1,137 +1,121 @@
-// provides numerous functions for the auth system
-angular.module('prim').factory('AuthService', function($rootScope, $route, toaster, user_messages, GlobalStore, LocalStore, jwtHelper, UserHandlers, Utils) {
+// functions to help control the root scopes auth state
+angular.module('prim').factory('AuthState', function($rootScope) {
+    // default sessionless username
+    var defaultName = "Anonymous";
 
-    // holds default ib data
-    var defaultIbData = {
-        group: 1
-    };
-
-    // holds a default auth state
-    var defaultAuthState = {
-        id: 1,
-        name: 'Anonymous',
-        isAuthenticated: false,
-        avatar: null,
-        ibdata: defaultIbData
-    };
-
-    // user jwt token store key
-    var tokenstorename = 'token';
-    // user data cache store key
-    var cachestorename = 'cache';
-    // our ibdata store key
-    var ibstorename = 'data';
-
-    var AuthService = {
-        // show mod controls if user is mod or admin
-        showModControls: function() {
-            if ($rootScope.authState.isAuthenticated) {
-                switch ($rootScope.authState.ibdata.group) {
-                    case 3:
-                        return true;
-                    case 4:
-                        return true;
-                    default:
-                        return false;
-                }
-            }
-            return false;
+    var AuthState = {
+        // create a new authstate object
+        new: function(id, name, auth, avatar, last) {
+            return {
+                id: id,
+                name: name,
+                isAuthenticated: auth,
+                avatar: avatar,
+                lastactive: last
+            };
         },
+        // return the default settings
+        default: function() {
+            return AuthState.set(1, defaultName, false, null, new Date());
+        },
+        // set rootscope authstate with new parameters
+        set: function(id, name, auth, avatar, last) {
+            $rootScope.authState = AuthState.new(id, name, auth, avatar, last);
+        },
+        // get current authstate object
+        get: function() {
+            return $rootScope.authState;
+        },
+        // reset back to default
+        reset: function() {
+            $rootScope.authState = AuthState.default();
+        }
+    };
+
+    return AuthState;
+
+});
+
+// provides functions for setting the users auth session
+angular.module('prim').factory('AuthSession', function($route, toaster, user_messages, jwtHelper, AuthStorage, AuthState, BoardData, UserHandlers, Utils) {
+
+    var AuthSession = {
         // promise to the whoami handler
         queryWhoAmI: function() {
             return UserHandlers.whoami.get();
         },
         // set the state to the cached data if available
         setCachedState: function() {
-            // get the cached data if it exists
-            var cachedAuthState = AuthService.getUserCache();
-            var cachedIbState = AuthService.getIbData();
+            // get the cached user data
+            var cas = AuthStorage.getUserCache();
+            // get the cached ib data
+            var cib = BoardData.getIbData();
 
             // set our state to the cached version, or default if it isnt there
-            if (cachedAuthState && cachedIbState) {
-                $rootScope.authState = cachedAuthState;
-                $rootScope.authState.ibdata = cachedIbState;
+            if (cas && cib) {
+                AuthState.set(cas.id, cas.name, cas.isAuthenticated, cas.avatar, cas.lastactive);
+                BoardData.set(cib.group);
             } else {
-                $rootScope.authState = defaultAuthState;
+                AuthState.default();
+                BoardData.default();
             }
         },
         // handles the creation of key and cache store and also queries whoami handler for fresh info
         setAuthState: function() {
             // try and set the cached state first
-            AuthService.setCachedState();
+            AuthSession.setCachedState();
 
             // get the jwt token
-            var token = AuthService.getToken();
+            var token = AuthStorage.getToken();
 
             // get a refreshed whois if there is a token
             if (token) {
                 // query whoami for user data
-                AuthService.queryWhoAmI().$promise.then(function(data) {
+                AuthSession.queryWhoAmI().$promise.then(function(data) {
+                    var ss = data.user;
 
-                    // set the authstate to the whoami data
-                    $rootScope.authState = {
-                        id: data.user.id,
-                        name: data.user.name,
-                        isAuthenticated: true,
-                        avatar: Utils.getAvatar(data.user.id),
-                        lastactive: new Date(data.user.last_active)
-                    };
-
+                    // set auth state from whois information
+                    AuthState.set(ss.id, ss.name, true, Utils.getAvatar(ss.id), new Date(ss.last_active));
                     // cache user data
-                    AuthService.saveUserCache($rootScope.authState);
+                    AuthStorage.saveUserCache();
 
-                    // set our per ib data
-                    $rootScope.authState.ibdata = {
-                        group: data.user.group
-                    };
-
+                    // set ib data from whois
+                    BoardData.set(ss.group);
                     // cache ib data
-                    AuthService.saveIbData($rootScope.authState.ibdata);
+                    BoardData.saveIbData();
 
                     return;
-
                 }, function() {
                     // purge session if theres an error
-                    AuthService.destroySession();
+                    AuthStorage.destroySession();
                     return;
                 });
+            }
+        },
+        // log out the user
+        logOut: function() {
+            AuthStorage.destroySession();
+            $route.reload();
+            toaster.pop('success', user_messages.loggedOut);
+        }
+    };
 
-            }
-        },
-        // gets the users last active date
-        getLastActive: function(date) {
-            if (angular.isDefined(date)) {
-                date = new Date(date);
-                if (angular.isDate(date)) {
-                    return $rootScope.authState.lastactive < date;
-                }
-                return false;
-            }
-            return false;
-        },
-        // sets authstate to anon and removed all cached info
-        destroySession: function() {
-            localStorage.clear();
-            // explicitly remove jwt token or else it will be cached
-            GlobalStore.remove(tokenstorename);
-            // set the state back to default
-            $rootScope.authState = defaultAuthState;
-        },
+    return AuthSession;
+
+});
+
+// functions for handling the auth storage in users browser
+angular.module('prim').factory('AuthStorage', function(GlobalStore, jwtHelper, AuthState, BoardData) {
+
+    // user jwt token store key
+    var tokenstorename = 'token';
+    // user data cache store key
+    var cachestorename = 'cache';
+
+    var AuthStorage = {
         // saves the user cache
-        saveIbData: function(data) {
-            if (angular.isDefined(data)) {
-                LocalStore.set(ibstorename, data);
-            }
-        },
-        // gets the user cache
-        getIbData: function() {
-            return LocalStore.get(ibstorename);
-        },
-        // saves the user cache
-        saveUserCache: function(cache) {
-            if (angular.isDefined(cache)) {
-                GlobalStore.set(cachestorename, cache);
-            }
+        saveUserCache: function() {
+            GlobalStore.set(cachestorename, AuthState.get());
         },
         // gets the user cache
         getUserCache: function() {
@@ -147,24 +131,66 @@ angular.module('prim').factory('AuthService', function($rootScope, $route, toast
         getToken: function() {
             var token = GlobalStore.get(tokenstorename);
             if (token) {
-                // if the token is expired remove it
-                if (jwtHelper.isTokenExpired(token)) {
-                    // reset the auth state
-                    AuthService.destroySession();
-                    return null;
+                try {
+                    // check if token is expired
+                    if (!jwtHelper.isTokenExpired(token)) {
+                        return token;
+                    }
+                } catch (error) {
+                    // something is probably wrong with the token
+                    AuthStorage.destroySession();
                 }
-                return token;
             }
             return null;
         },
-        // log out the user
-        logOut: function() {
-            AuthService.destroySession();
-            $route.reload();
-            toaster.pop('success', user_messages.loggedOut);
+        // sets authstate to anon and removed all cached info
+        destroySession: function() {
+            // clear all localstorage. this also deletes drawpad sketches
+            localStorage.clear();
+            // explicitly remove jwt token or else it will be cached
+            GlobalStore.remove(tokenstorename);
+            // set the state back to default
+            AuthState.default();
+            // set board data back to default
+            BoardData.default();
         }
     };
 
-    return AuthService;
+    return AuthStorage;
+
+});
+
+// utility functions for auth state
+angular.module('prim').factory('AuthUtils', function($rootScope) {
+
+    var AuthUtils = {
+        // show mod controls if user is mod or admin
+        showModControls: function() {
+            if ($rootScope.authState.isAuthenticated) {
+                switch ($rootScope.ibData.group) {
+                    case 3:
+                        return true;
+                    case 4:
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+            return false;
+        },
+        // compares the given date to the users last active time
+        getLastActive: function(date) {
+            if (angular.isDefined(date)) {
+                date = new Date(date);
+                if (angular.isDate(date)) {
+                    return $rootScope.authState.lastactive < date;
+                }
+                return false;
+            }
+            return false;
+        }
+    };
+
+    return AuthUtils;
 
 });

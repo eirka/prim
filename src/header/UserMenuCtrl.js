@@ -1,5 +1,5 @@
 // UserMenuCtrl is the controller for the user menu
-angular.module('prim').controller('UserMenuCtrl', function($route, toaster, user_messages, AuthService, Utils) {
+angular.module('prim').controller('UserMenuCtrl', function($route, toaster, user_messages, AuthUtils, AuthSession, Utils) {
 
     // using controllerAs
     var self = this;
@@ -7,13 +7,13 @@ angular.module('prim').controller('UserMenuCtrl', function($route, toaster, user
     self.visible = false;
 
     // if mod controls should be shown or not
-    self.showModControls = AuthService.showModControls;
+    self.showModControls = AuthUtils.showModControls;
 
     // get usergroup class
     self.usergroupClass = Utils.usergroupClass;
 
     // log out
-    self.logOut = AuthService.logOut;
+    self.logOut = AuthSession.logOut;
 
     // toggle menu visibility
     self.toggle = function() {

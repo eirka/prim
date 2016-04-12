@@ -234,9 +234,9 @@ angular.module('prim').config(function($routeProvider) {
             controller: 'AdminCtrl',
             controllerAs: 'admin',
             resolve: {
-                auth: function($q, $location, AuthService) {
+                auth: function($q, $location, AuthUtils) {
                     var deferred = $q.defer();
-                    if (!AuthService.showModControls()) {
+                    if (!AuthUtils.showModControls()) {
                         deferred.reject();
                         $location.path('/account');
                     } else {

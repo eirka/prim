@@ -10,9 +10,9 @@ angular.module('prim').config(function($httpProvider, $locationProvider, jwtInte
     $httpProvider.useApplyAsync(true);
 
     // get the jwt token from storage if its there and add authentication header
-    jwtInterceptorProvider.tokenGetter = ['AuthService', function(AuthService) {
+    jwtInterceptorProvider.tokenGetter = ['AuthStorage', function(AuthStorage) {
         // get the token from storage
-        return AuthService.getToken();
+        return AuthStorage.getToken();
     }];
 
     // add jwtinterceptor to httpprovider interceptors
@@ -24,16 +24,23 @@ angular.module('prim').config(function($httpProvider, $locationProvider, jwtInte
 });
 
 // error interceptor
-angular.module('prim').factory('errorInterceptor', function($q, $location, toaster, Utils) {
+angular.module('prim').factory('errorInterceptor', function($q, $location, toaster, user_messages, Utils, AuthStorage) {
     return {
         'responseError': function(rejection) {
-            if (angular.equals(rejection.status, -1)) {
+            if (angular.equals(rejection.status, 401)) {
+                // the JWT session is bad so reset state and ask user to re-login
+                AuthStorage.destroySession();
+                $location.path('/account');
+                toaster.pop('info', user_messages.reAuth);
+                return;
+            } else if (angular.equals(rejection.status, 403)) {
+                // if forbidden forward to the login page
+                $location.path('/account');
+                toaster.pop('error', rejection.data.error_message);
+                return;
+            } else if (angular.equals(rejection.status, -1)) {
                 // if there is a weird error the app probably cant contact the api server
                 Utils.apiError(502);
-            } else if (angular.equals(rejection.status, 401) || angular.equals(rejection.status, 403)) {
-                // if unauthorized or forbidden forward to the login page
-                toaster.pop('error', rejection.data.error_message);
-                $location.path('/account');
             }
             return $q.reject(rejection);
         }

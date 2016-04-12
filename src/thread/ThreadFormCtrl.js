@@ -1,5 +1,5 @@
 // ThreadFormCtrl handles the page post form
-angular.module('prim').controller('ThreadFormCtrl', function($scope, AuthService, Utils) {
+angular.module('prim').controller('ThreadFormCtrl', function($scope, AuthStorage, Utils) {
 
     // using controllerAs
     var self = this;
@@ -8,6 +8,6 @@ angular.module('prim').controller('ThreadFormCtrl', function($scope, AuthService
     self.getFormAction = Utils.getFormAction;
 
     // get jwt token for form
-    self.getToken = AuthService.getToken;
+    self.getToken = AuthStorage.getToken;
 
 });

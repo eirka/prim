@@ -1,4 +1,4 @@
-angular.module('prim').run(function($window, config, $rootScope, AuthService) {
+angular.module('prim').run(function($window, config, $rootScope, AuthSession) {
     // Add page.title scope for dynamic page titles
     $rootScope.page = {
         setTitle: function(title) {
@@ -15,6 +15,6 @@ angular.module('prim').run(function($window, config, $rootScope, AuthService) {
     });
 
     // restore the initial auth state when first loaded
-    AuthService.setAuthState();
+    AuthSession.setAuthState();
 
 });

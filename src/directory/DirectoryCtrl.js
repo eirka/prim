@@ -1,5 +1,5 @@
 // DirectoryCtrl is the controller for the directory page
-angular.module('prim').controller('DirectoryCtrl', function($scope, $routeParams, $location, data, hotkeys, Handlers, AuthService) {
+angular.module('prim').controller('DirectoryCtrl', function($scope, $routeParams, $location, data, hotkeys, Handlers, AuthUtils) {
 
     // using controllerAs
     var self = this;
@@ -16,7 +16,7 @@ angular.module('prim').controller('DirectoryCtrl', function($scope, $routeParams
     });
 
     // compare last active date
-    self.getLastActive = AuthService.getLastActive;
+    self.getLastActive = AuthUtils.getLastActive;
 
     if (angular.isDefined(data)) {
         self.data = data.directory.items;

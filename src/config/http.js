@@ -24,25 +24,27 @@ angular.module('prim').config(function($httpProvider, $locationProvider, jwtInte
 });
 
 // error interceptor
-angular.module('prim').factory('errorInterceptor', function($q, $location, toaster, user_messages, Utils, AuthStorage) {
+angular.module('prim').factory('errorInterceptor', function($q, $injector, $location, toaster, user_messages, Utils, AuthStorage) {
     return {
-        'responseError': function(rejection) {
-            if (angular.equals(rejection.status, 401)) {
+        'responseError': function(response) {
+            if (angular.equals(response.status, 401)) {
+                // inject route for page reload
+                var $route = $injector.get('$route');
                 // the JWT session is bad so reset state and ask user to re-login
                 AuthStorage.destroySession();
-                $location.path('/account');
-                toaster.pop('info', user_messages.reAuth);
+                // reload the current page with the auth header removed
+                $route.reload();
                 return;
-            } else if (angular.equals(rejection.status, 403)) {
+            } else if (angular.equals(response.status, 403)) {
                 // if forbidden forward to the login page
                 $location.path('/account');
-                toaster.pop('error', rejection.data.error_message);
+                toaster.pop('error', response.data.error_message);
                 return;
-            } else if (angular.equals(rejection.status, -1)) {
+            } else if (angular.equals(response.status, -1)) {
                 // if there is a weird error the app probably cant contact the api server
                 Utils.apiError(502);
             }
-            return $q.reject(rejection);
+            return $q.reject(response);
         }
     };
 });

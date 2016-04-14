@@ -18,13 +18,18 @@ angular.module('prim').factory('Utils', function($location, config) {
     var Utils = {
         // sets the quote
         setQuote: function(quote) {
-            if (angular.isDefined(quote)) {
+            if (angular.isDefined(quote) && angular.isNumber(quote)) {
+                // make sure this exists first
+                if (!angular.isDefined(commentQuote) || !angular.isString(commentQuote)) {
+                    Utils.clearQuote();
+                }
+                // append the quote number
                 commentQuote += ">>" + quote + " ";
             }
         },
         // gets the quote
         getQuote: function() {
-            if (angular.isDefined(commentQuote)) {
+            if (angular.isDefined(commentQuote) && angular.isString(commentQuote)) {
                 return commentQuote;
             }
             Utils.clearQuote();
@@ -59,15 +64,14 @@ angular.module('prim').factory('Utils', function($location, config) {
         // generates the thumb url for an image with the img server from the config
         getThumbSrc: function(filename, source) {
             var src;
-
             if (angular.isDefined(filename) && angular.isDefined(source)) {
+                // if the file is a gif show the full file for wacky animations
                 if (!!source && angular.equals(source.split('.').pop(), "gif")) {
                     src = imgsrc + source;
                 } else {
                     src = thumbsrc + filename;
                 }
             }
-
             return src;
         },
         // generates the avatar src

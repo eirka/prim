@@ -133,7 +133,12 @@ angular.module('prim').factory('AuthStorage', function(GlobalStore, jwtHelper, A
             if (token) {
                 try {
                     // check if token is expired
-                    if (!jwtHelper.isTokenExpired(token)) {
+                    if (jwtHelper.isTokenExpired(token)) {
+                        // log out if its expired
+                        AuthStorage.destroySession();
+                        return null;
+                    } else {
+                        // use the token otherwise
                         return token;
                     }
                 } catch (error) {

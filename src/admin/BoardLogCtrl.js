@@ -9,6 +9,7 @@ angular.module('prim').controller('BoardLogCtrl', function($scope, hotkeys, ModH
 
     self.currentPage = 1;
 
+    // watcher for pagination navigation
     $scope.$watch(function() {
         return self.currentPage;
     }, function(value, old) {

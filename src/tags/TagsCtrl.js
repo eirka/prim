@@ -6,7 +6,7 @@ angular.module('prim').controller('TagsCtrl', function($scope, $routeParams, $lo
 
     // current page for pagination
     self.currentPage = $routeParams.page || 1;
-    // watch for pagination changes and change route
+    // watcher for pagination navigation
     $scope.$watch(function() {
         return self.currentPage;
     }, function(value, old) {

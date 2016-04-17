@@ -1,7 +1,7 @@
 // handlers for user functions
 angular.module('prim').factory('UserHandlers', function($resource, config) {
     return {
-        // whoami 
+        // whoami
         'whoami': $resource(config.api_srv + '/get/user/whoami/:ib', {
             ib: config.ib_id
         }),

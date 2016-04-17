@@ -69,7 +69,7 @@ angular.module('prim').factory('Handlers', function($resource, config) {
         'threadsearch': $resource(config.api_srv + '/get/threadsearch/:ib', {
             ib: config.ib_id
         }),
-        // add tag 
+        // add tag
         'addtag': $resource(config.api_srv + '/post/tag/add', {}),
         // new tag
         'newtag': $resource(config.api_srv + '/post/tag/new', {})

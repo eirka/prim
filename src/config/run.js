@@ -1,4 +1,4 @@
-angular.module('prim').run(function($window, config, $rootScope, AuthSession) {
+angular.module('prim').run(function(config, $rootScope, AuthSession) {
     // Add page.title scope for dynamic page titles
     $rootScope.page = {
         setTitle: function(title) {
@@ -8,8 +8,6 @@ angular.module('prim').run(function($window, config, $rootScope, AuthSession) {
 
     // Change page title on route change
     $rootScope.$on('$routeChangeSuccess', function(event, current) {
-        // scroll to the top on route change
-        $window.scrollTo(0, 0);
         // set title
         $rootScope.page.setTitle(current.$$route.title || '');
     });

@@ -1,6 +1,6 @@
 {
   "name": "prim",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "description": "AngularJS frontend for Pram API",
   "dependencies": {
     "angular": "^1.5.3",

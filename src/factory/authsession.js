@@ -1,41 +1,3 @@
-// functions to help control the root scopes auth state
-angular.module('prim').factory('AuthState', function($rootScope) {
-    // default sessionless username
-    var defaultName = "Anonymous";
-
-    var AuthState = {
-        // create a new authstate object
-        new: function(id, name, auth, avatar, last) {
-            return {
-                id: id,
-                name: name,
-                isAuthenticated: auth,
-                avatar: avatar,
-                lastactive: last
-            };
-        },
-        // return the default settings
-        default: function() {
-            return AuthState.set(1, defaultName, false, null, new Date());
-        },
-        // set rootscope authstate with new parameters
-        set: function(id, name, auth, avatar, last) {
-            $rootScope.authState = AuthState.new(id, name, auth, avatar, last);
-        },
-        // get current authstate object
-        get: function() {
-            return $rootScope.authState;
-        },
-        // reset back to default
-        reset: function() {
-            $rootScope.authState = AuthState.default();
-        }
-    };
-
-    return AuthState;
-
-});
-
 // provides functions for setting the users auth session
 angular.module('prim').factory('AuthSession', function($route, toaster, user_messages, jwtHelper, AuthStorage, AuthState, BoardData, UserHandlers, Utils) {
 
@@ -162,40 +124,5 @@ angular.module('prim').factory('AuthStorage', function(GlobalStore, jwtHelper, A
     };
 
     return AuthStorage;
-
-});
-
-// utility functions for auth state
-angular.module('prim').factory('AuthUtils', function($rootScope) {
-
-    var AuthUtils = {
-        // show mod controls if user is mod or admin
-        showModControls: function() {
-            if ($rootScope.authState.isAuthenticated) {
-                switch ($rootScope.ibData.group) {
-                    case 3:
-                        return true;
-                    case 4:
-                        return true;
-                    default:
-                        return false;
-                }
-            }
-            return false;
-        },
-        // compares the given date to the users last active time
-        getLastActive: function(date) {
-            if (angular.isDefined(date)) {
-                date = new Date(date);
-                if (angular.isDate(date)) {
-                    return $rootScope.authState.lastactive < date;
-                }
-                return false;
-            }
-            return false;
-        }
-    };
-
-    return AuthUtils;
 
 });

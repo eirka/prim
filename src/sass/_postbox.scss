@@ -4,41 +4,39 @@
 /* postbox css */
 
 .postbox {
-    margin-top: -2em;
+  margin-top: -2em;
 }
 
 .postbox_box {
-    @include clearfix;
+  @include clearfix;
 
-    @include shadow;
+  @include mediaWidths;
 
-    @include mediaWidths;
-
-    width: $boxWidthRel;
-    position: relative;
-    top: 2em;
-    margin: 0 auto;
-    border-radius: 6px;
-    min-height: 17em;
-    padding: 1em 1em 0 1em;
+  width: $boxWidthRel;
+  position: relative;
+  top: 2em;
+  margin: 0 auto;
+  border-radius: 6px;
+  min-height: 17em;
+  padding: 1em 1em 0 1em;
 }
 
 .postbox_form {
-    padding-bottom: 0.5em;
+  padding-bottom: 0.5em;
 
-    @media #{$screenSmall} {
-        float: right;
-        width: 18em;
-    }
+  @media #{$screenSmall} {
+    float: right;
+    width: 18em;
+  }
 
-    @media #{$screenMedium} {
-        width: 20em;
-    }
+  @media #{$screenMedium} {
+    width: 20em;
+  }
 }
 
 .postbox_pagination {
-    padding-bottom: 0.5em;
-    width: 100%;
-    text-align: center;
-    float: left;
+  padding-bottom: 0.5em;
+  width: 100%;
+  text-align: center;
+  float: left;
 }

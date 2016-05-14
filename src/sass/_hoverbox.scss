@@ -3,69 +3,67 @@
 /* hoverbox */
 
 .angular-hovercard {
-    display: inline-block;
-    margin-bottom: 5px;
+  display: inline-block;
+  margin-bottom: 5px;
 }
 
 .angular-hovercard-detail {
-    @include shadow;
+  position: absolute;
+  border-radius: 3px;
+  min-width: 20%;
+  max-width: 60%;
+  z-index: 99;
+  overflow: hidden;
 
-    position: absolute;
-    border-radius: 3px;
+  &.ng-enter,
+  &.ng-leave {
+    transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s;
+  }
+
+  &.ng-enter,
+  &.ng-leave.ng-leave-active {
+    opacity: 0;
+  }
+
+  &.ng-leave,
+  &.ng-enter.ng-enter-active {
+    opacity: 1;
+  }
+
+  @media #{$screenSmall} {
     min-width: 20%;
-    max-width: 60%;
-    z-index: 99;
-    overflow: hidden;
-
-    &.ng-enter,
-    &.ng-leave {
-        transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s;
-    }
-
-    &.ng-enter,
-    &.ng-leave.ng-leave-active {
-        opacity: 0;
-    }
-
-    &.ng-leave,
-    &.ng-enter.ng-enter-active {
-        opacity: 1;
-    }
-
-    @media #{$screenSmall} {
-        min-width: 20%;
-        max-width: 40%;
-    }
+    max-width: 40%;
+  }
 }
 
 .angular-hovercard-label {
-    padding: 1px;
-    position: relative;
+  padding: 1px;
+  position: relative;
 }
 
 .quotebox {
-    background: #eee;
-    text-align: center;
-    padding: 0.5em;
+  background: #eee;
+  text-align: center;
+  padding: 0.5em;
 
-    & .external_image,
-    & .quotebox_image {
-        max-width: 120px;
-        height: auto;
-    }
+  & .external_image,
+  & .quotebox_image {
+    max-width: 120px;
+    height: auto;
+  }
 
-    & .avatar {
-        margin-right: 0.3em;
-    }
+  & .avatar {
+    margin-right: 0.3em;
+  }
 }
 
 .quotebox_comment {
-    & p {
-        text-align: center;
-    }
+  & p {
+    text-align: center;
+  }
 }
 
 .quotebox_error {
-    text-align: center;
-    padding: 0.5em;
+  text-align: center;
+  padding: 0.5em;
 }

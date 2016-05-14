@@ -4,55 +4,53 @@
 /* trending css */
 
 .trending {
-    @include clearfix;
+  @include clearfix;
 
-    @include mediaWidths;
+  @include mediaWidths;
 
-    width: $boxWidthRel;
-    margin: 0 auto;
+  width: $boxWidthRel;
+  margin: 0 auto;
 }
 
 .trending_col {
-    @media #{$screenSmall} {
-        margin: 0 0.5em;
-        float: left;
-        width: calc(50% - 1em);
-    }
+  @media #{$screenSmall} {
+    margin: 0 0.5em;
+    float: left;
+    width: calc(50% - 1em);
+  }
 }
 
 .new_container,
 .popular_container,
 .favorited_container {
-    @include shadow;
+  border-radius: 6px;
+  overflow: hidden;
+  margin: 1em 0;
 
-    border-radius: 6px;
-    overflow: hidden;
-    margin: 1em 0;
+  & .image_grid {
+    background: transparent;
+    column-count: 3;
 
-    & .image_grid {
-        background: transparent;
-        column-count: 3;
-
-        @media #{$screenSmall} {
-            column-count: 2;
-        }
-
-        @media #{$screenMedium} {
-            column-count: 3;
-        }
-
-        @media #{$screenLarge} {
-            column-count: 3;
-        }
+    @media #{$screenSmall} {
+      column-count: 2;
     }
+
+    @media #{$screenMedium} {
+      column-count: 3;
+    }
+
+    @media #{$screenLarge} {
+      column-count: 3;
+    }
+  }
 }
 
 .new_title,
 .popular_title,
 .favorited_title {
-    @include boxTitle;
+  @include boxTitle;
 
-    & i {
-        margin-right: 0.3em;
-    }
+  & i {
+    margin-right: 0.3em;
+  }
 }

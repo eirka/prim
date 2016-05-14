@@ -3,53 +3,53 @@
 /* mixins */
 
 @mixin boxTitle {
-    padding: 0.6em;
-    font-size: 1.5em;
-    text-align: center;
+  padding: 0.6em;
+  font-size: 1.5em;
+  text-align: center;
 
-    @media #{$screenSmall} {
-        text-align: left;
-    }
+  @media #{$screenSmall} {
+    text-align: left;
+  }
 }
 
 @mixin mediaSmall {
-    @media #{$screenSmall} {
-        width: $boxWidthSmall;
-    }
+  @media #{$screenSmall} {
+    width: $boxWidthSmall;
+  }
 }
 
 @mixin mediaMedium {
-    @media #{$screenMedium} {
-        width: $boxWidthMedium;
-    }
+  @media #{$screenMedium} {
+    width: $boxWidthMedium;
+  }
 }
 
 @mixin mediaLarge {
-    @media #{$screenLarge} {
-        width: $boxWidthLarge;
-    }
+  @media #{$screenLarge} {
+    width: $boxWidthLarge;
+  }
 }
 
 @mixin mediaWidths {
-    @include mediaSmall;
+  @include mediaSmall;
 
-    @include mediaMedium;
+  @include mediaMedium;
 
-    @include mediaLarge;
+  @include mediaLarge;
 }
 
 @mixin clearfix {
-    &:before,
-    &:after {
-        content: " ";
-        display: table;
-    }
+  &:before,
+  &:after {
+    content: " ";
+    display: table;
+  }
 
-    &:after {
-        clear: both;
-    }
+  &:after {
+    clear: both;
+  }
 }
 
 @mixin shadow {
-    box-shadow: 0 2px 3px #ccc;
+  box-shadow: 0 2px 3px #ccc;
 }

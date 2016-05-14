@@ -4,30 +4,28 @@
 /* favorites css */
 
 .favorites {
-    padding: 1em 0;
+  padding: 1em 0;
 }
 
 .favorites_container {
-    @include mediaWidths;
+  @include mediaWidths;
 
-    @include shadow;
+  border-radius: 6px;
+  overflow: hidden;
+  width: $boxWidthRel;
+  margin: 0 auto;
 
-    border-radius: 6px;
-    overflow: hidden;
-    width: $boxWidthRel;
-    margin: 0 auto;
-
-    & .no_favorites {
-        padding: 1em;
-        text-align: center;
-    }
+  & .no_favorites {
+    padding: 1em;
+    text-align: center;
+  }
 }
 
 .favorites_title {
-    @include boxTitle;
+  @include boxTitle;
 }
 
 .favorites_nav {
-    text-align: center;
-    padding: 0.5em;
+  text-align: center;
+  padding: 0.5em;
 }

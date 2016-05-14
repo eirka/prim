@@ -1,33 +1,33 @@
 .spinner {
-    position: fixed;
-    bottom: 20px;
-    left: 5px;
-    width: 70px;
-    text-align: center;
+  position: fixed;
+  bottom: 20px;
+  left: 5px;
+  width: 70px;
+  text-align: center;
 }
 
 .spinner > div {
-    width: 16px;
-    height: 16px;
-    border-radius: 100%;
-    display: inline-block;
-    animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+  width: 16px;
+  height: 16px;
+  border-radius: 100%;
+  display: inline-block;
+  animation: sk-bouncedelay 1.4s infinite ease-in-out both;
 }
 
 .spinner .bounce1 {
-    animation-delay: -0.32s;
+  animation-delay: -0.32s;
 }
 
 .spinner .bounce2 {
-    animation-delay: -0.16s;
+  animation-delay: -0.16s;
 }
 
 @keyframes sk-bouncedelay {
-    0%, 80%, 100% {
-        transform: scale(0);
-    }
+  0%, 80%, 100% {
+    transform: scale(0);
+  }
 
-    40% {
-        transform: scale(1);
-    }
+  40% {
+    transform: scale(1);
+  }
 }

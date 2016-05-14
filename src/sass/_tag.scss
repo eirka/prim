@@ -4,57 +4,55 @@
 /* tag page css */
 
 .tagpage {
-    padding: 1em 0;
+  padding: 1em 0;
 }
 
 .tagpage_container {
-    @include mediaWidths;
+  @include mediaWidths;
 
-    @include shadow;
+  border-radius: 6px;
+  overflow: hidden;
+  width: $boxWidthRel;
+  margin: 0 auto;
 
-    border-radius: 6px;
-    overflow: hidden;
-    width: $boxWidthRel;
-    margin: 0 auto;
-
-    & .no_tags {
-        padding: 1em;
-        text-align: center;
-    }
+  & .no_tags {
+    padding: 1em;
+    text-align: center;
+  }
 }
 
 .tagpage_header {
-    @include clearfix;
+  @include clearfix;
 
-    padding: 1em;
+  padding: 1em;
 
-    & .tag_title {
-        @include boxTitle;
+  & .tag_title {
+    @include boxTitle;
 
-        padding: 0.5em;
+    padding: 0.5em;
 
-        @media #{$screenSmall} {
-            padding: 0.2em;
-            float: left;
-            max-width: 50%;
-        }
+    @media #{$screenSmall} {
+      padding: 0.2em;
+      float: left;
+      max-width: 50%;
+    }
+  }
+
+  & .tag_controls {
+    text-align: center;
+    display: block;
+
+    & .form-group {
+      margin: 0;
     }
 
-    & .tag_controls {
-        text-align: center;
-        display: block;
-
-        & .form-group {
-            margin: 0;
-        }
-
-        @media #{$screenSmall} {
-            float: right;
-        }
+    @media #{$screenSmall} {
+      float: right;
     }
+  }
 }
 
 .tagpage_nav {
-    text-align: center;
-    padding: 0.5em;
+  text-align: center;
+  padding: 0.5em;
 }

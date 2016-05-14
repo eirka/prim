@@ -4,80 +4,80 @@
 /* tag page css */
 
 .admin {
-    padding: 1em 0;
+  padding: 1em 0;
 }
 
 .admin_container {
-    & .board_stats {
-        width: 100%;
-        height: auto;
-        margin: auto;
-        border-radius: 6px;
-        overflow: hidden;
-        padding: 1em;
-        margin-bottom: 0.5em;
+  & .board_stats {
+    width: 100%;
+    height: auto;
+    margin: auto;
+    border-radius: 6px;
+    overflow: hidden;
+    padding: 1em;
+    margin-bottom: 0.5em;
 
-        @media #{$screenSmall} {
-            width: 80%;
-        }
-
-        & .stats_title {
-            margin-bottom: 0.5em;
-        }
-
-        & .stats_chart {
-            max-width: 40em;
-            height: auto;
-            margin: auto;
-        }
-
-        & .stats_info {
-            margin-top: 1em;
-            display: table;
-            width: 100%;
-            table-layout: fixed;
-
-            & .info_box {
-                display: table-cell;
-                text-align: center;
-
-                & .stat {
-                    font-size: 2em;
-                    font-weight: 600;
-
-                    @media #{$screenSmall} {
-                        font-size: 2.4em;
-                        font-weight: 600;
-                    }
-                }
-
-                & .label {
-                    font-size: 1em;
-
-                    @media #{$screenSmall} {
-                        font-size: 1.2em;
-                    }
-                }
-            }
-        }
+    @media #{$screenSmall} {
+      width: 80%;
     }
 
-    & .admin_nav {
-        width: 100%;
-        padding: 0.5em;
+    & .stats_title {
+      margin-bottom: 0.5em;
+    }
+
+    & .stats_chart {
+      max-width: 40em;
+      height: auto;
+      margin: auto;
+    }
+
+    & .stats_info {
+      margin-top: 1em;
+      display: table;
+      width: 100%;
+      table-layout: fixed;
+
+      & .info_box {
+        display: table-cell;
         text-align: center;
-    }
 
-    & .admin_log {
-        width: 100%;
+        & .stat {
+          font-size: 2em;
+          font-weight: 600;
 
-        & table {
-            width: 100%;
+          @media #{$screenSmall} {
+            font-size: 2.4em;
+            font-weight: 600;
+          }
         }
 
-        & table td,
-        & table th {
-            padding: 0.3em 0.5em;
+        & .label {
+          font-size: 1em;
+
+          @media #{$screenSmall} {
+            font-size: 1.2em;
+          }
         }
+      }
     }
+  }
+
+  & .admin_nav {
+    width: 100%;
+    padding: 0.5em;
+    text-align: center;
+  }
+
+  & .admin_log {
+    width: 100%;
+
+    & table {
+      width: 100%;
+    }
+
+    & table td,
+    & table th {
+      padding: 0.3em 0.5em;
+    }
+  }
 }

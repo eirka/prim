@@ -1032,7 +1032,6 @@ textarea.form-control {
   margin-bottom: 5px; }
 
 .angular-hovercard-detail {
-  box-shadow: 0 2px 3px #ccc;
   position: absolute;
   border-radius: 3px;
   min-width: 20%;
@@ -1302,7 +1301,6 @@ textarea.form-control {
   margin-top: -2em; }
 
 .postbox_box {
-  box-shadow: 0 2px 3px #ccc;
   width: 90%;
   position: relative;
   top: 2em;
@@ -1364,7 +1362,6 @@ textarea.form-control {
       width: 78em; } }
 
 .image_info {
-  box-shadow: 0 2px 3px #ccc;
   text-align: center;
   border-radius: 6px;
   overflow: hidden;
@@ -1412,7 +1409,6 @@ textarea.form-control {
       width: calc(20% - 6px); } }
 
 .image_box {
-  box-shadow: 0 2px 3px #ccc;
   border-radius: 6px;
   overflow: hidden;
   margin-bottom: 1em; }
@@ -1473,7 +1469,6 @@ textarea.form-control {
   padding-bottom: 5em; }
 
 .thread {
-  box-shadow: 0 2px 3px #ccc;
   border-radius: 6px;
   overflow: hidden;
   width: 90%;
@@ -1543,10 +1538,10 @@ textarea.form-control {
   display: inline-block;
   border-radius: 4px;
   padding: 0.4em 0.6em;
-  margin-right: 0.2em; }
+  margin-right: 0.4em; }
   .thread_info .col {
     display: inline-block;
-    padding: 0 0.1em; }
+    padding: 0 0.2em; }
 
 /* thread rows */
 .thread_row:before, .thread_row:after,
@@ -1581,14 +1576,13 @@ textarea.form-control {
 
 .thread_row_image img {
   max-width: 100%;
-  height: auto;
-  border: 1px solid #444; }
+  height: auto; }
 
 .index_row_image img {
   max-width: 120px;
-  height: auto;
-  border: 1px solid #444; }
+  height: auto; }
 
+.index_row_image img:hover,
 .thread_row_image img:hover {
   opacity: 0.6; }
 
@@ -1671,7 +1665,6 @@ textarea.form-control {
 
 .tags_list,
 .directory_list {
-  box-shadow: 0 2px 3px #ccc;
   border-radius: 6px;
   overflow: hidden; }
   .tags_list table,
@@ -1725,7 +1718,6 @@ textarea.form-control {
   padding: 1em 0; }
 
 .error_container {
-  box-shadow: 0 2px 3px #ccc;
   border-radius: 6px;
   overflow: hidden;
   width: 90%;
@@ -1759,7 +1751,6 @@ textarea.form-control {
   padding: 1em 0; }
 
 .tagpage_container {
-  box-shadow: 0 2px 3px #ccc;
   border-radius: 6px;
   overflow: hidden;
   width: 90%;
@@ -1838,7 +1829,6 @@ textarea.form-control {
 .new_container,
 .popular_container,
 .favorited_container {
-  box-shadow: 0 2px 3px #ccc;
   border-radius: 6px;
   overflow: hidden;
   margin: 1em 0; }
@@ -1884,7 +1874,6 @@ textarea.form-control {
   padding: 1em 0; }
 
 .account_header {
-  box-shadow: 0 2px 3px #ccc;
   border-radius: 6px;
   width: 90%;
   margin: 0 auto;
@@ -1948,7 +1937,6 @@ textarea.form-control {
     .account_row {
       width: 78em; } }
   .account_row .account_subcontainer {
-    box-shadow: 0 2px 3px #ccc;
     border-radius: 6px;
     overflow: hidden;
     margin-bottom: 1em;
@@ -1978,7 +1966,6 @@ textarea.form-control {
   padding: 1em 0; }
 
 .favorites_container {
-  box-shadow: 0 2px 3px #ccc;
   border-radius: 6px;
   overflow: hidden;
   width: 90%;
@@ -2092,7 +2079,6 @@ textarea.form-control {
 
 /* settings box css */
 .settings_container {
-  box-shadow: 0 2px 3px #ccc;
   width: 90%;
   margin: 0 auto;
   border-radius: 6px;

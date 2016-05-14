@@ -5,79 +5,77 @@
 
 .taglist,
 .directory {
-    padding: 1em 0;
+  padding: 1em 0;
 }
 
 .taglist_container,
 .directory_container {
-    @include clearfix;
+  @include clearfix;
 
-    @include mediaWidths;
+  @include mediaWidths;
 
-    width: $boxWidthRel;
-    margin: 0 auto;
+  width: $boxWidthRel;
+  margin: 0 auto;
 }
 
 .directory_container,
 .taglist_container {
-    & .no_threads {
-        padding: 1em;
-        text-align: center;
-    }
+  & .no_threads {
+    padding: 1em;
+    text-align: center;
+  }
 }
 
 .tags_list,
 .directory_list {
-    @include shadow;
+  border-radius: 6px;
+  overflow: hidden;
 
-    border-radius: 6px;
-    overflow: hidden;
+  & table {
+    width: 100%;
+  }
 
-    & table {
-        width: 100%;
-    }
-
-    & table td,
-    & table th {
-        padding: 0.3em 0.5em;
-    }
+  & table td,
+  & table th {
+    padding: 0.3em 0.5em;
+  }
 }
 
 .tags_list {
-    padding: 0;
+  padding: 0;
 }
 
 .lastpage {
-    border: 1px solid #333;
-    float: right;
+  border: 1px solid #333;
+  float: right;
 }
 
 .tags_bar,
 .directory_bar {
-    @include clearfix;
+  @include clearfix;
 
-    text-align: center;
-    padding: 0.5em;
+  text-align: center;
+  padding: 0.5em;
 
-    & .tags_input {
-        margin-bottom: 0.5em;
+  & .tags_input {
+    margin-bottom: 0.5em;
 
-        & .form-group {
-            margin-bottom: 0.2em;
-        }
-
-        @media #{$screenSmall} {
-            float: left;
-            max-width: 50%;
-        }
+    & .form-group {
+      margin-bottom: 0.2em;
     }
 
-    & .tags_search,
-    & .directory_search {
-        @media #{$screenSmall} {
-            margin: 0;
-            float: right;
-            max-width: 50%;
-        }
+    @media #{$screenSmall} {
+      float: left;
+      max-width: 50%;
     }
+  }
+
+  & .tags_search,
+  & .directory_search {
+    @media #{$screenSmall} {
+      margin: 0;
+      float: right;
+      max-width: 50%;
+    }
+  }
 }

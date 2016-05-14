@@ -4,82 +4,80 @@
 /* settings box css */
 
 .settings_container {
-    @include clearfix;
+  @include clearfix;
 
-    @include shadow;
+  @include mediaWidths;
 
-    @include mediaWidths;
+  width: $boxWidthRel;
+  margin: 0 auto;
+  border-radius: 6px;
+  overflow: hidden;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
 
-    width: $boxWidthRel;
-    margin: 0 auto;
-    border-radius: 6px;
-    overflow: hidden;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-
-    @media #{$screenSmall} {
-        flex-direction: row;
-    }
+  @media #{$screenSmall} {
+    flex-direction: row;
+  }
 }
 
 .settings_menu {
-    order: 1;
-    height: auto;
-    text-align: center;
-    padding: 1em;
+  order: 1;
+  height: auto;
+  text-align: center;
+  padding: 1em;
 
-    & .button-settings {
-        width: 100%;
-        margin-bottom: 0.3em;
-    }
+  & .button-settings {
+    width: 100%;
+    margin-bottom: 0.3em;
+  }
 
-    @media #{$screenSmall} {
-        padding: 0.5em;
-        width: 20%;
-    }
+  @media #{$screenSmall} {
+    padding: 0.5em;
+    width: 20%;
+  }
 }
 
 .settings_box {
-    order: 2;
-    height: auto;
-    padding: 0.5em;
+  order: 2;
+  height: auto;
+  padding: 0.5em;
 
-    @media #{$screenSmall} {
-        width: 80%;
-    }
+  @media #{$screenSmall} {
+    width: 80%;
+  }
 }
 
 .settings_subcontainer {
-    width: 100%;
-    margin: 1em auto;
-    border-radius: 6px;
-    overflow: hidden;
-    text-align: center;
-    margin-bottom: 1em;
+  width: 100%;
+  margin: 1em auto;
+  border-radius: 6px;
+  overflow: hidden;
+  text-align: center;
+  margin-bottom: 1em;
 
-    & form {
-        margin: auto;
-        padding: 1em;
-
-        @media #{$screenSmall} {
-            max-width: 30em;
-        }
-    }
-
-    & .settings_title {
-        @include boxTitle;
-
-        padding: 0.5em;
-    }
-
-    & .settings_info {
-        text-align: left;
-        font-size: 0.8em;
-        padding: 0.5em;
-    }
+  & form {
+    margin: auto;
+    padding: 1em;
 
     @media #{$screenSmall} {
-        width: 80%;
+      max-width: 30em;
     }
+  }
+
+  & .settings_title {
+    @include boxTitle;
+
+    padding: 0.5em;
+  }
+
+  & .settings_info {
+    text-align: left;
+    font-size: 0.8em;
+    padding: 0.5em;
+  }
+
+  @media #{$screenSmall} {
+    width: 80%;
+  }
 }

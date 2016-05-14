@@ -49,13 +49,13 @@ $indent-amount: 40px !default;
 @import "compass/typography/vertical_rhythm";
 
 @if not $strict-normalize or support-legacy-browser(ie, "7") {
-    /**
-     * Establish a vertical rhythm unit using $base-font-size, $base-line-height,
-     * and $rhythm-unit variables. Also, correct text resizing oddly in IE 6/7 when
-     * body `font-size` is set using `em` units.
-     */
+  /**
+   * Establish a vertical rhythm unit using $base-font-size, $base-line-height,
+   * and $rhythm-unit variables. Also, correct text resizing oddly in IE 6/7 when
+   * body `font-size` is set using `em` units.
+   */
 
-    @include establish-baseline;
+  @include establish-baseline;
 }
 
 /**
@@ -65,17 +65,17 @@ $indent-amount: 40px !default;
  */
 
 html {
-    font-family: $base-font-family;
+  font-family: $base-font-family;
 
-    /* 1 */
-    -ms-text-size-adjust: 100%;
+  /* 1 */
+  -ms-text-size-adjust: 100%;
 
-    /* 2 */
-    -webkit-text-size-adjust: 100%;
+  /* 2 */
+  -webkit-text-size-adjust: 100%;
 
-    /* 2 */
-    // Show a background image that can be used to debug your alignments.
-    // @include debug-vertical-alignment();
+  /* 2 */
+  // Show a background image that can be used to debug your alignments.
+  // @include debug-vertical-alignment();
 }
 
 /**
@@ -83,7 +83,7 @@ html {
  */
 
 body {
-    margin: 0;
+  margin: 0;
 }
 
 /* HTML5 display definitions
@@ -109,7 +109,7 @@ menu,
 nav,
 section,
 summary {
-    display: block;
+  display: block;
 }
 
 /**
@@ -121,19 +121,19 @@ audio,
 canvas,
 progress,
 video {
-    @if support-legacy-browser(ie, "9") {
-        display: inline-block;
+  @if support-legacy-browser(ie, "9") {
+    display: inline-block;
 
-        /* 1 */
-        @if support-legacy-browser(ie, "7") {
-            *display: inline;
-            *zoom: 1;
-        }
+    /* 1 */
+    @if support-legacy-browser(ie, "7") {
+      *display: inline;
+      *zoom: 1;
     }
+  }
 
-    vertical-align: baseline;
+  vertical-align: baseline;
 
-    /* 2 */
+  /* 2 */
 }
 
 /**
@@ -142,18 +142,18 @@ video {
  */
 
 audio:not([controls]) {
-    display: none;
-    height: 0;
+  display: none;
+  height: 0;
 }
 
 @if support-legacy-browser(ie, "10") {
-    /**
-     * Address `[hidden]` styling not present in IE 8/9/10.
-     */
+  /**
+   * Address `[hidden]` styling not present in IE 8/9/10.
+   */
 
-    [hidden] {
-        display: none;
-    }
+  [hidden] {
+    display: none;
+  }
 }
 
 /**
@@ -161,20 +161,20 @@ audio:not([controls]) {
  */
 
 template {
-    display: none;
+  display: none;
 }
 
 /* Links
    ========================================================================== */
 
 @if support-legacy-browser(ie, "10") {
-    /**
-     * Remove the gray background color from active links in IE 10.
-     */
+  /**
+   * Remove the gray background color from active links in IE 10.
+   */
 
-    a {
-        background-color: transparent;
-    }
+  a {
+    background-color: transparent;
+  }
 }
 
 /**
@@ -183,7 +183,7 @@ template {
 
 a:active,
 a:hover {
-    outline: 0;
+  outline: 0;
 }
 
 /* Text-level semantics
@@ -194,7 +194,7 @@ a:hover {
  */
 
 abbr[title] {
-    border-bottom: 1px dotted;
+  border-bottom: 1px dotted;
 }
 
 /**
@@ -203,17 +203,17 @@ abbr[title] {
 
 b,
 strong {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 @if not $strict-normalize or support-legacy-browser(ie, "7") {
-    /**
-     * Set 1 unit of vertical rhythm on the top and bottom margin.
-     */
+  /**
+   * Set 1 unit of vertical rhythm on the top and bottom margin.
+   */
 
-    blockquote {
-        @include output-rhythm(margin, rhythm(1) $indent-amount);
-    }
+  blockquote {
+    @include output-rhythm(margin, rhythm(1) $indent-amount);
+  }
 }
 
 /**
@@ -221,7 +221,7 @@ strong {
  */
 
 dfn {
-    font-style: italic;
+  font-style: italic;
 }
 
 /**
@@ -230,78 +230,78 @@ dfn {
  */
 
 h1 {
-    /* Set the font-size and line-height while keeping a proper vertical rhythm. */
+  /* Set the font-size and line-height while keeping a proper vertical rhythm. */
 
-    @include adjust-font-size-to($h1-font-size);
+  @include adjust-font-size-to($h1-font-size);
 
-    /* Set 1 unit of vertical rhythm on the top and bottom margins. */
-    @include leader(1, $h1-font-size);
+  /* Set 1 unit of vertical rhythm on the top and bottom margins. */
+  @include leader(1, $h1-font-size);
 
-    @include trailer(1, $h1-font-size);
+  @include trailer(1, $h1-font-size);
 }
 
 @if not $strict-normalize or support-legacy-browser(ie, "7") {
-    h2 {
-        @include adjust-font-size-to($h2-font-size);
+  h2 {
+    @include adjust-font-size-to($h2-font-size);
 
-        @include leader(1, $h2-font-size);
+    @include leader(1, $h2-font-size);
 
-        @include trailer(1, $h2-font-size);
-    }
+    @include trailer(1, $h2-font-size);
+  }
 
-    h3 {
-        @include adjust-font-size-to($h3-font-size);
+  h3 {
+    @include adjust-font-size-to($h3-font-size);
 
-        @include leader(1, $h3-font-size);
+    @include leader(1, $h3-font-size);
 
-        @include trailer(1, $h3-font-size);
-    }
+    @include trailer(1, $h3-font-size);
+  }
 
-    h4 {
-        @include adjust-font-size-to($h4-font-size);
+  h4 {
+    @include adjust-font-size-to($h4-font-size);
 
-        @include leader(1, $h4-font-size);
+    @include leader(1, $h4-font-size);
 
-        @include trailer(1, $h4-font-size);
-    }
+    @include trailer(1, $h4-font-size);
+  }
 
-    h5 {
-        @include adjust-font-size-to($h5-font-size);
+  h5 {
+    @include adjust-font-size-to($h5-font-size);
 
-        @include leader(1, $h5-font-size);
+    @include leader(1, $h5-font-size);
 
-        @include trailer(1, $h5-font-size);
-    }
+    @include trailer(1, $h5-font-size);
+  }
 
-    h6 {
-        @include adjust-font-size-to($h6-font-size);
+  h6 {
+    @include adjust-font-size-to($h6-font-size);
 
-        @include leader(1, $h6-font-size);
+    @include leader(1, $h6-font-size);
 
-        @include trailer(1, $h6-font-size);
-    }
+    @include trailer(1, $h6-font-size);
+  }
 }
 
 @if support-legacy-browser(ie, "9") {
-    /**
-     * Address styling not present in IE 8/9.
-     */
+  /**
+   * Address styling not present in IE 8/9.
+   */
 
-    mark {
-        background: #ff0;
-        color: #000;
-    }
+  mark {
+    background: #ff0;
+    color: #000;
+  }
 }
 
 @if not $strict-normalize or support-legacy-browser(ie, "7") {
-    /**
-     * Set 1 unit of vertical rhythm on the top and bottom margin.
-     */
+  /**
+   * Set 1 unit of vertical rhythm on the top and bottom margin.
+   */
 
-    p,
-    pre {
-        @include output-rhythm(margin, rhythm(1) 0);
-    }
+  p,
+  pre {
+    @include output-rhythm(margin, rhythm(1) 0);
+  }
 }
 
 /**
@@ -309,7 +309,7 @@ h1 {
  */
 
 small {
-    font-size: 80%;
+  font-size: 80%;
 }
 
 /**
@@ -318,92 +318,92 @@ small {
 
 sub,
 sup {
-    font-size: 75%;
-    line-height: 0;
-    position: relative;
-    vertical-align: baseline;
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
 }
 
 sup {
-    top: -0.5em;
+  top: -0.5em;
 }
 
 sub {
-    bottom: -0.25em;
+  bottom: -0.25em;
 }
 
 @if not $strict-normalize or support-legacy-browser(ie, "7") {
-    /* Lists
-       ========================================================================== */
+  /* Lists
+     ========================================================================== */
 
+  /**
+   * Address margins set differently in IE 6/7.
+   */
+
+  dl,
+  menu,
+  ol,
+  ul {
+    @include output-rhythm(margin, rhythm(1) 0);
+  }
+
+  @if not $strict-normalize {
     /**
-     * Address margins set differently in IE 6/7.
+     * Turn off margins on nested lists.
      */
 
-    dl,
-    menu,
     ol,
     ul {
-        @include output-rhythm(margin, rhythm(1) 0);
+      ol,
+      ul {
+        margin: 0;
+      }
     }
+  }
 
-    @if not $strict-normalize {
-        /**
-         * Turn off margins on nested lists.
-         */
+  dd {
+    margin: 0 0 0 $indent-amount;
+  }
 
-        ol,
-        ul {
-            ol,
-            ul {
-                margin: 0;
-            }
-        }
-    }
+  /**
+   * Address paddings set differently in IE 6/7.
+   */
 
-    dd {
-        margin: 0 0 0 $indent-amount;
-    }
-
-    /**
-     * Address paddings set differently in IE 6/7.
-     */
-
-    menu,
-    ol,
-    ul {
-        padding: 0 0 0 $indent-amount;
-    }
+  menu,
+  ol,
+  ul {
+    padding: 0 0 0 $indent-amount;
+  }
 }
 
 @if support-legacy-browser(ie, "7") {
-    /**
-     * Correct list images handled incorrectly in IE 7.
-     */
+  /**
+   * Correct list images handled incorrectly in IE 7.
+   */
 
-    nav ul,
-    nav ol {
-        list-style: none;
-        list-style-image: none;
-    }
+  nav ul,
+  nav ol {
+    list-style: none;
+    list-style-image: none;
+  }
 }
 
 /* Embedded content
    ========================================================================== */
 
 @if support-legacy-browser(ie, "10") {
-    /**
-     * Remove border when inside `a` element in IE 8/9/10.
-     */
+  /**
+   * Remove border when inside `a` element in IE 8/9/10.
+   */
 
-    img {
-        border: 0;
+  img {
+    border: 0;
 
-        @if support-legacy-browser(ie, "7") {
-            /* Improve image quality when scaled in IE 7. */
-            -ms-interpolation-mode: bicubic;
-        }
+    @if support-legacy-browser(ie, "7") {
+      /* Improve image quality when scaled in IE 7. */
+      -ms-interpolation-mode: bicubic;
     }
+  }
 }
 
 /**
@@ -411,20 +411,20 @@ sub {
  */
 
 svg:not(:root) {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 /* Grouping content
    ========================================================================== */
 
 @if support-legacy-browser(ie, "9") or support-legacy-browser(safari, "6") {
-    /**
-     * Address margin not present in IE 8/9 and Safari.
-     */
+  /**
+   * Address margin not present in IE 8/9 and Safari.
+   */
 
-    figure {
-        @include output-rhythm(margin, rhythm(1) $indent-amount);
-    }
+  figure {
+    @include output-rhythm(margin, rhythm(1) $indent-amount);
+  }
 }
 
 /**
@@ -432,9 +432,9 @@ svg:not(:root) {
  */
 
 hr {
-    @include box-sizing(content-box);
+  @include box-sizing(content-box);
 
-    height: 0;
+  height: 0;
 }
 
 /**
@@ -442,7 +442,7 @@ hr {
  */
 
 pre {
-    overflow: auto;
+  overflow: auto;
 }
 
 /**
@@ -453,13 +453,13 @@ code,
 kbd,
 pre,
 samp {
-    font-family: monospace, monospace;
+  font-family: monospace, monospace;
 
-    @if support-legacy-browser(ie, "6") {
-        _font-family: 'courier new', monospace;
-    }
+  @if support-legacy-browser(ie, "6") {
+    _font-family: 'courier new', monospace;
+  }
 
-    font-size: 1em;
+  font-size: 1em;
 }
 
 /* Forms
@@ -471,13 +471,13 @@ samp {
  */
 
 @if support-legacy-browser(ie, "7") {
-    /**
-     * Correct margin displayed oddly in IE 6/7.
-     */
+  /**
+   * Correct margin displayed oddly in IE 6/7.
+   */
 
-    form {
-        margin: 0;
-    }
+  form {
+    margin: 0;
+  }
 }
 
 /**
@@ -494,23 +494,23 @@ input,
 optgroup,
 select,
 textarea {
-    color: inherit;
+  color: inherit;
 
-    /* 1 */
-    font: inherit;
+  /* 1 */
+  font: inherit;
 
-    /* 2 */
-    margin: 0;
+  /* 2 */
+  margin: 0;
 
-    /* 3 */
-    @if support-legacy-browser(ie, "7") {
-        *font-family: $base-font-family;
+  /* 3 */
+  @if support-legacy-browser(ie, "7") {
+    *font-family: $base-font-family;
 
-        /* 4 */
-        *vertical-align: middle;
+    /* 4 */
+    *vertical-align: middle;
 
-        /* 5 */
-    }
+    /* 5 */
+  }
 }
 
 /**
@@ -518,7 +518,7 @@ textarea {
  */
 
 button {
-    overflow: visible;
+  overflow: visible;
 }
 
 /**
@@ -530,7 +530,7 @@ button {
 
 button,
 select {
-    text-transform: none;
+  text-transform: none;
 }
 
 /**
@@ -547,17 +547,17 @@ button,
 html input[type="button"],
 input[type="reset"],
 input[type="submit"] {
-    -webkit-appearance: button;
+  -webkit-appearance: button;
 
-    /* 2 */
-    cursor: pointer;
+  /* 2 */
+  cursor: pointer;
 
-    /* 3 */
-    @if support-legacy-browser(ie, "7") {
-        *overflow: visible;
+  /* 3 */
+  @if support-legacy-browser(ie, "7") {
+    *overflow: visible;
 
-        /* 4 */
-    }
+    /* 4 */
+  }
 }
 
 /**
@@ -566,7 +566,7 @@ input[type="submit"] {
 
 button[disabled],
 html input[disabled] {
-    cursor: default;
+  cursor: default;
 }
 
 /**
@@ -575,8 +575,8 @@ html input[disabled] {
 
 button::-moz-focus-inner,
 input::-moz-focus-inner {
-    border: 0;
-    padding: 0;
+  border: 0;
+  padding: 0;
 }
 
 /**
@@ -585,37 +585,37 @@ input::-moz-focus-inner {
  */
 
 input {
-    line-height: normal;
+  line-height: normal;
 }
 
 @if support-legacy-browser(ie, "10") {
-    /**
-     * It's recommended that you don't attempt to style these elements.
-     * Firefox's implementation doesn't respect box-sizing, padding, or width.
-     *
-     * 1. Address box sizing set to `content-box` in IE 8/9/10.
-     * 2. Remove excess padding in IE 8/9/10.
-     * 3. Remove excess padding in IE 7.
-     *    Known issue: excess padding remains in IE 6.
-     */
+  /**
+   * It's recommended that you don't attempt to style these elements.
+   * Firefox's implementation doesn't respect box-sizing, padding, or width.
+   *
+   * 1. Address box sizing set to `content-box` in IE 8/9/10.
+   * 2. Remove excess padding in IE 8/9/10.
+   * 3. Remove excess padding in IE 7.
+   *    Known issue: excess padding remains in IE 6.
+   */
 
-    input[type="checkbox"],
-    input[type="radio"] {
-        @include box-sizing(border-box);
+  input[type="checkbox"],
+  input[type="radio"] {
+    @include box-sizing(border-box);
 
-        /* 1 */
-        padding: 0;
+    /* 1 */
+    padding: 0;
 
-        /* 2 */
-        @if support-legacy-browser(ie, "7") {
-            *height: 13px;
+    /* 2 */
+    @if support-legacy-browser(ie, "7") {
+      *height: 13px;
 
-            /* 3 */
-            *width: 13px;
+      /* 3 */
+      *width: 13px;
 
-            /* 3 */
-        }
+      /* 3 */
     }
+  }
 }
 
 /**
@@ -626,7 +626,7 @@ input {
 
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
-    height: auto;
+  height: auto;
 }
 
 /**
@@ -636,23 +636,23 @@ input[type="number"]::-webkit-outer-spin-button {
  */
 
 input[type="search"] {
-    -webkit-appearance: textfield;
+  -webkit-appearance: textfield;
 
-    /* 1 */
-    @include box-sizing(content-box);
+  /* 1 */
+  @include box-sizing(content-box);
 
-    /* 2 */
+  /* 2 */
 
-    /**
-     * Remove inner padding and search cancel button in Safari and Chrome on OS X.
-     * Safari (but not Chrome) clips the cancel button when the search input has
-     * padding (and `textfield` appearance).
-     */
+  /**
+   * Remove inner padding and search cancel button in Safari and Chrome on OS X.
+   * Safari (but not Chrome) clips the cancel button when the search input has
+   * padding (and `textfield` appearance).
+   */
 
-    &::-webkit-search-cancel-button,
-    &::-webkit-search-decoration {
-        -webkit-appearance: none;
-    }
+  &::-webkit-search-cancel-button,
+  &::-webkit-search-decoration {
+    -webkit-appearance: none;
+  }
 }
 
 /**
@@ -660,18 +660,18 @@ input[type="search"] {
  */
 
 fieldset {
-    margin: 0 2px;
+  margin: 0 2px;
 
-    /* Apply borders and padding that keep the vertical rhythm. */
-    border-color: #c0c0c0;
+  /* Apply borders and padding that keep the vertical rhythm. */
+  border-color: #c0c0c0;
 
-    @include apply-side-rhythm-border(top, $width: 1px, $lines: 0.35);
+  @include apply-side-rhythm-border(top, $width: 1px, $lines: 0.35);
 
-    @include apply-side-rhythm-border(bottom, $width: 1px, $lines: 0.65);
+  @include apply-side-rhythm-border(bottom, $width: 1px, $lines: 0.65);
 
-    @include apply-side-rhythm-border(left, $width: 1px, $lines: 0.625);
+  @include apply-side-rhythm-border(left, $width: 1px, $lines: 0.625);
 
-    @include apply-side-rhythm-border(right, $width: 1px, $lines: 0.625);
+  @include apply-side-rhythm-border(right, $width: 1px, $lines: 0.625);
 }
 
 /**
@@ -681,20 +681,20 @@ fieldset {
  */
 
 legend {
-    @if support-legacy-browser(ie, "11") {
-        border: 0;
+  @if support-legacy-browser(ie, "11") {
+    border: 0;
 
-        /* 1 */
-    }
+    /* 1 */
+  }
 
-    padding: 0;
+  padding: 0;
 
-    /* 2 */
-    @if support-legacy-browser(ie, "7") {
-        *margin-left: -7px;
+  /* 2 */
+  @if support-legacy-browser(ie, "7") {
+    *margin-left: -7px;
 
-        /* 3 */
-    }
+    /* 3 */
+  }
 }
 
 /**
@@ -702,7 +702,7 @@ legend {
  */
 
 textarea {
-    overflow: auto;
+  overflow: auto;
 }
 
 /**
@@ -711,7 +711,7 @@ textarea {
  */
 
 optgroup {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 /* Tables
@@ -722,11 +722,11 @@ optgroup {
  */
 
 table {
-    border-collapse: collapse;
-    border-spacing: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
 td,
 th {
-    padding: 0;
+  padding: 0;
 }

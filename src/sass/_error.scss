@@ -4,31 +4,29 @@
 /* error css */
 
 .error {
-    padding: 1em 0;
+  padding: 1em 0;
 }
 
 .error_container {
-    @include clearfix;
+  @include clearfix;
 
-    @include mediaWidths;
+  @include mediaWidths;
 
-    @include shadow;
+  border-radius: 6px;
+  overflow: hidden;
+  width: $boxWidthRel;
+  margin: 0 auto;
+  padding: 1em;
 
-    border-radius: 6px;
-    overflow: hidden;
-    width: $boxWidthRel;
-    margin: 0 auto;
-    padding: 1em;
+  & .error_code {
+    text-align: center;
+    font-size: 3em;
+    padding: 0.5em;
+  }
 
-    & .error_code {
-        text-align: center;
-        font-size: 3em;
-        padding: 0.5em;
-    }
-
-    & .error_message {
-        text-align: center;
-        font-size: 1.3em;
-        padding: 0.5em;
-    }
+  & .error_message {
+    text-align: center;
+    font-size: 1.3em;
+    padding: 0.5em;
+  }
 }

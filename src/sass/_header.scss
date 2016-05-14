@@ -4,214 +4,214 @@
 /* header css */
 
 .header_bar {
-    @include clearfix;
+  @include clearfix;
 
-    @include mediaWidths;
+  @include mediaWidths;
 
-    width: $boxWidthRel;
-    margin: 0 auto;
-    padding: 0.5em 0;
+  width: $boxWidthRel;
+  margin: 0 auto;
+  padding: 0.5em 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  & .left {
+    width: 100%;
     display: flex;
+    flex-direction: row;
     align-items: center;
-    flex-direction: column;
+    order: 2;
+  }
+
+  & .right {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    order: 1;
+  }
+
+  @media #{$screenSmall} {
+    flex-direction: row;
 
     & .left {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        order: 2;
+      order: 1;
+      width: auto;
     }
 
     & .right {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        order: 1;
+      order: 2;
+      width: auto;
+      margin-left: auto;
     }
-
-    @media #{$screenSmall} {
-        flex-direction: row;
-
-        & .left {
-            order: 1;
-            width: auto;
-        }
-
-        & .right {
-            order: 2;
-            width: auto;
-            margin-left: auto;
-        }
-    }
+  }
 }
 
 /* nav items */
 
 .nav_items {
-    order: 2;
-    margin-left: auto;
+  order: 2;
+  margin-left: auto;
 
-    & ul {
-        position: relative;
-        display: inline-block;
-        list-style: none;
-        padding: 0;
-        margin: 0;
+  & ul {
+    position: relative;
+    display: inline-block;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 
-        & li {
-            list-style-type: none;
-            display: inline-block;
-            margin-right: 0.2em;
+    & li {
+      list-style-type: none;
+      display: inline-block;
+      margin-right: 0.2em;
 
-            & a {
-                list-style-type: none;
-                display: block;
-                border-radius: 3px;
-                font-size: 1em;
-                padding: 0.5em;
-            }
-        }
+      & a {
+        list-style-type: none;
+        display: block;
+        border-radius: 3px;
+        font-size: 1em;
+        padding: 0.5em;
+      }
     }
+  }
 }
 
 /* nav menu */
 
 .nav_menu {
-    order: 1;
+  order: 1;
 
-    & ul {
-        position: relative;
-        display: inline-block;
-        list-style: none;
-        padding: 0;
-        margin: 0;
+  & ul {
+    position: relative;
+    display: inline-block;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 
-        & li {
-            list-style-type: none;
-            display: inline-block;
-            border-radius: 3px;
+    & li {
+      list-style-type: none;
+      display: inline-block;
+      border-radius: 3px;
 
-            & a {
-                display: block;
-                font-size: 1em;
-                padding: 0.5em;
-            }
-        }
+      & a {
+        display: block;
+        font-size: 1em;
+        padding: 0.5em;
+      }
     }
+  }
 }
 
 /* user menu */
 
 .user_menu {
-    order: 1;
-    margin-right: auto;
+  order: 1;
+  margin-right: auto;
 
-    @media #{$screenSmall} {
-        margin-right: 1em;
+  @media #{$screenSmall} {
+    margin-right: 1em;
+  }
+
+  & ul {
+    position: relative;
+    display: inline-block;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    & li {
+      list-style-type: none;
+      display: inline-block;
     }
 
     & ul {
-        position: relative;
-        display: inline-block;
-        list-style: none;
-        padding: 0;
-        margin: 0;
-
-        & li {
-            list-style-type: none;
-            display: inline-block;
-        }
-
-        & ul {
-            @media #{$screenSmall} {
-                left: auto;
-                right: -50%;
-            }
-        }
+      @media #{$screenSmall} {
+        left: auto;
+        right: -50%;
+      }
     }
+  }
 }
 
 /* popup */
 
 .nav_menu,
 .user_menu {
+  & ul {
     & ul {
-        & ul {
-            text-align: left;
-            border-radius: 3px;
-            overflow: hidden;
-            padding: 0;
-            position: absolute;
-            top: 100%;
-            display: block;
-            z-index: 900;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+      text-align: left;
+      border-radius: 3px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      top: 100%;
+      display: block;
+      z-index: 900;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
 
-            &.ng-enter,
-            &.ng-leave {
-                transition: all ease 0.2s;
-            }
+      &.ng-enter,
+      &.ng-leave {
+        transition: all ease 0.2s;
+      }
 
-            &.ng-enter,
-            &.ng-leave.ng-leave-active {
-                opacity: 0;
-                top: 50px;
-            }
+      &.ng-enter,
+      &.ng-leave.ng-leave-active {
+        opacity: 0;
+        top: 50px;
+      }
 
-            &.ng-leave,
-            &.ng-enter.ng-enter-active {
-                opacity: 1;
-                top: 100%;
-            }
+      &.ng-leave,
+      &.ng-enter.ng-enter-active {
+        opacity: 1;
+        top: 100%;
+      }
 
-            & li {
-                list-style-type: none;
-                display: list-item;
+      & li {
+        list-style-type: none;
+        display: list-item;
 
-                & i {
-                    display: inline;
-                    margin-right: 0.5em;
-                    font-size: 0.9em;
-                }
-
-                & a {
-                    display: block;
-                    padding: 0.3em 1.5em;
-                    font-size: 1.1em;
-                }
-            }
-
-            & .username {
-                width: 100%;
-                text-align: center;
-                padding: 0.3em 0;
-                cursor: pointer;
-            }
-
-            & .divider {
-                padding-top: 1px;
-                margin: 5px 1px 6px;
-                border-bottom: 1px solid #DADADA;
-            }
-
-            & .divider:hover {
-                background: transparent;
-            }
+        & i {
+          display: inline;
+          margin-right: 0.5em;
+          font-size: 0.9em;
         }
+
+        & a {
+          display: block;
+          padding: 0.3em 1.5em;
+          font-size: 1.1em;
+        }
+      }
+
+      & .username {
+        width: 100%;
+        text-align: center;
+        padding: 0.3em 0;
+        cursor: pointer;
+      }
+
+      & .divider {
+        padding-top: 1px;
+        margin: 5px 1px 6px;
+        border-bottom: 1px solid #DADADA;
+      }
+
+      & .divider:hover {
+        background: transparent;
+      }
     }
+  }
 }
 
 /* logo */
 
 .site_logo {
-    order: 2;
+  order: 2;
 
-    & img {
-        display: inline-block;
-        max-width: 10em;
-        height: auto;
-        max-height: 2em;
-    }
+  & img {
+    display: inline-block;
+    max-width: 10em;
+    height: auto;
+    max-height: 2em;
+  }
 }

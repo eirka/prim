@@ -4,188 +4,185 @@
 /* thread css */
 
 .threads {
-    padding-top: 4em;
-    padding-bottom: 5em;
+  padding-top: 4em;
+  padding-bottom: 5em;
 }
 
 .thread {
-    @include mediaWidths;
+  @include mediaWidths;
 
-    @include shadow;
-
-    border-radius: 6px;
-    overflow: hidden;
-    width: $boxWidthRel;
-    margin: 0 auto;
-    margin-bottom: 2em;
+  border-radius: 6px;
+  overflow: hidden;
+  width: $boxWidthRel;
+  margin: 0 auto;
+  margin-bottom: 2em;
 }
 
 /* thread header */
 
 .thread_header {
-    @include clearfix;
+  @include clearfix;
 
-    padding: 1em;
+  padding: 1em;
 
-    & .thread_mod_buttons {
-        text-align: center;
-        display: flex;
-        justify-content: center;
-        margin: 0.5em;
-
-        & a {
-            margin-right: 0.3em;
-        }
-
-        @media #{$screenSmall} {
-            float: right;
-            margin: 0;
-        }
-    }
-}
-
-.thread_index_header {
-    @include clearfix;
-
-    padding: 1em;
-}
-
-.thread_title {
-    @include boxTitle;
-
-    padding: 0.5em;
-
-    @media #{$screenSmall} {
-        padding: 0.2em;
-        float: left;
-        max-width: 50%;
-    }
-}
-
-.thread_buttons {
+  & .thread_mod_buttons {
     text-align: center;
     display: flex;
     justify-content: center;
+    margin: 0.5em;
+
+    & a {
+      margin-right: 0.3em;
+    }
 
     @media #{$screenSmall} {
-        float: right;
+      float: right;
+      margin: 0;
     }
+  }
+}
+
+.thread_index_header {
+  @include clearfix;
+
+  padding: 1em;
+}
+
+.thread_title {
+  @include boxTitle;
+
+  padding: 0.5em;
+
+  @media #{$screenSmall} {
+    padding: 0.2em;
+    float: left;
+    max-width: 50%;
+  }
+}
+
+.thread_buttons {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+
+  @media #{$screenSmall} {
+    float: right;
+  }
 }
 
 .thread_info {
-    display: inline-block;
-    border-radius: 4px;
-    padding: 0.4em 0.6em;
-    margin-right: 0.2em;
+  display: inline-block;
+  border-radius: 4px;
+  padding: 0.4em 0.6em;
+  margin-right: 0.4em;
 
-    & .col {
-        display: inline-block;
-        padding: 0 0.1em;
-    }
+  & .col {
+    display: inline-block;
+    padding: 0 0.2em;
+  }
 }
 
 /* thread rows */
 
 .thread_row,
 .index_row {
-    @include clearfix;
+  @include clearfix;
 }
 
 .index_row {
-    & .auto-resizable-iframe {
-        max-width: 300px;
-        height: auto;
-    }
+  & .auto-resizable-iframe {
+    max-width: 300px;
+    height: auto;
+  }
 }
 
 .thread_row_header {
-    @include clearfix;
+  @include clearfix;
 }
 
 .thread_row_image,
 .index_row_image {
-    text-align: center;
-    padding: 1em 1em 0em 1em;
+  text-align: center;
+  padding: 1em 1em 0em 1em;
 
-    @media #{$screenSmall} {
-        padding: 1em;
-        float: left;
-        width: 25%;
-    }
+  @media #{$screenSmall} {
+    padding: 1em;
+    float: left;
+    width: 25%;
+  }
 }
 
 .thread_row_image img {
-    max-width: 100%;
-    height: auto;
-    border: 1px solid #444;
+  max-width: 100%;
+  height: auto;
 }
 
 .index_row_image img {
-    max-width: 120px;
-    height: auto;
-    border: 1px solid #444;
+  max-width: 120px;
+  height: auto;
 }
 
+.index_row_image img:hover,
 .thread_row_image img:hover {
-    opacity: 0.6;
+  opacity: 0.6;
 }
 
 .thread_content {
-    display: inline-block;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  padding: 0.8em;
+
+  @media #{$screenSmall} {
+    text-align: left;
+    float: left;
+    width: 75%;
+  }
+
+  &.noimage {
     width: 100%;
-    text-align: center;
-    padding: 0.8em;
-
-    @media #{$screenSmall} {
-        text-align: left;
-        float: left;
-        width: 75%;
-    }
-
-    &.noimage {
-        width: 100%;
-    }
+  }
 }
 
 .thread_row_info {
-    width: 100%;
+  width: 100%;
 
-    & .items {
-        & .info_item {
-            display: inline-block;
-            padding-right: 0.3em;
-        }
+  & .items {
+    & .info_item {
+      display: inline-block;
+      padding-right: 0.3em;
     }
+  }
 
-    & .post_mod_buttons {
-        display: inline-block;
-        padding-left: 0.5em;
+  & .post_mod_buttons {
+    display: inline-block;
+    padding-left: 0.5em;
 
-        @media #{$screenSmall} {
-            float: right;
-            padding: 0;
-        }
+    @media #{$screenSmall} {
+      float: right;
+      padding: 0;
     }
+  }
 }
 
 .thread_row_post {
-    width: 100%;
-    padding-top: 0.5em;
-    text-align: left;
+  width: 100%;
+  padding-top: 0.5em;
+  text-align: left;
 }
 
 .thread_comment {
-    & p {
-        text-align: left;
-    }
+  & p {
+    text-align: left;
+  }
 }
 
 .thread_row_omit {
-    text-align: center;
-    padding-bottom: 0.5em;
-    font-weight: bold;
+  text-align: center;
+  padding-bottom: 0.5em;
+  font-weight: bold;
 }
 
 .post_quote {
-    margin-right: 1px;
+  margin-right: 1px;
 }

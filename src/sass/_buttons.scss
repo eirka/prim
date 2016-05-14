@@ -3,68 +3,68 @@
 /* button css */
 
 button {
-    border: 0;
-    margin: 0;
-    padding: 0;
+  border: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .button {
-    display: inline-block;
-    margin-bottom: 0;
-    text-align: center;
-    vertical-align: middle;
-    cursor: pointer;
-    background-image: none;
-    white-space: nowrap;
-    padding: 0.4em 0.6em;
-    border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 0;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  white-space: nowrap;
+  padding: 0.4em 0.6em;
+  border-radius: 4px;
+  text-decoration: none;
+
+  &:hover,
+  &:focus,
+  &.focus {
     text-decoration: none;
+  }
 
-    &:hover,
-    &:focus,
-    &.focus {
-        text-decoration: none;
-    }
+  &:active,
+  &.active {
+    outline: 0;
+    background-image: none;
+    box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.2);
+  }
 
-    &:active,
-    &.active {
-        outline: 0;
-        background-image: none;
-        box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.2);
-    }
-
-    &.disabled,
-    &[disabled],
-    fieldset[disabled] & {
-        cursor: not-allowed;
-        pointer-events: none;
-        opacity: 0.65;
-        box-shadow: none;
-    }
+  &.disabled,
+  &[disabled],
+  fieldset[disabled] & {
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.65;
+    box-shadow: none;
+  }
 }
 
 .button-small {
-    padding: 2px 6px;
+  padding: 2px 6px;
 }
 
 .button-block {
-    display: block;
-    width: 100%;
+  display: block;
+  width: 100%;
 }
 
 /* button groups */
 
 .button-group,
 .button-group-vertical {
-    position: relative;
-    display: inline-block;
-    vertical-align: middle;
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .button-group > .button,
 .button-group-vertical > .button {
-    position: relative;
-    float: left;
+  position: relative;
+  float: left;
 }
 
 .button-group > .button:hover,
@@ -75,182 +75,182 @@ button {
 .button-group-vertical > .button:active,
 .button-group > .button.active,
 .button-group-vertical > .button.active {
-    z-index: 2;
+  z-index: 2;
 }
 
 .button-group > .button:focus,
 .button-group-vertical > .button:focus {
-    outline: 0;
+  outline: 0;
 }
 
 .button-group .button + .button,
 .button-group .button + .button-group,
 .button-group .button-group + .button,
 .button-group .button-group + .button-group {
-    margin-left: -1px;
+  margin-left: -1px;
 }
 
 .button-toolbar {
-    margin-left: -5px;
+  margin-left: -5px;
 }
 
 .button-toolbar .button-group,
 .button-toolbar .input-group {
-    float: left;
+  float: left;
 }
 
 .button-toolbar > .button,
 .button-toolbar > .button-group,
 .button-toolbar > .input-group {
-    margin-left: 5px;
+  margin-left: 5px;
 }
 
 .button-group > .button:not(:first-child):not(:last-child):not(.dropdown-toggle) {
-    border-radius: 0;
+  border-radius: 0;
 }
 
 .button-group > .button:first-child {
-    margin-left: 0;
+  margin-left: 0;
 }
 
 .button-group > .button:first-child:not(:last-child):not(.dropdown-toggle) {
-    border-bottom-right-radius: 0;
-    border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
 }
 
 .button-group > .button:last-child:not(:first-child),
 .button-group > .dropdown-toggle:not(:first-child) {
-    border-bottom-left-radius: 0;
-    border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
 }
 
 .button-group > .button-group {
-    float: left;
+  float: left;
 }
 
 .button-group > .button-group:not(:first-child):not(:last-child) > .button {
-    border-radius: 0;
+  border-radius: 0;
 }
 
 .button-group > .button-group:first-child > .button:last-child,
 .button-group > .button-group:first-child > .dropdown-toggle {
-    border-bottom-right-radius: 0;
-    border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
 }
 
 .button-group > .button-group:last-child > .button:first-child {
-    border-bottom-left-radius: 0;
-    border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
 }
 
 .button-group .dropdown-toggle:active,
 .button-group.open .dropdown-toggle {
-    outline: 0;
+  outline: 0;
 }
 
 .button-group > .button + .dropdown-toggle {
-    padding-left: 8px;
-    padding-right: 8px;
+  padding-left: 8px;
+  padding-right: 8px;
 }
 
 .button-group > .button-lg + .dropdown-toggle {
-    padding-left: 12px;
-    padding-right: 12px;
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 .button-group.open .dropdown-toggle {
-    -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
 
 .button-group.open .dropdown-toggle.button-link {
-    -webkit-box-shadow: none;
-    box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
 
 .button .caret {
-    margin-left: 0;
+  margin-left: 0;
 }
 
 .button-lg .caret {
-    border-width: 5px 5px 0;
-    border-bottom-width: 0;
+  border-width: 5px 5px 0;
+  border-bottom-width: 0;
 }
 
 .dropup .button-lg .caret {
-    border-width: 0 5px 5px;
+  border-width: 0 5px 5px;
 }
 
 .button-group-vertical > .button,
 .button-group-vertical > .button-group,
 .button-group-vertical > .button-group > .button {
-    display: block;
-    float: none;
-    width: 100%;
-    max-width: 100%;
+  display: block;
+  float: none;
+  width: 100%;
+  max-width: 100%;
 }
 
 .button-group-vertical > .button-group > .button {
-    float: none;
+  float: none;
 }
 
 .button-group-vertical > .button + .button,
 .button-group-vertical > .button + .button-group,
 .button-group-vertical > .button-group + .button,
 .button-group-vertical > .button-group + .button-group {
-    margin-top: -1px;
-    margin-left: 0;
+  margin-top: -1px;
+  margin-left: 0;
 }
 
 .button-group-vertical > .button:not(:first-child):not(:last-child) {
-    border-radius: 0;
+  border-radius: 0;
 }
 
 .button-group-vertical > .button:first-child:not(:last-child) {
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 .button-group-vertical > .button:last-child:not(:first-child) {
-    border-bottom-left-radius: 4px;
-    border-top-right-radius: 0;
-    border-top-left-radius: 0;
+  border-bottom-left-radius: 4px;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
 }
 
 .button-group-vertical > .button-group:not(:first-child):not(:last-child) > .button {
-    border-radius: 0;
+  border-radius: 0;
 }
 
 .button-group-vertical > .button-group:first-child:not(:last-child) > .button:last-child,
 .button-group-vertical > .button-group:first-child:not(:last-child) > .dropdown-toggle {
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 .button-group-vertical > .button-group:last-child:not(:first-child) > .button:first-child {
-    border-top-right-radius: 0;
-    border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
 }
 
 .button-group-justified {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-    border-collapse: separate;
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: separate;
 }
 
 .button-group-justified > .button,
 .button-group-justified > .button-group {
-    float: none;
-    display: table-cell;
-    width: 1%;
+  float: none;
+  display: table-cell;
+  width: 1%;
 }
 
 .button-group-justified > .button-group .button {
-    width: 100%;
+  width: 100%;
 }
 
 .button-group-justified > .button-group .dropdown-menu {
-    left: auto;
+  left: auto;
 }

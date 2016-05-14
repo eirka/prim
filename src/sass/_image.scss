@@ -4,128 +4,124 @@
 /* image page css */
 
 .image {
-    padding: 1em 0;
+  padding: 1em 0;
 }
 
 .image_container {
-    @include clearfix;
+  @include clearfix;
 
-    @include mediaWidths;
+  @include mediaWidths;
 
-    width: $boxWidthRel;
-    margin: 0 auto;
+  width: $boxWidthRel;
+  margin: 0 auto;
 }
 
 .image_info {
-    @include shadow;
+  text-align: center;
+  border-radius: 6px;
+  overflow: hidden;
+  padding: 0.5em;
 
-    text-align: center;
-    border-radius: 6px;
-    overflow: hidden;
+  & .no_tags {
     padding: 0.5em;
+  }
 
-    & .no_tags {
-        padding: 0.5em;
-    }
+  & button {
+    border-radius: 0;
+  }
 
-    & button {
-        border-radius: 0;
-    }
-
-    & .tags {
-        display: inline-block;
-        margin: 0.2em;
-
-        @media #{$screenSmall} {
-            margin: 0;
-            width: 100%;
-            display: table;
-        }
-    }
-
-    & .tag_button {
-        display: inline-block;
-
-        @media #{$screenSmall} {
-            width: 100%;
-            display: table-cell;
-        }
-    }
-
-    & .mod_button {
-        display: inline-block;
-        padding: 0 0.5em;
-
-        @media #{$screenSmall} {
-            display: table-cell;
-        }
-    }
-
-    & .delete_button {
-        width: 100%;
-        height: 100%;
-    }
+  & .tags {
+    display: inline-block;
+    margin: 0.2em;
 
     @media #{$screenSmall} {
-        padding: 0;
-        float: left;
-        margin: 0;
-        margin-left: 6px;
-        width: calc(25% - 6px);
+      margin: 0;
+      width: 100%;
+      display: table;
+    }
+  }
 
-        & input {
-            border-radius: 0;
-        }
+  & .tag_button {
+    display: inline-block;
 
-        & .source_links {
-            padding: 1em 0;
-        }
+    @media #{$screenSmall} {
+      width: 100%;
+      display: table-cell;
+    }
+  }
+
+  & .mod_button {
+    display: inline-block;
+    padding: 0 0.5em;
+
+    @media #{$screenSmall} {
+      display: table-cell;
+    }
+  }
+
+  & .delete_button {
+    width: 100%;
+    height: 100%;
+  }
+
+  @media #{$screenSmall} {
+    padding: 0;
+    float: left;
+    margin: 0;
+    margin-left: 6px;
+    width: calc(25% - 6px);
+
+    & input {
+      border-radius: 0;
     }
 
-    @media #{$screenMedium} {
-        width: calc(20% - 6px);
+    & .source_links {
+      padding: 1em 0;
     }
+  }
+
+  @media #{$screenMedium} {
+    width: calc(20% - 6px);
+  }
 }
 
 .image_box {
-    @include shadow;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 1em;
 
-    border-radius: 6px;
-    overflow: hidden;
-    margin-bottom: 1em;
+  @media #{$screenSmall} {
+    text-align: left;
+    float: left;
+    width: 75%;
+  }
 
-    @media #{$screenSmall} {
-        text-align: left;
-        float: left;
-        width: 75%;
-    }
-
-    @media #{$screenMedium} {
-        width: 80%;
-    }
+  @media #{$screenMedium} {
+    width: 80%;
+  }
 }
 
 .image_box_nav {
-    text-align: center;
+  text-align: center;
 }
 
 .image_controls {
-    padding: 0.5em;
+  padding: 0.5em;
 }
 
 .image_box_image {
-    & video {
-        max-width: 100%;
-        max-height: 80%;
-        height: auto;
-        display: block;
-        margin: 0 auto;
-    }
+  & video {
+    max-width: 100%;
+    max-height: 80%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
 
-    & img {
-        max-width: 100%;
-        height: auto;
-        display: block;
-        margin: 0 auto;
-    }
+  & img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
 }

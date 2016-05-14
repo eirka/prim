@@ -4,56 +4,56 @@
 /* header css */
 
 .footer {
-    position: absolute;
-    width: 100%;
-    bottom: 0;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
 }
 
 .footer_box {
-    @include clearfix;
+  @include clearfix;
 
-    @include mediaWidths;
+  @include mediaWidths;
 
-    width: $boxWidthRel;
-    margin: 0 auto;
-    text-align: center;
-    padding: 1em;
+  width: $boxWidthRel;
+  margin: 0 auto;
+  text-align: center;
+  padding: 1em;
 }
 
 /* footer links */
 
 .footer_links {
-    width: 100%;
-    text-align: center;
-    order: 2;
-    position: relative;
-    top: 1em;
+  width: 100%;
+  text-align: center;
+  order: 2;
+  position: relative;
+  top: 1em;
 
-    @media #{$screenSmall} {
-        text-align: left;
-        order: 1;
-    }
+  @media #{$screenSmall} {
+    text-align: left;
+    order: 1;
+  }
 }
 
 .footer_links ul {
-    display: inline-block;
-    list-style: none;
-    padding: 0;
-    margin: 0 auto;
+  display: inline-block;
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
 }
 
 .footer_links li {
-    display: inline;
-    list-style-type: none;
+  display: inline;
+  list-style-type: none;
 }
 
 .footer_links li a {
-    padding: 0.5em;
-    font-size: 1em;
-    display: inline-block;
-    text-decoration: none;
+  padding: 0.5em;
+  font-size: 1em;
+  display: inline-block;
+  text-decoration: none;
 }
 
 .footer_links li a:hover {
-    border-radius: 3px;
+  border-radius: 3px;
 }

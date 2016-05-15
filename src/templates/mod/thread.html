@@ -1,7 +1,7 @@
 <div class="thread_mod_buttons" ng-controller="ThreadModCtrl as threadmod">
     <a title="Delete" class="button button-danger fa fa-trash-o" ng-click="threadmod.deleteThread(thread.data.id)" href></a>
-    <a ng-if="!thread.data.closed" title="Close" class="button button-default fa fa-unlock-alt" ng-click="threadmod.closeThread(thread.data.id)" href></a>
+    <a ng-if="!thread.data.closed" title="Close" class="button button-primary fa fa-unlock-alt" ng-click="threadmod.closeThread(thread.data.id)" href></a>
     <a ng-if="thread.data.closed" title="Open" class="button button-success fa fa-lock" ng-click="threadmod.closeThread(thread.data.id)" href></a>
-    <a ng-if="!thread.data.sticky" title="Sticky" class="button button-default fa fa-thumb-tack" ng-click="threadmod.stickyThread(thread.data.id)" href></a>
+    <a ng-if="!thread.data.sticky" title="Sticky" class="button button-primary fa fa-thumb-tack" ng-click="threadmod.stickyThread(thread.data.id)" href></a>
     <a ng-if="thread.data.sticky" title="Unsticky" class="button button-success fa fa-thumb-tack" ng-click="threadmod.stickyThread(thread.data.id)" href></a>
 </div>

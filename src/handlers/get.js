@@ -72,6 +72,10 @@ angular.module('prim').factory('Handlers', function($resource, config) {
         // add tag
         'addtag': $resource(config.api_srv + '/post/tag/add', {}),
         // new tag
-        'newtag': $resource(config.api_srv + '/post/tag/new', {})
+        'newtag': $resource(config.api_srv + '/post/tag/new', {}),
+        // whoami
+        'whoami': $resource(config.api_srv + '/get/whoami/:ib', {
+            ib: config.ib_id
+        })
     };
 });

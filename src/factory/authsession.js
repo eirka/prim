@@ -1,14 +1,14 @@
 // provides functions for setting the users auth session
-angular.module('prim').factory('AuthSession', function($route, toaster, user_messages, jwtHelper, AuthStorage, AuthState, BoardData, UserHandlers, Utils) {
+angular.module('prim').factory('AuthSession', function($route, toaster, user_messages, jwtHelper, AuthStorage, AuthState, BoardData, Handlers, Utils) {
 
     var AuthSession = {
         // promise to the whoami handler
         queryWhoAmI: function() {
-            return UserHandlers.whoami.get();
+            return Handlers.whoami.get();
         },
-        // set the state to the cached data if available
-        setCachedState: function() {
-            // get the cached user data
+        // handles the creation of key and cache store and also queries whoami handler for fresh info
+        setAuthState: function() {
+            // get the cached user data for smooth loading
             var cas = AuthStorage.getUserCache();
             // get the cached ib data
             var cib = BoardData.getIbData();
@@ -21,17 +21,9 @@ angular.module('prim').factory('AuthSession', function($route, toaster, user_mes
                 AuthState.default();
                 BoardData.default();
             }
-        },
-        // handles the creation of key and cache store and also queries whoami handler for fresh info
-        setAuthState: function() {
-            // try and set the cached state first
-            AuthSession.setCachedState();
-
-            // get the jwt token
-            var token = AuthStorage.getToken();
 
             // get a refreshed whois if there is a token
-            if (token) {
+            if (AuthStorage.getToken()) {
                 // query whoami for user data
                 AuthSession.queryWhoAmI().$promise.then(function(data) {
                     var ss = data.user;
@@ -63,66 +55,5 @@ angular.module('prim').factory('AuthSession', function($route, toaster, user_mes
     };
 
     return AuthSession;
-
-});
-
-// functions for handling the auth storage in users browser
-angular.module('prim').factory('AuthStorage', function(GlobalStore, jwtHelper, AuthState, BoardData) {
-
-    // user jwt token store key
-    var tokenstorename = 'token';
-    // user data cache store key
-    var cachestorename = 'cache';
-
-    var AuthStorage = {
-        // saves the user cache
-        saveUserCache: function() {
-            GlobalStore.set(cachestorename, AuthState.get());
-        },
-        // gets the user cache
-        getUserCache: function() {
-            return GlobalStore.get(cachestorename);
-        },
-        // saves the jwt token
-        saveToken: function(token) {
-            if (angular.isDefined(token)) {
-                GlobalStore.set(tokenstorename, token);
-            }
-        },
-        // retrieves the jwt token
-        getToken: function() {
-            var token = GlobalStore.get(tokenstorename);
-            if (token) {
-                try {
-                    // check if token is expired
-                    if (jwtHelper.isTokenExpired(token)) {
-                        // log out if its expired
-                        AuthStorage.destroySession();
-                        return null;
-                    } else {
-                        // use the token otherwise
-                        return token;
-                    }
-                } catch (error) {
-                    // something is probably wrong with the token
-                    AuthStorage.destroySession();
-                }
-            }
-            return null;
-        },
-        // sets authstate to anon and removed all cached info
-        destroySession: function() {
-            // clear all localstorage. this also deletes drawpad sketches
-            localStorage.clear();
-            // explicitly remove jwt token or else it will be cached
-            GlobalStore.remove(tokenstorename);
-            // set the state back to default
-            AuthState.default();
-            // set board data back to default
-            BoardData.default();
-        }
-    };
-
-    return AuthStorage;
 
 });

@@ -1,7 +1,6 @@
 <form role="form" name="newthreadform" action="{{postform.getFormAction('/post/thread/new')}}" method="post" enctype="multipart/form-data" ng-controller="IndexFormCtrl as postform">
     <input type="hidden" name="ib" ng-value="index.ib_id" />
     <input type="hidden" name="csrf_token" ng-value="index.csrf_token" />
-    <input ng-if="authState.isAuthenticated" type="hidden" name="access_token" ng-value="postform.getToken()" />
     <div class="form-group">
         <div class="form-control userinfo">
             <span ng-bind="authState.name" ng-class="index.usergroupClass(ibData.group)"></span>

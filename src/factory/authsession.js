@@ -1,5 +1,5 @@
 // provides functions for setting the users auth session
-angular.module('prim').factory('AuthSession', function($route, toaster, user_messages, jwtHelper, AuthStorage, AuthState, BoardData, Handlers, Utils) {
+angular.module('prim').factory('AuthSession', function($route, toaster, user_messages, AuthStorage, AuthState, BoardData, Handlers, Utils, UserHandlers) {
 
     var AuthSession = {
         // promise to the whoami handler
@@ -22,13 +22,12 @@ angular.module('prim').factory('AuthSession', function($route, toaster, user_mes
                 BoardData.default();
             }
 
-            // get a refreshed whois if there is a token
-            if (AuthStorage.getToken()) {
-                // query whoami for user data
-                AuthSession.queryWhoAmI().$promise.then(function(data) {
-                    var ss = data.user;
+            // query whoami for user data
+            AuthSession.queryWhoAmI().$promise.then(function(data) {
+                var ss = data.user;
 
-                    // set auth state from whois information
+                // set auth state from whois information if authenticated
+                if (ss.authenticated) {
                     AuthState.set(ss.id, ss.name, true, Utils.getAvatar(ss.id), new Date(ss.last_active));
                     // cache user data
                     AuthStorage.saveUserCache();
@@ -39,15 +38,16 @@ angular.module('prim').factory('AuthSession', function($route, toaster, user_mes
                     BoardData.saveIbData();
 
                     return;
-                }, function() {
-                    // purge session if theres an error
-                    AuthStorage.destroySession();
-                    return;
-                });
-            }
+                }
+            }, function() {
+                // purge session if theres an error
+                AuthStorage.destroySession();
+                return;
+            });
         },
         // log out the user
         logOut: function() {
+            UserHandlers.logout.save();
             AuthStorage.destroySession();
             $route.reload();
             toaster.pop('success', user_messages.loggedOut);

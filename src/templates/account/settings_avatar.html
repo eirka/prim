@@ -4,7 +4,6 @@
     </div>
     <form role="form" name="avatarform" action="{{avatar.getFormAction('/post/user/avatar')}}" method="post" enctype="multipart/form-data">
         <input type="hidden" name="csrf_token" ng-value="account.csrf_token" />
-        <input type="hidden" name="access_token" ng-value="avatar.getToken()" />
         <div class="form-group">
             <input id="file" type="file" name="file" ng-model="file" validate-file ng-required="true">
             <div class="settings_info">

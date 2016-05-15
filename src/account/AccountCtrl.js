@@ -1,5 +1,5 @@
 // AccountCtrl gets the users whoami
-angular.module('prim').controller('AccountCtrl', function($route, toaster, user_messages, AuthSession, Utils, config) {
+angular.module('prim').controller('AccountCtrl', function($route, toaster, user_messages, AuthSession, AuthStorage, Utils, config) {
 
     // using controllerAs
     var self = this;
@@ -41,6 +41,11 @@ angular.module('prim').controller('AccountCtrl', function($route, toaster, user_
 
     // get whoami
     AuthSession.queryWhoAmI().$promise.then(function(data) {
+        // if we aren't authenticated server side
+        if (!data.user.authenticated) {
+            AuthStorage.destroySession();
+            return;
+        }
 
         // set local whoami data
         self.whoami = {

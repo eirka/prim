@@ -26,6 +26,12 @@ angular.module('prim').factory('AuthSession', function($route, toaster, user_mes
             AuthSession.queryWhoAmI().$promise.then(function(data) {
                 var ss = data.user;
 
+                // if there is a cached state but we're not authed server side
+                if (cas && !ss.authenticated) {
+                    AuthStorage.destroySession();
+                    return;
+                }
+
                 // set auth state from whois information if authenticated
                 if (ss.authenticated) {
                     AuthState.set(ss.id, ss.name, true, Utils.getAvatar(ss.id), new Date(ss.last_active));
@@ -39,6 +45,7 @@ angular.module('prim').factory('AuthSession', function($route, toaster, user_mes
 
                     return;
                 }
+
             }, function() {
                 // purge session if theres an error
                 AuthStorage.destroySession();

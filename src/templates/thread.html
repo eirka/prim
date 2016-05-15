@@ -21,8 +21,8 @@
                 <div ng-if="thread.data.sticky" title="Sticky" class="thread_info fa fa-thumb-tack">
                 </div>
                 <div class="button-group">
-                    <a class="button button-thread fa fa-align-justify" title="Post view" ng-class="{active: thread.layout == 'list'}" ng-click="thread.layout = 'list'"></a>
-                    <a class="button button-thread fa fa-th" title="Image view" ng-class="{active: thread.layout == 'grid'}" ng-click="thread.layout = 'grid'"></a>
+                    <a class="button button-primary fa fa-align-justify" title="Post view" ng-class="{active: thread.layout == 'list'}" ng-click="thread.layout = 'list'"></a>
+                    <a class="button button-primary fa fa-th" title="Image view" ng-class="{active: thread.layout == 'grid'}" ng-click="thread.layout = 'grid'"></a>
                 </div>
             </div>
             <ng-include src="'pages/mod/thread.html'" ng-if="thread.showModControls()"></ng-include>

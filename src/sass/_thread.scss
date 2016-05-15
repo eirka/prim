@@ -4,7 +4,7 @@
 /* thread css */
 
 .threads {
-  padding-top: 4em;
+  padding-top: 3em;
   padding-bottom: 5em;
 }
 
@@ -15,7 +15,7 @@
   overflow: hidden;
   width: $boxWidthRel;
   margin: 0 auto;
-  margin-bottom: 2em;
+  margin-bottom: 1em;
 }
 
 /* thread header */
@@ -73,12 +73,16 @@
 .thread_info {
   display: inline-block;
   border-radius: 4px;
-  padding: 0.4em 0.6em;
+  padding: 0.4em;
   margin-right: 0.4em;
 
   & .col {
     display: inline-block;
     padding: 0 0.2em;
+
+    & span {
+      margin: 0 0.2em;
+    }
   }
 }
 

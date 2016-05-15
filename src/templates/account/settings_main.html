@@ -1,6 +1,6 @@
 <div class="settings_container">
     <div class="settings_menu">
-        <button ng-repeat="button in account.panels" ng-class="{active:account.isActive(button)}" class="button button-settings" ng-click="account.switchPanel(button.name)" href ng-bind="button.name"></button>
+        <button ng-repeat="button in account.panels" ng-class="{active:account.isActive(button)}" class="button button-block button-primary" ng-click="account.switchPanel(button.name)" href ng-bind="button.name"></button>
     </div>
     <div class="settings_box" ng-include="account.panel"></div>
 </div>

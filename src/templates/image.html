@@ -48,7 +48,8 @@
             </div>
             <div class="tag_input">
                 <form name="addtagform" ng-submit="image.addTag()">
-                    <input ng-required="true" typeahead-append-to-body="true" type="text" class="form-control" typeahead-wait-ms="300" typeahead-min-length="3" uib-typeahead="tag.id as tag.tag for tag in image.searchTags($viewValue)" typeahead-input-formatter="image.formatLabel($model)" ng-model="image.selected" typeahead-editable="false" placeholder="Add Tag">
+                    <input ng-required="true" typeahead-append-to-body="true" type="text" class="form-control" typeahead-wait-ms="300" typeahead-min-length="3" uib-typeahead="tag.id as tag.tag for tag in image.searchTags($viewValue)" typeahead-input-formatter="image.formatLabel($model)"
+                        ng-model="image.selected" typeahead-editable="false" placeholder="Add Tag">
                     <button ng-disabled="addtagform.$invalid" class="button button-block button-primary" type="submit">Add</button>
                 </form>
             </div>
@@ -57,12 +58,13 @@
             </div>
             <div ng-if="image.tags">
                 <div class="tags" ng-repeat="tag in image.tags track by tag.id">
-                    <div class="tag_button">
-                        <a class="tag" ng-class="{'tag-default': tag.type == 1, 'tag-artist': tag.type == 2, 'tag-character': tag.type == 3, 'tag-copyright': tag.type == 4}" ng-bind="::tag.tag" rel="nofollow" ng-href="tag/{{::tag.id}}/1" href> </a>
-                    </div>
                     <div ng-if="image.showModControls()" class="mod_button">
                         <a class="delete_button fa fa-times" title="Delete Tag" ng-click="image.deleteTag(image.data.image.id, tag.id)"></a>
                     </div>
+                    <div class="tag_button">
+                        <a class="tag" ng-class="{'tag-default': tag.type == 1, 'tag-artist': tag.type == 2, 'tag-character': tag.type == 3, 'tag-copyright': tag.type == 4}" ng-bind="::tag.tag" rel="nofollow" ng-href="tag/{{::tag.id}}/1" href> </a>
+                    </div>
+
                 </div>
             </div>
         </div>

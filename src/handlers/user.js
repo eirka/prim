@@ -14,6 +14,8 @@ angular.module('prim').factory('UserHandlers', function($resource, config) {
         'register': $resource(config.api_srv + '/post/register', {}),
         // login
         'login': $resource(config.api_srv + '/post/login', {}),
+        // logout
+        'logout': $resource(config.api_srv + '/post/logout', {}),
         // change password
         'password': $resource(config.api_srv + '/post/user/password', {}),
         // change email

@@ -8,7 +8,6 @@ require('angular-route');
 require('angular-sanitize');
 require('angular-hotkeys');
 require('angular-storage');
-require('angular-jwt');
 require('angular-animate');
 require('angularjs-toaster');
 require('angulartics');
@@ -24,7 +23,6 @@ angular.module('prim', [
     'ngSanitize',
     'cfp.hotkeys',
     'angular-storage',
-    'angular-jwt',
     'ngAnimate',
     'toaster',
     'angulartics',

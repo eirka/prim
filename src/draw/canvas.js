@@ -33,7 +33,7 @@ angular.module('prim').directive('drawCanvas', function($document, drawConfig) {
             // variable that decides if something should be drawn on mousemove
             var drawing = false;
 
-            element.bind('mousedown', function(event) {
+            element.bind('touchstart mousedown', function(event) {
                 event.preventDefault();
                 event.stopPropagation();
 
@@ -49,7 +49,7 @@ angular.module('prim').directive('drawCanvas', function($document, drawConfig) {
 
             });
 
-            $document.on('mousemove', function(event) {
+            $document.on('touchmove mousemove', function(event) {
                 if (drawing) {
                     var canvasOffset = canvas.getBoundingClientRect();
                     controller.ctx.lineTo(Math.floor(event.pageX - canvasOffset.left), Math.floor(event.pageY - canvasOffset.top));
@@ -57,7 +57,7 @@ angular.module('prim').directive('drawCanvas', function($document, drawConfig) {
                 }
             });
 
-            $document.on('mouseup', function() {
+            $document.on('touchend mouseup', function() {
                 if (drawing) {
                     drawing = false;
                     controller.ctx.closePath();

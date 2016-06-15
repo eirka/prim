@@ -1,5 +1,5 @@
 // error interceptor
-angular.module('prim').factory('errorInterceptor', function($q, $injector, $location, toaster, user_messages, Utils, AuthStorage) {
+angular.module('prim').factory('errorInterceptor', function($q, $injector, $location, toaster, user_messages, AuthStorage) {
     return {
         'responseError': function(response) {
             if (angular.equals(response.status, 401)) {
@@ -15,9 +15,6 @@ angular.module('prim').factory('errorInterceptor', function($q, $injector, $loca
                 $location.path('/account');
                 toaster.pop('error', response.data.error_message);
                 return;
-            } else if (angular.equals(response.status, -1)) {
-                // if there is a weird error the app probably cant contact the api server
-                Utils.apiError(502);
             }
             return $q.reject(response);
         }

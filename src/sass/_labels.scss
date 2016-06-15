@@ -12,13 +12,17 @@ label {
 .label {
   display: inline;
   padding: .1em .5em;
-  font-size: 75%;
+  font-size: 50%;
   font-weight: bold;
   text-align: center;
   white-space: nowrap;
   vertical-align: baseline;
   border-radius: 3px;
   margin: 0;
+
+  @media #{$screenSmall} {
+    font-size: 75%;
+  }
 }
 
 a.label:hover,

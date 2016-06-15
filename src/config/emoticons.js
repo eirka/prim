@@ -74,6 +74,9 @@ angular.module('prim').config(function configureEmoticons(emoticonsProvider, con
     }, {
         text: "squid",
         image: "squid.gif"
+    }, {
+        text: "pacha",
+        image: "pacha.png"
     }]);
 
     // set the image server for the emoticon image src

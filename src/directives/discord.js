@@ -6,7 +6,11 @@ angular.module('prim').directive('discordWidget', function($resource, config) {
         link: function(scope) {
 
             // the url for the discord widget json
-            var discord_endpoint = $resource(config.discord_widget, {});
+            var discord_endpoint = $resource(config.discord_widget, {}, {
+                get: {
+                    cache: true
+                }
+            });
 
             // query the endpoint and get the data
             discord_endpoint.get({}, function(data) {

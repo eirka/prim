@@ -1,5 +1,3 @@
-'use strict';
-
 // require for browserify
 require('angular');
 require('angular-resource');

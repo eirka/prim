@@ -82,7 +82,7 @@ gulp.task('browserify', function() {
     return b.bundle()
         .pipe(source('prim.js'))
         .pipe(buffer())
-        .pipe(gulpif(!isDev, uglify()))
+        .pipe(gulpif(!isDev, uglify({ mangle: false })))
         .pipe(gulpif(!isDev, rev()))
         .pipe(gulp.dest('./dist'))
 });

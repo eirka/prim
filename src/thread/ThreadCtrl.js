@@ -1,10 +1,10 @@
 // ThreadCtrl is the controller for the thread pages
-angular.module('prim').controller('ThreadCtrl', function($window, $location, $scope, $routeParams, data, hotkeys, config, Utils, AuthUtils) {
+angular.module('prim').controller('ThreadCtrl', function ($window, $location, $scope, $routeParams, data, hotkeys, config, Utils, AuthUtils) {
 
     // drawpad controls
     $scope.drawpad = {
         visible: false,
-        toggle: function() {
+        toggle: function () {
             $scope.drawpad.visible = !$scope.drawpad.visible;
         }
     };
@@ -15,9 +15,9 @@ angular.module('prim').controller('ThreadCtrl', function($window, $location, $sc
     // current page for pagination
     self.currentPage = $routeParams.page || 1;
     // watcher for pagination navigation
-    $scope.$watch(function() {
+    $scope.$watch(function () {
         return self.currentPage;
-    }, function(value, old) {
+    }, function (value, old) {
         if (!angular.equals(value, old)) {
             $location.path('/thread/' + $routeParams.id + '/' + value);
         }
@@ -48,7 +48,10 @@ angular.module('prim').controller('ThreadCtrl', function($window, $location, $sc
     self.getLastActive = AuthUtils.getLastActive;
 
     // add post num to comment box
-    self.replyQuote = function(id) {
+    self.replyQuote = function (id) {
+        if (!angular.isDefined(self.quote) || !angular.isString(self.quote)) {
+            self.quote = "";
+        }
         if (angular.isDefined(id)) {
             self.quote += " >>" + id + " ";
             $window.scrollTo(0, 0);
@@ -56,7 +59,7 @@ angular.module('prim').controller('ThreadCtrl', function($window, $location, $sc
     };
 
     // clear the quote if page change
-    $scope.$on('$locationChangeStart', function() {
+    $scope.$on('$locationChangeStart', function () {
         Utils.clearQuote();
     });
 
@@ -78,21 +81,21 @@ angular.module('prim').controller('ThreadCtrl', function($window, $location, $sc
         .add({
             combo: 'g',
             description: 'Grid View',
-            callback: function() {
+            callback: function () {
                 self.layout = 'grid';
             }
         })
         .add({
             combo: 'l',
             description: 'List View',
-            callback: function() {
+            callback: function () {
                 self.layout = 'list';
             }
         })
         .add({
             combo: 'shift+left',
             description: 'Previous Page',
-            callback: function() {
+            callback: function () {
                 if (self.pagination.currentPage > 1) {
                     var page = self.pagination.currentPage - 1;
                     $location.path('/thread/' + $routeParams.id + '/' + page);
@@ -102,7 +105,7 @@ angular.module('prim').controller('ThreadCtrl', function($window, $location, $sc
         .add({
             combo: 'shift+right',
             description: 'Next Page',
-            callback: function() {
+            callback: function () {
                 if (self.pagination.currentPage < self.pagination.numPages) {
                     var page = self.pagination.currentPage + 1;
                     $location.path('/thread/' + $routeParams.id + '/' + page);
@@ -112,7 +115,7 @@ angular.module('prim').controller('ThreadCtrl', function($window, $location, $sc
         .add({
             combo: 'd',
             description: 'Toggle Drawpad',
-            callback: function() {
+            callback: function () {
                 $scope.drawpad.toggle();
             }
         });

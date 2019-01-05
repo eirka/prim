@@ -1,19 +1,19 @@
 {
     "name": "prim",
-    "version": "1.7.8",
+    "version": "1.7.10",
     "description": "AngularJS frontend for Pram API",
     "dependencies": {
-        "angular": "^1.5.3",
-        "angular-animate": "^1.5.3",
-        "angular-chart.js": "^1.0.0-alpha3",
-        "angular-cookies": "^1.5.3",
+        "angular": "^1.7.5",
+        "angular-animate": "^1.7.5",
+        "angular-chart.js": "^1",
+        "angular-cookies": "^1.7.5",
         "angular-hotkeys": "^1.7.0",
-        "angular-resource": "^1.5.3",
-        "angular-route": "^1.5.3",
-        "angular-sanitize": "^1.5.3",
+        "angular-resource": "^1.7.5",
+        "angular-route": "^1.7.5",
+        "angular-sanitize": "^1.7.5",
         "angular-storage": "0.0.15",
         "angularjs-toaster": "^1.2.1",
-        "angulartics": "^1.0.3",
+        "angulartics": "^1.6.0",
         "angulartics-google-analytics": "^0.4.0"
     },
     "browser": {
@@ -31,7 +31,7 @@
         "angular-chart.js": "./node_modules/angular-chart.js/dist/angular-chart.min.js"
     },
     "devDependencies": {
-        "autoprefixer": "^6.3.6",
+        "autoprefixer": "^6.7.7",
         "browserify": "^16.2.3",
         "del": "^2.2.0",
         "gulp": "^4.0.0",
@@ -50,7 +50,7 @@
         "gulp-util": "^3.0.7",
         "run-sequence": "^1.1.5",
         "vinyl-buffer": "^1.0.0",
-        "vinyl-source-stream": "^1.1.0"
+        "vinyl-source-stream": "^2"
     },
     "repository": {
         "type": "git",

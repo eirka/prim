@@ -12,139 +12,83 @@ const router = createRouter({
       path: '/',
       name: 'index',
       component: () => import('@/views/IndexView.vue'),
-      meta: { title: 'Index' },
-      beforeEnter: async (to) => {
-        try {
-          to.meta.data = await handlers.index(1)
-        } catch (e) { apiError(e.status) }
-      }
+      meta: { title: 'Index', loader: () => handlers.index(1) }
     },
     {
       path: '/page/:page',
       name: 'indexPage',
       component: () => import('@/views/IndexView.vue'),
-      meta: { title: 'Index' },
-      beforeEnter: async (to) => {
-        try {
-          to.meta.data = await handlers.index(to.params.page)
-        } catch (e) { apiError(e.status) }
-      }
+      meta: { title: 'Index', loader: (to) => handlers.index(to.params.page) }
     },
     {
       path: '/thread/:id/:page',
       name: 'thread',
       component: () => import('@/views/ThreadView.vue'),
-      beforeEnter: async (to) => {
-        try {
-          to.meta.data = await handlers.thread(to.params.id, to.params.page)
-        } catch (e) { apiError(e.status) }
-      }
+      meta: { loader: (to) => handlers.thread(to.params.id, to.params.page) }
     },
     {
       path: '/directory',
       name: 'directory',
       component: () => import('@/views/DirectoryView.vue'),
-      meta: { title: 'Threads' },
-      beforeEnter: async (to) => {
-        try {
-          to.meta.data = await handlers.directory(1)
-        } catch (e) { apiError(e.status) }
-      }
+      meta: { title: 'Threads', loader: () => handlers.directory(1) }
     },
     {
       path: '/directory/:page',
       name: 'directoryPage',
       component: () => import('@/views/DirectoryView.vue'),
-      meta: { title: 'Threads' },
-      beforeEnter: async (to) => {
-        try {
-          to.meta.data = await handlers.directory(to.params.page)
-        } catch (e) { apiError(e.status) }
-      }
+      meta: { title: 'Threads', loader: (to) => handlers.directory(to.params.page) }
     },
     {
       path: '/image/:id',
       name: 'image',
       component: () => import('@/views/ImageView.vue'),
-      beforeEnter: async (to) => {
-        try {
-          to.meta.data = await handlers.image(to.params.id)
-        } catch (e) { apiError(e.status) }
-      }
+      meta: { loader: (to) => handlers.image(to.params.id) }
     },
     {
       path: '/tags',
       name: 'tags',
       component: () => import('@/views/TagsView.vue'),
-      meta: { title: 'Tags' },
-      beforeEnter: async (to) => {
-        try {
-          to.meta.data = await handlers.tags(1)
-        } catch (e) { apiError(e.status) }
-      }
+      meta: { title: 'Tags', loader: () => handlers.tags(1) }
     },
     {
       path: '/tags/:page',
       name: 'tagsPage',
       component: () => import('@/views/TagsView.vue'),
-      meta: { title: 'Tags' },
-      beforeEnter: async (to) => {
-        try {
-          to.meta.data = await handlers.tags(to.params.page)
-        } catch (e) { apiError(e.status) }
-      }
+      meta: { title: 'Tags', loader: (to) => handlers.tags(to.params.page) }
     },
     {
       path: '/tag/:id/:page',
       name: 'tag',
       component: () => import('@/views/TagView.vue'),
-      beforeEnter: async (to) => {
-        try {
-          to.meta.data = await handlers.tag(to.params.id, to.params.page)
-        } catch (e) { apiError(e.status) }
-      }
+      meta: { loader: (to) => handlers.tag(to.params.id, to.params.page) }
     },
     {
       path: '/trending',
       name: 'trending',
       component: () => import('@/views/TrendingView.vue'),
-      meta: { title: 'Trending' },
-      beforeEnter: async (to) => {
-        try {
+      meta: {
+        title: 'Trending',
+        loader: async () => {
           const [popular, newest, favorited] = await Promise.all([
             handlers.popular(),
             handlers.newest(),
             handlers.favorited()
           ])
-          to.meta.data = { popular, newest, favorited }
-        } catch (e) { apiError(e.status) }
+          return { popular, newest, favorited }
+        }
       }
     },
     {
       path: '/favorites',
       name: 'favorites',
       component: () => import('@/views/FavoritesView.vue'),
-      meta: { title: 'Favorites' },
-      beforeEnter: async (to) => {
-        const auth = useAuthStore()
-        if (!auth.isAuthenticated) return '/account'
-        try {
-          to.meta.data = await userHandlers.favorites(1)
-        } catch (e) { apiError(e.status) }
-      }
+      meta: { title: 'Favorites', requiresAuth: true, loader: () => userHandlers.favorites(1) }
     },
     {
       path: '/favorites/:page',
       name: 'favoritesPage',
       component: () => import('@/views/FavoritesView.vue'),
-      meta: { title: 'Favorites' },
-      beforeEnter: async (to) => {
-        const auth = useAuthStore()
-        if (!auth.isAuthenticated) return '/account'
-        try {
-          to.meta.data = await userHandlers.favorites(to.params.page)
-        } catch (e) { apiError(e.status) }
-      }
+      meta: { title: 'Favorites', requiresAuth: true, loader: (to) => userHandlers.favorites(to.params.page) }
     },
     {
       path: '/account',
@@ -156,11 +100,7 @@ const router = createRouter({
       path: '/admin',
       name: 'admin',
       component: () => import('@/views/AdminView.vue'),
-      meta: { title: 'Admin Panel' },
-      beforeEnter: async () => {
-        const auth = useAuthStore()
-        if (!auth.showModControls) return '/account'
-      }
+      meta: { title: 'Admin Panel', requiresMod: true }
     },
     {
       path: '/error',
@@ -176,6 +116,23 @@ const router = createRouter({
     if (savedPosition) return savedPosition
     if (to.hash) return { el: to.hash }
     return { top: 0 }
+  }
+})
+
+// Load data before each navigation (beforeEnter doesn't fire on same-route param changes)
+router.beforeEach(async (to) => {
+  if (to.meta.requiresAuth) {
+    const auth = useAuthStore()
+    if (!auth.isAuthenticated) return '/account'
+  }
+  if (to.meta.requiresMod) {
+    const auth = useAuthStore()
+    if (!auth.showModControls) return '/account'
+  }
+  if (to.meta.loader) {
+    try {
+      to.meta.data = await to.meta.loader(to)
+    } catch (e) { apiError(e.status) }
   }
 })
 

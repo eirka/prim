@@ -171,6 +171,11 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown))
         </div>
       </div>
       <div class="image_info">
+        <div class="source_links">
+          <a class="tag tag-source" target="_blank" :href="'https://saucenao.com/search.php?url=' + encodeURIComponent(getImgSrc(imageData.filename))">SauceNao</a>
+          <a class="tag tag-source" target="_blank" :href="'https://iqdb.org/?url=' + encodeURIComponent(getImgSrc(imageData.filename))">iqdb</a>
+          <a class="tag tag-source" target="_blank" :href="'https://www.google.com/searchbyimage?image_url=' + encodeURIComponent(getImgSrc(imageData.filename)) + '&safe=off'">Google</a>
+        </div>
         <div class="tag_input">
           <form @submit.prevent="addTag">
             <input type="text" class="form-control" placeholder="Add Tag" list="tag-suggestions" @input="searchTags($event.target.value)">

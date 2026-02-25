@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { useBoardStore } from '@/stores/board'
@@ -16,6 +16,11 @@ const board = useBoardStore()
 
 const drawpadVisible = ref(false)
 const toggleDrawpad = () => { drawpadVisible.value = !drawpadVisible.value }
+
+const title = ref('')
+const comment = ref('')
+const hasFile = ref(false)
+const canSubmit = computed(() => title.value.trim().length >= 3 && comment.value.trim().length >= 3 && hasFile.value)
 
 const data = ref(route.meta.data?.index?.items || [])
 const pagination = ref({
@@ -70,21 +75,21 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown))
             </div>
           </div>
           <div class="form-group">
-            <input type="text" id="title" required name="title" class="form-control" minlength="3" maxlength="40" placeholder="Title">
+            <input type="text" id="title" required name="title" v-model="title" class="form-control" minlength="3" maxlength="40" placeholder="Title">
           </div>
           <div class="form-group">
-            <textarea id="comment" name="comment" required class="form-control" rows="3" minlength="3" maxlength="1000" placeholder="Comment"></textarea>
+            <textarea id="comment" name="comment" required v-model="comment" class="form-control" rows="3" minlength="3" maxlength="1000" placeholder="Comment"></textarea>
           </div>
           <div class="form-group">
             <div class="file-input">
-              <input id="file" type="file" name="file" required>
+              <input id="file" type="file" name="file" required @change="hasFile = !!$event.target.files.length">
             </div>
             <div class="draw-button">
               <a class="button button-success" href="#" @click.prevent="toggleDrawpad">Draw</a>
             </div>
           </div>
           <div class="form-group">
-            <button class="button button-block button-primary" type="submit">New Thread</button>
+            <button class="button button-block button-primary" type="submit" :disabled="!canSubmit">New Thread</button>
           </div>
         </form>
       </div>

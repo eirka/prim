@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { useBoardStore } from '@/stores/board'
@@ -21,6 +21,8 @@ const toggleDrawpad = () => { drawpadVisible.value = !drawpadVisible.value }
 
 const layout = ref('list')
 const quote = ref(getQuote())
+const hasFile = ref(false)
+const canReply = computed(() => quote.value.trim().length >= 3 || hasFile.value)
 
 const threadData = ref(route.meta.data?.thread?.items || {})
 const pagination = ref({
@@ -85,14 +87,14 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown))
           </div>
           <div class="form-group">
             <div class="file-input">
-              <input id="file" type="file" name="file">
+              <input id="file" type="file" name="file" @change="hasFile = !!$event.target.files.length">
             </div>
             <div class="draw-button">
               <a class="button button-success" href="#" @click.prevent="toggleDrawpad">Draw</a>
             </div>
           </div>
           <div class="form-group">
-            <button class="button button-block button-primary" type="submit">Reply</button>
+            <button class="button button-block button-primary" type="submit" :disabled="!canReply">Reply</button>
           </div>
         </form>
       </div>

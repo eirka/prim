@@ -14,11 +14,11 @@ const close = () => { show.value = false }
 </script>
 
 <template>
-  <span class="quote_link">
-    <a href="#" @click.prevent="toggle" @mouseenter="open" @mouseleave="close">
+  <span class="angular-hovercard">
+    <a class="label label-default" href="#" @click.prevent="toggle" @mouseenter="open" @mouseleave="close">
       &gt;&gt;{{ id }}
     </a>
-    <div v-if="show" class="quote_popup">
+    <div v-if="show" class="angular-hovercard-detail">
       <HoverBox :id="id" :thread="thread" />
     </div>
   </span>

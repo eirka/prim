@@ -3,6 +3,7 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import handlers from '@/api/handlers'
+import { formatDate } from '@/composables/useUtils'
 import PrimPagination from '@/components/PrimPagination.vue'
 
 const route = useRoute()
@@ -105,7 +106,7 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown))
               </td>
               <td style="width:3em;text-align:center;">{{ thread.postcount }}</td>
               <td style="width:3em;text-align:center;">{{ thread.images }}</td>
-              <td style="width:20%;text-align:center;">{{ new Date(thread.last_post).toLocaleString() }}</td>
+              <td style="width:20%;text-align:center;">{{ formatDate(thread.last_post) }}</td>
             </tr>
           </tbody>
         </table>

@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import modHandlers from '@/api/modHandlers'
-import { usergroupClass, apiError } from '@/composables/useUtils'
+import { usergroupClass, apiError, formatDate } from '@/composables/useUtils'
 import PrimPagination from '@/components/PrimPagination.vue'
 
 const data = ref([])
@@ -44,7 +44,7 @@ const onPageChange = (page) => getLog(page)
         <tr v-for="entry in data" :key="entry.id">
           <td><span :class="usergroupClass(entry.group)">{{ entry.name }}</span></td>
           <td>{{ entry.action }}</td>
-          <td>{{ new Date(entry.log_time).toLocaleString() }}</td>
+          <td>{{ formatDate(entry.log_time) }}</td>
         </tr>
       </tbody>
     </table>

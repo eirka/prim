@@ -3,7 +3,7 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { useBoardStore } from '@/stores/board'
-import { usergroupClass, getAvatar, getThumbSrc, getQuote, clearQuote, getFormAction } from '@/composables/useUtils'
+import { usergroupClass, getAvatar, getThumbSrc, getQuote, clearQuote, getFormAction, formatDate } from '@/composables/useUtils'
 import config from '@/config'
 import CommentHandler from '@/components/CommentHandler.vue'
 import PrimPagination from '@/components/PrimPagination.vue'
@@ -144,7 +144,7 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown))
                   <span :class="usergroupClass(post.group)">{{ post.name }}</span>
                 </div>
                 <div class="info_item">
-                  <span>{{ new Date(post.time).toLocaleString() }}</span>
+                  <span>{{ formatDate(post.time) }}</span>
                 </div>
                 <div class="info_item">
                   <a class="label label-light" href="#" @click.prevent="replyQuote(post.num)">#{{ post.num }}</a>

@@ -68,6 +68,10 @@ export function getAvatar(id) {
   return ''
 }
 
+export function formatDate(date) {
+  return new Date(date).toLocaleString().replace(',', '')
+}
+
 export function usergroupClass(group) {
   switch (group) {
     case 2: return 'group_registered'

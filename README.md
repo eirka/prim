@@ -29,6 +29,7 @@ Frontend for the [Pram](https://github.com/eirka) imageboard API.
 | Styling | SCSS |
 | Charts | Chart.js / vue-chartjs |
 | Toasts | vue-toastification |
+| Testing | Vitest |
 
 ## Quick Start
 
@@ -39,6 +40,13 @@ npm run dev
 ```
 
 The dev server starts on `http://localhost:3000`.
+
+## Tests
+
+```bash
+cd vue
+npm test
+```
 
 ## Build
 

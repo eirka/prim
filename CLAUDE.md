@@ -11,6 +11,7 @@ Imageboard frontend for the Pram REST API built with Vue 3.
 - **SCSS** for styling (ported from legacy, uses `@import` syntax)
 - **Chart.js** via vue-chartjs for admin statistics
 - **vue-toastification** for toast notifications
+- **Vitest** for unit testing
 
 ## Project Layout
 
@@ -26,7 +27,8 @@ vue/src/
     auth.js           - Auth state, session, whoami, logout, mod check
     board.js          - Per-board group/role data
   api/
-    client.js         - fetch wrapper (withCredentials, error interceptor)
+    client.js         - fetch wrapper (withCredentials, CSRF headers, error interceptor)
+    client.test.js    - API client tests (headers, CSRF, error handling)
     handlers.js       - Public API endpoints (index, thread, image, tags, etc.)
     userHandlers.js   - User endpoints (login, register, favorites, etc.)
     modHandlers.js    - Mod/admin endpoints (delete, ban, close, sticky, etc.)
@@ -70,6 +72,7 @@ npm install
 npm run dev      # Dev server on port 3000
 npm run build    # Production build to vue/dist/
 npm run preview  # Preview production build
+npm test         # Run tests with Vitest
 ```
 
 ## API Endpoints

@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "styles": "sass --no-source-map --style=compressed ${STYLES_DIR:-../../chounyuu/chounyuu-styles}/sass/:${STYLES_DIR:-../../chounyuu/chounyuu-styles}/css/",
     "styles:default": "cp ${STYLES_DIR:-../../chounyuu/chounyuu-styles}/css/meta.css public/meta.css",
-    "styles:all": "npm run styles && npm run styles:default"
+    "styles:all": "npm run styles && npm run styles:default",
+    "test": "vitest run"
   },
   "dependencies": {
     "chart.js": "^4.4.0",
@@ -22,6 +23,7 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.0",
     "sass": "^1.70.0",
-    "vite": "^5.4.0"
+    "vite": "^5.4.0",
+    "vitest": "^4.0.18"
   }
 }

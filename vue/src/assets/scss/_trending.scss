@@ -6,10 +6,10 @@
 .trending {
   @include clearfix;
 
-  @include mediaWidths;
-
   width: $boxWidthRel;
   margin: 0 auto;
+
+  @include mediaWidths;
 }
 
 .trending_col {

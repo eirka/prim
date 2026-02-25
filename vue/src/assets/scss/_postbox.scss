@@ -10,8 +10,6 @@
 .postbox_box {
   @include clearfix;
 
-  @include mediaWidths;
-
   width: $boxWidthRel;
   position: relative;
   top: 2em;
@@ -19,6 +17,8 @@
   border-radius: 6px;
   min-height: 17em;
   padding: 1em 1em 0 1em;
+
+  @include mediaWidths;
 }
 
 .postbox_form {

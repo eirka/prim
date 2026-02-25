@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { useBoardStore } from '@/stores/board'
@@ -17,48 +17,59 @@ const toggleMenu = () => { menuVisible.value = !menuVisible.value }
 const toggleUserMenu = () => { userMenuVisible.value = !userMenuVisible.value }
 
 const isActive = (path) => route.path.split('/')[1] === path
-
-const handleClickOutside = (event, el) => {
-  if (el && !el.contains(event.target)) return true
-  return false
-}
 </script>
 
 <template>
   <header class="header">
-    <div class="header_box">
-      <div class="header_left">
-        <router-link to="/" class="header_logo">Prim</router-link>
-        <button class="header_toggle fa fa-bars" @click="toggleMenu"></button>
-      </div>
-      <nav class="header_nav" :class="{ visible: menuVisible }">
-        <ul class="nav_items">
-          <li><router-link :class="{ active: isActive('directory') }" to="/directory">Threads</router-link></li>
-          <li><router-link :class="{ active: isActive('trending') }" to="/trending">Popular</router-link></li>
-          <li><router-link :class="{ active: isActive('tags') }" to="/tags">Tags</router-link></li>
-          <DiscordWidget />
-        </ul>
-      </nav>
-      <div class="header_right">
-        <div v-if="auth.isAuthenticated" class="user_menu_container">
-          <button class="user_menu_toggle" @click="toggleUserMenu">
-            <span :class="usergroupClass(board.group)">{{ auth.name }}</span>
-          </button>
-          <ul v-if="userMenuVisible" class="user_menu dropdown-menu">
-            <li>
-              <div class="username">
-                <span :class="usergroupClass(board.group)">{{ auth.name }}</span>
-              </div>
+    <div class="header_bar">
+      <div class="left">
+        <div class="nav_menu">
+          <ul @click="toggleMenu">
+            <li><a href="#" @click.prevent><i class="fa fa-fw fa-bars"></i></a>
+              <ul v-if="menuVisible">
+                <li><a href="/">Home</a></li>
+              </ul>
             </li>
-            <li class="divider"></li>
-            <li><router-link to="/favorites"><i style="color:#D67474;" class="fa fa-heart"></i>Favorites</router-link></li>
-            <li class="divider"></li>
-            <li v-if="auth.showModControls"><router-link to="/admin"><i class="fa fa-key"></i>Admin</router-link></li>
-            <li><router-link to="/account"><i class="fa fa-cog"></i>Settings</router-link></li>
-            <li><a href="#" @click.prevent="auth.logOut()"><i class="fa fa-plug"></i>Sign out</a></li>
           </ul>
         </div>
-        <router-link v-else to="/account" class="button button-primary">Sign in</router-link>
+        <div class="nav_items">
+          <ul>
+            <li><router-link :class="{ active: isActive('directory') }" to="/directory">Threads</router-link></li>
+            <li><router-link :class="{ active: isActive('trending') }" to="/trending">Popular</router-link></li>
+            <li><router-link :class="{ active: isActive('tags') }" to="/tags">Tags</router-link></li>
+            <DiscordWidget />
+          </ul>
+        </div>
+      </div>
+      <div class="right">
+        <div class="user_menu">
+          <div v-if="!auth.isAuthenticated" class="login">
+            <router-link to="/account" class="button-login">Sign in</router-link>
+          </div>
+          <div v-else>
+            <ul @click="toggleUserMenu">
+              <li>
+                <div class="avatar avatar-medium">
+                  <div class="avatar-inner">
+                    <a href="#" @click.prevent><img :src="auth.avatar" /></a>
+                  </div>
+                </div>
+                <ul v-if="userMenuVisible">
+                  <li><div class="username"><span :class="usergroupClass(board.group)">{{ auth.name }}</span></div></li>
+                  <li class="divider"></li>
+                  <li><router-link to="/favorites"><i style="color:#D67474;" class="fa fa-heart"></i>Favorites</router-link></li>
+                  <li class="divider"></li>
+                  <li v-if="auth.showModControls"><router-link to="/admin"><i class="fa fa-key"></i>Admin</router-link></li>
+                  <li><router-link to="/account"><i class="fa fa-cog"></i>Settings</router-link></li>
+                  <li><a href="#" @click.prevent="auth.logOut()"><i class="fa fa-plug"></i>Sign out</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="site_logo">
+          <router-link to="/">Prim</router-link>
+        </div>
       </div>
     </div>
   </header>

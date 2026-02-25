@@ -12,12 +12,12 @@
 .footer_box {
   @include clearfix;
 
-  @include mediaWidths;
-
   width: $boxWidthRel;
   margin: 0 auto;
   text-align: center;
   padding: 1em;
+
+  @include mediaWidths;
 }
 
 /* footer links */

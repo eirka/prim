@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "styles": "sass --no-source-map --style=compressed ${STYLES_DIR:-../../chounyuu/chounyuu-styles}/sass/:${STYLES_DIR:-../../chounyuu/chounyuu-styles}/css/",
+    "styles:default": "cp ${STYLES_DIR:-../../chounyuu/chounyuu-styles}/css/meta.css public/meta.css",
+    "styles:all": "npm run styles && npm run styles:default"
   },
   "dependencies": {
     "chart.js": "^4.4.0",

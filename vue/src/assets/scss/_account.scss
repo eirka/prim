@@ -10,8 +10,6 @@
 .account_header {
   @include clearfix;
 
-  @include mediaWidths;
-
   border-radius: 6px;
   width: $boxWidthRel;
   margin: 0 auto;
@@ -19,6 +17,8 @@
   margin-bottom: 1em;
   display: table;
   height: 2em;
+
+  @include mediaWidths;
 
   & .user_info {
     overflow: hidden;
@@ -57,12 +57,12 @@
 .account_row {
   @include clearfix;
 
-  @include mediaWidths;
-
   overflow: hidden;
   width: $boxWidthRel;
   margin: 0 auto;
   padding: 0;
+
+  @include mediaWidths;
 
   & .account_subcontainer {
     border-radius: 6px;

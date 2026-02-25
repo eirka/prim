@@ -8,12 +8,12 @@
 }
 
 .tagpage_container {
-  @include mediaWidths;
-
   border-radius: 6px;
   overflow: hidden;
   width: $boxWidthRel;
   margin: 0 auto;
+
+  @include mediaWidths;
 
   & .no_tags {
     padding: 1em;

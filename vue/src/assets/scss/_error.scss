@@ -10,13 +10,13 @@
 .error_container {
   @include clearfix;
 
-  @include mediaWidths;
-
   border-radius: 6px;
   overflow: hidden;
   width: $boxWidthRel;
   margin: 0 auto;
   padding: 1em;
+
+  @include mediaWidths;
 
   & .error_code {
     text-align: center;

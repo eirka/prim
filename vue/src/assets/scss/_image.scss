@@ -10,10 +10,10 @@
 .image_container {
   @include clearfix;
 
-  @include mediaWidths;
-
   width: $boxWidthRel;
   margin: 0 auto;
+
+  @include mediaWidths;
 }
 
 .image_info {

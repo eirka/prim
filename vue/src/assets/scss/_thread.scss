@@ -9,13 +9,13 @@
 }
 
 .thread {
-  @include mediaWidths;
-
   border-radius: 6px;
   overflow: hidden;
   width: $boxWidthRel;
   margin: 0 auto;
   margin-bottom: 1em;
+
+  @include mediaWidths;
 }
 
 /* thread header */

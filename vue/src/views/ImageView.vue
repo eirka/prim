@@ -100,7 +100,7 @@ const addFavorite = async () => {
 
 // Tag type class
 const tagClass = (type) => {
-  switch (type) {
+  switch (Number(type)) {
     case 1: return 'tag-default'
     case 2: return 'tag-artist'
     case 3: return 'tag-character'

@@ -1,17 +1,11 @@
 <script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-
-const loading = ref(false)
-const router = useRouter()
-
-router.beforeEach(() => { loading.value = true })
-router.afterEach(() => { loading.value = false })
-router.onError(() => { loading.value = false })
+import { isLoading } from '@/router'
 </script>
 
 <template>
-  <div v-if="loading" class="loading-indicator">
-    <div class="loading-spinner"></div>
+  <div v-if="isLoading" class="spinner">
+    <div class="bounce1"></div>
+    <div class="bounce2"></div>
+    <div class="bounce3"></div>
   </div>
 </template>

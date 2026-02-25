@@ -1,9 +1,12 @@
+import { ref } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import config from '@/config'
 import handlers from '@/api/handlers'
 import userHandlers from '@/api/userHandlers'
 import { apiError } from '@/composables/useUtils'
 import { useAuthStore } from '@/stores/auth'
+
+export const isLoading = ref(false)
 
 const router = createRouter({
   history: createWebHistory(),
@@ -121,6 +124,7 @@ const router = createRouter({
 
 // Load data before each navigation (beforeEnter doesn't fire on same-route param changes)
 router.beforeEach(async (to) => {
+  isLoading.value = true
   if (to.meta.requiresAuth) {
     const auth = useAuthStore()
     if (!auth.isAuthenticated) return '/account'
@@ -138,8 +142,11 @@ router.beforeEach(async (to) => {
 
 // Set page title on route change
 router.afterEach((to) => {
+  isLoading.value = false
   const title = to.meta.title || ''
   document.title = title ? `${title} | ${config.title}` : config.title
 })
+
+router.onError(() => { isLoading.value = false })
 
 export default router

@@ -3,7 +3,6 @@ import { ref, provide, reactive } from 'vue'
 import drawConfig from './drawConfig'
 import DrawCanvas from './DrawCanvas.vue'
 import DrawControls from './DrawControls.vue'
-import DrawPalette from './DrawPalette.vue'
 
 const props = defineProps({
   visible: { type: Boolean, default: false }
@@ -73,15 +72,12 @@ provide('drawPad', {
 </script>
 
 <template>
-  <div v-if="visible" class="drawpad">
-    <div class="drawpad_header">
-      <span>Drawing Pad</span>
-      <button class="button button-primary" @click="emit('toggle')">Close</button>
+  <div v-if="visible" class="draw-pad">
+    <div class="draw-title">
+      <span><em>LineWriter 95</em></span>
+      <a href="#" @click.prevent="emit('toggle')" class="fa fa-times close"></a>
     </div>
-    <div class="drawpad_container">
-      <DrawCanvas />
-      <DrawControls v-if="drawConfig.drawControls" />
-      <DrawPalette />
-    </div>
+    <DrawControls v-if="drawConfig.drawControls" />
+    <DrawCanvas />
   </div>
 </template>

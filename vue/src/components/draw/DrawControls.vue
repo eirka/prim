@@ -1,6 +1,7 @@
 <script setup>
 import { inject, onMounted, onUnmounted } from 'vue'
 import drawConfig from './drawConfig'
+import DrawPalette from './DrawPalette.vue'
 
 const { canvas, selectedTool, saveState, defaultCanvas, restoreState, undoList, redoList, switchEraser } = inject('drawPad')
 
@@ -44,24 +45,13 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown))
 </script>
 
 <template>
-  <div class="drawpad_controls">
-    <button class="button" :class="{ active: toolActive(drawConfig.TOOL_PEN) }" @click="pencil" title="Pencil (P)">
-      <i class="fa fa-pencil"></i>
-    </button>
-    <button class="button" :class="{ active: toolActive(drawConfig.TOOL_ERASER) }" @click="eraser" title="Eraser (E)">
-      <i class="fa fa-eraser"></i>
-    </button>
-    <button class="button" @click="undo" title="Undo (Z)">
-      <i class="fa fa-undo"></i>
-    </button>
-    <button class="button" @click="redo" title="Redo (Y)">
-      <i class="fa fa-repeat"></i>
-    </button>
-    <button class="button" @click="reset" title="Reset">
-      <i class="fa fa-trash"></i>
-    </button>
-    <button class="button" @click="save" title="Save (S)">
-      <i class="fa fa-download"></i>
-    </button>
+  <div class="draw-controls">
+    <DrawPalette />
+    <button :class="{ active: toolActive(drawConfig.TOOL_PEN) }" @click="pencil">Draw</button>
+    <button :class="{ active: toolActive(drawConfig.TOOL_ERASER) }" @click="eraser">Erase</button>
+    <button @click="undo">Undo</button>
+    <button @click="redo">Redo</button>
+    <button @click="reset">Clear</button>
+    <button @click="save">Save</button>
   </div>
 </template>

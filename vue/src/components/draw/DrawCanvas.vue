@@ -70,8 +70,9 @@ const onMouseUp = () => {
 </script>
 
 <template>
-  <div class="drawpad_canvas">
+  <div class="draw-canvas">
     <canvas
+      class="canvas-element"
       ref="canvasRef"
       @mousedown="onMouseDown"
       @touchstart="onMouseDown"

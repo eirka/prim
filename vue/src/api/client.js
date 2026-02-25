@@ -5,14 +5,25 @@ import { useToast } from 'vue-toastification'
 
 const BASE = config.api_srv
 
+const SAFE_METHODS = new Set(['GET', 'HEAD', 'OPTIONS', 'TRACE'])
+
+function getCsrfToken() {
+  return config.csrf_token || ''
+}
+
 async function request(url, options = {}) {
+  const method = (options.method || 'GET').toUpperCase()
+  const needsCsrf = !SAFE_METHODS.has(method)
+  const hasBody = options.body != null
+
   const res = await fetch(BASE + url, {
     credentials: 'include',
+    ...options,
     headers: {
-      'Content-Type': 'application/json',
-      ...options.headers
-    },
-    ...options
+      ...(hasBody ? { 'Content-Type': 'application/json' } : {}),
+      ...options.headers,
+      ...(needsCsrf ? { 'X-XSRF-TOKEN': getCsrfToken() } : {})
+    }
   })
 
   if (!res.ok) {

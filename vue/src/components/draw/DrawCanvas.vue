@@ -1,13 +1,13 @@
-<script setup>
+<script setup lang="ts">
 import { ref, inject, onMounted, onUnmounted } from 'vue'
-import drawConfig from './drawConfig'
+import drawConfig, { drawPadKey } from './drawConfig'
 
-const { addCanvas, ctx, saveState, defaultCanvas } = inject('drawPad')
-const canvasRef = ref(null)
+const { addCanvas, ctx, saveState, defaultCanvas } = inject(drawPadKey)!
+const canvasRef = ref<HTMLCanvasElement | null>(null)
 let drawing = false
 
 onMounted(() => {
-  const canvas = canvasRef.value
+  const canvas = canvasRef.value!
   canvas.width = drawConfig.width
   canvas.height = drawConfig.height
 
@@ -19,8 +19,8 @@ onMounted(() => {
     const img = new Image()
     img.src = cached
     img.onload = () => {
-      ctx.value.clearRect(0, 0, drawConfig.width, drawConfig.height)
-      ctx.value.drawImage(img, 0, 0, drawConfig.width, drawConfig.height)
+      ctx.value!.clearRect(0, 0, drawConfig.width, drawConfig.height)
+      ctx.value!.drawImage(img, 0, 0, drawConfig.width, drawConfig.height)
     }
   } else {
     defaultCanvas()
@@ -39,33 +39,42 @@ onUnmounted(() => {
   document.removeEventListener('touchend', onMouseUp)
 })
 
-const onMouseDown = (event) => {
+const getCoords = (event: MouseEvent | TouchEvent, rect: DOMRect) => {
+  if ('touches' in event) {
+    const touch = event.touches[0]
+    return { x: touch.clientX - rect.left, y: touch.clientY - rect.top }
+  }
+  return { x: (event as MouseEvent).clientX - rect.left, y: (event as MouseEvent).clientY - rect.top }
+}
+
+const onMouseDown = (event: MouseEvent | TouchEvent) => {
   event.preventDefault()
   event.stopPropagation()
   drawing = true
   saveState()
-  ctx.value.lineJoin = 'round'
-  ctx.value.lineCap = 'round'
-  ctx.value.beginPath()
-  ctx.value.moveTo(event.offsetX, event.offsetY)
+  const canvas = canvasRef.value!
+  const rect = canvas.getBoundingClientRect()
+  const { x, y } = getCoords(event, rect)
+  ctx.value!.lineJoin = 'round'
+  ctx.value!.lineCap = 'round'
+  ctx.value!.beginPath()
+  ctx.value!.moveTo(x, y)
 }
 
-const onMouseMove = (event) => {
-  if (!drawing) return
+const onMouseMove = (event: MouseEvent | TouchEvent) => {
+  if (!drawing || !canvasRef.value || !ctx.value) return
   const canvas = canvasRef.value
   const rect = canvas.getBoundingClientRect()
-  ctx.value.lineTo(
-    Math.floor(event.pageX - rect.left),
-    Math.floor(event.pageY - rect.top)
-  )
-  ctx.value.stroke()
+  const { x, y } = getCoords(event, rect)
+  ctx.value!.lineTo(Math.floor(x), Math.floor(y))
+  ctx.value!.stroke()
 }
 
 const onMouseUp = () => {
   if (!drawing) return
   drawing = false
-  ctx.value.closePath()
-  localStorage.setItem(drawConfig.storageKey, canvasRef.value.toDataURL(drawConfig.imageMime))
+  ctx.value!.closePath()
+  localStorage.setItem(drawConfig.storageKey, canvasRef.value!.toDataURL(drawConfig.imageMime))
 }
 </script>
 

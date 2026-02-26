@@ -1,13 +1,15 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { getThumbSrc } from '@/composables/useUtils'
+import type { PopularResponse, NewestResponse, FavoritedResponse, ThumbnailImage } from '@/types'
 
 const route = useRoute()
 
-const popular = ref(route.meta.data?.popular?.popular || [])
-const newest = ref(route.meta.data?.newest?.new || [])
-const favorited = ref(route.meta.data?.favorited?.favorited || [])
+const raw = route.meta.data as { popular: PopularResponse; newest: NewestResponse; favorited: FavoritedResponse } | undefined
+const popular = ref<ThumbnailImage[]>(raw?.popular?.popular || [])
+const newest = ref<ThumbnailImage[]>(raw?.newest?.new || [])
+const favorited = ref<ThumbnailImage[]>(raw?.favorited?.favorited || [])
 </script>
 
 <template>

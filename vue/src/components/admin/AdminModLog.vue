@@ -1,13 +1,14 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import modHandlers from '@/api/modHandlers'
 import { usergroupClass, apiError, formatDate } from '@/composables/useUtils'
 import PrimPagination from '@/components/PrimPagination.vue'
+import type { LogEntry, ApiError } from '@/types'
 
-const data = ref([])
+const data = ref<LogEntry[]>([])
 const pagination = ref({ totalItems: 0, currentPage: 1, numPages: 1, itemsPerPage: 10, maxSize: 3 })
 
-const getLog = async (page) => {
+const getLog = async (page: number) => {
   try {
     const result = await modHandlers.modlog(page)
     data.value = result.modlog.items
@@ -19,13 +20,13 @@ const getLog = async (page) => {
       maxSize: 3
     }
   } catch (e) {
-    apiError(e.status)
+    apiError((e as ApiError).status)
   }
 }
 
 onMounted(() => getLog(1))
 
-const onPageChange = (page) => getLog(page)
+const onPageChange = (page: number) => getLog(page)
 </script>
 
 <template>

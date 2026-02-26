@@ -4,10 +4,14 @@ import config from '@/config'
 
 const IB_CACHE_KEY = `ib${config.ib_id}.data`
 
+interface BoardCache {
+  group: number
+}
+
 export const useBoardStore = defineStore('board', () => {
   const group = ref(1)
 
-  const set = (g) => {
+  const set = (g: number) => {
     group.value = g
   }
 
@@ -18,17 +22,21 @@ export const useBoardStore = defineStore('board', () => {
   const saveCache = () => {
     try {
       localStorage.setItem(IB_CACHE_KEY, JSON.stringify({ group: group.value }))
-    } catch (e) { /* ignore */ }
+    } catch { /* ignore */ }
   }
 
-  const getCache = () => {
+  const getCache = (): BoardCache | null => {
     try {
       const cached = localStorage.getItem(IB_CACHE_KEY)
       return cached ? JSON.parse(cached) : null
-    } catch (e) {
+    } catch {
       return null
     }
   }
 
-  return { group, set, setDefault, saveCache, getCache }
+  const destroyCache = () => {
+    localStorage.removeItem(IB_CACHE_KEY)
+  }
+
+  return { group, set, setDefault, saveCache, getCache, destroyCache }
 })

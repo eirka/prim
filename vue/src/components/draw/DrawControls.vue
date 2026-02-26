@@ -1,11 +1,11 @@
-<script setup>
+<script setup lang="ts">
 import { inject, onMounted, onUnmounted } from 'vue'
-import drawConfig from './drawConfig'
+import drawConfig, { drawPadKey } from './drawConfig'
 import DrawPalette from './DrawPalette.vue'
 
-const { canvas, selectedTool, saveState, defaultCanvas, restoreState, undoList, redoList, switchEraser } = inject('drawPad')
+const { canvas, selectedTool, saveState, defaultCanvas, restoreState, undoList, redoList, switchEraser } = inject(drawPadKey)!
 
-const toolActive = (tool) => tool === selectedTool.value
+const toolActive = (tool: number) => tool === selectedTool.value
 
 const reset = () => {
   saveState()
@@ -21,16 +21,16 @@ const eraser = () => switchEraser(true)
 const save = () => {
   const filename = new Date().getTime() + '.png'
   const link = document.createElement('a')
-  link.href = canvas.value.toDataURL(drawConfig.imageMime)
+  link.href = canvas.value!.toDataURL(drawConfig.imageMime)
   link.download = filename
   document.body.appendChild(link)
   link.click()
   document.body.removeChild(link)
 }
 
-const onKeyDown = (e) => {
+const onKeyDown = (e: KeyboardEvent) => {
   // Only handle when draw pad is focused/visible
-  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return
+  if ((e.target as HTMLElement).tagName === 'INPUT' || (e.target as HTMLElement).tagName === 'TEXTAREA') return
   switch (e.key.toLowerCase()) {
     case 'p': pencil(); break
     case 'e': eraser(); break

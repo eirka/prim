@@ -5,6 +5,7 @@ import handlers from '@/api/handlers'
 import userHandlers from '@/api/userHandlers'
 import { apiError } from '@/composables/useUtils'
 import { useAuthStore } from '@/stores/auth'
+import type { ApiError } from '@/types'
 
 export const isLoading = ref(false)
 
@@ -21,13 +22,13 @@ const router = createRouter({
       path: '/page/:page',
       name: 'indexPage',
       component: () => import('@/views/IndexView.vue'),
-      meta: { title: 'Index', loader: (to) => handlers.index(to.params.page) }
+      meta: { title: 'Index', loader: (to) => handlers.index(to.params.page as string) }
     },
     {
       path: '/thread/:id/:page',
       name: 'thread',
       component: () => import('@/views/ThreadView.vue'),
-      meta: { loader: (to) => handlers.thread(to.params.id, to.params.page) }
+      meta: { loader: (to) => handlers.thread(to.params.id as string, to.params.page as string) }
     },
     {
       path: '/directory',
@@ -39,13 +40,13 @@ const router = createRouter({
       path: '/directory/:page',
       name: 'directoryPage',
       component: () => import('@/views/DirectoryView.vue'),
-      meta: { title: 'Threads', loader: (to) => handlers.directory(to.params.page) }
+      meta: { title: 'Threads', loader: (to) => handlers.directory(to.params.page as string) }
     },
     {
       path: '/image/:id',
       name: 'image',
       component: () => import('@/views/ImageView.vue'),
-      meta: { loader: (to) => handlers.image(to.params.id) }
+      meta: { loader: (to) => handlers.image(to.params.id as string) }
     },
     {
       path: '/tags',
@@ -57,13 +58,13 @@ const router = createRouter({
       path: '/tags/:page',
       name: 'tagsPage',
       component: () => import('@/views/TagsView.vue'),
-      meta: { title: 'Tags', loader: (to) => handlers.tags(to.params.page) }
+      meta: { title: 'Tags', loader: (to) => handlers.tags(to.params.page as string) }
     },
     {
       path: '/tag/:id/:page',
       name: 'tag',
       component: () => import('@/views/TagView.vue'),
-      meta: { loader: (to) => handlers.tag(to.params.id, to.params.page) }
+      meta: { loader: (to) => handlers.tag(to.params.id as string, to.params.page as string) }
     },
     {
       path: '/trending',
@@ -91,7 +92,7 @@ const router = createRouter({
       path: '/favorites/:page',
       name: 'favoritesPage',
       component: () => import('@/views/FavoritesView.vue'),
-      meta: { title: 'Favorites', requiresAuth: true, loader: (to) => userHandlers.favorites(to.params.page) }
+      meta: { title: 'Favorites', requiresAuth: true, loader: (to) => userHandlers.favorites(to.params.page as string) }
     },
     {
       path: '/account',
@@ -115,7 +116,7 @@ const router = createRouter({
       redirect: '/error'
     }
   ],
-  scrollBehavior(to, from, savedPosition) {
+  scrollBehavior(to, _from, savedPosition) {
     if (savedPosition) return savedPosition
     if (to.hash) return { el: to.hash }
     return { top: 0 }
@@ -127,16 +128,26 @@ router.beforeEach(async (to) => {
   isLoading.value = true
   if (to.meta.requiresAuth) {
     const auth = useAuthStore()
-    if (!auth.isAuthenticated) return '/account'
+    if (!auth.isAuthenticated) {
+      isLoading.value = false
+      return '/account'
+    }
   }
   if (to.meta.requiresMod) {
     const auth = useAuthStore()
-    if (!auth.showModControls) return '/account'
+    if (!auth.showModControls) {
+      isLoading.value = false
+      return '/account'
+    }
   }
   if (to.meta.loader) {
     try {
-      to.meta.data = await to.meta.loader(to)
-    } catch (e) { apiError(e.status) }
+      to.meta.data = await to.meta.loader(to) as Record<string, unknown>
+    } catch (e) {
+      const err = e as ApiError
+      apiError(err.status)
+      return false
+    }
   }
 })
 

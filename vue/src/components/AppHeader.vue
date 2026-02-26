@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
@@ -16,7 +16,7 @@ const userMenuVisible = ref(false)
 const toggleMenu = () => { menuVisible.value = !menuVisible.value }
 const toggleUserMenu = () => { userMenuVisible.value = !userMenuVisible.value }
 
-const isActive = (path) => route.path.split('/')[1] === path
+const isActive = (path: string) => route.path.split('/')[1] === path
 </script>
 
 <template>
@@ -51,7 +51,7 @@ const isActive = (path) => route.path.split('/')[1] === path
               <li>
                 <div class="avatar avatar-medium">
                   <div class="avatar-inner">
-                    <a href="#" @click.prevent><img :src="auth.avatar" /></a>
+                    <a href="#" @click.prevent><img :src="auth.avatar ?? ''" /></a>
                   </div>
                 </div>
                 <ul v-if="userMenuVisible">

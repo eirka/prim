@@ -1,6 +1,6 @@
 // Runtime config injected by the host server via window.primConfig
 // Falls back to defaults for development
-const config = window.primConfig || {
+const config: PrimConfig = window.primConfig || {
   ib_id: 3,
   title: 'Meta',
   img_srv: '//images.chounyuu.com',

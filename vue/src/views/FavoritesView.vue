@@ -1,28 +1,30 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getThumbSrc } from '@/composables/useUtils'
 import PrimPagination from '@/components/PrimPagination.vue'
+import type { FavoritesResponse, FavoritesDetail } from '@/types'
 
 const route = useRoute()
 const router = useRouter()
 
-const data = ref(route.meta.data?.favorites?.items || {})
+const raw = route.meta.data as FavoritesResponse | undefined
+const data = ref<FavoritesDetail>(raw?.favorites?.items || { images: [] })
 const pagination = ref({
-  totalItems: route.meta.data?.favorites?.total || 0,
-  currentPage: route.meta.data?.favorites?.current_page || 1,
-  numPages: route.meta.data?.favorites?.pages || 1,
-  itemsPerPage: route.meta.data?.favorites?.per_page || 10,
+  totalItems: raw?.favorites?.total || 0,
+  currentPage: raw?.favorites?.current_page || 1,
+  numPages: raw?.favorites?.pages || 1,
+  itemsPerPage: raw?.favorites?.per_page || 10,
   maxSize: 3
 })
 
-const onPageChange = (page) => {
+const onPageChange = (page: number) => {
   if (page === 1) router.push('/favorites')
   else router.push('/favorites/' + page)
 }
 
-const onKeyDown = (e) => {
-  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return
+const onKeyDown = (e: KeyboardEvent) => {
+  if ((e.target as HTMLElement).tagName === 'INPUT' || (e.target as HTMLElement).tagName === 'TEXTAREA') return
   if (e.shiftKey && e.key === 'ArrowLeft' && pagination.value.currentPage > 1) {
     onPageChange(pagination.value.currentPage - 1)
   } else if (e.shiftKey && e.key === 'ArrowRight' && pagination.value.currentPage < pagination.value.numPages) {

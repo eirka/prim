@@ -1,38 +1,39 @@
-<script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+<script setup lang="ts">
+import { ref, watch, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import handlers from '@/api/handlers'
 import { formatDate } from '@/composables/useUtils'
 import PrimPagination from '@/components/PrimPagination.vue'
+import type { DirectoryResponse, DirectoryThread } from '@/types'
 
 const route = useRoute()
 const router = useRouter()
 const auth = useAuthStore()
 
-const data = ref(route.meta.data?.directory?.items || [])
+const raw = route.meta.data as DirectoryResponse | undefined
+const data = ref<DirectoryThread[]>(raw?.directory?.items || [])
 const pagination = ref({
-  totalItems: route.meta.data?.directory?.total || 0,
-  currentPage: route.meta.data?.directory?.current_page || 1,
-  numPages: route.meta.data?.directory?.pages || 1,
-  itemsPerPage: route.meta.data?.directory?.per_page || 10,
+  totalItems: raw?.directory?.total || 0,
+  currentPage: raw?.directory?.current_page || 1,
+  numPages: raw?.directory?.pages || 1,
+  itemsPerPage: raw?.directory?.per_page || 10,
   maxSize: 3
 })
 
-const sort = ref({ column: 'last_post', desc: true })
+const sort = ref({ column: 'last_post' as keyof DirectoryThread, desc: true })
 const searchterm = ref('')
 
-const changeSorting = (column) => {
+const changeSorting = (column: string) => {
   if (sort.value.column === column) {
     sort.value.desc = !sort.value.desc
   } else {
-    sort.value.column = column
+    sort.value.column = column as keyof DirectoryThread
     sort.value.desc = false
   }
 }
 
-const sortedData = ref([])
-import { watch } from 'vue'
+const sortedData = ref<DirectoryThread[]>([])
 watch([data, sort], () => {
   const arr = [...data.value]
   arr.sort((a, b) => {
@@ -51,16 +52,23 @@ const searchThreads = async () => {
   try {
     const result = await handlers.threadsearch(searchterm.value)
     data.value = result.threadsearch || []
+    pagination.value = {
+      totalItems: data.value.length,
+      currentPage: 1,
+      numPages: 1,
+      itemsPerPage: data.value.length || 10,
+      maxSize: 3
+    }
   } catch { /* ignore */ }
 }
 
-const onPageChange = (page) => {
+const onPageChange = (page: number) => {
   if (page === 1) router.push('/directory')
   else router.push('/directory/' + page)
 }
 
-const onKeyDown = (e) => {
-  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return
+const onKeyDown = (e: KeyboardEvent) => {
+  if ((e.target as HTMLElement).tagName === 'INPUT' || (e.target as HTMLElement).tagName === 'TEXTAREA') return
   if (e.shiftKey && e.key === 'ArrowLeft' && pagination.value.currentPage > 1) {
     onPageChange(pagination.value.currentPage - 1)
   } else if (e.shiftKey && e.key === 'ArrowRight' && pagination.value.currentPage < pagination.value.numPages) {

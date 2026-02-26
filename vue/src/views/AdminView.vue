@@ -1,10 +1,15 @@
-<script setup>
-import { ref } from 'vue'
+<script setup lang="ts">
+import { ref, type Component } from 'vue'
 import AdminStatistics from '@/components/admin/AdminStatistics.vue'
 import AdminBoardLog from '@/components/admin/AdminBoardLog.vue'
 import AdminModLog from '@/components/admin/AdminModLog.vue'
 
-const panels = [
+interface Panel {
+  name: string
+  component: Component
+}
+
+const panels: Panel[] = [
   { name: 'Statistics', component: AdminStatistics },
   { name: 'Board Log', component: AdminBoardLog },
   { name: 'Mod Log', component: AdminModLog }

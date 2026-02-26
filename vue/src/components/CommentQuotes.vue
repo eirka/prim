@@ -1,11 +1,11 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 import HoverBox from './HoverBox.vue'
 
-defineProps({
-  id: { type: String, required: true },
-  thread: { type: Number, required: true }
-})
+defineProps<{
+  id: string
+  thread: number
+}>()
 
 const show = ref(false)
 const toggle = () => { show.value = !show.value }

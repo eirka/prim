@@ -23,7 +23,7 @@ vi.mock('vue-toastification', () => ({
   useToast: vi.fn(() => ({ error: mockToastError }))
 }))
 
-function mockFetchResponse(status, body = {}) {
+function mockFetchResponse(status: number, body: Record<string, unknown> = {}) {
   return vi.fn(() => Promise.resolve({
     ok: status >= 200 && status < 300,
     status,
@@ -40,13 +40,13 @@ beforeEach(() => {
 })
 
 // Re-import after mocks are set up
-const { get, post, del } = await import('./client.js')
+const { get, post, del } = await import('./client')
 
 describe('get()', () => {
   it('sends GET to BASE + url', async () => {
     await get('/get/index/1/1')
 
-    const [url, init] = fetch.mock.calls[0]
+    const [url, init] = (fetch as ReturnType<typeof vi.fn>).mock.calls[0]
     expect(url).toBe('https://api.test.com/get/index/1/1')
     expect(init.method).toBeUndefined()
   })
@@ -54,21 +54,21 @@ describe('get()', () => {
   it('does not send X-XSRF-TOKEN header', async () => {
     await get('/get/index/1/1')
 
-    const [, init] = fetch.mock.calls[0]
+    const [, init] = (fetch as ReturnType<typeof vi.fn>).mock.calls[0]
     expect(init.headers).not.toHaveProperty('X-XSRF-TOKEN')
   })
 
   it('does not send Content-Type header', async () => {
     await get('/get/index/1/1')
 
-    const [, init] = fetch.mock.calls[0]
+    const [, init] = (fetch as ReturnType<typeof vi.fn>).mock.calls[0]
     expect(init.headers).not.toHaveProperty('Content-Type')
   })
 
   it('includes credentials', async () => {
     await get('/get/index/1/1')
 
-    const [, init] = fetch.mock.calls[0]
+    const [, init] = (fetch as ReturnType<typeof vi.fn>).mock.calls[0]
     expect(init.credentials).toBe('include')
   })
 })
@@ -78,7 +78,7 @@ describe('post()', () => {
     const body = { name: 'test', ib: 1 }
     await post('/post/login', body)
 
-    const [url, init] = fetch.mock.calls[0]
+    const [url, init] = (fetch as ReturnType<typeof vi.fn>).mock.calls[0]
     expect(url).toBe('https://api.test.com/post/login')
     expect(init.method).toBe('POST')
     expect(init.body).toBe(JSON.stringify(body))
@@ -87,21 +87,21 @@ describe('post()', () => {
   it('sends X-XSRF-TOKEN header with csrf token', async () => {
     await post('/post/login', { name: 'test' })
 
-    const [, init] = fetch.mock.calls[0]
+    const [, init] = (fetch as ReturnType<typeof vi.fn>).mock.calls[0]
     expect(init.headers['X-XSRF-TOKEN']).toBe('test-csrf-token')
   })
 
   it('sends Content-Type: application/json', async () => {
     await post('/post/login', { name: 'test' })
 
-    const [, init] = fetch.mock.calls[0]
+    const [, init] = (fetch as ReturnType<typeof vi.fn>).mock.calls[0]
     expect(init.headers['Content-Type']).toBe('application/json')
   })
 
   it('includes credentials', async () => {
     await post('/post/login', { name: 'test' })
 
-    const [, init] = fetch.mock.calls[0]
+    const [, init] = (fetch as ReturnType<typeof vi.fn>).mock.calls[0]
     expect(init.credentials).toBe('include')
   })
 })
@@ -110,7 +110,7 @@ describe('del()', () => {
   it('sends DELETE method', async () => {
     await del('/admin/thread/1/42')
 
-    const [url, init] = fetch.mock.calls[0]
+    const [url, init] = (fetch as ReturnType<typeof vi.fn>).mock.calls[0]
     expect(url).toBe('https://api.test.com/admin/thread/1/42')
     expect(init.method).toBe('DELETE')
   })
@@ -118,21 +118,21 @@ describe('del()', () => {
   it('sends X-XSRF-TOKEN header', async () => {
     await del('/admin/thread/1/42')
 
-    const [, init] = fetch.mock.calls[0]
+    const [, init] = (fetch as ReturnType<typeof vi.fn>).mock.calls[0]
     expect(init.headers['X-XSRF-TOKEN']).toBe('test-csrf-token')
   })
 
   it('does not send Content-Type header (no body)', async () => {
     await del('/admin/thread/1/42')
 
-    const [, init] = fetch.mock.calls[0]
+    const [, init] = (fetch as ReturnType<typeof vi.fn>).mock.calls[0]
     expect(init.headers).not.toHaveProperty('Content-Type')
   })
 
   it('includes credentials', async () => {
     await del('/admin/thread/1/42')
 
-    const [, init] = fetch.mock.calls[0]
+    const [, init] = (fetch as ReturnType<typeof vi.fn>).mock.calls[0]
     expect(init.credentials).toBe('include')
   })
 })

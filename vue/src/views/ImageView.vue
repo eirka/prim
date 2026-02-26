@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
@@ -8,39 +8,44 @@ import config from '@/config'
 import handlers from '@/api/handlers'
 import userHandlers from '@/api/userHandlers'
 import modHandlers from '@/api/modHandlers'
+import type { ImageResponse, ImageDetail, Tag } from '@/types'
+import { getErrorMessage } from '@/types'
 
 const route = useRoute()
 const router = useRouter()
 const auth = useAuthStore()
 const toast = useToast()
 
-const imageData = ref(route.meta.data?.image || {})
-const tags = ref(imageData.value.tags || [])
-const ext = ref(imageData.value.filename ? imageData.value.filename.split('.').pop() : '')
+const raw = route.meta.data as ImageResponse | undefined
+const imageData = ref<ImageDetail | null>(raw?.image ?? null)
+const tags = ref<Tag[]>(imageData.value?.tags || [])
+const ext = ref(imageData.value?.filename ? imageData.value.filename.split('.').pop() : '')
 const starred = ref(false)
-const selected = ref(null)
-const tagList = ref([])
+const tagInput = ref('')
+const tagList = ref<Tag[]>([])
 
 // Set page title
-document.title = 'Image ' + imageData.value.id + ' | ' + config.title
+if (imageData.value) {
+  document.title = 'Image ' + imageData.value.id + ' | ' + config.title
+}
 
 // Check favorite status
 const checkFavorite = async () => {
   try {
-    const data = await userHandlers.favorite(route.params.id)
+    const data = await userHandlers.favorite(route.params.id as string)
     starred.value = data.starred
   } catch (e) {
-    toast.error(e.data?.error_message || 'Error')
+    toast.error(getErrorMessage(e))
   }
 }
 
 if (auth.isAuthenticated) checkFavorite()
 
 // Tag search
-const searchTags = async (term) => {
-  if (!term || term.length < 3) return
+const searchTags = async () => {
+  if (!tagInput.value || tagInput.value.length < 3) return
   try {
-    const data = await handlers.tagsearch(term)
+    const data = await handlers.tagsearch(tagInput.value)
     tagList.value = (data.tagsearch || []).slice(0, 6)
   } catch { /* ignore */ }
 }
@@ -48,58 +53,60 @@ const searchTags = async (term) => {
 // Update tags
 const updateTags = async () => {
   try {
-    const data = await handlers.image(route.params.id)
+    const data = await handlers.image(route.params.id as string)
     tags.value = data.image.tags
-    selected.value = null
+    tagInput.value = ''
   } catch (e) {
-    toast.error(e.data?.error_message || 'Error')
+    toast.error(getErrorMessage(e))
   }
 }
 
 // Add tag
 const addTag = async () => {
-  if (!selected.value || typeof selected.value !== 'number') {
+  const tagId = parseInt(tagInput.value, 10)
+  if (!tagId || !imageData.value) {
     toast.error('Tag Does Not Exist')
     return
   }
   try {
     const data = await handlers.addtag({
-      tag: selected.value,
+      tag: tagId,
       image: imageData.value.id,
       ib: config.ib_id
     })
-    updateTags()
+    await updateTags()
     toast.success(data.success_message)
   } catch (e) {
-    toast.error(e.data?.error_message || 'Error')
+    toast.error(getErrorMessage(e))
   }
 }
 
 // Delete tag
-const deleteTag = async (imageId, tagId) => {
+const deleteTag = async (imageId: number, tagId: number) => {
   if (!confirm('Are you sure you want to delete this tag?')) return
   try {
     const data = await modHandlers.deleteimagetag(imageId, tagId)
-    updateTags()
+    await updateTags()
     toast.success(data.success_message)
   } catch (e) {
-    toast.error(e.data?.error_message || 'Error')
+    toast.error(getErrorMessage(e))
   }
 }
 
 // Add favorite
 const addFavorite = async () => {
+  if (!imageData.value) return
   try {
     const data = await userHandlers.addfavorite({ image: imageData.value.id })
     checkFavorite()
     toast.success(data.success_message)
   } catch (e) {
-    toast.error(e.data?.error_message || 'Error')
+    toast.error(getErrorMessage(e))
   }
 }
 
 // Tag type class
-const tagClass = (type) => {
+const tagClass = (type: number) => {
   switch (Number(type)) {
     case 1: return 'tag-default'
     case 2: return 'tag-artist'
@@ -110,11 +117,11 @@ const tagClass = (type) => {
 }
 
 // Keyboard shortcuts
-const onKeyDown = (e) => {
-  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return
-  if (e.key === 'ArrowLeft' && imageData.value.prev) {
+const onKeyDown = (e: KeyboardEvent) => {
+  if ((e.target as HTMLElement).tagName === 'INPUT' || (e.target as HTMLElement).tagName === 'TEXTAREA') return
+  if (e.key === 'ArrowLeft' && imageData.value?.prev) {
     router.push('/image/' + imageData.value.prev)
-  } else if (e.key === 'ArrowRight' && imageData.value.next) {
+  } else if (e.key === 'ArrowRight' && imageData.value?.next) {
     router.push('/image/' + imageData.value.next)
   }
 }
@@ -124,7 +131,7 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown))
 </script>
 
 <template>
-  <div class="image">
+  <div v-if="imageData" class="image">
     <div class="image_container">
       <div class="image_box">
         <div class="image_box_nav">
@@ -178,7 +185,7 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown))
         </div>
         <div class="tag_input">
           <form @submit.prevent="addTag">
-            <input type="text" class="form-control" placeholder="Add Tag" list="tag-suggestions" @input="searchTags($event.target.value)">
+            <input type="text" class="form-control" placeholder="Add Tag" list="tag-suggestions" v-model="tagInput" @input="searchTags">
             <datalist id="tag-suggestions">
               <option v-for="tag in tagList" :key="tag.id" :value="tag.id">{{ tag.tag }}</option>
             </datalist>

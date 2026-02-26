@@ -1,5 +1,5 @@
-<script setup>
-import { ref, computed, watch } from 'vue'
+<script setup lang="ts">
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { useBoardStore } from '@/stores/board'
@@ -8,6 +8,7 @@ import config from '@/config'
 import CommentHandler from '@/components/CommentHandler.vue'
 import PrimPagination from '@/components/PrimPagination.vue'
 import DrawPad from '@/components/draw/DrawPad.vue'
+import type { IndexResponse } from '@/types'
 
 const route = useRoute()
 const router = useRouter()
@@ -22,16 +23,17 @@ const comment = ref('')
 const hasFile = ref(false)
 const canSubmit = computed(() => title.value.trim().length >= 3 && comment.value.trim().length >= 3 && hasFile.value)
 
-const data = ref(route.meta.data?.index?.items || [])
+const raw = route.meta.data as IndexResponse | undefined
+const data = ref(raw?.index?.items || [])
 const pagination = ref({
-  totalItems: route.meta.data?.index?.total || 0,
-  currentPage: route.meta.data?.index?.current_page || 1,
-  numPages: route.meta.data?.index?.pages || 1,
-  itemsPerPage: route.meta.data?.index?.per_page || 10,
+  totalItems: raw?.index?.total || 0,
+  currentPage: raw?.index?.current_page || 1,
+  numPages: raw?.index?.pages || 1,
+  itemsPerPage: raw?.index?.per_page || 10,
   maxSize: 5
 })
 
-const onPageChange = (page) => {
+const onPageChange = (page: number) => {
   if (page === 1) {
     router.push('/')
   } else {
@@ -39,14 +41,14 @@ const onPageChange = (page) => {
   }
 }
 
-const replyQuote = (id, thread, last) => {
+const replyQuote = (id: number, thread: number, last: number) => {
   setQuote(id)
   router.push('/thread/' + thread + '/' + last)
 }
 
 // Keyboard shortcuts
-const onKeyDown = (e) => {
-  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return
+const onKeyDown = (e: KeyboardEvent) => {
+  if ((e.target as HTMLElement).tagName === 'INPUT' || (e.target as HTMLElement).tagName === 'TEXTAREA') return
   if (e.shiftKey && e.key === 'ArrowLeft' && pagination.value.currentPage > 1) {
     onPageChange(pagination.value.currentPage - 1)
   } else if (e.shiftKey && e.key === 'ArrowRight' && pagination.value.currentPage < pagination.value.numPages) {
@@ -56,7 +58,6 @@ const onKeyDown = (e) => {
   }
 }
 
-import { onMounted, onUnmounted } from 'vue'
 onMounted(() => document.addEventListener('keydown', onKeyDown))
 onUnmounted(() => document.removeEventListener('keydown', onKeyDown))
 </script>
@@ -82,7 +83,7 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown))
           </div>
           <div class="form-group">
             <div class="file-input">
-              <input id="file" type="file" name="file" required @change="hasFile = !!$event.target.files.length">
+              <input id="file" type="file" name="file" required @change="hasFile = !!($event.target as HTMLInputElement).files?.length">
             </div>
             <div class="draw-button">
               <a class="button button-success" href="#" @click.prevent="toggleDrawpad">Draw</a>

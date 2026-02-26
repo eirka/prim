@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { useRoute } from 'vue-router'
 import AppHeader from '@/components/AppHeader.vue'
 import LoadingIndicator from '@/components/LoadingIndicator.vue'

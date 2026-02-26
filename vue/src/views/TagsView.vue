@@ -1,25 +1,27 @@
-<script setup>
+<script setup lang="ts">
 import { ref, watch, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import handlers from '@/api/handlers'
 import PrimPagination from '@/components/PrimPagination.vue'
+import type { TagsResponse, TagRow, Tag } from '@/types'
 
 const route = useRoute()
 const router = useRouter()
 
-const data = ref(route.meta.data?.tags?.items || [])
+const raw = route.meta.data as TagsResponse | undefined
+const data = ref<(TagRow | Tag)[]>(raw?.tags?.items || [])
 const pagination = ref({
-  totalItems: route.meta.data?.tags?.total || 0,
-  currentPage: route.meta.data?.tags?.current_page || 1,
-  numPages: route.meta.data?.tags?.pages || 1,
-  itemsPerPage: route.meta.data?.tags?.per_page || 10,
+  totalItems: raw?.tags?.total || 0,
+  currentPage: raw?.tags?.current_page || 1,
+  numPages: raw?.tags?.pages || 1,
+  itemsPerPage: raw?.tags?.per_page || 10,
   maxSize: 3
 })
 
-const sort = ref({ column: 'total', desc: true })
+const sort = ref({ column: 'total' as string, desc: true })
 const searchterm = ref('')
 
-const changeSorting = (column) => {
+const changeSorting = (column: string) => {
   if (sort.value.column === column) {
     sort.value.desc = !sort.value.desc
   } else {
@@ -28,13 +30,13 @@ const changeSorting = (column) => {
   }
 }
 
-const sortedData = ref([])
+const sortedData = ref<(TagRow | Tag)[]>([])
 watch([data, sort], () => {
   const arr = [...data.value]
   arr.sort((a, b) => {
-    const col = sort.value.column
-    const aVal = a[col]
-    const bVal = b[col]
+    const col = sort.value.column as keyof typeof a
+    const aVal = a[col] as string | number
+    const bVal = b[col] as string | number
     if (aVal < bVal) return sort.value.desc ? 1 : -1
     if (aVal > bVal) return sort.value.desc ? -1 : 1
     return 0
@@ -42,7 +44,7 @@ watch([data, sort], () => {
   sortedData.value = arr
 }, { immediate: true, deep: true })
 
-const rowClass = (type) => {
+const rowClass = (type: number) => {
   switch (type) {
     case 2: return 'row-artist'
     case 3: return 'row-character'
@@ -56,16 +58,23 @@ const searchTags = async () => {
   try {
     const result = await handlers.tagsearch(searchterm.value)
     data.value = result.tagsearch || []
+    pagination.value = {
+      totalItems: data.value.length,
+      currentPage: 1,
+      numPages: 1,
+      itemsPerPage: data.value.length || 10,
+      maxSize: 3
+    }
   } catch { /* ignore */ }
 }
 
-const onPageChange = (page) => {
+const onPageChange = (page: number) => {
   if (page === 1) router.push('/tags')
   else router.push('/tags/' + page)
 }
 
-const onKeyDown = (e) => {
-  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return
+const onKeyDown = (e: KeyboardEvent) => {
+  if ((e.target as HTMLElement).tagName === 'INPUT' || (e.target as HTMLElement).tagName === 'TEXTAREA') return
   if (e.shiftKey && e.key === 'ArrowLeft' && pagination.value.currentPage > 1) {
     onPageChange(pagination.value.currentPage - 1)
   } else if (e.shiftKey && e.key === 'ArrowRight' && pagination.value.currentPage < pagination.value.numPages) {
@@ -110,7 +119,7 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown))
               <td>
                 <router-link :to="'/tag/' + tag.id + '/1'" rel="nofollow">{{ tag.tag }}</router-link>
               </td>
-              <td align="center">{{ tag.total }}</td>
+              <td align="center">{{ 'total' in tag ? tag.total : '' }}</td>
             </tr>
           </tbody>
         </table>

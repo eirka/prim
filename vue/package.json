@@ -10,7 +10,8 @@
     "styles": "sass --no-source-map --style=compressed ${STYLES_DIR:-../../chounyuu/chounyuu-styles}/sass/:${STYLES_DIR:-../../chounyuu/chounyuu-styles}/css/",
     "styles:default": "cp ${STYLES_DIR:-../../chounyuu/chounyuu-styles}/css/meta.css public/meta.css",
     "styles:all": "npm run styles && npm run styles:default",
-    "test": "vitest run"
+    "test": "vitest run",
+    "type-check": "vue-tsc --noEmit"
   },
   "dependencies": {
     "chart.js": "^4.4.0",
@@ -21,9 +22,12 @@
     "vue-toastification": "^2.0.0-rc.5"
   },
   "devDependencies": {
+    "@types/node": "^25.3.1",
     "@vitejs/plugin-vue": "^5.0.0",
     "sass": "^1.70.0",
+    "typescript": "^5.9.3",
     "vite": "^5.4.0",
-    "vitest": "^4.0.18"
+    "vitest": "^4.0.18",
+    "vue-tsc": "^3.2.5"
   }
 }

@@ -1,8 +1,8 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import config from '@/config'
 
-const inviteLink = ref(null)
+const inviteLink = ref<string | null>(null)
 const userCount = ref(0)
 
 onMounted(async () => {
@@ -10,8 +10,8 @@ onMounted(async () => {
   try {
     const res = await fetch(config.discord_widget)
     const data = await res.json()
-    inviteLink.value = data.instant_invite
-    userCount.value = data.members.length
+    inviteLink.value = data.instant_invite || null
+    userCount.value = data.members?.length ?? 0
   } catch { /* ignore */ }
 })
 </script>

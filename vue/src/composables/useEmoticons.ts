@@ -1,6 +1,11 @@
 import config from '@/config'
 
-const tokens = [
+interface Emoticon {
+  text: string
+  image: string
+}
+
+const tokens: Emoticon[] = [
   { text: 'smug', image: 'smug.gif' },
   { text: 'shepface', image: 'shepface.gif' },
   { text: 'byodood', image: 'byodood.gif' },
@@ -28,7 +33,7 @@ const tokens = [
   { text: 'pacha', image: 'pacha.png' }
 ]
 
-const tokenMap = {}
+const tokenMap: Record<string, Emoticon> = {}
 for (const token of tokens) {
   tokenMap[token.text] = token
 }

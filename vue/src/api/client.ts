@@ -7,11 +7,11 @@ const BASE = config.api_srv
 
 const SAFE_METHODS = new Set(['GET', 'HEAD', 'OPTIONS', 'TRACE'])
 
-function getCsrfToken() {
+function getCsrfToken(): string {
   return config.csrf_token || ''
 }
 
-async function request(url, options = {}) {
+async function request<T>(url: string, options: RequestInit = {}): Promise<T> {
   const method = (options.method || 'GET').toUpperCase()
   const needsCsrf = !SAFE_METHODS.has(method)
   const hasBody = options.body != null
@@ -21,7 +21,7 @@ async function request(url, options = {}) {
     ...options,
     headers: {
       ...(hasBody ? { 'Content-Type': 'application/json' } : {}),
-      ...options.headers,
+      ...(options.headers as Record<string, string> | undefined),
       ...(needsCsrf ? { 'X-XSRF-TOKEN': getCsrfToken() } : {})
     }
   })
@@ -31,35 +31,35 @@ async function request(url, options = {}) {
       const auth = useAuthStore()
       auth.destroySession()
       window.location.reload()
-      return
+      return undefined as never
     }
     if (res.status === 403) {
       const data = await res.json().catch(() => ({}))
       const toast = useToast()
       toast.error(data.error_message || 'Forbidden')
       router.push('/account')
-      return
+      return undefined as never
     }
     const data = await res.json().catch(() => ({}))
     throw { status: res.status, data }
   }
 
-  return res.json()
+  return res.json() as Promise<T>
 }
 
-export function get(url) {
-  return request(url)
+export function get<T>(url: string): Promise<T> {
+  return request<T>(url)
 }
 
-export function post(url, body) {
-  return request(url, {
+export function post<T>(url: string, body: unknown): Promise<T> {
+  return request<T>(url, {
     method: 'POST',
     body: JSON.stringify(body)
   })
 }
 
-export function del(url) {
-  return request(url, {
+export function del<T>(url: string): Promise<T> {
+  return request<T>(url, {
     method: 'DELETE'
   })
 }

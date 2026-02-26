@@ -8,14 +8,22 @@ import { getAvatar } from '@/composables/useUtils'
 
 const CACHE_KEY = 'global.cache'
 
+interface AuthCache {
+  id: number
+  name: string
+  isAuthenticated: boolean
+  avatar: string | null
+  lastactive: string
+}
+
 export const useAuthStore = defineStore('auth', () => {
   const id = ref(1)
   const name = ref('Anonymous')
   const isAuthenticated = ref(false)
-  const avatar = ref(null)
+  const avatar = ref<string | null>(null)
   const lastactive = ref(new Date())
 
-  const set = (uid, uname, auth, uavatar, ulast) => {
+  const set = (uid: number, uname: string, auth: boolean, uavatar: string | null, ulast: Date) => {
     id.value = uid
     name.value = uname
     isAuthenticated.value = auth
@@ -36,22 +44,23 @@ export const useAuthStore = defineStore('auth', () => {
         avatar: avatar.value,
         lastactive: lastactive.value
       }))
-    } catch (e) { /* ignore */ }
+    } catch { /* ignore */ }
   }
 
-  const getCache = () => {
+  const getCache = (): AuthCache | null => {
     try {
       const cached = localStorage.getItem(CACHE_KEY)
       return cached ? JSON.parse(cached) : null
-    } catch (e) {
+    } catch {
       return null
     }
   }
 
   const destroySession = () => {
-    localStorage.clear()
+    localStorage.removeItem(CACHE_KEY)
     setDefault()
     const board = useBoardStore()
+    board.destroyCache()
     board.setDefault()
   }
 
@@ -61,7 +70,7 @@ export const useAuthStore = defineStore('auth', () => {
     const cib = board.getCache()
 
     if (cas && cib) {
-      set(cas.id, cas.name, cas.isAuthenticated, cas.avatar, cas.lastactive)
+      set(cas.id, cas.name, cas.isAuthenticated, cas.avatar, new Date(cas.lastactive))
       board.set(cib.group)
     } else {
       setDefault()
@@ -83,8 +92,11 @@ export const useAuthStore = defineStore('auth', () => {
         board.set(ss.group)
         board.saveCache()
       }
-    } catch {
-      destroySession()
+    } catch (e) {
+      const err = e as { status?: number }
+      if (err.status && err.status >= 400 && err.status < 500) {
+        destroySession()
+      }
     }
   }
 
@@ -103,7 +115,7 @@ export const useAuthStore = defineStore('auth', () => {
     return board.group === 3 || board.group === 4
   })
 
-  const getLastActive = (date) => {
+  const getLastActive = (date: string | Date): boolean => {
     if (!date) return false
     const d = new Date(date)
     return !isNaN(d.getTime()) && lastactive.value < d

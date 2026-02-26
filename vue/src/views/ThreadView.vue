@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
@@ -10,6 +10,7 @@ import PrimPagination from '@/components/PrimPagination.vue'
 import DrawPad from '@/components/draw/DrawPad.vue'
 import PostMod from '@/components/PostMod.vue'
 import ThreadMod from '@/components/ThreadMod.vue'
+import type { ThreadResponse, Thread } from '@/types'
 
 const route = useRoute()
 const router = useRouter()
@@ -24,25 +25,26 @@ const quote = ref(getQuote())
 const hasFile = ref(false)
 const canReply = computed(() => quote.value.trim().length >= 3 || hasFile.value)
 
-const threadData = ref(route.meta.data?.thread?.items || {})
+const raw = route.meta.data as ThreadResponse | undefined
+const threadData = ref<Thread | null>(raw?.thread?.items ?? null)
 const pagination = ref({
-  totalItems: route.meta.data?.thread?.total || 0,
-  currentPage: route.meta.data?.thread?.current_page || 1,
-  numPages: route.meta.data?.thread?.pages || 1,
-  itemsPerPage: route.meta.data?.thread?.per_page || 10,
+  totalItems: raw?.thread?.total || 0,
+  currentPage: raw?.thread?.current_page || 1,
+  numPages: raw?.thread?.pages || 1,
+  itemsPerPage: raw?.thread?.per_page || 10,
   maxSize: 3
 })
 
 // Set page title
-if (threadData.value.title) {
+if (threadData.value?.title) {
   document.title = threadData.value.title + ' | ' + config.title
 }
 
-const onPageChange = (page) => {
+const onPageChange = (page: number) => {
   router.push('/thread/' + route.params.id + '/' + page)
 }
 
-const replyQuote = (id) => {
+const replyQuote = (id: number) => {
   if (typeof quote.value !== 'string') quote.value = ''
   quote.value += ' >>' + id + ' '
   window.scrollTo(0, 0)
@@ -52,8 +54,8 @@ const replyQuote = (id) => {
 const unwatch = router.beforeEach(() => { clearQuote() })
 onUnmounted(() => unwatch())
 
-const onKeyDown = (e) => {
-  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return
+const onKeyDown = (e: KeyboardEvent) => {
+  if ((e.target as HTMLElement).tagName === 'INPUT' || (e.target as HTMLElement).tagName === 'TEXTAREA') return
   if (e.key === 'g') layout.value = 'grid'
   else if (e.key === 'l') layout.value = 'list'
   else if (e.shiftKey && e.key === 'ArrowLeft' && pagination.value.currentPage > 1) {
@@ -71,34 +73,111 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown))
 
 <template>
   <DrawPad :visible="drawpadVisible" @toggle="toggleDrawpad" />
-  <div class="postbox">
-    <div class="postbox_box">
-      <div class="postbox_form">
-        <form role="form" name="replyform" :action="getFormAction('/post/thread/reply')" method="post" enctype="multipart/form-data">
-          <input type="hidden" name="csrf_token" :value="config.csrf_token" />
-          <input type="hidden" name="thread" :value="threadData.id" />
-          <div class="form-group">
-            <div class="form-control userinfo">
-              <span :class="usergroupClass(board.group)">{{ auth.name }}</span>
+  <template v-if="threadData">
+    <div class="postbox">
+      <div class="postbox_box">
+        <div class="postbox_form">
+          <form role="form" name="replyform" :action="getFormAction('/post/thread/reply')" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="csrf_token" :value="config.csrf_token" />
+            <input type="hidden" name="thread" :value="threadData.id" />
+            <div class="form-group">
+              <div class="form-control userinfo">
+                <span :class="usergroupClass(board.group)">{{ auth.name }}</span>
+              </div>
             </div>
-          </div>
-          <div class="form-group">
-            <textarea id="comment" name="comment" v-model="quote" class="form-control" rows="3" minlength="3" maxlength="1000" placeholder="Comment"></textarea>
-          </div>
-          <div class="form-group">
-            <div class="file-input">
-              <input id="file" type="file" name="file" @change="hasFile = !!$event.target.files.length">
+            <div class="form-group">
+              <textarea id="comment" name="comment" v-model="quote" class="form-control" rows="3" minlength="3" maxlength="1000" placeholder="Comment"></textarea>
             </div>
-            <div class="draw-button">
-              <a class="button button-success" href="#" @click.prevent="toggleDrawpad">Draw</a>
+            <div class="form-group">
+              <div class="file-input">
+                <input id="file" type="file" name="file" @change="hasFile = !!($event.target as HTMLInputElement).files?.length">
+              </div>
+              <div class="draw-button">
+                <a class="button button-success" href="#" @click.prevent="toggleDrawpad">Draw</a>
+              </div>
             </div>
-          </div>
-          <div class="form-group">
-            <button class="button button-block button-primary" type="submit" :disabled="!canReply">Reply</button>
-          </div>
-        </form>
+            <div class="form-group">
+              <button class="button button-block button-primary" type="submit" :disabled="!canReply">Reply</button>
+            </div>
+          </form>
+        </div>
+        <div class="postbox_pagination">
+          <PrimPagination
+            :current-page="pagination.currentPage"
+            :total-items="pagination.totalItems"
+            :items-per-page="pagination.itemsPerPage"
+            :max-size="pagination.maxSize"
+            @update:current-page="onPageChange"
+          />
+        </div>
       </div>
-      <div class="postbox_pagination">
+    </div>
+    <div class="threads">
+      <div class="thread">
+        <div class="thread_header">
+          <div class="thread_title">
+            <span>{{ threadData.title }}</span>
+          </div>
+          <div class="thread_buttons">
+            <div v-if="threadData.closed" title="Closed" class="thread_info fa fa-lock"></div>
+            <div v-if="threadData.sticky" title="Sticky" class="thread_info fa fa-thumb-tack"></div>
+            <div class="button-group">
+              <a class="button button-primary fa fa-align-justify" title="Post view" :class="{ active: layout === 'list' }" href="#" @click.prevent="layout = 'list'"></a>
+              <a class="button button-primary fa fa-th" title="Image view" :class="{ active: layout === 'grid' }" href="#" @click.prevent="layout = 'grid'"></a>
+            </div>
+          </div>
+          <ThreadMod v-if="auth.showModControls" :thread-id="threadData.id" />
+        </div>
+        <template v-if="layout === 'list'">
+          <div v-for="post in threadData.posts" :key="post.id" :id="'reply-' + post.num" class="thread_row">
+            <div v-if="post.thumbnail" class="thread_row_image">
+              <router-link :to="'/image/' + post.img_id">
+                <img :src="getThumbSrc(post.thumbnail, post.filename)" :height="post.tn_height" :width="post.tn_width">
+              </router-link>
+            </div>
+            <div class="thread_content" :class="{ noimage: !post.thumbnail }">
+              <div class="thread_row_info">
+                <div class="items">
+                  <div v-if="post.group !== 1" class="info_item">
+                    <div class="avatar avatar-xsmall">
+                      <div class="avatar-inner">
+                        <img :src="getAvatar(post.uid)" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="info_item">
+                    <span :class="usergroupClass(post.group)">{{ post.name }}</span>
+                  </div>
+                  <div class="info_item">
+                    <span>{{ formatDate(post.time) }}</span>
+                  </div>
+                  <div class="info_item">
+                    <a class="label label-light" href="#" @click.prevent="replyQuote(post.num)">#{{ post.num }}</a>
+                  </div>
+                  <div v-if="auth.isAuthenticated" class="info_item">
+                    <span v-if="auth.getLastActive(post.time)" class="label label-alert">NEW</span>
+                  </div>
+                  <PostMod v-if="auth.showModControls" :thread-id="threadData.id" :post-id="post.id" />
+                </div>
+              </div>
+              <CommentHandler :post="post" :thread="threadData.id" />
+            </div>
+          </div>
+        </template>
+        <div v-if="layout === 'grid'" class="image_grid">
+          <router-link
+            v-for="post in threadData.posts"
+            :key="post.id"
+            v-show="post.thumbnail"
+            :to="'/image/' + post.img_id"
+          >
+            <img :src="getThumbSrc(post.thumbnail, post.filename)" :height="post.tn_height" :width="post.tn_width">
+          </router-link>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="footer_box">
         <PrimPagination
           :current-page="pagination.currentPage"
           :total-items="pagination.totalItems"
@@ -108,80 +187,5 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown))
         />
       </div>
     </div>
-  </div>
-  <div class="threads">
-    <div class="thread">
-      <div class="thread_header">
-        <div class="thread_title">
-          <span>{{ threadData.title }}</span>
-        </div>
-        <div class="thread_buttons">
-          <div v-if="threadData.closed" title="Closed" class="thread_info fa fa-lock"></div>
-          <div v-if="threadData.sticky" title="Sticky" class="thread_info fa fa-thumb-tack"></div>
-          <div class="button-group">
-            <a class="button button-primary fa fa-align-justify" title="Post view" :class="{ active: layout === 'list' }" href="#" @click.prevent="layout = 'list'"></a>
-            <a class="button button-primary fa fa-th" title="Image view" :class="{ active: layout === 'grid' }" href="#" @click.prevent="layout = 'grid'"></a>
-          </div>
-        </div>
-        <ThreadMod v-if="auth.showModControls" :thread-id="threadData.id" />
-      </div>
-      <template v-if="layout === 'list'">
-        <div v-for="post in threadData.posts" :key="post.id" :id="'reply-' + post.num" class="thread_row">
-          <div v-if="post.thumbnail" class="thread_row_image">
-            <router-link :to="'/image/' + post.img_id">
-              <img :src="getThumbSrc(post.thumbnail, post.filename)" :height="post.tn_height" :width="post.tn_width">
-            </router-link>
-          </div>
-          <div class="thread_content" :class="{ noimage: !post.thumbnail }">
-            <div class="thread_row_info">
-              <div class="items">
-                <div v-if="post.group !== 1" class="info_item">
-                  <div class="avatar avatar-xsmall">
-                    <div class="avatar-inner">
-                      <img :src="getAvatar(post.uid)" />
-                    </div>
-                  </div>
-                </div>
-                <div class="info_item">
-                  <span :class="usergroupClass(post.group)">{{ post.name }}</span>
-                </div>
-                <div class="info_item">
-                  <span>{{ formatDate(post.time) }}</span>
-                </div>
-                <div class="info_item">
-                  <a class="label label-light" href="#" @click.prevent="replyQuote(post.num)">#{{ post.num }}</a>
-                </div>
-                <div v-if="auth.isAuthenticated" class="info_item">
-                  <span v-if="auth.getLastActive(post.time)" class="label label-alert">NEW</span>
-                </div>
-                <PostMod v-if="auth.showModControls" :thread-id="threadData.id" :post-id="post.id" />
-              </div>
-            </div>
-            <CommentHandler :post="post" :thread="threadData.id" />
-          </div>
-        </div>
-      </template>
-      <div v-if="layout === 'grid'" class="image_grid">
-        <router-link
-          v-for="post in threadData.posts"
-          :key="post.id"
-          v-show="post.thumbnail"
-          :to="'/image/' + post.img_id"
-        >
-          <img :src="getThumbSrc(post.thumbnail, post.filename)" :height="post.tn_height" :width="post.tn_width">
-        </router-link>
-      </div>
-    </div>
-  </div>
-  <div class="footer">
-    <div class="footer_box">
-      <PrimPagination
-        :current-page="pagination.currentPage"
-        :total-items="pagination.totalItems"
-        :items-per-page="pagination.itemsPerPage"
-        :max-size="pagination.maxSize"
-        @update:current-page="onPageChange"
-      />
-    </div>
-  </div>
+  </template>
 </template>

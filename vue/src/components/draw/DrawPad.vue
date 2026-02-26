@@ -1,23 +1,25 @@
-<script setup>
+<script setup lang="ts">
 import { ref, provide, reactive } from 'vue'
-import drawConfig from './drawConfig'
+import drawConfig, { drawPadKey } from './drawConfig'
 import DrawCanvas from './DrawCanvas.vue'
 import DrawControls from './DrawControls.vue'
 
-const props = defineProps({
-  visible: { type: Boolean, default: false }
-})
-const emit = defineEmits(['toggle'])
+defineProps<{
+  visible: boolean
+}>()
+const emit = defineEmits<{
+  toggle: []
+}>()
 
-const canvas = ref(null)
-const ctx = ref(null)
-const redoList = reactive([])
-const undoList = reactive([])
+const canvas = ref<HTMLCanvasElement | null>(null)
+const ctx = ref<CanvasRenderingContext2D | null>(null)
+const redoList = reactive<string[]>([])
+const undoList = reactive<string[]>([])
 const selectedTool = ref(drawConfig.TOOL_PEN)
 const selectedColor = ref(drawConfig.lineColor)
 const lineWidth = ref(drawConfig.lineWidth)
 
-const addCanvas = (canvasEl) => {
+const addCanvas = (canvasEl: HTMLCanvasElement) => {
   canvas.value = canvasEl
   ctx.value = canvasEl.getContext('2d')
 }
@@ -32,7 +34,8 @@ const defaultCanvas = () => {
   ctx.value.fillRect(0, 0, drawConfig.width, drawConfig.height)
 }
 
-const saveState = (list, keep) => {
+const saveState = (list?: string[], keep?: boolean) => {
+  if (!canvas.value) return
   keep = keep || false
   if (!keep) redoList.length = 0
   const target = list || undoList
@@ -40,19 +43,21 @@ const saveState = (list, keep) => {
   target.push(canvas.value.toDataURL(drawConfig.imageMime))
 }
 
-const restoreState = (pop, push) => {
-  if (!pop.length) return
+const restoreState = (pop: string[], push: string[]) => {
+  if (!pop.length || !ctx.value) return
   saveState(push, true)
-  const restoreData = pop.pop()
+  const restoreData = pop.pop()!
   const img = new Image()
   img.src = restoreData
   img.onload = () => {
+    if (!ctx.value) return
     ctx.value.clearRect(0, 0, drawConfig.width, drawConfig.height)
     ctx.value.drawImage(img, 0, 0, drawConfig.width, drawConfig.height)
   }
 }
 
-const switchEraser = (eraser) => {
+const switchEraser = (eraser?: boolean) => {
+  if (!ctx.value) return
   if (eraser) {
     selectedTool.value = drawConfig.TOOL_ERASER
     ctx.value.strokeStyle = drawConfig.canvasColor
@@ -64,7 +69,7 @@ const switchEraser = (eraser) => {
   ctx.value.lineWidth = lineWidth.value
 }
 
-provide('drawPad', {
+provide(drawPadKey, {
   canvas, ctx, redoList, undoList,
   selectedTool, selectedColor, lineWidth,
   addCanvas, defaultCanvas, saveState, restoreState, switchEraser

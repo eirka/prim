@@ -1,33 +1,35 @@
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue'
 
-const props = defineProps({
-  currentPage: { type: Number, required: true },
-  totalItems: { type: Number, required: true },
-  itemsPerPage: { type: Number, required: true },
-  maxSize: { type: Number, default: 5 }
-})
+const props = defineProps<{
+  currentPage: number
+  totalItems: number
+  itemsPerPage: number
+  maxSize?: number
+}>()
 
-const emit = defineEmits(['update:currentPage'])
+const emit = defineEmits<{
+  'update:currentPage': [page: number]
+}>()
 
 const totalPages = computed(() => Math.ceil(props.totalItems / props.itemsPerPage))
 
 const pages = computed(() => {
   const total = totalPages.value
   const current = props.currentPage
-  const max = props.maxSize
+  const max = props.maxSize ?? 5
   let start = Math.max(1, current - Math.floor(max / 2))
   let end = start + max - 1
   if (end > total) {
     end = total
     start = Math.max(1, end - max + 1)
   }
-  const result = []
+  const result: number[] = []
   for (let i = start; i <= end; i++) result.push(i)
   return result
 })
 
-const setPage = (page) => {
+const setPage = (page: number) => {
   if (page >= 1 && page <= totalPages.value && page !== props.currentPage) {
     emit('update:currentPage', page)
   }

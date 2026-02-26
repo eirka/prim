@@ -10,11 +10,11 @@ const italicRegex = /\*(.*?)\*/g
 const emoticonRegex = /:([\w+-]+):/g
 
 // Collect a snapshot of all text nodes under root
-function collectTextNodes(root) {
-  const nodes = []
+function collectTextNodes(root: Node): Text[] {
+  const nodes: Text[] = []
   const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT)
-  let node
-  while ((node = walker.nextNode())) {
+  let node: Text | null
+  while ((node = walker.nextNode() as Text | null)) {
     nodes.push(node)
   }
   return nodes
@@ -23,13 +23,13 @@ function collectTextNodes(root) {
 // Split a single text node at regex matches, replacing each match with DOM
 // nodes returned by replacer(match). If replacer returns null, the matched
 // text is kept as a plain text node (no-op).
-function processTextNode(textNode, regex, replacer) {
-  const text = textNode.textContent
+function processTextNode(textNode: Text, regex: RegExp, replacer: (match: RegExpExecArray) => Node | null): void {
+  const text = textNode.textContent || ''
   // Fresh regex instance to avoid lastIndex statefulness
   const re = new RegExp(regex.source, regex.flags)
   const frag = document.createDocumentFragment()
   let lastIndex = 0
-  let match
+  let match: RegExpExecArray | null
   let hasMatch = false
 
   while ((match = re.exec(text)) !== null) {
@@ -61,11 +61,11 @@ function processTextNode(textNode, regex, replacer) {
     frag.appendChild(document.createTextNode(text.slice(lastIndex)))
   }
 
-  textNode.parentNode.replaceChild(frag, textNode)
+  textNode.parentNode?.replaceChild(frag, textNode)
 }
 
 // Run a regex+replacer over all text nodes under root
-function processAll(root, regex, replacer) {
+function processAll(root: Node, regex: RegExp, replacer: (match: RegExpExecArray) => Node | null): void {
   const textNodes = collectTextNodes(root)
   for (const node of textNodes) {
     processTextNode(node, regex, replacer)
@@ -74,7 +74,7 @@ function processAll(root, regex, replacer) {
 
 // --- Element factories ---
 
-function makeLink(url) {
+function makeLink(url: string): HTMLAnchorElement {
   const a = document.createElement('a')
   a.setAttribute('href', url)
   a.setAttribute('target', '_blank')
@@ -83,7 +83,7 @@ function makeLink(url) {
   return a
 }
 
-function makeImage(url) {
+function makeImage(url: string): HTMLAnchorElement {
   const a = document.createElement('a')
   a.setAttribute('href', url)
   a.setAttribute('target', '_blank')
@@ -95,7 +95,7 @@ function makeImage(url) {
   return a
 }
 
-function makeYoutube(videoId) {
+function makeYoutube(videoId: string): HTMLDivElement {
   const wrapper = document.createElement('div')
   wrapper.className = 'auto-resizable-iframe'
   const inner = document.createElement('div')
@@ -108,7 +108,7 @@ function makeYoutube(videoId) {
   return wrapper
 }
 
-function makeEmoticon(token) {
+function makeEmoticon(token: { text: string; image: string }): HTMLImageElement {
   const img = document.createElement('img')
   img.className = 'emoticon'
   img.setAttribute('title', ':' + token.text + ':')
@@ -118,7 +118,7 @@ function makeEmoticon(token) {
 
 // --- Main entry point ---
 
-export function buildCommentDom(container, text) {
+export function buildCommentDom(container: HTMLElement, text: string): void {
   // Clear and set safely — textContent auto-escapes all HTML
   container.textContent = text.replace(/(\n){3,}/g, '\n\n').trim()
 
@@ -144,7 +144,9 @@ export function buildCommentDom(container, text) {
 
     if (emailRegex.test(url)) {
       const emailMatch = new RegExp(emailRegex.source, emailRegex.flags).exec(url)
-      return document.createTextNode(emailMatch[1] + ' at ' + emailMatch[2])
+      if (emailMatch) {
+        return document.createTextNode(emailMatch[1] + ' at ' + emailMatch[2])
+      }
     }
 
     const ytMatch = new RegExp(youtubeRegex.source, youtubeRegex.flags).exec(url)

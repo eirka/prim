@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { useBoardStore } from '@/stores/board'
@@ -7,6 +7,7 @@ import { getAvatar, getFormAction, usergroupClass } from '@/composables/useUtils
 import config from '@/config'
 import handlers from '@/api/handlers'
 import userHandlers from '@/api/userHandlers'
+import { getErrorMessage } from '@/types'
 
 const auth = useAuthStore()
 const board = useBoardStore()
@@ -26,7 +27,7 @@ const logIn = async () => {
     toast.success(data.success_message)
     loginForm.value = { name: '', password: '' }
   } catch (e) {
-    toast.error(e.data?.error_message || 'Error')
+    toast.error(getErrorMessage(e))
   }
 }
 
@@ -43,13 +44,21 @@ const newUser = async () => {
     toast.success(data.success_message)
     registerForm.value = { name: '', password: '', check_password: '', email: '' }
   } catch (e) {
-    toast.error(e.data?.error_message || 'Error')
+    toast.error(getErrorMessage(e))
   }
 }
 
 // Account settings
+interface WhoamiDisplay {
+  id: number
+  name: string
+  group: number
+  avatar: string
+  email: string
+}
+
 const activePanel = ref('Account')
-const whoami = ref(null)
+const whoami = ref<WhoamiDisplay | null>(null)
 const passwordForm = ref({ oldpassword: '', newpassword: '' })
 const emailForm = ref({ email: '' })
 
@@ -80,7 +89,7 @@ const changePassword = async () => {
     toast.success(data.success_message)
     passwordForm.value = { oldpassword: '', newpassword: '' }
   } catch (e) {
-    toast.error(e.data?.error_message || 'Error')
+    toast.error(getErrorMessage(e))
   }
 }
 
@@ -94,11 +103,11 @@ const updateEmail = async () => {
     emailForm.value = { email: '' }
     // Refresh whoami
     const refreshed = await handlers.whoami()
-    if (refreshed.user.authenticated) {
+    if (refreshed.user.authenticated && whoami.value) {
       whoami.value.email = refreshed.user.email || 'No Email Set'
     }
   } catch (e) {
-    toast.error(e.data?.error_message || 'Error')
+    toast.error(getErrorMessage(e))
   }
 }
 </script>

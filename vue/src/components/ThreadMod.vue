@@ -1,11 +1,12 @@
-<script setup>
+<script setup lang="ts">
 import { useRouter } from 'vue-router'
 import { useToast } from 'vue-toastification'
 import modHandlers from '@/api/modHandlers'
+import { getErrorMessage } from '@/types'
 
-const props = defineProps({
-  threadId: { type: Number, required: true }
-})
+const props = defineProps<{
+  threadId: number
+}>()
 
 const router = useRouter()
 const toast = useToast()
@@ -16,7 +17,7 @@ const closeThread = async () => {
     toast.success(data.success_message)
     router.go(0)
   } catch (e) {
-    toast.error(e.data?.error_message || 'Error')
+    toast.error(getErrorMessage(e))
   }
 }
 
@@ -26,7 +27,7 @@ const stickyThread = async () => {
     toast.success(data.success_message)
     router.go(0)
   } catch (e) {
-    toast.error(e.data?.error_message || 'Error')
+    toast.error(getErrorMessage(e))
   }
 }
 
@@ -37,7 +38,7 @@ const deleteThread = async () => {
     toast.success(data.success_message)
     router.push('/')
   } catch (e) {
-    toast.error(e.data?.error_message || 'Error')
+    toast.error(getErrorMessage(e))
   }
 }
 </script>

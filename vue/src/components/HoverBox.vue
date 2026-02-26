@@ -1,21 +1,22 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import handlers from '@/api/handlers'
 import { usergroupClass, getAvatar, getThumbSrc, formatDate } from '@/composables/useUtils'
+import type { PostResponse } from '@/types'
 
-const props = defineProps({
-  id: { type: String, required: true },
-  thread: { type: Number, required: true }
-})
+const props = defineProps<{
+  id: string
+  thread: number
+}>()
 
-const quotebox = ref(null)
-const error = ref(null)
+const quotebox = ref<PostResponse | null>(null)
+const error = ref<{ error_message?: string } | null>(null)
 
 onMounted(async () => {
   try {
     quotebox.value = await handlers.post(props.thread, props.id)
   } catch (e) {
-    error.value = e.data
+    error.value = (e as { data: { error_message?: string } }).data
   }
 })
 </script>

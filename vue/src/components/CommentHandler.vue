@@ -1,18 +1,19 @@
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue'
 import CommentQuotes from './CommentQuotes.vue'
 import CommentFormatter from './CommentFormatter.vue'
+import type { Post } from '@/types'
 
-const props = defineProps({
-  post: { type: Object, required: true },
-  thread: { type: Number, required: true }
-})
+const props = defineProps<{
+  post: Post
+  thread: number
+}>()
 
 const quoteRegex = />>(\d{1,5})/g
 
 const quoteIds = computed(() => {
-  const quotes = []
-  let m
+  const quotes: string[] = []
+  let m: RegExpExecArray | null
   const re = new RegExp(quoteRegex.source, quoteRegex.flags)
   while ((m = re.exec(props.post.comment)) !== null) {
     quotes.push(m[1])
@@ -21,7 +22,7 @@ const quoteIds = computed(() => {
 })
 
 const cleanComment = computed(() => {
-  return props.post.comment.replace(quoteRegex, '')
+  return props.post.comment.replace(new RegExp(quoteRegex.source, quoteRegex.flags), '')
 })
 </script>
 

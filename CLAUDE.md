@@ -4,7 +4,8 @@ Imageboard frontend for the Pram REST API built with Vue 3.
 
 ## Tech Stack
 
-- **Vue 3** with Composition API (`<script setup>`)
+- **Vue 3** with Composition API (`<script setup lang="ts">`)
+- **TypeScript** with strict mode (`vue-tsc` for type checking)
 - **Vue Router 4** with `beforeEnter` guards for data loading
 - **Pinia** for state management (auth + board stores)
 - **Vite** for build/dev server
@@ -19,22 +20,26 @@ All new code is in `vue/`. The legacy AngularJS code remains in `src/` for refer
 
 ```
 vue/src/
-  config.js           - Runtime config from window.primConfig
-  main.js             - App bootstrap
+  config.ts           - Runtime config from window.primConfig
+  main.ts             - App bootstrap
+  env.d.ts            - Global type declarations (PrimConfig, Window, RouteMeta)
   App.vue             - Root component (header, loading, scroll-to-top)
-  router/index.js     - All routes with data-loading guards
+  types/
+    index.ts          - Domain types, API response envelopes, error helpers
+  router/index.ts     - All routes with data-loading guards
   stores/
-    auth.js           - Auth state, session, whoami, logout, mod check
-    board.js          - Per-board group/role data
+    auth.ts           - Auth state, session, whoami, logout, mod check
+    board.ts          - Per-board group/role data
   api/
-    client.js         - fetch wrapper (withCredentials, CSRF headers, error interceptor)
-    client.test.js    - API client tests (headers, CSRF, error handling)
-    handlers.js       - Public API endpoints (index, thread, image, tags, etc.)
-    userHandlers.js   - User endpoints (login, register, favorites, etc.)
-    modHandlers.js    - Mod/admin endpoints (delete, ban, close, sticky, etc.)
+    client.ts         - fetch wrapper (withCredentials, CSRF headers, error interceptor)
+    client.test.ts    - API client tests (headers, CSRF, error handling)
+    handlers.ts       - Public API endpoints (index, thread, image, tags, etc.)
+    userHandlers.ts   - User endpoints (login, register, favorites, etc.)
+    modHandlers.ts    - Mod/admin endpoints (delete, ban, close, sticky, etc.)
   composables/
-    useUtils.js       - Image URLs, avatars, thumbnails, quotes, usergroup classes
-    useEmoticons.js   - Emoticon token map
+    useUtils.ts       - Image URLs, avatars, thumbnails, quotes, usergroup classes
+    useEmoticons.ts   - Emoticon token map
+    useCommentDom.ts  - DOM-based comment formatting (bold, italic, links, emoticons)
   views/              - Page-level components (one per route)
   components/         - Shared components (pagination, comments, draw pad, etc.)
   assets/scss/        - All stylesheets
@@ -45,9 +50,27 @@ vue/src/
 - **Data loading**: Route `beforeEnter` guards fetch data and store it in `route.meta.data`. Views read it on mount.
 - **Auth**: JWT cookie-based via `withCredentials: true`. The frontend never touches the token directly.
 - **Forms**: Thread creation and reply forms use native HTML form submission (`action` attribute pointing to the API), not AJAX. This handles multipart/form-data for file uploads.
-- **Drawing pad**: Uses Vue `provide/inject` for parent-child communication between DrawPad, DrawCanvas, DrawControls, and DrawPalette.
-- **Comment formatting**: `CommentFormatter.vue` processes text with regex for bold, italic, links, image/YouTube embeds, and emoticons, then renders via `v-html`.
+- **Drawing pad**: Uses Vue `provide/inject` with typed `InjectionKey<DrawPadContext>` for parent-child communication between DrawPad, DrawCanvas, DrawControls, and DrawPalette.
+- **Comment formatting**: `CommentFormatter.vue` delegates to `useCommentDom.ts` which builds DOM nodes via `document.createTreeWalker` for bold, italic, links, image/YouTube embeds, and emoticons.
 - **Error handling**: API client intercepts 401 (destroy session + reload) and 403 (redirect to /account + toast).
+
+## TypeScript Conventions
+
+- **View data pattern**: Views cast `route.meta.data` to the typed response envelope, extract into a typed nullable ref, and guard the template with `v-if`:
+  ```ts
+  const raw = route.meta.data as ThreadResponse | undefined
+  const threadData = ref<Thread | null>(raw?.thread?.items ?? null)
+  ```
+  ```html
+  <template v-if="threadData">...</template>
+  ```
+- **Error narrowing**: Use `getErrorMessage(e)` from `src/types/index.ts` in catch blocks instead of accessing `e.data` directly.
+- **Component typing**: Use generic syntax for props (`defineProps<{ post: Post }>()`) and emits (`defineEmits<{ toggle: [] }>()`).
+- **No non-null assertions on refs**: Prefer null guards (`if (!ctx.value) return`) over `!` assertions. This was a recurring review finding.
+- **Template refs**: Type as `ref<HTMLElement | null>(null)` and guard before use.
+- **API response types**: All responses use envelope interfaces in `src/types/index.ts`. Two pagination generics: `PaginatedList<T>` (items is `T[]`) and `PaginatedDetail<T>` (items is `T`).
+- **Auth error handling**: `setAuthState` only destroys the session on 4xx errors. Transient network failures preserve cached state.
+- **localStorage**: Use targeted `removeItem()`, never `clear()`. Keys: `global.cache` (auth), `ib{id}.data` (board), `lineWriterCache` (draw pad).
 
 ## Config
 
@@ -73,6 +96,7 @@ npm run dev      # Dev server on port 3000
 npm run build    # Production build to vue/dist/
 npm run preview  # Preview production build
 npm test         # Run tests with Vitest
+npm run type-check  # Type check with vue-tsc
 ```
 
 ## API Endpoints

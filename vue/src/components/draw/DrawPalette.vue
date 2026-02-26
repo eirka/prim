@@ -1,7 +1,8 @@
-<script setup>
+<script setup lang="ts">
 import { ref, inject } from 'vue'
+import { drawPadKey } from './drawConfig'
 
-const { switchEraser, selectedColor, lineWidth, ctx } = inject('drawPad')
+const { switchEraser, selectedColor, lineWidth, ctx } = inject(drawPadKey)!
 
 const paletteVisible = ref(false)
 const togglePalette = () => { paletteVisible.value = !paletteVisible.value }
@@ -29,16 +30,16 @@ const colorRows = [
   }
 ]
 
-const setColor = (color) => {
+const setColor = (color: string) => {
   switchEraser()
   selectedColor.value = color
-  ctx.value.strokeStyle = color
+  ctx.value!.strokeStyle = color
 }
 
-const setSize = (size) => {
+const setSize = (size: number) => {
   switchEraser()
   lineWidth.value = size
-  ctx.value.lineWidth = size
+  ctx.value!.lineWidth = size
 }
 </script>
 

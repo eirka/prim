@@ -1,13 +1,14 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { Line } from 'vue-chartjs'
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js'
 import modHandlers from '@/api/modHandlers'
 import { apiError } from '@/composables/useUtils'
+import type { ApiError } from '@/types'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend)
 
-const chartData = ref(null)
+const chartData = ref<{ labels: string[]; datasets: { label: string; data: number[]; borderColor: string; fill: boolean }[] } | null>(null)
 const chartOptions = {
   responsive: true,
   scales: {
@@ -34,7 +35,7 @@ onMounted(async () => {
     }))
     chartData.value = { labels, datasets }
   } catch (e) {
-    apiError(e.status)
+    apiError((e as ApiError).status)
   }
 })
 </script>

@@ -1,12 +1,13 @@
-<script setup>
+<script setup lang="ts">
 import { useRouter } from 'vue-router'
 import { useToast } from 'vue-toastification'
 import modHandlers from '@/api/modHandlers'
+import { getErrorMessage } from '@/types'
 
-const props = defineProps({
-  threadId: { type: Number, required: true },
-  postId: { type: Number, required: true }
-})
+const props = defineProps<{
+  threadId: number
+  postId: number
+}>()
 
 const router = useRouter()
 const toast = useToast()
@@ -18,7 +19,7 @@ const deletePost = async () => {
     toast.success(data.success_message)
     router.go(0)
   } catch (e) {
-    toast.error(e.data?.error_message || 'Error')
+    toast.error(getErrorMessage(e))
   }
 }
 
@@ -29,7 +30,7 @@ const banIp = async () => {
     const data = await modHandlers.banip(props.threadId, props.postId, reason)
     toast.success(data.success_message)
   } catch (e) {
-    toast.error(e.data?.error_message || 'Error')
+    toast.error(getErrorMessage(e))
   }
 }
 
@@ -40,7 +41,7 @@ const banFile = async () => {
     const data = await modHandlers.banfile(props.threadId, props.postId, reason)
     toast.success(data.success_message)
   } catch (e) {
-    toast.error(e.data?.error_message || 'Error')
+    toast.error(getErrorMessage(e))
   }
 }
 </script>

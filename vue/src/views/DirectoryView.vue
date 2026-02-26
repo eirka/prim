@@ -23,6 +23,7 @@ const pagination = ref({
 
 const sort = ref({ column: 'last_post' as keyof DirectoryThread, desc: true })
 const searchterm = ref('')
+let debounceTimer: ReturnType<typeof setTimeout> | undefined
 
 const changeSorting = (column: string) => {
   if (sort.value.column === column) {
@@ -47,19 +48,32 @@ watch([data, sort], () => {
   sortedData.value = arr
 }, { immediate: true, deep: true })
 
-const searchThreads = async () => {
-  if (!searchterm.value || searchterm.value.length < 3) return
-  try {
-    const result = await handlers.threadsearch(searchterm.value)
-    data.value = result.threadsearch || []
+const searchThreads = () => {
+  clearTimeout(debounceTimer)
+  if (!searchterm.value || searchterm.value.length < 3) {
+    data.value = raw?.directory?.items || []
     pagination.value = {
-      totalItems: data.value.length,
-      currentPage: 1,
-      numPages: 1,
-      itemsPerPage: data.value.length || 10,
+      totalItems: raw?.directory?.total || 0,
+      currentPage: raw?.directory?.current_page || 1,
+      numPages: raw?.directory?.pages || 1,
+      itemsPerPage: raw?.directory?.per_page || 10,
       maxSize: 3
     }
-  } catch { /* ignore */ }
+    return
+  }
+  debounceTimer = setTimeout(async () => {
+    try {
+      const result = await handlers.threadsearch(searchterm.value)
+      data.value = result.threadsearch || []
+      pagination.value = {
+        totalItems: data.value.length,
+        currentPage: 1,
+        numPages: 1,
+        itemsPerPage: data.value.length || 10,
+        maxSize: 3
+      }
+    } catch { /* ignore */ }
+  }, 300)
 }
 
 const onPageChange = (page: number) => {

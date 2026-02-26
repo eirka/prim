@@ -20,6 +20,7 @@ const pagination = ref({
 
 const sort = ref({ column: 'total' as string, desc: true })
 const searchterm = ref('')
+let debounceTimer: ReturnType<typeof setTimeout> | undefined
 
 const changeSorting = (column: string) => {
   if (sort.value.column === column) {
@@ -53,19 +54,32 @@ const rowClass = (type: number) => {
   }
 }
 
-const searchTags = async () => {
-  if (!searchterm.value || searchterm.value.length < 3) return
-  try {
-    const result = await handlers.tagsearch(searchterm.value)
-    data.value = result.tagsearch || []
+const searchTags = () => {
+  clearTimeout(debounceTimer)
+  if (!searchterm.value || searchterm.value.length < 3) {
+    data.value = raw?.tags?.items || []
     pagination.value = {
-      totalItems: data.value.length,
-      currentPage: 1,
-      numPages: 1,
-      itemsPerPage: data.value.length || 10,
+      totalItems: raw?.tags?.total || 0,
+      currentPage: raw?.tags?.current_page || 1,
+      numPages: raw?.tags?.pages || 1,
+      itemsPerPage: raw?.tags?.per_page || 10,
       maxSize: 3
     }
-  } catch { /* ignore */ }
+    return
+  }
+  debounceTimer = setTimeout(async () => {
+    try {
+      const result = await handlers.tagsearch(searchterm.value)
+      data.value = result.tagsearch || []
+      pagination.value = {
+        totalItems: data.value.length,
+        currentPage: 1,
+        numPages: 1,
+        itemsPerPage: data.value.length || 10,
+        maxSize: 3
+      }
+    } catch { /* ignore */ }
+  }, 300)
 }
 
 const onPageChange = (page: number) => {

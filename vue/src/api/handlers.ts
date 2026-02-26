@@ -11,6 +11,11 @@ const ib = config.ib_id
 
 // Cache for posts (used by hover boxes)
 const postCache = new Map<string, PostResponse>()
+const threadSearchCache = new Map<string, ThreadSearchResponse>()
+const tagSearchCache = new Map<string, TagSearchResponse>()
+let popularCache: PopularResponse | null = null
+let newestCache: NewestResponse | null = null
+let favoritedCache: FavoritedResponse | null = null
 
 export default {
   index(page: number | string): Promise<IndexResponse> {
@@ -34,13 +39,25 @@ export default {
     return get(`/get/image/${ib}/${id}`)
   },
   popular(): Promise<PopularResponse> {
-    return get(`/get/popular/${ib}`)
+    if (popularCache) return Promise.resolve(popularCache)
+    return get<PopularResponse>(`/get/popular/${ib}`).then(data => {
+      popularCache = data
+      return data
+    })
   },
   newest(): Promise<NewestResponse> {
-    return get(`/get/new/${ib}`)
+    if (newestCache) return Promise.resolve(newestCache)
+    return get<NewestResponse>(`/get/new/${ib}`).then(data => {
+      newestCache = data
+      return data
+    })
   },
   favorited(): Promise<FavoritedResponse> {
-    return get(`/get/favorited/${ib}`)
+    if (favoritedCache) return Promise.resolve(favoritedCache)
+    return get<FavoritedResponse>(`/get/favorited/${ib}`).then(data => {
+      favoritedCache = data
+      return data
+    })
   },
   tags(page: number | string): Promise<TagsResponse> {
     return get(`/get/tags/${ib}/${page}`)
@@ -52,10 +69,18 @@ export default {
     return get('/get/tagtypes')
   },
   tagsearch(term: string): Promise<TagSearchResponse> {
-    return get(`/get/tagsearch/${ib}?search=${encodeURIComponent(term)}`)
+    if (tagSearchCache.has(term)) return Promise.resolve(tagSearchCache.get(term)!)
+    return get<TagSearchResponse>(`/get/tagsearch/${ib}?search=${encodeURIComponent(term)}`).then(data => {
+      tagSearchCache.set(term, data)
+      return data
+    })
   },
   threadsearch(term: string): Promise<ThreadSearchResponse> {
-    return get(`/get/threadsearch/${ib}?search=${encodeURIComponent(term)}`)
+    if (threadSearchCache.has(term)) return Promise.resolve(threadSearchCache.get(term)!)
+    return get<ThreadSearchResponse>(`/get/threadsearch/${ib}?search=${encodeURIComponent(term)}`).then(data => {
+      threadSearchCache.set(term, data)
+      return data
+    })
   },
   addtag(body: { tag: number; image: number; ib: number }): Promise<SuccessResponse> {
     return post('/post/tag/add', body)

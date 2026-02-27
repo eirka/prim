@@ -6,6 +6,17 @@ import userHandlers from '@/api/userHandlers';
 import { apiError } from '@/composables/useUtils';
 import { useAuthStore } from '@/stores/auth';
 import type { ApiError } from '@/types';
+import IndexView from '@/views/IndexView.vue';
+import ThreadView from '@/views/ThreadView.vue';
+import DirectoryView from '@/views/DirectoryView.vue';
+import ImageView from '@/views/ImageView.vue';
+import TagsView from '@/views/TagsView.vue';
+import TagView from '@/views/TagView.vue';
+import TrendingView from '@/views/TrendingView.vue';
+import FavoritesView from '@/views/FavoritesView.vue';
+import AccountView from '@/views/AccountView.vue';
+import AdminView from '@/views/AdminView.vue';
+import ErrorView from '@/views/ErrorView.vue';
 
 export const isLoading = ref(false);
 
@@ -15,61 +26,61 @@ const router = createRouter({
     {
       path: '/',
       name: 'index',
-      component: () => import('@/views/IndexView.vue'),
+      component: IndexView,
       meta: { title: 'Index', loader: () => handlers.index(1) },
     },
     {
       path: '/page/:page',
       name: 'indexPage',
-      component: () => import('@/views/IndexView.vue'),
+      component: IndexView,
       meta: { title: 'Index', loader: (to) => handlers.index(to.params.page as string) },
     },
     {
       path: '/thread/:id/:page',
       name: 'thread',
-      component: () => import('@/views/ThreadView.vue'),
+      component: ThreadView,
       meta: { loader: (to) => handlers.thread(to.params.id as string, to.params.page as string) },
     },
     {
       path: '/directory',
       name: 'directory',
-      component: () => import('@/views/DirectoryView.vue'),
+      component: DirectoryView,
       meta: { title: 'Threads', loader: () => handlers.directory(1) },
     },
     {
       path: '/directory/:page',
       name: 'directoryPage',
-      component: () => import('@/views/DirectoryView.vue'),
+      component: DirectoryView,
       meta: { title: 'Threads', loader: (to) => handlers.directory(to.params.page as string) },
     },
     {
       path: '/image/:id',
       name: 'image',
-      component: () => import('@/views/ImageView.vue'),
+      component: ImageView,
       meta: { loader: (to) => handlers.image(to.params.id as string) },
     },
     {
       path: '/tags',
       name: 'tags',
-      component: () => import('@/views/TagsView.vue'),
+      component: TagsView,
       meta: { title: 'Tags', loader: () => handlers.tags(1) },
     },
     {
       path: '/tags/:page',
       name: 'tagsPage',
-      component: () => import('@/views/TagsView.vue'),
+      component: TagsView,
       meta: { title: 'Tags', loader: (to) => handlers.tags(to.params.page as string) },
     },
     {
       path: '/tag/:id/:page',
       name: 'tag',
-      component: () => import('@/views/TagView.vue'),
+      component: TagView,
       meta: { loader: (to) => handlers.tag(to.params.id as string, to.params.page as string) },
     },
     {
       path: '/trending',
       name: 'trending',
-      component: () => import('@/views/TrendingView.vue'),
+      component: TrendingView,
       meta: {
         title: 'Trending',
         loader: async () => {
@@ -85,13 +96,13 @@ const router = createRouter({
     {
       path: '/favorites',
       name: 'favorites',
-      component: () => import('@/views/FavoritesView.vue'),
+      component: FavoritesView,
       meta: { title: 'Favorites', requiresAuth: true, loader: () => userHandlers.favorites(1) },
     },
     {
       path: '/favorites/:page',
       name: 'favoritesPage',
-      component: () => import('@/views/FavoritesView.vue'),
+      component: FavoritesView,
       meta: {
         title: 'Favorites',
         requiresAuth: true,
@@ -101,19 +112,19 @@ const router = createRouter({
     {
       path: '/account',
       name: 'account',
-      component: () => import('@/views/AccountView.vue'),
+      component: AccountView,
       meta: { title: 'Account' },
     },
     {
       path: '/admin',
       name: 'admin',
-      component: () => import('@/views/AdminView.vue'),
+      component: AdminView,
       meta: { title: 'Admin Panel', requiresMod: true },
     },
     {
       path: '/error',
       name: 'error',
-      component: () => import('@/views/ErrorView.vue'),
+      component: ErrorView,
     },
     {
       path: '/:pathMatch(.*)*',

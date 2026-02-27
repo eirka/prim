@@ -16,6 +16,15 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
+  build: {
+    rollupOptions: {
+      output: {
+        inlineDynamicImports: true,
+        entryFileNames: 'assets/prim-[hash].js',
+        assetFileNames: 'assets/prim-[hash][extname]',
+      },
+    },
+  },
   server: {
     port: 3000
   }

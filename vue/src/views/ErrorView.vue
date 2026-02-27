@@ -1,38 +1,42 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import { getError } from '@/composables/useUtils'
-import config from '@/config'
+import { computed } from 'vue';
+import { getError } from '@/composables/useUtils';
+import config from '@/config';
 
-let errorcode = getError()
+let errorcode = getError();
 
-if (!errorcode) errorcode = 404
-if (errorcode === -1) errorcode = 502
+if (!errorcode) errorcode = 404;
+if (errorcode === -1) errorcode = 502;
 
 const errormessage = computed(() => {
   switch (errorcode) {
     case 401:
     case 403:
-      return 'You are unauthorized to view this page'
+      return 'You are unauthorized to view this page';
     case 404:
-      return "Couldn't find whatever you were looking for"
+      return "Couldn't find whatever you were looking for";
     case 502:
-      return 'Oh no the API server is probably down'
+      return 'Oh no the API server is probably down';
     default:
-      return 'Looks like something went wrong'
+      return 'Looks like something went wrong';
   }
-})
+});
 
 const pageTitle = computed(() => {
   switch (errorcode) {
     case 401:
-    case 403: return 'Unauthorized'
-    case 404: return 'Not Found'
-    case 502: return 'API Down'
-    default: return 'Error'
+    case 403:
+      return 'Unauthorized';
+    case 404:
+      return 'Not Found';
+    case 502:
+      return 'API Down';
+    default:
+      return 'Error';
   }
-})
+});
 
-document.title = pageTitle.value + ' | ' + config.title
+document.title = pageTitle.value + ' | ' + config.title;
 </script>
 
 <template>

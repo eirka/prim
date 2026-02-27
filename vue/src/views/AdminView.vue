@@ -1,21 +1,21 @@
 <script setup lang="ts">
-import { ref, type Component } from 'vue'
-import AdminStatistics from '@/components/admin/AdminStatistics.vue'
-import AdminBoardLog from '@/components/admin/AdminBoardLog.vue'
-import AdminModLog from '@/components/admin/AdminModLog.vue'
+import { ref, type Component } from 'vue';
+import AdminStatistics from '@/components/admin/AdminStatistics.vue';
+import AdminBoardLog from '@/components/admin/AdminBoardLog.vue';
+import AdminModLog from '@/components/admin/AdminModLog.vue';
 
 interface Panel {
-  name: string
-  component: Component
+  name: string;
+  component: Component;
 }
 
 const panels: Panel[] = [
   { name: 'Statistics', component: AdminStatistics },
   { name: 'Board Log', component: AdminBoardLog },
-  { name: 'Mod Log', component: AdminModLog }
-]
+  { name: 'Mod Log', component: AdminModLog },
+];
 
-const activePanel = ref(panels[0])
+const activePanel = ref(panels[0]);
 </script>
 
 <template>
@@ -28,7 +28,9 @@ const activePanel = ref(panels[0])
           class="button button-block button-primary"
           :class="{ active: activePanel.name === panel.name }"
           @click="activePanel = panel"
-        >{{ panel.name }}</button>
+        >
+          {{ panel.name }}
+        </button>
       </div>
       <div class="settings_box">
         <component :is="activePanel.component" />

@@ -1,46 +1,46 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
-import { useToast } from 'vue-toastification'
-import modHandlers from '@/api/modHandlers'
-import { getErrorMessage } from '@/types'
+import { useRouter } from 'vue-router';
+import { useToast } from 'vue-toastification';
+import modHandlers from '@/api/modHandlers';
+import { getErrorMessage } from '@/types';
 
 const props = defineProps<{
-  threadId: number
-}>()
+  threadId: number;
+}>();
 
-const router = useRouter()
-const toast = useToast()
+const router = useRouter();
+const toast = useToast();
 
 const closeThread = async () => {
   try {
-    const data = await modHandlers.close(props.threadId)
-    toast.success(data.success_message)
-    router.go(0)
+    const data = await modHandlers.close(props.threadId);
+    toast.success(data.success_message);
+    router.go(0);
   } catch (e) {
-    toast.error(getErrorMessage(e))
+    toast.error(getErrorMessage(e));
   }
-}
+};
 
 const stickyThread = async () => {
   try {
-    const data = await modHandlers.sticky(props.threadId)
-    toast.success(data.success_message)
-    router.go(0)
+    const data = await modHandlers.sticky(props.threadId);
+    toast.success(data.success_message);
+    router.go(0);
   } catch (e) {
-    toast.error(getErrorMessage(e))
+    toast.error(getErrorMessage(e));
   }
-}
+};
 
 const deleteThread = async () => {
-  if (!confirm('Are you sure you want to delete this thread?')) return
+  if (!confirm('Are you sure you want to delete this thread?')) return;
   try {
-    const data = await modHandlers.deletethread(props.threadId)
-    toast.success(data.success_message)
-    router.push('/')
+    const data = await modHandlers.deletethread(props.threadId);
+    toast.success(data.success_message);
+    router.push('/');
   } catch (e) {
-    toast.error(getErrorMessage(e))
+    toast.error(getErrorMessage(e));
   }
-}
+};
 </script>
 
 <template>

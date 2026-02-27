@@ -1,20 +1,23 @@
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue'
-import { buildCommentDom } from '@/composables/useCommentDom'
+import { ref, onMounted, watch } from 'vue';
+import { buildCommentDom } from '@/composables/useCommentDom';
 
 const props = defineProps<{
-  comment: string
-}>()
+  comment: string;
+}>();
 
-const container = ref<HTMLParagraphElement | null>(null)
+const container = ref<HTMLParagraphElement | null>(null);
 
 onMounted(() => {
-  if (container.value) buildCommentDom(container.value, props.comment)
-})
+  if (container.value) buildCommentDom(container.value, props.comment);
+});
 
-watch(() => props.comment, (val) => {
-  if (container.value) buildCommentDom(container.value, val)
-})
+watch(
+  () => props.comment,
+  (val) => {
+    if (container.value) buildCommentDom(container.value, val);
+  }
+);
 </script>
 
 <template>

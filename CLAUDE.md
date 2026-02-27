@@ -13,6 +13,8 @@ Imageboard frontend for the Pram REST API built with Vue 3.
 - **Chart.js** via vue-chartjs for admin statistics
 - **vue-toastification** for toast notifications
 - **Vitest** for unit testing
+- **Prettier** for code formatting (TS, Vue, SCSS)
+- **ESLint** with typescript-eslint and eslint-plugin-vue for linting
 
 ## Project Layout
 
@@ -92,11 +94,15 @@ window.primConfig = {
 ```bash
 cd vue
 npm install
-npm run dev      # Dev server on port 3000
-npm run build    # Production build to vue/dist/
-npm run preview  # Preview production build
-npm test         # Run tests with Vitest
-npm run type-check  # Type check with vue-tsc
+npm run dev          # Dev server on port 3000
+npm run build        # Production build to vue/dist/
+npm run preview      # Preview production build
+npm test             # Run tests with Vitest
+npm run type-check   # Type check with vue-tsc
+npm run format       # Format TS, Vue, SCSS with Prettier
+npm run format:check # Check formatting without writing (CI)
+npm run lint         # Lint TS and Vue files with ESLint
+npm run lint:fix     # Auto-fix lint issues
 ```
 
 ## API Endpoints

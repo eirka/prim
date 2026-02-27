@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { isLoading } from '@/router'
+import { isLoading } from '@/router';
 </script>
 
 <template>

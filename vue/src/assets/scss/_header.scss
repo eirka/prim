@@ -1,5 +1,5 @@
-@import "variables";
-@import "mixins";
+@import 'variables';
+@import 'mixins';
 
 /* header css */
 
@@ -193,7 +193,7 @@
       & .divider {
         padding-top: 1px;
         margin: 5px 1px 6px;
-        border-bottom: 1px solid #DADADA;
+        border-bottom: 1px solid #dadada;
       }
 
       & .divider:hover {

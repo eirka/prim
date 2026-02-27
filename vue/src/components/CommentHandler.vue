@@ -1,29 +1,29 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import CommentQuotes from './CommentQuotes.vue'
-import CommentFormatter from './CommentFormatter.vue'
-import type { Post } from '@/types'
+import { computed } from 'vue';
+import CommentQuotes from './CommentQuotes.vue';
+import CommentFormatter from './CommentFormatter.vue';
+import type { Post } from '@/types';
 
 const props = defineProps<{
-  post: Post
-  thread: number
-}>()
+  post: Post;
+  thread: number;
+}>();
 
-const quoteRegex = />>(\d{1,5})/g
+const quoteRegex = />>(\d{1,5})/g;
 
 const quoteIds = computed(() => {
-  const quotes: string[] = []
-  let m: RegExpExecArray | null
-  const re = new RegExp(quoteRegex.source, quoteRegex.flags)
+  const quotes: string[] = [];
+  let m: RegExpExecArray | null;
+  const re = new RegExp(quoteRegex.source, quoteRegex.flags);
   while ((m = re.exec(props.post.comment)) !== null) {
-    quotes.push(m[1])
+    quotes.push(m[1]);
   }
-  return quotes
-})
+  return quotes;
+});
 
 const cleanComment = computed(() => {
-  return props.post.comment.replace(new RegExp(quoteRegex.source, quoteRegex.flags), '')
-})
+  return props.post.comment.replace(new RegExp(quoteRegex.source, quoteRegex.flags), '');
+});
 </script>
 
 <template>

@@ -1,8 +1,8 @@
-import config from '@/config'
+import config from '@/config';
 
 interface Emoticon {
-  text: string
-  image: string
+  text: string;
+  image: string;
 }
 
 const tokens: Emoticon[] = [
@@ -30,13 +30,13 @@ const tokens: Emoticon[] = [
   { text: 'milk', image: 'milk.gif' },
   { text: 'psyduck', image: 'psyduck.gif' },
   { text: 'squid', image: 'squid.gif' },
-  { text: 'pacha', image: 'pacha.png' }
-]
+  { text: 'pacha', image: 'pacha.png' },
+];
 
-const tokenMap: Record<string, Emoticon> = {}
+const tokenMap: Record<string, Emoticon> = {};
 for (const token of tokens) {
-  tokenMap[token.text] = token
+  tokenMap[token.text] = token;
 }
 
-export const emoticonSrv = config.img_srv + '/emoticons/'
-export { tokenMap }
+export const emoticonSrv = config.img_srv + '/emoticons/';
+export { tokenMap };

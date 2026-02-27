@@ -1,74 +1,94 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { useAuthStore } from '@/stores/auth'
-import { useBoardStore } from '@/stores/board'
-import { usergroupClass, getAvatar, getThumbSrc, getQuote, clearQuote, getFormAction, formatDate } from '@/composables/useUtils'
-import config from '@/config'
-import CommentHandler from '@/components/CommentHandler.vue'
-import PrimPagination from '@/components/PrimPagination.vue'
-import DrawPad from '@/components/draw/DrawPad.vue'
-import PostMod from '@/components/PostMod.vue'
-import ThreadMod from '@/components/ThreadMod.vue'
-import type { ThreadResponse, Thread } from '@/types'
+import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { useAuthStore } from '@/stores/auth';
+import { useBoardStore } from '@/stores/board';
+import {
+  usergroupClass,
+  getAvatar,
+  getThumbSrc,
+  getQuote,
+  clearQuote,
+  getFormAction,
+  formatDate,
+} from '@/composables/useUtils';
+import config from '@/config';
+import CommentHandler from '@/components/CommentHandler.vue';
+import PrimPagination from '@/components/PrimPagination.vue';
+import DrawPad from '@/components/draw/DrawPad.vue';
+import PostMod from '@/components/PostMod.vue';
+import ThreadMod from '@/components/ThreadMod.vue';
+import type { ThreadResponse, Thread } from '@/types';
 
-const route = useRoute()
-const router = useRouter()
-const auth = useAuthStore()
-const board = useBoardStore()
+const route = useRoute();
+const router = useRouter();
+const auth = useAuthStore();
+const board = useBoardStore();
 
-const drawpadVisible = ref(false)
-const toggleDrawpad = () => { drawpadVisible.value = !drawpadVisible.value }
+const drawpadVisible = ref(false);
+const toggleDrawpad = () => {
+  drawpadVisible.value = !drawpadVisible.value;
+};
 
-const layout = ref('list')
-const quote = ref(getQuote())
-const hasFile = ref(false)
-const canReply = computed(() => quote.value.trim().length >= 3 || hasFile.value)
+const layout = ref('list');
+const quote = ref(getQuote());
+const hasFile = ref(false);
+const canReply = computed(() => quote.value.trim().length >= 3 || hasFile.value);
 
-const raw = route.meta.data as ThreadResponse | undefined
-const threadData = ref<Thread | null>(raw?.thread?.items ?? null)
+const raw = route.meta.data as ThreadResponse | undefined;
+const threadData = ref<Thread | null>(raw?.thread?.items ?? null);
 const pagination = ref({
   totalItems: raw?.thread?.total || 0,
   currentPage: raw?.thread?.current_page || 1,
   numPages: raw?.thread?.pages || 1,
   itemsPerPage: raw?.thread?.per_page || 10,
-  maxSize: 3
-})
+  maxSize: 3,
+});
 
 // Set page title
 if (threadData.value?.title) {
-  document.title = threadData.value.title + ' | ' + config.title
+  document.title = threadData.value.title + ' | ' + config.title;
 }
 
 const onPageChange = (page: number) => {
-  router.push('/thread/' + route.params.id + '/' + page)
-}
+  router.push('/thread/' + route.params.id + '/' + page);
+};
 
 const replyQuote = (id: number) => {
-  if (typeof quote.value !== 'string') quote.value = ''
-  quote.value += ' >>' + id + ' '
-  window.scrollTo(0, 0)
-}
+  if (typeof quote.value !== 'string') quote.value = '';
+  quote.value += ' >>' + id + ' ';
+  window.scrollTo(0, 0);
+};
 
 // Clear quote on navigation
-const unwatch = router.beforeEach(() => { clearQuote() })
-onUnmounted(() => unwatch())
+const unwatch = router.beforeEach(() => {
+  clearQuote();
+});
+onUnmounted(() => unwatch());
 
 const onKeyDown = (e: KeyboardEvent) => {
-  if ((e.target as HTMLElement).tagName === 'INPUT' || (e.target as HTMLElement).tagName === 'TEXTAREA') return
-  if (e.key === 'g') layout.value = 'grid'
-  else if (e.key === 'l') layout.value = 'list'
+  if (
+    (e.target as HTMLElement).tagName === 'INPUT' ||
+    (e.target as HTMLElement).tagName === 'TEXTAREA'
+  )
+    return;
+  if (e.key === 'g') layout.value = 'grid';
+  else if (e.key === 'l') layout.value = 'list';
   else if (e.shiftKey && e.key === 'ArrowLeft' && pagination.value.currentPage > 1) {
-    onPageChange(pagination.value.currentPage - 1)
-  } else if (e.shiftKey && e.key === 'ArrowRight' && pagination.value.currentPage < pagination.value.numPages) {
-    onPageChange(pagination.value.currentPage + 1)
+    onPageChange(pagination.value.currentPage - 1);
+  } else if (
+    e.shiftKey &&
+    e.key === 'ArrowRight' &&
+    pagination.value.currentPage < pagination.value.numPages
+  ) {
+    onPageChange(pagination.value.currentPage + 1);
   } else if (e.key === 'd') {
-    toggleDrawpad()
+    toggleDrawpad();
   }
-}
+};
 
-onMounted(() => document.addEventListener('keydown', onKeyDown))
-onUnmounted(() => document.removeEventListener('keydown', onKeyDown))
+onMounted(() => document.addEventListener('keydown', onKeyDown));
+onUnmounted(() => document.removeEventListener('keydown', onKeyDown));
 </script>
 
 <template>
@@ -77,7 +97,13 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown))
     <div class="postbox">
       <div class="postbox_box">
         <div class="postbox_form">
-          <form role="form" name="replyform" :action="getFormAction('/post/thread/reply')" method="post" enctype="multipart/form-data">
+          <form
+            role="form"
+            name="replyform"
+            :action="getFormAction('/post/thread/reply')"
+            method="post"
+            enctype="multipart/form-data"
+          >
             <input type="hidden" name="csrf_token" :value="config.csrf_token" />
             <input type="hidden" name="thread" :value="threadData.id" />
             <div class="form-group">
@@ -86,18 +112,38 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown))
               </div>
             </div>
             <div class="form-group">
-              <textarea id="comment" name="comment" v-model="quote" class="form-control" rows="3" minlength="3" maxlength="1000" placeholder="Comment"></textarea>
+              <textarea
+                id="comment"
+                name="comment"
+                v-model="quote"
+                class="form-control"
+                rows="3"
+                minlength="3"
+                maxlength="1000"
+                placeholder="Comment"
+              ></textarea>
             </div>
             <div class="form-group">
               <div class="file-input">
-                <input id="file" type="file" name="file" @change="hasFile = !!($event.target as HTMLInputElement).files?.length">
+                <input
+                  id="file"
+                  type="file"
+                  name="file"
+                  @change="hasFile = !!($event.target as HTMLInputElement).files?.length"
+                />
               </div>
               <div class="draw-button">
                 <a class="button button-success" href="#" @click.prevent="toggleDrawpad">Draw</a>
               </div>
             </div>
             <div class="form-group">
-              <button class="button button-block button-primary" type="submit" :disabled="!canReply">Reply</button>
+              <button
+                class="button button-block button-primary"
+                type="submit"
+                :disabled="!canReply"
+              >
+                Reply
+              </button>
             </div>
           </form>
         </div>
@@ -122,17 +168,38 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown))
             <div v-if="threadData.closed" title="Closed" class="thread_info fa fa-lock"></div>
             <div v-if="threadData.sticky" title="Sticky" class="thread_info fa fa-thumb-tack"></div>
             <div class="button-group">
-              <a class="button button-primary fa fa-align-justify" title="Post view" :class="{ active: layout === 'list' }" href="#" @click.prevent="layout = 'list'"></a>
-              <a class="button button-primary fa fa-th" title="Image view" :class="{ active: layout === 'grid' }" href="#" @click.prevent="layout = 'grid'"></a>
+              <a
+                class="button button-primary fa fa-align-justify"
+                title="Post view"
+                :class="{ active: layout === 'list' }"
+                href="#"
+                @click.prevent="layout = 'list'"
+              ></a>
+              <a
+                class="button button-primary fa fa-th"
+                title="Image view"
+                :class="{ active: layout === 'grid' }"
+                href="#"
+                @click.prevent="layout = 'grid'"
+              ></a>
             </div>
           </div>
           <ThreadMod v-if="auth.showModControls" :thread-id="threadData.id" />
         </div>
         <template v-if="layout === 'list'">
-          <div v-for="post in threadData.posts" :key="post.id" :id="'reply-' + post.num" class="thread_row">
+          <div
+            v-for="post in threadData.posts"
+            :key="post.id"
+            :id="'reply-' + post.num"
+            class="thread_row"
+          >
             <div v-if="post.thumbnail" class="thread_row_image">
               <router-link :to="'/image/' + post.img_id">
-                <img :src="getThumbSrc(post.thumbnail, post.filename)" :height="post.tn_height" :width="post.tn_width">
+                <img
+                  :src="getThumbSrc(post.thumbnail, post.filename)"
+                  :height="post.tn_height"
+                  :width="post.tn_width"
+                />
               </router-link>
             </div>
             <div class="thread_content" :class="{ noimage: !post.thumbnail }">
@@ -152,12 +219,18 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown))
                     <span>{{ formatDate(post.time) }}</span>
                   </div>
                   <div class="info_item">
-                    <a class="label label-light" href="#" @click.prevent="replyQuote(post.num)">#{{ post.num }}</a>
+                    <a class="label label-light" href="#" @click.prevent="replyQuote(post.num)"
+                      >#{{ post.num }}</a
+                    >
                   </div>
                   <div v-if="auth.isAuthenticated" class="info_item">
                     <span v-if="auth.getLastActive(post.time)" class="label label-alert">NEW</span>
                   </div>
-                  <PostMod v-if="auth.showModControls" :thread-id="threadData.id" :post-id="post.id" />
+                  <PostMod
+                    v-if="auth.showModControls"
+                    :thread-id="threadData.id"
+                    :post-id="post.id"
+                  />
                 </div>
               </div>
               <CommentHandler :post="post" :thread="threadData.id" />
@@ -171,7 +244,11 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown))
             v-show="post.thumbnail"
             :to="'/image/' + post.img_id"
           >
-            <img :src="getThumbSrc(post.thumbnail, post.filename)" :height="post.tn_height" :width="post.tn_width">
+            <img
+              :src="getThumbSrc(post.thumbnail, post.filename)"
+              :height="post.tn_height"
+              :width="post.tn_width"
+            />
           </router-link>
         </div>
       </div>

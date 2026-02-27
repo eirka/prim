@@ -1,21 +1,21 @@
-import type { InjectionKey, Ref } from 'vue'
+import type { InjectionKey, Ref } from 'vue';
 
 export interface DrawPadContext {
-  canvas: Ref<HTMLCanvasElement | null>
-  ctx: Ref<CanvasRenderingContext2D | null>
-  redoList: string[]
-  undoList: string[]
-  selectedTool: Ref<number>
-  selectedColor: Ref<string>
-  lineWidth: Ref<number>
-  addCanvas: (el: HTMLCanvasElement) => void
-  defaultCanvas: () => void
-  saveState: (list?: string[], keep?: boolean) => void
-  restoreState: (pop: string[], push: string[]) => void
-  switchEraser: (eraser?: boolean) => void
+  canvas: Ref<HTMLCanvasElement | null>;
+  ctx: Ref<CanvasRenderingContext2D | null>;
+  redoList: string[];
+  undoList: string[];
+  selectedTool: Ref<number>;
+  selectedColor: Ref<string>;
+  lineWidth: Ref<number>;
+  addCanvas: (el: HTMLCanvasElement) => void;
+  defaultCanvas: () => void;
+  saveState: (list?: string[], keep?: boolean) => void;
+  restoreState: (pop: string[], push: string[]) => void;
+  switchEraser: (eraser?: boolean) => void;
 }
 
-export const drawPadKey: InjectionKey<DrawPadContext> = Symbol('drawPad')
+export const drawPadKey: InjectionKey<DrawPadContext> = Symbol('drawPad');
 
 export default {
   drawControls: true,
@@ -28,5 +28,5 @@ export default {
   storageKey: 'lineWriterCache',
   imageMime: 'image/png' as const,
   TOOL_PEN: 1,
-  TOOL_ERASER: 2
-}
+  TOOL_ERASER: 2,
+};

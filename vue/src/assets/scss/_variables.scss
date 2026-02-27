@@ -4,8 +4,8 @@
 
 $artistColor: #d9534f;
 $characterColor: #5cb85c;
-$copyrightColor: #B132B1;
-$sourceColor: #9BD6FF;
+$copyrightColor: #b132b1;
+$sourceColor: #9bd6ff;
 
 /* widths */
 
@@ -15,6 +15,6 @@ $boxWidthSmall: 48em;
 $boxWidthMedium: 63em;
 $boxWidthLarge: 78em;
 
-$screenSmall: "screen and (min-width: 50em)";
-$screenMedium: "screen and (min-width: 65em)";
-$screenLarge: "screen and (min-width: 80em)";
+$screenSmall: 'screen and (min-width: 50em)';
+$screenMedium: 'screen and (min-width: 65em)';
+$screenLarge: 'screen and (min-width: 80em)';

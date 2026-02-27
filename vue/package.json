@@ -11,7 +11,11 @@
     "styles:default": "cp ${STYLES_DIR:-../../chounyuu/chounyuu-styles}/css/meta.css public/meta.css",
     "styles:all": "npm run styles && npm run styles:default",
     "test": "vitest run",
-    "type-check": "vue-tsc --noEmit"
+    "type-check": "vue-tsc --noEmit",
+    "format": "prettier --write 'src/**/*.{ts,vue,scss}'",
+    "format:check": "prettier --check 'src/**/*.{ts,vue,scss}'",
+    "lint": "eslint 'src/**/*.{ts,vue}'",
+    "lint:fix": "eslint --fix 'src/**/*.{ts,vue}'"
   },
   "dependencies": {
     "chart.js": "^4.4.0",
@@ -22,11 +26,18 @@
     "vue-toastification": "^2.0.0-rc.5"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@types/node": "^25.3.1",
     "@vitejs/plugin-vue": "^5.0.0",
+    "eslint": "^10.0.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-vue": "^10.8.0",
+    "globals": "^17.3.0",
     "jsdom": "^28.1.0",
+    "prettier": "^3.8.1",
     "sass": "^1.70.0",
     "typescript": "^5.9.3",
+    "typescript-eslint": "^8.56.1",
     "vite": "^5.4.0",
     "vitest": "^4.0.18",
     "vue-tsc": "^3.2.5"

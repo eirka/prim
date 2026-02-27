@@ -1,5 +1,5 @@
-@import "variables";
-@import "mixins";
+@import 'variables';
+@import 'mixins';
 
 /* draw box css */
 
@@ -14,7 +14,9 @@
   border-radius: 4px;
   overflow: hidden;
   border: 1px solid #ddd;
-  box-shadow: 0 1px 3px -2px #121212, inset 0 2px 5px 0 rgba(255, 255, 255, 0.3);
+  box-shadow:
+    0 1px 3px -2px #121212,
+    inset 0 2px 5px 0 rgba(255, 255, 255, 0.3);
 
   &.ng-enter,
   &.ng-leave {
@@ -41,7 +43,7 @@
 }
 
 .draw-title {
-  background: #CDDAFD;
+  background: #cddafd;
   text-align: left;
   padding: 0.2rem;
   user-select: none;
@@ -79,7 +81,9 @@
     border-radius: 3px;
     color: #666;
     text-decoration: none;
-    box-shadow: 0 1px 3px -2px #121212, inset 0 2px 5px 0 rgba(255, 255, 255, 0.2);
+    box-shadow:
+      0 1px 3px -2px #121212,
+      inset 0 2px 5px 0 rgba(255, 255, 255, 0.2);
 
     &.active {
       background: #828282;
@@ -102,7 +106,9 @@
       border: 1px solid #ccc;
       border-radius: 2px;
       overflow: hidden;
-      box-shadow: 0 1px 3px -2px #121212, inset 0 2px 5px 0 rgba(255, 255, 255, 0.3);
+      box-shadow:
+        0 1px 3px -2px #121212,
+        inset 0 2px 5px 0 rgba(255, 255, 255, 0.3);
       display: inline-block;
       margin-left: 5px;
       position: absolute;

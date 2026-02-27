@@ -1,32 +1,38 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import modHandlers from '@/api/modHandlers'
-import { usergroupClass, apiError, formatDate } from '@/composables/useUtils'
-import PrimPagination from '@/components/PrimPagination.vue'
-import type { LogEntry, ApiError } from '@/types'
+import { ref, onMounted } from 'vue';
+import modHandlers from '@/api/modHandlers';
+import { usergroupClass, apiError, formatDate } from '@/composables/useUtils';
+import PrimPagination from '@/components/PrimPagination.vue';
+import type { LogEntry, ApiError } from '@/types';
 
-const data = ref<LogEntry[]>([])
-const pagination = ref({ totalItems: 0, currentPage: 1, numPages: 1, itemsPerPage: 10, maxSize: 3 })
+const data = ref<LogEntry[]>([]);
+const pagination = ref({
+  totalItems: 0,
+  currentPage: 1,
+  numPages: 1,
+  itemsPerPage: 10,
+  maxSize: 3,
+});
 
 const getLog = async (page: number) => {
   try {
-    const result = await modHandlers.boardlog(page)
-    data.value = result.boardlog.items
+    const result = await modHandlers.boardlog(page);
+    data.value = result.boardlog.items;
     pagination.value = {
       totalItems: result.boardlog.total,
       currentPage: result.boardlog.current_page,
       numPages: result.boardlog.pages,
       itemsPerPage: result.boardlog.per_page,
-      maxSize: 3
-    }
+      maxSize: 3,
+    };
   } catch (e) {
-    apiError((e as ApiError).status)
+    apiError((e as ApiError).status);
   }
-}
+};
 
-onMounted(() => getLog(1))
+onMounted(() => getLog(1));
 
-const onPageChange = (page: number) => getLog(page)
+const onPageChange = (page: number) => getLog(page);
 </script>
 
 <template>
@@ -42,7 +48,9 @@ const onPageChange = (page: number) => getLog(page)
       </thead>
       <tbody>
         <tr v-for="entry in data" :key="entry.id">
-          <td><span :class="usergroupClass(entry.group)">{{ entry.name }}</span></td>
+          <td>
+            <span :class="usergroupClass(entry.group)">{{ entry.name }}</span>
+          </td>
           <td>{{ entry.action }}</td>
           <td>{{ formatDate(entry.log_time) }}</td>
         </tr>

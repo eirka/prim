@@ -1,4 +1,4 @@
-@import "variables";
+@import 'variables';
 
 /* dropdown css */
 
@@ -101,7 +101,7 @@
 
 .dropup .caret,
 .navbar-fixed-bottom .dropdown .caret {
-  content: "";
+  content: '';
   border-top: 0;
   border-bottom: 4px solid;
 }

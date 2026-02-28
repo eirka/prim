@@ -17,9 +17,16 @@ const menuVisible = ref(false);
 const userMenuVisible = ref(false);
 const imageboards = ref<Imageboard[]>([]);
 
-handlers.imageboards().then((data) => {
-  imageboards.value = data.imageboards.filter((ib) => ib.id !== config.ib_id);
-});
+handlers
+  .imageboards()
+  .then((data) => {
+    imageboards.value = data.imageboards
+      .filter((ib) => ib.id !== config.ib_id)
+      .map((ib) => ({ ...ib, url: ib.url.replace(/^(https?:)?\/\//, '') }));
+  })
+  .catch(() => {
+    /* silently leave imageboards empty */
+  });
 
 
 const isActive = (path: string) => route.path.split('/')[1] === path;

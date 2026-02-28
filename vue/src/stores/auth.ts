@@ -5,8 +5,11 @@ import userHandlers from '@/api/userHandlers';
 import { useBoardStore } from './board';
 import { useToast } from 'vue-toastification';
 import { getAvatar } from '@/composables/useUtils';
+import type { WhoamiResponse } from '@/types';
 
 const CACHE_KEY = 'global.cache';
+const WHOAMI_KEY = 'global.whoami';
+const WHOAMI_TTL = 5 * 60 * 1000; // 5 minutes
 
 interface AuthCache {
   id: number;
@@ -15,6 +18,31 @@ interface AuthCache {
   avatar: string | null;
   lastactive: string;
 }
+
+interface WhoamiCache {
+  data: WhoamiResponse;
+  timestamp: number;
+}
+
+const saveWhoamiCache = (data: WhoamiResponse) => {
+  try {
+    localStorage.setItem(WHOAMI_KEY, JSON.stringify({ data, timestamp: Date.now() }));
+  } catch {
+    /* ignore */
+  }
+};
+
+const getWhoamiCache = (): WhoamiResponse | null => {
+  try {
+    const cached = localStorage.getItem(WHOAMI_KEY);
+    if (!cached) return null;
+    const parsed: WhoamiCache = JSON.parse(cached);
+    if (Date.now() - parsed.timestamp > WHOAMI_TTL) return null;
+    return parsed.data;
+  } catch {
+    return null;
+  }
+};
 
 export const useAuthStore = defineStore('auth', () => {
   const id = ref(1);
@@ -63,6 +91,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   const destroySession = () => {
     localStorage.removeItem(CACHE_KEY);
+    localStorage.removeItem(WHOAMI_KEY);
     setDefault();
     const board = useBoardStore();
     board.destroyCache();
@@ -82,8 +111,28 @@ export const useAuthStore = defineStore('auth', () => {
       board.setDefault();
     }
 
+    const cached = getWhoamiCache();
+    if (cached) {
+      saveWhoamiCache(cached);
+      const ss = cached.user;
+
+      if (cas && !ss.authenticated) {
+        destroySession();
+        return;
+      }
+
+      if (ss.authenticated) {
+        set(ss.id, ss.name, true, getAvatar(ss.id), new Date(ss.last_active));
+        saveCache();
+        board.set(ss.group);
+        board.saveCache();
+      }
+      return;
+    }
+
     try {
       const data = await handlers.whoami();
+      saveWhoamiCache(data);
       const ss = data.user;
 
       if (cas && !ss.authenticated) {

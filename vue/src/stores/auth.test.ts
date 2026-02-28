@@ -55,6 +55,16 @@ vi.mock('@/composables/useUtils', () => ({
 const { useAuthStore } = await import('./auth');
 const { useBoardStore } = await import('./board');
 
+function seedWhoamiCache(
+  user: { id: number; name: string; authenticated: boolean; group: number; last_active: string },
+  ageMs = 0
+) {
+  localStorage.setItem(
+    'global.whoami',
+    JSON.stringify({ data: { user }, timestamp: Date.now() - ageMs })
+  );
+}
+
 beforeEach(() => {
   setActivePinia(createPinia());
   mockStorage.clear();
@@ -139,6 +149,14 @@ describe('destroySession()', () => {
     expect(auth.name).toBe('Anonymous');
     expect(auth.isAuthenticated).toBe(false);
     expect(auth.avatar).toBeNull();
+  });
+
+  it('removes global.whoami from localStorage', () => {
+    localStorage.setItem('global.whoami', JSON.stringify({ data: {}, timestamp: Date.now() }));
+    const auth = useAuthStore();
+    auth.destroySession();
+
+    expect(localStorage.getItem('global.whoami')).toBeNull();
   });
 
   it('cascades to board store', () => {
@@ -306,6 +324,103 @@ describe('setAuthState()', () => {
     expect(localStorage.getItem('global.cache')).not.toBeNull();
   });
 
+  it('uses fresh whoami cache instead of calling API', async () => {
+    seedWhoamiCache({
+      id: 5,
+      name: 'Cached',
+      authenticated: true,
+      group: 2,
+      last_active: '2024-06-15T12:00:00Z',
+    });
+
+    const auth = useAuthStore();
+    await auth.setAuthState();
+
+    expect(mockWhoami).not.toHaveBeenCalled();
+    expect(auth.id).toBe(5);
+    expect(auth.name).toBe('Cached');
+    expect(auth.isAuthenticated).toBe(true);
+    expect(useBoardStore().group).toBe(2);
+  });
+
+  it('ignores expired whoami cache and calls API', async () => {
+    seedWhoamiCache(
+      {
+        id: 5,
+        name: 'Expired',
+        authenticated: true,
+        group: 2,
+        last_active: '2024-06-15T12:00:00Z',
+      },
+      6 * 60 * 1000 // 6 minutes old
+    );
+
+    mockWhoami.mockResolvedValue({
+      user: {
+        id: 5,
+        name: 'Fresh',
+        authenticated: true,
+        group: 2,
+        last_active: '2024-06-15T12:00:00Z',
+      },
+    });
+
+    const auth = useAuthStore();
+    await auth.setAuthState();
+
+    expect(mockWhoami).toHaveBeenCalledOnce();
+    expect(auth.name).toBe('Fresh');
+  });
+
+  it('saves whoami cache after successful API call', async () => {
+    mockWhoami.mockResolvedValue({
+      user: {
+        id: 5,
+        name: 'Alice',
+        authenticated: true,
+        group: 2,
+        last_active: '2024-06-15T12:00:00Z',
+      },
+    });
+
+    const auth = useAuthStore();
+    await auth.setAuthState();
+
+    const cached = JSON.parse(localStorage.getItem('global.whoami')!);
+    expect(cached.data.user.name).toBe('Alice');
+    expect(cached.timestamp).toBeGreaterThan(0);
+  });
+
+  it('whoami cache + auth cache says not authenticated: destroys session', async () => {
+    localStorage.setItem(
+      'global.cache',
+      JSON.stringify({
+        id: 5,
+        name: 'OldUser',
+        isAuthenticated: true,
+        avatar: 'old.png',
+        lastactive: '2024-01-01T00:00:00Z',
+      })
+    );
+    localStorage.setItem('ib1.data', JSON.stringify({ group: 2 }));
+    seedWhoamiCache({
+      id: 1,
+      name: 'Anonymous',
+      authenticated: false,
+      group: 1,
+      last_active: '',
+    });
+
+    const auth = useAuthStore();
+    await auth.setAuthState();
+
+    expect(mockWhoami).not.toHaveBeenCalled();
+    expect(auth.isAuthenticated).toBe(false);
+    expect(auth.id).toBe(1);
+    expect(localStorage.getItem('global.cache')).toBeNull();
+    expect(localStorage.getItem('global.whoami')).toBeNull();
+  });
+
   it('no cache + whoami throws: does not crash, stays default', async () => {
     mockWhoami.mockRejectedValue({ status: 500 });
 
@@ -352,6 +467,16 @@ describe('logOut()', () => {
     await auth.logOut();
 
     expect(localStorage.getItem('global.cache')).toBeNull();
+  });
+
+  it('removes whoami cache', async () => {
+    localStorage.setItem('global.whoami', JSON.stringify({ data: {}, timestamp: Date.now() }));
+    mockLogout.mockResolvedValue({ success_message: 'ok' });
+    const auth = useAuthStore();
+
+    await auth.logOut();
+
+    expect(localStorage.getItem('global.whoami')).toBeNull();
   });
 });
 

@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
 import handlers from '@/api/handlers';
-import userHandlers from '@/api/userHandlers';
+import userHandlers, { clearFavoritesCache } from '@/api/userHandlers';
 import { useBoardStore } from './board';
 import { useToast } from 'vue-toastification';
 import { getAvatar } from '@/composables/useUtils';
@@ -92,6 +92,7 @@ export const useAuthStore = defineStore('auth', () => {
   const destroySession = () => {
     localStorage.removeItem(CACHE_KEY);
     localStorage.removeItem(WHOAMI_KEY);
+    clearFavoritesCache();
     setDefault();
     const board = useBoardStore();
     board.destroyCache();

@@ -41,6 +41,7 @@ vi.mock('@/api/handlers', () => ({
 const mockLogout = vi.fn();
 vi.mock('@/api/userHandlers', () => ({
   default: { logout: mockLogout },
+  clearFavoritesCache: () => localStorage.removeItem('global.favorites'),
 }));
 
 const mockToastSuccess = vi.fn();
@@ -157,6 +158,17 @@ describe('destroySession()', () => {
     auth.destroySession();
 
     expect(localStorage.getItem('global.whoami')).toBeNull();
+  });
+
+  it('removes global.favorites from localStorage', () => {
+    localStorage.setItem(
+      'global.favorites',
+      JSON.stringify({ '1': { starred: true, timestamp: Date.now() } })
+    );
+    const auth = useAuthStore();
+    auth.destroySession();
+
+    expect(localStorage.getItem('global.favorites')).toBeNull();
   });
 
   it('cascades to board store', () => {

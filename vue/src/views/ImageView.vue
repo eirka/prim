@@ -34,7 +34,7 @@ if (imageData.value) {
 // Check favorite status
 const checkFavorite = async () => {
   try {
-    const data = await userHandlers.favorite(route.params.id as string);
+    const data = await userHandlers.favorite(Number(route.params.id));
     starred.value = data.starred;
   } catch (e) {
     toast.error(getErrorMessage(e));

@@ -8,6 +8,7 @@ const youtubeRegex =
   /(https?)?:\/\/(www\.)?(?:youtube\.com\/\S*(?:(?:\/e(?:mbed))?\/|watch\?(?:\S*?&?v=))|youtu\.be\/)([a-zA-Z0-9_-]{6,11})/i;
 const imageRegex =
   /(?:https?:\/\/|(?:www\.)|[A-Za-z0-9._%+-]+@)\S*[^\s.;,(){}<>"\u201d\u2019](?:\/[^/#?]+)+\.(?:jpe?g|gif|png)/i;
+const newlineRegex = /\n/g;
 const boldRegex = /\*\*(.*?)\*\*/g;
 const italicRegex = /\*(.*?)\*/g;
 const emoticonRegex = /:([\w+-]+):/g;
@@ -132,6 +133,9 @@ function makeEmoticon(token: { text: string; image: string }): HTMLImageElement 
 export function buildCommentDom(container: HTMLElement, text: string): void {
   // Clear and set safely — textContent auto-escapes all HTML
   container.textContent = text.replace(/(\n){3,}/g, '\n\n').trim();
+
+  // Newline pass: \n → <br>
+  processAll(container, newlineRegex, () => document.createElement('br'));
 
   // Bold pass: **text** → <strong>text</strong>
   processAll(container, boldRegex, (match) => {

@@ -25,13 +25,31 @@ describe('sanitization', () => {
     expect(container.textContent).toContain('<script>');
   });
 
-  it('collapses 3+ consecutive newlines to 2', () => {
+  it('converts newlines to <br> elements', () => {
+    const container = makeContainer('a\nb');
+    expect(container.querySelectorAll('br')).toHaveLength(1);
+    expect(container.textContent).toBe('ab');
+  });
+
+  it('converts double newlines to two <br> elements', () => {
+    const container = makeContainer('a\n\nb');
+    expect(container.querySelectorAll('br')).toHaveLength(2);
+  });
+
+  it('collapses 3+ consecutive newlines to 2 <br> elements', () => {
     const container = makeContainer('a\n\n\n\nb');
-    expect(container.textContent).toBe('a\n\nb');
+    expect(container.querySelectorAll('br')).toHaveLength(2);
+    expect(container.textContent).toBe('ab');
   });
 
   it('trims leading and trailing whitespace', () => {
     const container = makeContainer('  hello  ');
+    expect(container.textContent).toBe('hello');
+  });
+
+  it('trims leading and trailing newlines', () => {
+    const container = makeContainer('\nhello\n');
+    expect(container.querySelectorAll('br')).toHaveLength(0);
     expect(container.textContent).toBe('hello');
   });
 });
@@ -191,6 +209,12 @@ describe('mixed content', () => {
     const container = makeContainer(':smug: check https://example.com');
     expect(container.querySelector('img.emoticon')).not.toBeNull();
     expect(container.querySelector('a')).not.toBeNull();
+  });
+
+  it('bold spanning a newline is not rendered (newline splits the span)', () => {
+    const container = makeContainer('**foo\nbar**');
+    expect(container.querySelector('strong')).toBeNull();
+    expect(container.querySelectorAll('br')).toHaveLength(1);
   });
 
   it('plain text with no formatting markers is unchanged', () => {

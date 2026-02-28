@@ -1,12 +1,43 @@
 <script setup lang="ts">
 import { ref, watch, onMounted, onUnmounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { useToast } from 'vue-toastification';
+import { useAuthStore } from '@/stores/auth';
 import handlers from '@/api/handlers';
+import config from '@/config';
 import PrimPagination from '@/components/PrimPagination.vue';
-import type { TagsResponse, TagRow, Tag } from '@/types';
+import type { TagsResponse, TagRow, Tag, TagType } from '@/types';
+import { getErrorMessage } from '@/types';
 
 const route = useRoute();
 const router = useRouter();
+const toast = useToast();
+const auth = useAuthStore();
+
+// New tag form
+const tagtypes = ref<TagType[]>([]);
+const newTagType = ref(1);
+const newTagName = ref('');
+
+if (auth.isAuthenticated) {
+  handlers.tagtypes().then((data) => {
+    tagtypes.value = data.tagtypes;
+  });
+}
+
+const createTag = async () => {
+  try {
+    const data = await handlers.newtag({
+      tag: newTagName.value,
+      tagtype: newTagType.value,
+      ib: config.ib_id,
+    });
+    toast.success(data.success_message);
+    newTagName.value = '';
+  } catch (e) {
+    toast.error(getErrorMessage(e));
+  }
+};
 
 const raw = route.meta.data as TagsResponse | undefined;
 const data = ref<(TagRow | Tag)[]>(raw?.tags?.items || []);
@@ -123,6 +154,35 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown));
     <div class="taglist_container">
       <div class="tags_list">
         <div class="tags_bar">
+          <div v-if="auth.isAuthenticated" class="tags_input">
+            <form class="form-inline" @submit.prevent="createTag">
+              <div class="form-group">
+                <select class="form-control" v-model="newTagType">
+                  <option v-for="t in tagtypes" :key="t.id" :value="t.id">{{ t.type }}</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <input
+                  class="form-control"
+                  type="text"
+                  v-model="newTagName"
+                  minlength="3"
+                  maxlength="128"
+                  required
+                  placeholder="New Tag"
+                />
+              </div>
+              <div class="form-group">
+                <button
+                  class="form-control button button-primary"
+                  type="submit"
+                  :disabled="newTagName.length < 3"
+                >
+                  New Tag
+                </button>
+              </div>
+            </form>
+          </div>
           <div class="tags_search">
             <form role="form" class="form-inline" @submit.prevent>
               <input

@@ -68,19 +68,17 @@ const selectTag = (tag: Tag) => {
   activeIndex.value = -1;
 };
 
-// Highlight matching portion of tag name
-const escapeHtml = (s: string) =>
-  s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-
-const highlightMatch = (name: string) => {
+// Split tag name into parts for highlight rendering
+const highlightParts = (name: string) => {
   const term = tagInput.value;
-  if (!term) return escapeHtml(name);
+  if (!term) return { before: name, match: '', after: '' };
   const idx = name.toLowerCase().indexOf(term.toLowerCase());
-  if (idx === -1) return escapeHtml(name);
-  const before = escapeHtml(name.slice(0, idx));
-  const match = escapeHtml(name.slice(idx, idx + term.length));
-  const after = escapeHtml(name.slice(idx + term.length));
-  return `${before}<strong>${match}</strong>${after}`;
+  if (idx === -1) return { before: name, match: '', after: '' };
+  return {
+    before: name.slice(0, idx),
+    match: name.slice(idx, idx + term.length),
+    after: name.slice(idx + term.length),
+  };
 };
 
 // Keyboard navigation for tag dropdown
@@ -325,7 +323,7 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown));
                   :class="{ active: i === activeIndex }"
                   @mouseover="activeIndex = i"
                 >
-                  <a href="#" @mousedown.prevent="selectTag(tag)" v-html="highlightMatch(tag.tag)"></a>
+                  <a href="#" @mousedown.prevent="selectTag(tag)">{{ highlightParts(tag.tag).before }}<strong>{{ highlightParts(tag.tag).match }}</strong>{{ highlightParts(tag.tag).after }}</a>
                 </li>
               </ul>
             </div>

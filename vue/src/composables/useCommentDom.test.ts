@@ -152,7 +152,9 @@ describe('URL pass — youtube', () => {
     const container = makeContainer('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
     const iframe = container.querySelector('iframe');
     expect(iframe).not.toBeNull();
-    expect(iframe!.getAttribute('src')).toBe('https://www.youtube.com/embed/dQw4w9WgXcQ');
+    expect(iframe!.getAttribute('src')).toBe(
+      'https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ',
+    );
     expect(iframe!.getAttribute('allowfullscreen')).not.toBeNull();
   });
 
@@ -160,7 +162,17 @@ describe('URL pass — youtube', () => {
     const container = makeContainer('https://youtu.be/dQw4w9WgXcQ');
     const iframe = container.querySelector('iframe');
     expect(iframe).not.toBeNull();
-    expect(iframe!.getAttribute('src')).toBe('https://www.youtube.com/embed/dQw4w9WgXcQ');
+    expect(iframe!.getAttribute('src')).toBe(
+      'https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ',
+    );
+  });
+
+  it('sandboxes the youtube iframe', () => {
+    const container = makeContainer('https://youtu.be/dQw4w9WgXcQ');
+    const iframe = container.querySelector('iframe');
+    expect(iframe!.getAttribute('sandbox')).toBe(
+      'allow-scripts allow-same-origin allow-presentation allow-popups',
+    );
   });
 
   it('wraps iframe in .auto-resizable-iframe', () => {
@@ -221,5 +233,37 @@ describe('mixed content', () => {
     const container = makeContainer('just plain text here');
     expect(container.textContent).toBe('just plain text here');
     expect(container.children).toHaveLength(0);
+  });
+});
+
+describe('security', () => {
+  it('does not linkify javascript: URIs', () => {
+    const container = makeContainer('javascript:alert(1)');
+    expect(container.querySelector('a')).toBeNull();
+  });
+
+  it('does not linkify data: URIs', () => {
+    const container = makeContainer('data:text/html,<h1>xss</h1>');
+    expect(container.querySelector('a')).toBeNull();
+  });
+
+  it('does not create image elements for non-http URLs', () => {
+    const container = makeContainer('javascript:alert(1)//example.com/pic/img.jpg');
+    expect(container.querySelector('img')).toBeNull();
+    expect(container.querySelector('a')).toBeNull();
+  });
+
+  it('escapes HTML tags in post content', () => {
+    const container = makeContainer('<img src=x onerror=alert(1)>');
+    expect(container.querySelector('img')).toBeNull();
+    expect(container.textContent).toContain('<img');
+  });
+
+  it('escapes HTML in bold content', () => {
+    const container = makeContainer('**<script>alert(1)</script>**');
+    expect(container.querySelector('script')).toBeNull();
+    const strong = container.querySelector('strong');
+    expect(strong).not.toBeNull();
+    expect(strong!.textContent).toContain('<script>');
   });
 });

@@ -84,6 +84,18 @@ function processAll(
   }
 }
 
+// --- Safety helpers ---
+
+const safeProtocols = new Set(['https:', 'http:', 'ftp:']);
+
+function isSafeUrl(url: string): boolean {
+  try {
+    return safeProtocols.has(new URL(url).protocol);
+  } catch {
+    return false;
+  }
+}
+
 // --- Element factories ---
 
 function makeLink(url: string): HTMLAnchorElement {
@@ -112,8 +124,13 @@ function makeYoutube(videoId: string): HTMLDivElement {
   wrapper.className = 'auto-resizable-iframe';
   const inner = document.createElement('div');
   const iframe = document.createElement('iframe');
-  iframe.setAttribute('src', 'https://www.youtube.com/embed/' + videoId);
+  iframe.setAttribute('src', 'https://www.youtube-nocookie.com/embed/' + videoId);
   iframe.setAttribute('frameborder', '0');
+  iframe.setAttribute(
+    'sandbox',
+    'allow-scripts allow-same-origin allow-presentation allow-popups',
+  );
+  iframe.setAttribute('allow', 'fullscreen; picture-in-picture');
   iframe.setAttribute('allowfullscreen', '');
   inner.appendChild(iframe);
   wrapper.appendChild(inner);
@@ -163,6 +180,9 @@ export function buildCommentDom(container: HTMLElement, text: string): void {
         return document.createTextNode(emailMatch[1] + ' at ' + emailMatch[2]);
       }
     }
+
+    // Reject URLs with unsafe protocols
+    if (!isSafeUrl(url)) return null;
 
     const ytMatch = new RegExp(youtubeRegex.source, youtubeRegex.flags).exec(url);
     if (ytMatch) {

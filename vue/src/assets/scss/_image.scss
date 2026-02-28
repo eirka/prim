@@ -16,11 +16,37 @@
   @include mediaWidths;
 }
 
+.image_search {
+  text-align: center;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 1em;
+
+  & .source_links {
+    padding: 0;
+    background-color: rgb(45, 53, 56);
+  }
+
+  @media #{$screenSmall} {
+    padding: 0;
+    float: left;
+    margin: 0;
+    margin-left: 6px;
+    margin-bottom: 6px;
+    width: calc(25% - 6px);
+  }
+
+  @media #{$screenMedium} {
+    width: calc(20% - 6px);
+  }
+}
+
 .image_info {
   text-align: center;
   border-radius: 6px;
   overflow: hidden;
-  padding: 0.5em;
+  padding: 0;
+  background-color: rgb(45, 53, 56);
 
   & .no_tags {
     padding: 0.5em;
@@ -74,10 +100,6 @@
     & input {
       border-radius: 0;
     }
-
-    & .source_links {
-      padding: 1em 0;
-    }
   }
 
   @media #{$screenMedium} {
@@ -99,6 +121,11 @@
   @media #{$screenMedium} {
     width: 80%;
   }
+}
+
+.image_info_bar {
+  background-color: rgb(45, 53, 56);
+  padding: 0.7em;
 }
 
 .image_box_nav {

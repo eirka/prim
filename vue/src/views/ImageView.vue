@@ -226,7 +226,8 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown));
           </div>
         </div>
       </div>
-      <div class="image_info">
+      <div class="image_search">
+        <div class="image_info_bar"></div>
         <div class="source_links">
           <a
             class="tag tag-source"
@@ -254,6 +255,10 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown));
             >Google</a
           >
         </div>
+        <div class="image_info_bar"></div>
+      </div>
+      <div class="image_info">
+        <div class="image_info_bar"></div>
         <div class="tag_input">
           <form @submit.prevent="addTag">
             <input
@@ -294,6 +299,7 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown));
             </div>
           </div>
         </div>
+        <div class="image_info_bar"></div>
       </div>
     </div>
   </div>

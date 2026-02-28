@@ -8,6 +8,7 @@ const config: PrimConfig = window.primConfig || {
   csrf_token:
     '7gMr6SDhkz1poT6HjK1rM1Od7eQIHzjcT17ulpbpgS2DAE/Qh37exovYU2PwKhpIPgcg0LBaW7Z/9NNZtIZuig==',
   discord_widget: 'https://discord.com/api/guilds/191608193833631753/widget.json',
+  //test_mode: 'mod',
 };
 
 export default config;

@@ -184,7 +184,12 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown));
               ></a>
             </div>
           </div>
-          <ThreadMod v-if="auth.showModControls" :thread-id="threadData.id" />
+          <ThreadMod
+            v-if="auth.showModControls"
+            :thread-id="threadData.id"
+            :closed="threadData.closed"
+            :sticky="threadData.sticky"
+          />
         </div>
         <template v-if="layout === 'list'">
           <div

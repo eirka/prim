@@ -10,6 +10,7 @@ declare global {
     csrf_token: string;
     title: string;
     discord_widget: string;
+    test_mode?: 'user' | 'mod';
   }
 
   interface Window {

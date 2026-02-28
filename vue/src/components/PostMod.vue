@@ -47,15 +47,15 @@ const banFile = async () => {
 </script>
 
 <template>
-  <div class="info_item mod_controls">
-    <a class="label label-mod" href="#" @click.prevent="deletePost" title="Delete Post"
-      ><i class="fa fa-times"></i
-    ></a>
-    <a class="label label-mod" href="#" @click.prevent="banIp" title="Ban IP"
-      ><i class="fa fa-ban"></i
-    ></a>
-    <a class="label label-mod" href="#" @click.prevent="banFile" title="Ban File"
-      ><i class="fa fa-file-o"></i
-    ></a>
+  <div class="post_mod_buttons">
+    <a title="Ban IP" class="button button-danger" href="#" @click.prevent="banIp"
+      >BAN IP</a
+    >
+    <a title="Ban File" class="button button-danger" href="#" @click.prevent="banFile"
+      >BAN FILE</a
+    >
+    <a title="Delete" class="button button-danger" href="#" @click.prevent="deletePost"
+      >DELETE</a
+    >
   </div>
 </template>

@@ -6,6 +6,8 @@ import { getErrorMessage } from '@/types';
 
 const props = defineProps<{
   threadId: number;
+  closed: boolean;
+  sticky: boolean;
 }>();
 
 const router = useRouter();
@@ -44,15 +46,35 @@ const deleteThread = async () => {
 </script>
 
 <template>
-  <div class="mod_controls thread_mod">
-    <button class="button button-mod" @click="closeThread" title="Close/Open Thread">
-      <i class="fa fa-lock"></i>
-    </button>
-    <button class="button button-mod" @click="stickyThread" title="Sticky/Unsticky Thread">
-      <i class="fa fa-thumb-tack"></i>
-    </button>
-    <button class="button button-mod" @click="deleteThread" title="Delete Thread">
-      <i class="fa fa-trash"></i>
-    </button>
+  <div class="thread_mod_buttons">
+    <a title="Delete" class="button button-danger fa fa-trash-o" href="#" @click.prevent="deleteThread"></a>
+    <a
+      v-if="!closed"
+      title="Close"
+      class="button button-primary fa fa-unlock-alt"
+      href="#"
+      @click.prevent="closeThread"
+    ></a>
+    <a
+      v-if="closed"
+      title="Open"
+      class="button button-success fa fa-lock"
+      href="#"
+      @click.prevent="closeThread"
+    ></a>
+    <a
+      v-if="!sticky"
+      title="Sticky"
+      class="button button-primary fa fa-thumb-tack"
+      href="#"
+      @click.prevent="stickyThread"
+    ></a>
+    <a
+      v-if="sticky"
+      title="Unsticky"
+      class="button button-success fa fa-thumb-tack"
+      href="#"
+      @click.prevent="stickyThread"
+    ></a>
   </div>
 </template>

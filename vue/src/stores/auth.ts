@@ -5,11 +5,23 @@ import userHandlers, { clearFavoritesCache } from '@/api/userHandlers';
 import { useBoardStore } from './board';
 import { useToast } from 'vue-toastification';
 import { getAvatar } from '@/composables/useUtils';
+import config from '@/config';
 import type { WhoamiResponse } from '@/types';
 
 const CACHE_KEY = 'global.cache';
 const WHOAMI_KEY = 'global.whoami';
 const WHOAMI_TTL = 5 * 60 * 1000; // 5 minutes
+
+const TEST_WHOAMI: WhoamiResponse = {
+  user: {
+    id: 3,
+    name: 'Tea',
+    group: 3,
+    authenticated: true,
+    email: 'tea@test.com',
+    last_active: '2026-02-28T06:28:25Z',
+  },
+};
 
 interface AuthCache {
   id: number;
@@ -101,6 +113,15 @@ export const useAuthStore = defineStore('auth', () => {
 
   const setAuthState = async () => {
     const board = useBoardStore();
+
+    if (config.test_mode) {
+      const ss = TEST_WHOAMI.user;
+      const group = config.test_mode === 'mod' ? 3 : 1;
+      set(ss.id, ss.name, true, getAvatar(ss.id), new Date(ss.last_active));
+      board.set(group);
+      return;
+    }
+
     const cas = getCache();
     const cib = board.getCache();
 
@@ -156,10 +177,12 @@ export const useAuthStore = defineStore('auth', () => {
   };
 
   const logOut = async () => {
-    try {
-      await userHandlers.logout();
-    } catch {
-      /* ignore */
+    if (!config.test_mode) {
+      try {
+        await userHandlers.logout();
+      } catch {
+        /* ignore */
+      }
     }
     destroySession();
     const toast = useToast();

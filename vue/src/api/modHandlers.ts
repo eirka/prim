@@ -13,10 +13,10 @@ export default {
   statistics(): Promise<StatisticsResponse> {
     return get(`/admin/statistics/${ib}`);
   },
-  boardlog(page: number | string): Promise<BoardLogResponse> {
+  boardlog(page: number): Promise<BoardLogResponse> {
     return get(`/admin/log/board/${ib}/${page}`);
   },
-  modlog(page: number | string): Promise<ModLogResponse> {
+  modlog(page: number): Promise<ModLogResponse> {
     return get(`/admin/log/mod/${ib}/${page}`);
   },
   deletethread(id: number): Promise<SuccessResponse> {

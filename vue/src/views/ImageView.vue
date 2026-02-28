@@ -101,7 +101,7 @@ const onTagKeydown = (e: KeyboardEvent) => {
 // Update tags
 const updateTags = async () => {
   try {
-    const data = await handlers.image(route.params.id as string);
+    const data = await handlers.image(Number(route.params.id));
     tags.value = data.image.tags;
     tagInput.value = '';
     selectedTagId.value = null;

@@ -58,7 +58,7 @@ export const clearFavoritesCache = () => {
 };
 
 export default {
-  favorites(page: number | string): Promise<FavoritesResponse> {
+  favorites(page: number): Promise<FavoritesResponse> {
     return get(`/get/user/favorites/${ib}/${page}`);
   },
   favorite(id: number): Promise<FavoriteStatusResponse> {

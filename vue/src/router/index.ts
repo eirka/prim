@@ -33,13 +33,13 @@ const router = createRouter({
       path: '/page/:page',
       name: 'indexPage',
       component: IndexView,
-      meta: { title: 'Index', loader: (to) => handlers.index(to.params.page as string) },
+      meta: { title: 'Index', loader: (to) => handlers.index(Number(to.params.page)) },
     },
     {
       path: '/thread/:id/:page',
       name: 'thread',
       component: ThreadView,
-      meta: { loader: (to) => handlers.thread(to.params.id as string, to.params.page as string) },
+      meta: { loader: (to) => handlers.thread(Number(to.params.id), Number(to.params.page)) },
     },
     {
       path: '/directory',
@@ -51,13 +51,13 @@ const router = createRouter({
       path: '/directory/:page',
       name: 'directoryPage',
       component: DirectoryView,
-      meta: { title: 'Threads', loader: (to) => handlers.directory(to.params.page as string) },
+      meta: { title: 'Threads', loader: (to) => handlers.directory(Number(to.params.page)) },
     },
     {
       path: '/image/:id',
       name: 'image',
       component: ImageView,
-      meta: { loader: (to) => handlers.image(to.params.id as string) },
+      meta: { loader: (to) => handlers.image(Number(to.params.id)) },
     },
     {
       path: '/tags',
@@ -69,13 +69,13 @@ const router = createRouter({
       path: '/tags/:page',
       name: 'tagsPage',
       component: TagsView,
-      meta: { title: 'Tags', loader: (to) => handlers.tags(to.params.page as string) },
+      meta: { title: 'Tags', loader: (to) => handlers.tags(Number(to.params.page)) },
     },
     {
       path: '/tag/:id/:page',
       name: 'tag',
       component: TagView,
-      meta: { loader: (to) => handlers.tag(to.params.id as string, to.params.page as string) },
+      meta: { loader: (to) => handlers.tag(Number(to.params.id), Number(to.params.page)) },
     },
     {
       path: '/trending',
@@ -106,7 +106,7 @@ const router = createRouter({
       meta: {
         title: 'Favorites',
         requiresAuth: true,
-        loader: (to) => userHandlers.favorites(to.params.page as string),
+        loader: (to) => userHandlers.favorites(Number(to.params.page)),
       },
     },
     {

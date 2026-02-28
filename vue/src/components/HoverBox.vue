@@ -5,7 +5,7 @@ import { usergroupClass, getAvatar, getThumbSrc, formatDate } from '@/composable
 import type { PostResponse } from '@/types';
 
 const props = defineProps<{
-  id: string;
+  id: number;
   thread: number;
 }>();
 

@@ -31,16 +31,16 @@ let favoritedCache: FavoritedResponse | null = null;
 let imageboardsCache: ImageboardsResponse | null = null;
 
 export default {
-  index(page: number | string): Promise<IndexResponse> {
+  index(page: number): Promise<IndexResponse> {
     return get(`/get/index/${ib}/${page}`);
   },
-  directory(page: number | string): Promise<DirectoryResponse> {
+  directory(page: number): Promise<DirectoryResponse> {
     return get(`/get/directory/${ib}/${page}`);
   },
-  thread(id: number | string, page: number | string): Promise<ThreadResponse> {
+  thread(id: number, page: number): Promise<ThreadResponse> {
     return get(`/get/thread/${ib}/${id}/${page}`);
   },
-  post(thread: number | string, id: number | string): Promise<PostResponse> {
+  post(thread: number, id: number): Promise<PostResponse> {
     const key = `${thread}:${id}`;
     if (postCache.has(key)) return Promise.resolve(postCache.get(key)!);
     return get<PostResponse>(`/get/post/${ib}/${thread}/${id}`).then((data) => {
@@ -48,7 +48,7 @@ export default {
       return data;
     });
   },
-  image(id: number | string): Promise<ImageResponse> {
+  image(id: number): Promise<ImageResponse> {
     return get(`/get/image/${ib}/${id}`);
   },
   popular(): Promise<PopularResponse> {
@@ -72,10 +72,10 @@ export default {
       return data;
     });
   },
-  tags(page: number | string): Promise<TagsResponse> {
+  tags(page: number): Promise<TagsResponse> {
     return get(`/get/tags/${ib}/${page}`);
   },
-  tag(id: number | string, page: number | string): Promise<TagResponse> {
+  tag(id: number, page: number): Promise<TagResponse> {
     return get(`/get/tag/${ib}/${id}/${page}`);
   },
   tagtypes(): Promise<TagTypesResponse> {

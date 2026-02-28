@@ -12,11 +12,11 @@ const props = defineProps<{
 const quoteRegex = />>(\d{1,5})/g;
 
 const quoteIds = computed(() => {
-  const quotes: string[] = [];
+  const quotes: number[] = [];
   let m: RegExpExecArray | null;
   const re = new RegExp(quoteRegex.source, quoteRegex.flags);
   while ((m = re.exec(props.post.comment)) !== null) {
-    quotes.push(m[1]);
+    quotes.push(Number(m[1]));
   }
   return quotes;
 });

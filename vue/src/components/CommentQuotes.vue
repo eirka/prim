@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import HoverBox from './HoverBox.vue';
 
 defineProps<{
-  id: string;
+  id: number;
   thread: number;
 }>();
 

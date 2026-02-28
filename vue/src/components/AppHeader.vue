@@ -4,6 +4,9 @@ import { useRoute } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
 import { useBoardStore } from '@/stores/board';
 import { usergroupClass } from '@/composables/useUtils';
+import handlers from '@/api/handlers';
+import config from '@/config';
+import type { Imageboard } from '@/types';
 import DiscordWidget from './DiscordWidget.vue';
 
 const route = useRoute();
@@ -12,13 +15,12 @@ const board = useBoardStore();
 
 const menuVisible = ref(false);
 const userMenuVisible = ref(false);
+const imageboards = ref<Imageboard[]>([]);
 
-const toggleMenu = () => {
-  menuVisible.value = !menuVisible.value;
-};
-const toggleUserMenu = () => {
-  userMenuVisible.value = !userMenuVisible.value;
-};
+handlers.imageboards().then((data) => {
+  imageboards.value = data.imageboards.filter((ib) => ib.id !== config.ib_id);
+});
+
 
 const isActive = (path: string) => route.path.split('/')[1] === path;
 </script>
@@ -28,11 +30,13 @@ const isActive = (path: string) => route.path.split('/')[1] === path;
     <div class="header_bar">
       <div class="left">
         <div class="nav_menu">
-          <ul @click="toggleMenu">
+          <ul @mouseenter="menuVisible = true" @mouseleave="menuVisible = false">
             <li>
-              <a href="#" @click.prevent><i class="fa fa-fw fa-bars"></i></a>
+              <a href="#"><i class="fa fa-fw fa-bars"></i></a>
               <ul v-if="menuVisible">
-                <li><a href="/">Home</a></li>
+                <li v-for="ib in imageboards" :key="ib.id">
+                  <a :href="'//' + ib.url">{{ ib.title }}</a>
+                </li>
               </ul>
             </li>
           </ul>
@@ -62,11 +66,11 @@ const isActive = (path: string) => route.path.split('/')[1] === path;
             <router-link to="/account" class="button-login">Sign in</router-link>
           </div>
           <div v-else>
-            <ul @click="toggleUserMenu">
+            <ul @mouseenter="userMenuVisible = true" @mouseleave="userMenuVisible = false">
               <li>
                 <div class="avatar avatar-medium">
                   <div class="avatar-inner">
-                    <a href="#" @click.prevent><img :src="auth.avatar ?? ''" /></a>
+                    <a href="#"><img :src="auth.avatar ?? ''" /></a>
                   </div>
                 </div>
                 <ul v-if="userMenuVisible">

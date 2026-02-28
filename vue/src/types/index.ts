@@ -112,6 +112,18 @@ export interface TagType {
   type: string;
 }
 
+// --- Imageboards ---
+
+export interface Imageboard {
+  id: number;
+  title: string;
+  description: string;
+  url: string;
+  threads: number;
+  posts: number;
+  images: number;
+}
+
 // --- Auth ---
 
 export interface User {
@@ -196,6 +208,10 @@ export interface BoardLogResponse {
 }
 export interface ModLogResponse {
   modlog: PaginatedList<LogEntry>;
+}
+
+export interface ImageboardsResponse {
+  imageboards: Imageboard[];
 }
 
 // --- Error helpers ---

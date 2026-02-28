@@ -39,13 +39,13 @@ const setPage = (page: number) => {
 <template>
   <ul v-if="totalPages > 1" class="pagination">
     <li :class="{ disabled: currentPage === 1 }">
-      <a href="#" @click.prevent="setPage(1)">&laquo;</a>
+      <a href="#" @click.prevent="setPage(1)">First</a>
     </li>
     <li v-for="page in pages" :key="page" :class="{ active: page === currentPage }">
       <a href="#" @click.prevent="setPage(page)">{{ page }}</a>
     </li>
     <li :class="{ disabled: currentPage === totalPages }">
-      <a href="#" @click.prevent="setPage(totalPages)">&raquo;</a>
+      <a href="#" @click.prevent="setPage(totalPages)">Last</a>
     </li>
   </ul>
 </template>

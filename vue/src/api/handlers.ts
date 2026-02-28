@@ -16,6 +16,7 @@ import type {
   PostResponse,
   SuccessResponse,
   TagTypesResponse,
+  ImageboardsResponse,
 } from '@/types';
 
 const ib = config.ib_id;
@@ -27,6 +28,7 @@ const tagSearchCache = new Map<string, TagSearchResponse>();
 let popularCache: PopularResponse | null = null;
 let newestCache: NewestResponse | null = null;
 let favoritedCache: FavoritedResponse | null = null;
+let imageboardsCache: ImageboardsResponse | null = null;
 
 export default {
   index(page: number | string): Promise<IndexResponse> {
@@ -102,6 +104,13 @@ export default {
   },
   newtag(body: { tag: string; tagtype: number; ib: number }): Promise<SuccessResponse> {
     return post('/post/tag/new', body);
+  },
+  imageboards(): Promise<ImageboardsResponse> {
+    if (imageboardsCache) return Promise.resolve(imageboardsCache);
+    return get<ImageboardsResponse>('/get/imageboards').then((data) => {
+      imageboardsCache = data;
+      return data;
+    });
   },
   whoami(): Promise<WhoamiResponse> {
     return get(`/get/whoami/${ib}`);

@@ -25,15 +25,32 @@ if (auth.isAuthenticated) {
   });
 }
 
+const refreshTags = async () => {
+  try {
+    const result = await handlers.tags(pagination.value.currentPage);
+    data.value = result.tags?.items || [];
+    pagination.value = {
+      totalItems: result.tags?.total || 0,
+      currentPage: result.tags?.current_page || 1,
+      numPages: result.tags?.pages || 1,
+      itemsPerPage: result.tags?.per_page || 10,
+      maxSize: 3,
+    };
+  } catch {
+    /* ignore */
+  }
+};
+
 const createTag = async () => {
   try {
-    const data = await handlers.newtag({
+    const result = await handlers.newtag({
       tag: newTagName.value,
       tagtype: newTagType.value,
       ib: config.ib_id,
     });
-    toast.success(data.success_message);
+    toast.success(result.success_message);
     newTagName.value = '';
+    await refreshTags();
   } catch (e) {
     toast.error(getErrorMessage(e));
   }

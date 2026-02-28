@@ -23,6 +23,8 @@ const ext = ref(imageData.value?.filename ? imageData.value.filename.split('.').
 const starred = ref(false);
 const tagInput = ref('');
 const tagList = ref<Tag[]>([]);
+const selectedTagId = ref<number | null>(null);
+const activeIndex = ref(-1);
 
 // Set page title
 if (imageData.value) {
@@ -43,12 +45,56 @@ if (auth.isAuthenticated) checkFavorite();
 
 // Tag search
 const searchTags = async () => {
-  if (!tagInput.value || tagInput.value.length < 3) return;
+  selectedTagId.value = null;
+  if (!tagInput.value || tagInput.value.length < 3) {
+    tagList.value = [];
+    activeIndex.value = -1;
+    return;
+  }
   try {
     const data = await handlers.tagsearch(tagInput.value);
     tagList.value = (data.tagsearch || []).slice(0, 6);
+    activeIndex.value = tagList.value.length > 0 ? 0 : -1;
   } catch {
     /* ignore */
+  }
+};
+
+// Select tag from dropdown
+const selectTag = (tag: Tag) => {
+  tagInput.value = tag.tag;
+  selectedTagId.value = tag.id;
+  tagList.value = [];
+  activeIndex.value = -1;
+};
+
+// Highlight matching portion of tag name
+const escapeHtml = (s: string) =>
+  s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+const highlightMatch = (name: string) => {
+  const term = tagInput.value;
+  if (!term) return escapeHtml(name);
+  const idx = name.toLowerCase().indexOf(term.toLowerCase());
+  if (idx === -1) return escapeHtml(name);
+  const before = escapeHtml(name.slice(0, idx));
+  const match = escapeHtml(name.slice(idx, idx + term.length));
+  const after = escapeHtml(name.slice(idx + term.length));
+  return `${before}<strong>${match}</strong>${after}`;
+};
+
+// Keyboard navigation for tag dropdown
+const onTagKeydown = (e: KeyboardEvent) => {
+  if (!tagList.value.length) return;
+  if (e.key === 'ArrowDown') {
+    e.preventDefault();
+    activeIndex.value = Math.min(activeIndex.value + 1, tagList.value.length - 1);
+  } else if (e.key === 'ArrowUp') {
+    e.preventDefault();
+    activeIndex.value = Math.max(activeIndex.value - 1, 0);
+  } else if (e.key === 'Enter' && activeIndex.value >= 0) {
+    e.preventDefault();
+    selectTag(tagList.value[activeIndex.value]);
   }
 };
 
@@ -58,6 +104,8 @@ const updateTags = async () => {
     const data = await handlers.image(route.params.id as string);
     tags.value = data.image.tags;
     tagInput.value = '';
+    selectedTagId.value = null;
+    tagList.value = [];
   } catch (e) {
     toast.error(getErrorMessage(e));
   }
@@ -65,14 +113,13 @@ const updateTags = async () => {
 
 // Add tag
 const addTag = async () => {
-  const tagId = parseInt(tagInput.value, 10);
-  if (!tagId || !imageData.value) {
+  if (!selectedTagId.value || !imageData.value) {
     toast.error('Tag Does Not Exist');
     return;
   }
   try {
     const data = await handlers.addtag({
-      tag: tagId,
+      tag: selectedTagId.value,
       image: imageData.value.id,
       ib: config.ib_id,
     });
@@ -227,7 +274,7 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown));
         </div>
       </div>
       <div class="image_search">
-        <div class="image_info_bar"></div>
+        <div class="image_info_bar" aria-hidden="true"></div>
         <div class="source_links">
           <a
             class="tag tag-source"
@@ -255,24 +302,34 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown));
             >Google</a
           >
         </div>
-        <div class="image_info_bar"></div>
+        <div class="image_info_bar" aria-hidden="true"></div>
       </div>
       <div class="image_info">
-        <div class="image_info_bar"></div>
-        <div class="tag_input">
+        <div class="image_info_bar" aria-hidden="true"></div>
+        <div v-if="auth.isAuthenticated" class="tag_input">
           <form @submit.prevent="addTag">
             <input
               type="text"
               class="form-control"
               placeholder="Add Tag"
-              list="tag-suggestions"
               v-model="tagInput"
               @input="searchTags"
+              @keydown="onTagKeydown"
+              @blur="tagList = []"
             />
-            <datalist id="tag-suggestions">
-              <option v-for="tag in tagList" :key="tag.id" :value="tag.id">{{ tag.tag }}</option>
-            </datalist>
-            <button class="button button-block button-primary" type="submit">Add</button>
+            <div class="dropdown">
+              <ul v-if="tagList.length" class="dropdown-menu" style="display: block">
+                <li
+                  v-for="(tag, i) in tagList"
+                  :key="tag.id"
+                  :class="{ active: i === activeIndex }"
+                  @mouseover="activeIndex = i"
+                >
+                  <a href="#" @mousedown.prevent="selectTag(tag)" v-html="highlightMatch(tag.tag)"></a>
+                </li>
+              </ul>
+            </div>
+            <button class="button button-block button-primary" type="submit" :disabled="!selectedTagId">Add</button>
           </form>
         </div>
         <div v-if="!tags || tags.length === 0" class="no_tags">
@@ -299,7 +356,7 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown));
             </div>
           </div>
         </div>
-        <div class="image_info_bar"></div>
+        <div class="image_info_bar" aria-hidden="true"></div>
       </div>
     </div>
   </div>

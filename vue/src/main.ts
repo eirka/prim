@@ -13,7 +13,7 @@ const pinia = createPinia();
 app.use(pinia);
 app.use(router);
 app.use(Toast, {
-  position: 'bottom-right',
+  position: 'top-right',
   maxToasts: 5,
 });
 

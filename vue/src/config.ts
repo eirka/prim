@@ -7,7 +7,7 @@ const config: PrimConfig = window.primConfig || {
   api_srv: '//m.chounyuu.com/api',
   csrf_token:
     '7gMr6SDhkz1poT6HjK1rM1Od7eQIHzjcT17ulpbpgS2DAE/Qh37exovYU2PwKhpIPgcg0LBaW7Z/9NNZtIZuig==',
-  discord_widget: 'https://discordapp.com/api/servers/191608193833631753/widget.json?31771963485',
+  discord_widget: 'https://discord.com/api/guilds/191608193833631753/widget.json',
 };
 
 export default config;

@@ -11,7 +11,7 @@ onMounted(async () => {
     const res = await fetch(config.discord_widget);
     const data = await res.json();
     inviteLink.value = data.instant_invite || null;
-    userCount.value = data.members?.length ?? 0;
+    userCount.value = data.presence_count ?? 0;
   } catch {
     /* ignore */
   }
@@ -21,7 +21,14 @@ onMounted(async () => {
 <template>
   <li v-if="inviteLink">
     <a :href="inviteLink" target="_blank">
-      <i class="fa fa-gamepad"></i> Discord ({{ userCount }})
+      Chat <span class="label label-success">{{ userCount }}</span>
     </a>
   </li>
 </template>
+
+<style scoped>
+.label {
+  position: relative;
+  top: -0.1em;
+}
+</style>

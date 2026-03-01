@@ -13,7 +13,7 @@ let commentQuote = '';
 let errorCode: number | null = null;
 
 export function setQuote(quote: number): void {
-  if (typeof quote === 'number') {
+  if (Number.isFinite(quote)) {
     commentQuote += '>>' + quote + ' ';
   }
 }
@@ -38,17 +38,11 @@ export function getError(): number | null {
 }
 
 export function getFormAction(addr: string): string {
-  if (typeof addr === 'string') {
-    return config.api_srv + addr;
-  }
-  return '';
+  return typeof addr === 'string' ? config.api_srv + addr : '';
 }
 
 export function getImgSrc(filename: string | null): string {
-  if (typeof filename === 'string') {
-    return imgsrc + filename;
-  }
-  return '';
+  return filename ? imgsrc + filename : '';
 }
 
 export function getThumbSrc(filename: string | null, source: string | null): string {

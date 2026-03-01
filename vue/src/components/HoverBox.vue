@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue';
 import handlers from '@/api/handlers';
 import { usergroupClass, getAvatar, getThumbSrc, formatDate } from '@/composables/useUtils';
 import type { PostResponse } from '@/types';
+import { getErrorMessage } from '@/types';
 
 const props = defineProps<{
   id: number;
@@ -10,13 +11,13 @@ const props = defineProps<{
 }>();
 
 const quotebox = ref<PostResponse | null>(null);
-const error = ref<{ error_message?: string } | null>(null);
+const error = ref<string | null>(null);
 
 onMounted(async () => {
   try {
     quotebox.value = await handlers.post(props.thread, props.id);
   } catch (e) {
-    error.value = (e as { data: { error_message?: string } }).data;
+    error.value = getErrorMessage(e);
   }
 });
 </script>
@@ -52,7 +53,7 @@ onMounted(async () => {
     </div>
   </div>
   <div v-else-if="error" class="quotebox_error">
-    <p>{{ error.error_message || 'Error loading post' }}</p>
+    <p>{{ error }}</p>
   </div>
   <div v-else class="quotebox">
     <i class="fa fa-spinner fa-spin"></i>

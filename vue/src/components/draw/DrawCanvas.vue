@@ -2,12 +2,15 @@
 import { ref, inject, onMounted, onUnmounted } from 'vue';
 import drawConfig, { drawPadKey } from './drawConfig';
 
-const { addCanvas, ctx, saveState, defaultCanvas } = inject(drawPadKey)!;
+const drawPad = inject(drawPadKey);
+if (!drawPad) throw new Error('DrawCanvas must be used inside DrawPad');
+const { addCanvas, ctx, saveState, defaultCanvas } = drawPad;
 const canvasRef = ref<HTMLCanvasElement | null>(null);
 let drawing = false;
 
 onMounted(() => {
-  const canvas = canvasRef.value!;
+  const canvas = canvasRef.value;
+  if (!canvas) return;
   canvas.width = drawConfig.width;
   canvas.height = drawConfig.height;
 
@@ -19,8 +22,9 @@ onMounted(() => {
     const img = new Image();
     img.src = cached;
     img.onload = () => {
-      ctx.value!.clearRect(0, 0, drawConfig.width, drawConfig.height);
-      ctx.value!.drawImage(img, 0, 0, drawConfig.width, drawConfig.height);
+      if (!ctx.value) return;
+      ctx.value.clearRect(0, 0, drawConfig.width, drawConfig.height);
+      ctx.value.drawImage(img, 0, 0, drawConfig.width, drawConfig.height);
     };
   } else {
     defaultCanvas();
@@ -55,13 +59,16 @@ const onMouseDown = (event: MouseEvent | TouchEvent) => {
   event.stopPropagation();
   drawing = true;
   saveState();
-  const canvas = canvasRef.value!;
+  const canvas = canvasRef.value;
+  if (!canvas) return;
   const rect = canvas.getBoundingClientRect();
   const { x, y } = getCoords(event, rect);
-  ctx.value!.lineJoin = 'round';
-  ctx.value!.lineCap = 'round';
-  ctx.value!.beginPath();
-  ctx.value!.moveTo(x, y);
+  if (ctx.value) {
+    ctx.value.lineJoin = 'round';
+    ctx.value.lineCap = 'round';
+    ctx.value.beginPath();
+    ctx.value.moveTo(x, y);
+  }
 };
 
 const onMouseMove = (event: MouseEvent | TouchEvent) => {
@@ -69,15 +76,15 @@ const onMouseMove = (event: MouseEvent | TouchEvent) => {
   const canvas = canvasRef.value;
   const rect = canvas.getBoundingClientRect();
   const { x, y } = getCoords(event, rect);
-  ctx.value!.lineTo(Math.floor(x), Math.floor(y));
-  ctx.value!.stroke();
+  ctx.value.lineTo(Math.floor(x), Math.floor(y));
+  ctx.value.stroke();
 };
 
 const onMouseUp = () => {
-  if (!drawing) return;
+  if (!drawing || !ctx.value || !canvasRef.value) return;
   drawing = false;
-  ctx.value!.closePath();
-  localStorage.setItem(drawConfig.storageKey, canvasRef.value!.toDataURL(drawConfig.imageMime));
+  ctx.value.closePath();
+  localStorage.setItem(drawConfig.storageKey, canvasRef.value.toDataURL(drawConfig.imageMime));
 };
 </script>
 

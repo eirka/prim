@@ -9,7 +9,7 @@ const route = useRoute();
 const router = useRouter();
 
 const raw = route.meta.data as FavoritesResponse | undefined;
-const data = ref<FavoritesDetail>(raw?.favorites?.items || { images: [] });
+const data = ref<FavoritesDetail | null>(raw?.favorites?.items ?? null);
 const pagination = ref({
   totalItems: raw?.favorites?.total || 0,
   currentPage: raw?.favorites?.current_page || 1,
@@ -59,7 +59,7 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown));
           @update:current-page="onPageChange"
         />
       </div>
-      <div v-if="pagination.totalItems !== 0" class="image_grid">
+      <div v-if="data && pagination.totalItems !== 0" class="image_grid">
         <router-link v-for="image in data.images" :key="image.id" :to="'/image/' + image.id">
           <img
             :src="getThumbSrc(image.thumbnail, image.filename)"

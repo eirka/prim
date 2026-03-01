@@ -2,7 +2,9 @@
 import { ref, inject } from 'vue';
 import { drawPadKey } from './drawConfig';
 
-const { switchEraser, selectedColor, lineWidth, ctx } = inject(drawPadKey)!;
+const drawPad = inject(drawPadKey);
+if (!drawPad) throw new Error('DrawPalette must be used inside DrawPad');
+const { switchEraser, selectedColor, lineWidth, ctx } = drawPad;
 
 const paletteVisible = ref(false);
 const togglePalette = () => {
@@ -87,13 +89,13 @@ const colorRows = [
 const setColor = (color: string) => {
   switchEraser();
   selectedColor.value = color;
-  ctx.value!.strokeStyle = color;
+  if (ctx.value) ctx.value.strokeStyle = color;
 };
 
 const setSize = (size: number) => {
   switchEraser();
   lineWidth.value = size;
-  ctx.value!.lineWidth = size;
+  if (ctx.value) ctx.value.lineWidth = size;
 };
 </script>
 

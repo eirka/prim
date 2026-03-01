@@ -34,6 +34,9 @@ const defaultCanvas = () => {
   ctx.value.fillRect(0, 0, drawConfig.width, drawConfig.height);
 };
 
+// Saves a canvas snapshot for undo. The `keep` flag preserves the redo list
+// (used internally by restoreState); normal saves clear it since new strokes
+// invalidate the redo history.
 const saveState = (list?: string[], keep?: boolean) => {
   if (!canvas.value) return;
   keep = keep || false;
@@ -43,6 +46,9 @@ const saveState = (list?: string[], keep?: boolean) => {
   target.push(canvas.value.toDataURL(drawConfig.imageMime));
 };
 
+// Generic undo/redo: pops from one list and pushes current state to the other.
+// Uses async Image.onload because canvas data URLs must be loaded as images
+// before they can be drawn back onto the canvas.
 const restoreState = (pop: string[], push: string[]) => {
   if (!pop.length || !ctx.value) return;
   saveState(push, true);
@@ -56,6 +62,9 @@ const restoreState = (pop: string[], push: string[]) => {
   };
 };
 
+// Eraser works by drawing with the canvas background color (white).
+// Line width is hardcoded to 30 for the eraser to provide a wider stroke
+// regardless of the user's current pen width setting.
 const switchEraser = (eraser?: boolean) => {
   if (!ctx.value) return;
   if (eraser) {

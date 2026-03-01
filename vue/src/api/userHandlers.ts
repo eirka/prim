@@ -4,6 +4,8 @@ import type { FavoritesResponse, FavoriteStatusResponse, SuccessResponse } from 
 
 const ib = config.ib_id;
 
+// Per-image favorite status cache in localStorage. Indexed by image ID so that
+// the image view can show the favorite star without an API call on every visit.
 const FAV_CACHE_KEY = 'global.favorites';
 const FAV_CACHE_TTL = 5 * 60 * 1000; // 5 minutes
 
@@ -35,6 +37,9 @@ const saveFavEntry = (id: number, starred: boolean) => {
   }
 };
 
+// Removes the cache entry rather than updating it to avoid the local cache
+// disagreeing with the server after a toggle. The next check for this image
+// will hit the API and get the authoritative state.
 const removeFavEntry = (id: number) => {
   try {
     const cache = getFavCache();
@@ -53,6 +58,8 @@ const getFavEntry = (id: number): boolean | null => {
   return entry.starred;
 };
 
+// Called by the auth store during logout/session destruction to prevent
+// favorite state from leaking between user sessions.
 export const clearFavoritesCache = () => {
   localStorage.removeItem(FAV_CACHE_KEY);
 };

@@ -152,9 +152,7 @@ describe('URL pass — youtube', () => {
     const container = makeContainer('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
     const iframe = container.querySelector('iframe');
     expect(iframe).not.toBeNull();
-    expect(iframe!.getAttribute('src')).toBe(
-      'https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ',
-    );
+    expect(iframe!.getAttribute('src')).toBe('https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ');
     expect(iframe!.getAttribute('allowfullscreen')).not.toBeNull();
   });
 
@@ -162,16 +160,14 @@ describe('URL pass — youtube', () => {
     const container = makeContainer('https://youtu.be/dQw4w9WgXcQ');
     const iframe = container.querySelector('iframe');
     expect(iframe).not.toBeNull();
-    expect(iframe!.getAttribute('src')).toBe(
-      'https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ',
-    );
+    expect(iframe!.getAttribute('src')).toBe('https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ');
   });
 
   it('sandboxes the youtube iframe', () => {
     const container = makeContainer('https://youtu.be/dQw4w9WgXcQ');
     const iframe = container.querySelector('iframe');
     expect(iframe!.getAttribute('sandbox')).toBe(
-      'allow-scripts allow-same-origin allow-presentation allow-popups',
+      'allow-scripts allow-same-origin allow-presentation allow-popups'
     );
   });
 

@@ -28,7 +28,6 @@ handlers
     /* silently leave imageboards empty */
   });
 
-
 const isActive = (path: string) => route.path.split('/')[1] === path;
 </script>
 

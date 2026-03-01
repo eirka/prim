@@ -47,7 +47,12 @@ const deleteThread = async () => {
 
 <template>
   <div class="thread_mod_buttons">
-    <a title="Delete" class="button button-danger fa fa-trash-o" href="#" @click.prevent="deleteThread"></a>
+    <a
+      title="Delete"
+      class="button button-danger fa fa-trash-o"
+      href="#"
+      @click.prevent="deleteThread"
+    ></a>
     <a
       v-if="!closed"
       title="Close"

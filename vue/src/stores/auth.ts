@@ -8,10 +8,15 @@ import { getAvatar } from '@/composables/useUtils';
 import config from '@/config';
 import type { WhoamiResponse } from '@/types';
 
+// Two separate caches with different strategies:
+// - CACHE_KEY (auth): persists user identity across page loads, no TTL (cleared on logout)
+// - WHOAMI_KEY: short-lived API response cache (5-min TTL) to avoid redundant /whoami calls
 const CACHE_KEY = 'global.cache';
 const WHOAMI_KEY = 'global.whoami';
 const WHOAMI_TTL = 5 * 60 * 1000; // 5 minutes
 
+// Fixture data used when config.test_mode is set. The group field is overridden
+// at runtime in setAuthState() based on test_mode value ('mod' → 3, 'user' → 1).
 const TEST_WHOAMI: WhoamiResponse = {
   user: {
     id: 3,
@@ -101,6 +106,9 @@ export const useAuthStore = defineStore('auth', () => {
     }
   };
 
+  // Clears all client-side session state: auth cache, whoami cache, favorites
+  // cache, and board cache. Called on explicit logout, 401 responses, and when
+  // cross-tab logout is detected (whoami says unauthenticated but cache exists).
   const destroySession = () => {
     localStorage.removeItem(CACHE_KEY);
     localStorage.removeItem(WHOAMI_KEY);
@@ -111,6 +119,16 @@ export const useAuthStore = defineStore('auth', () => {
     board.setDefault();
   };
 
+  // Initializes auth through a cascade of progressively more expensive sources:
+  // 1. test_mode → use fixture data (dev only)
+  // 2. localStorage caches → restore previous session immediately (avoids flash)
+  // 3. whoami cache → recent API response, still fresh within 5-min TTL
+  // 4. Live /whoami API call → authoritative source, updates all caches
+  //
+  // At each step, if the API says the user is no longer authenticated but we
+  // have a cached session, we destroy the session (detects logout from another
+  // tab). Network errors (5xx) intentionally preserve cached state to avoid
+  // logging users out during transient outages.
   const setAuthState = async () => {
     const board = useBoardStore();
 
@@ -189,12 +207,15 @@ export const useAuthStore = defineStore('auth', () => {
     toast.success('Logged Out');
   };
 
+  // Group IDs from the Pram API: 3=moderator, 4=admin
   const showModControls = computed(() => {
     if (!isAuthenticated.value) return false;
     const board = useBoardStore();
     return board.group === 3 || board.group === 4;
   });
 
+  // Returns true if the given date is newer than the user's last recorded activity.
+  // Used by directory and index views to show "NEW" badges on recent content.
   const getLastActive = (date: string | Date): boolean => {
     if (!date) return false;
     const d = new Date(date);

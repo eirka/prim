@@ -19,9 +19,16 @@ import type {
   ImageboardsResponse,
 } from '@/types';
 
+// Board ID captured at module load. All endpoint URLs are scoped to this board.
+// This value won't change during the app lifecycle since config is set once at startup.
 const ib = config.ib_id;
 
-// Cache for posts (used by hover boxes)
+// Caching strategy varies by endpoint:
+// - postCache: keyed by thread:post, for comment hover preview boxes. Never cleared.
+// - threadSearchCache/tagSearchCache: keyed by search term. Never cleared (low cardinality).
+// - popular/newest/favorited: singleton caches for the trending page, cached for the
+//   entire session since this data changes infrequently.
+// - imageboardsCache: list of boards, cached for session lifetime.
 const postCache = new Map<string, PostResponse>();
 const threadSearchCache = new Map<string, ThreadSearchResponse>();
 const tagSearchCache = new Map<string, TagSearchResponse>();

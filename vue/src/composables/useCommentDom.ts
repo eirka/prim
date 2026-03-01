@@ -13,7 +13,9 @@ const boldRegex = /\*\*(.*?)\*\*/g;
 const italicRegex = /\*(.*?)\*/g;
 const emoticonRegex = /:([\w+-]+):/g;
 
-// Collect a snapshot of all text nodes under root
+// Collect all text nodes into a snapshot array before any modifications.
+// This avoids the pitfall of modifying the DOM while iterating with TreeWalker,
+// which would cause nodes to be skipped or visited twice.
 function collectTextNodes(root: Node): Text[] {
   const nodes: Text[] = [];
   const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
@@ -124,12 +126,12 @@ function makeYoutube(videoId: string): HTMLDivElement {
   wrapper.className = 'auto-resizable-iframe';
   const inner = document.createElement('div');
   const iframe = document.createElement('iframe');
+  // youtube-nocookie.com avoids tracking cookies. The sandbox attribute restricts
+  // the iframe to scripts and same-origin access, blocking top-level navigation
+  // and other potentially dangerous capabilities.
   iframe.setAttribute('src', 'https://www.youtube-nocookie.com/embed/' + videoId);
   iframe.setAttribute('frameborder', '0');
-  iframe.setAttribute(
-    'sandbox',
-    'allow-scripts allow-same-origin allow-presentation allow-popups',
-  );
+  iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-presentation allow-popups');
   iframe.setAttribute('allow', 'fullscreen; picture-in-picture');
   iframe.setAttribute('allowfullscreen', '');
   inner.appendChild(iframe);
@@ -147,8 +149,12 @@ function makeEmoticon(token: { text: string; image: string }): HTMLImageElement 
 
 // --- Main entry point ---
 
+// Formats raw comment text into rich HTML through a multi-pass pipeline.
+// Pass order matters: bold (**) must run before italic (*) so that ** pairs
+// are consumed first, preventing "**bold**" from being parsed as nested italics.
+// The initial textContent assignment auto-escapes all HTML entities, which
+// prevents XSS from user-submitted comment text.
 export function buildCommentDom(container: HTMLElement, text: string): void {
-  // Clear and set safely — textContent auto-escapes all HTML
   container.textContent = text.replace(/(\n){3,}/g, '\n\n').trim();
 
   // Newline pass: \n → <br>

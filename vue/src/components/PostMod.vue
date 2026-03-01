@@ -48,14 +48,8 @@ const banFile = async () => {
 
 <template>
   <div class="post_mod_buttons">
-    <a title="Ban IP" class="button button-danger" href="#" @click.prevent="banIp"
-      >BAN IP</a
-    >
-    <a title="Ban File" class="button button-danger" href="#" @click.prevent="banFile"
-      >BAN FILE</a
-    >
-    <a title="Delete" class="button button-danger" href="#" @click.prevent="deletePost"
-      >DELETE</a
-    >
+    <a title="Ban IP" class="button button-danger" href="#" @click.prevent="banIp">BAN IP</a>
+    <a title="Ban File" class="button button-danger" href="#" @click.prevent="banFile">BAN FILE</a>
+    <a title="Delete" class="button button-danger" href="#" @click.prevent="deletePost">DELETE</a>
   </div>
 </template>

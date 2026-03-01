@@ -2,6 +2,8 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import config from '@/config';
 
+// Cache key is per-imageboard so multiple boards can coexist in localStorage.
+// The board store tracks the user's permission group for the current board.
 const IB_CACHE_KEY = `ib${config.ib_id}.data`;
 
 interface BoardCache {
@@ -9,6 +11,9 @@ interface BoardCache {
 }
 
 export const useBoardStore = defineStore('board', () => {
+  // User's group/role on this board: 1=guest, 2=registered, 3=moderator, 4=admin.
+  // Set from the whoami API response. See usergroupClass() in useUtils.ts for
+  // the corresponding CSS class mapping.
   const group = ref(1);
 
   const set = (g: number) => {

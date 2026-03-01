@@ -11,6 +11,8 @@ let drawing = false;
 onMounted(() => {
   const canvas = canvasRef.value;
   if (!canvas) return;
+  // Set dimensions as element attributes, not CSS. CSS sizing would scale the
+  // canvas bitmap, causing blurry drawing. These set the actual pixel resolution.
   canvas.width = drawConfig.width;
   canvas.height = drawConfig.height;
 
@@ -30,6 +32,9 @@ onMounted(() => {
     defaultCanvas();
   }
 
+  // Attach move/up listeners to document, not the canvas. This ensures drawing
+  // continues smoothly when the cursor moves outside the canvas bounds, and the
+  // stroke ends cleanly when the mouse is released anywhere on the page.
   document.addEventListener('mousemove', onMouseMove);
   document.addEventListener('mouseup', onMouseUp);
   document.addEventListener('touchmove', onMouseMove);
@@ -43,6 +48,8 @@ onUnmounted(() => {
   document.removeEventListener('touchend', onMouseUp);
 });
 
+// Normalizes coordinates from both MouseEvent and TouchEvent. Touch events
+// store position in the touches array rather than directly on the event object.
 const getCoords = (event: MouseEvent | TouchEvent, rect: DOMRect) => {
   if ('touches' in event) {
     const touch = event.touches[0];

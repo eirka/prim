@@ -1,6 +1,11 @@
-// --- Pagination ---
+// API response types for the Pram REST API.
+// All responses use an envelope pattern: the JSON has a single key matching the
+// endpoint name (e.g., { "index": { items: [...], total: N, ... } }).
+// Two pagination generics exist because the API returns different shapes:
+// - PaginatedList<T>: items is T[] (list endpoints: index, directory, tags, logs)
+// - PaginatedDetail<T>: items is a single T (detail endpoints: thread, tag, favorites)
 
-// List endpoints where items is an array (index, directory, tags, logs)
+// List endpoints where items is an array
 export interface PaginatedList<T> {
   items: T[];
   total: number;
@@ -221,6 +226,9 @@ export interface ApiError {
   data: { error_message?: string };
 }
 
+// Safe error message extraction for catch blocks. The API client throws
+// { status, data } objects (not Error instances), so standard error narrowing
+// doesn't apply. Views should use this instead of accessing e.data directly.
 export function getErrorMessage(e: unknown): string {
   if (e && typeof e === 'object' && 'data' in e) {
     const data = (e as ApiError).data;

@@ -18,6 +18,8 @@ import AccountView from '@/views/AccountView.vue';
 import AdminView from '@/views/AdminView.vue';
 import ErrorView from '@/views/ErrorView.vue';
 
+// Consumed by the LoadingIndicator component in App.vue to show a spinner
+// during route transitions while data is being fetched.
 export const isLoading = ref(false);
 
 const router = createRouter({
@@ -131,6 +133,9 @@ const router = createRouter({
       redirect: '/error',
     },
   ],
+  // On browser back/forward: restore the saved scroll position.
+  // On hash links (e.g., #post-123): scroll to that element.
+  // On all other navigations: scroll to top.
   scrollBehavior(to, _from, savedPosition) {
     if (savedPosition) return savedPosition;
     if (to.hash) return { el: to.hash };
@@ -155,6 +160,9 @@ router.beforeEach(async (to) => {
       return '/account';
     }
   }
+  // Routes declare a loader function in meta that fetches data before the view
+  // mounts. The result is stored in meta.data and read by the view component
+  // via route.meta.data. Returning false on error cancels the navigation.
   if (to.meta.loader) {
     try {
       to.meta.data = (await to.meta.loader(to)) as Record<string, unknown>;

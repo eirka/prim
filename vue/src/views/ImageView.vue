@@ -323,11 +323,21 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown));
                   :class="{ active: i === activeIndex }"
                   @mouseover="activeIndex = i"
                 >
-                  <a href="#" @mousedown.prevent="selectTag(tag)">{{ highlightParts(tag.tag).before }}<strong>{{ highlightParts(tag.tag).match }}</strong>{{ highlightParts(tag.tag).after }}</a>
+                  <a href="#" @mousedown.prevent="selectTag(tag)"
+                    >{{ highlightParts(tag.tag).before
+                    }}<strong>{{ highlightParts(tag.tag).match }}</strong
+                    >{{ highlightParts(tag.tag).after }}</a
+                  >
                 </li>
               </ul>
             </div>
-            <button class="button button-block button-primary" type="submit" :disabled="!selectedTagId">Add</button>
+            <button
+              class="button button-block button-primary"
+              type="submit"
+              :disabled="!selectedTagId"
+            >
+              Add
+            </button>
           </form>
         </div>
         <div v-if="!tags || tags.length === 0" class="no_tags">

@@ -29,6 +29,9 @@ const redo = () => restoreState(redoList, undoList);
 const pencil = () => switchEraser();
 const eraser = () => switchEraser(true);
 
+// Downloads the canvas as a PNG file. Creates a temporary anchor element with
+// the canvas data URL as href, simulates a click to trigger download, then
+// removes the anchor from the DOM.
 const save = () => {
   if (!canvas.value) return;
   const filename = new Date().getTime() + '.png';
@@ -40,8 +43,10 @@ const save = () => {
   document.body.removeChild(link);
 };
 
+// Global keyboard shortcuts for the drawing pad (p=pencil, e=eraser, z=undo,
+// y=redo, s=save). Skips handling when focus is in an input/textarea to avoid
+// intercepting normal typing.
 const onKeyDown = (e: KeyboardEvent) => {
-  // Only handle when draw pad is focused/visible
   if (
     (e.target as HTMLElement).tagName === 'INPUT' ||
     (e.target as HTMLElement).tagName === 'TEXTAREA'

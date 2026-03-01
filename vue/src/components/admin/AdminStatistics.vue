@@ -54,7 +54,8 @@ onMounted(async () => {
     }));
     chartData.value = { labels, datasets };
   } catch (e) {
-    apiError((e as ApiError).status);
+    const err = e as ApiError;
+    apiError(err?.status);
   }
 });
 </script>

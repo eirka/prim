@@ -26,7 +26,8 @@ const getLog = async (page: number) => {
       maxSize: 3,
     };
   } catch (e) {
-    apiError((e as ApiError).status);
+    const err = e as ApiError;
+    apiError(err?.status);
   }
 };
 

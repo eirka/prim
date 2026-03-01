@@ -160,7 +160,7 @@ router.beforeEach(async (to) => {
       to.meta.data = (await to.meta.loader(to)) as Record<string, unknown>;
     } catch (e) {
       const err = e as ApiError;
-      apiError(err.status);
+      apiError(err?.status);
       return false;
     }
   }

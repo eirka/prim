@@ -15,10 +15,10 @@ const WHOAMI_TTL = 5 * 60 * 1000; // 5 minutes
 const TEST_WHOAMI: WhoamiResponse = {
   user: {
     id: 3,
-    name: 'Tea',
+    name: 'Test',
     group: 3,
     authenticated: true,
-    email: 'tea@test.com',
+    email: 'test@test.com',
     last_active: '2026-02-28T06:28:25Z',
   },
 };

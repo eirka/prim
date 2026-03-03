@@ -3,6 +3,7 @@
 const config: PrimConfig = window.primConfig || {
   ib_id: 3,
   title: 'Meta',
+  logo: 'meta.png',
   img_srv: '//images.chounyuu.com',
   api_srv: '//m.chounyuu.com/api',
   csrf_token:

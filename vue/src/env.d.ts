@@ -9,7 +9,8 @@ declare global {
     ib_id: number;
     csrf_token: string;
     title: string;
-    discord_widget: string;
+    logo: string;
+    discord_widget?: string;
     // When set, the auth store uses fixture data instead of calling the API.
     // 'user' = regular authenticated user, 'mod' = moderator with mod controls.
     test_mode?: 'user' | 'mod';

@@ -4,3 +4,4 @@ bower_components
 src/config.codekit
 src/config.rb
 .vscode
+vue/dist

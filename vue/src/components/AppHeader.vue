@@ -109,7 +109,9 @@ const isActive = (path: string) => route.path.split('/')[1] === path;
           </div>
         </div>
         <div class="site_logo">
-          <router-link to="/"><img v-if="config.logo" :src="'/assets/logo/' + config.logo" /></router-link>
+          <router-link to="/"
+            ><img v-if="config.logo" :src="'/assets/logo/' + config.logo"
+          /></router-link>
         </div>
       </div>
     </div>

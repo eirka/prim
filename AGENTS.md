@@ -13,10 +13,12 @@ npm run preview      # Preview production build
 npm test             # Run all tests with Vitest
 npm run test:watch   # Watch mode (add -- <file> for single file)
 npm run type-check   # Type check with vue-tsc
-npm run format       # Format TS, Vue, SCSS with Prettier
+npm run format       # Format TS and Vue with Biome
 npm run format:check # Check formatting without writing (CI)
-npm run lint         # Lint TS and Vue files with ESLint
+npm run lint         # Lint TS and Vue files with Biome
 npm run lint:fix     # Auto-fix lint issues
+npm run check        # Run both format and lint
+npm run check:fix    # Auto-fix both format and lint issues
 ```
 
 ### Running a Single Test

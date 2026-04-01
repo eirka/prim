@@ -1,23 +1,23 @@
-import { get, post } from './client';
 import config from '@/config';
 import type {
-  IndexResponse,
-  ThreadResponse,
   DirectoryResponse,
-  ImageResponse,
-  TagsResponse,
-  TagResponse,
-  PopularResponse,
-  NewestResponse,
   FavoritedResponse,
-  WhoamiResponse,
-  TagSearchResponse,
-  ThreadSearchResponse,
+  ImageboardsResponse,
+  ImageResponse,
+  IndexResponse,
+  NewestResponse,
+  PopularResponse,
   PostResponse,
   SuccessResponse,
+  TagResponse,
+  TagSearchResponse,
+  TagsResponse,
   TagTypesResponse,
-  ImageboardsResponse,
+  ThreadResponse,
+  ThreadSearchResponse,
+  WhoamiResponse,
 } from '@/types';
+import { get, post } from './client';
 
 // Board ID captured at module load. All endpoint URLs are scoped to this board.
 // This value won't change during the app lifecycle since config is set once at startup.
@@ -49,7 +49,8 @@ export default {
   },
   post(thread: number, id: number): Promise<PostResponse> {
     const key = `${thread}:${id}`;
-    if (postCache.has(key)) return Promise.resolve(postCache.get(key)!);
+    const cached = postCache.get(key);
+    if (cached) return Promise.resolve(cached);
     return get<PostResponse>(`/get/post/${ib}/${thread}/${id}`).then((data) => {
       postCache.set(key, data);
       return data;
@@ -89,7 +90,8 @@ export default {
     return get('/get/tagtypes');
   },
   tagsearch(term: string): Promise<TagSearchResponse> {
-    if (tagSearchCache.has(term)) return Promise.resolve(tagSearchCache.get(term)!);
+    const cachedTags = tagSearchCache.get(term);
+    if (cachedTags) return Promise.resolve(cachedTags);
     return get<TagSearchResponse>(`/get/tagsearch/${ib}?search=${encodeURIComponent(term)}`).then(
       (data) => {
         tagSearchCache.set(term, data);
@@ -98,7 +100,8 @@ export default {
     );
   },
   threadsearch(term: string): Promise<ThreadSearchResponse> {
-    if (threadSearchCache.has(term)) return Promise.resolve(threadSearchCache.get(term)!);
+    const cachedThreads = threadSearchCache.get(term);
+    if (cachedThreads) return Promise.resolve(cachedThreads);
     return get<ThreadSearchResponse>(
       `/get/threadsearch/${ib}?search=${encodeURIComponent(term)}`
     ).then((data) => {

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import modHandlers from '@/api/modHandlers';
-import { usergroupClass, apiError, formatDate } from '@/composables/useUtils';
 import PrimPagination from '@/components/PrimPagination.vue';
-import type { LogEntry, ApiError } from '@/types';
+import { apiError, formatDate, usergroupClass } from '@/composables/useUtils';
+import type { ApiError, LogEntry } from '@/types';
 
 const data = ref<LogEntry[]>([]);
 const pagination = ref({

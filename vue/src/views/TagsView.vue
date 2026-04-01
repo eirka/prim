@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { ref, watch, onMounted, onUnmounted } from 'vue';
+import { onMounted, onUnmounted, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useToast } from 'vue-toastification';
-import { useAuthStore } from '@/stores/auth';
 import handlers from '@/api/handlers';
-import config from '@/config';
 import PrimPagination from '@/components/PrimPagination.vue';
-import type { TagsResponse, TagRow, Tag, TagType } from '@/types';
+import config from '@/config';
+import { useAuthStore } from '@/stores/auth';
+import type { Tag, TagRow, TagsResponse, TagType } from '@/types';
 import { getErrorMessage } from '@/types';
 
 const route = useRoute();
@@ -142,7 +142,7 @@ const searchTags = () => {
 
 const onPageChange = (page: number) => {
   if (page === 1) router.push('/tags');
-  else router.push('/tags/' + page);
+  else router.push(`/tags/${page}`);
 };
 
 const onKeyDown = (e: KeyboardEvent) => {

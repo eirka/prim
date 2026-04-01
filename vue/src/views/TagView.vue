@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useToast } from 'vue-toastification';
-import { useAuthStore } from '@/stores/auth';
-import { getThumbSrc } from '@/composables/useUtils';
-import config from '@/config';
 import handlers from '@/api/handlers';
 import modHandlers from '@/api/modHandlers';
 import PrimPagination from '@/components/PrimPagination.vue';
-import type { TagResponse, TagDetail, TagType } from '@/types';
+import { getThumbSrc } from '@/composables/useUtils';
+import config from '@/config';
+import { useAuthStore } from '@/stores/auth';
+import type { TagDetail, TagResponse, TagType } from '@/types';
 import { getErrorMessage } from '@/types';
 
 const route = useRoute();
@@ -64,7 +64,7 @@ const pagination = ref({
 
 // Set page title
 if (tagData.value?.tag) {
-  document.title = tagData.value.tag + ' | ' + config.title;
+  document.title = `${tagData.value.tag} | ${config.title}`;
 }
 
 const rowClass = (type: number) => {
@@ -98,7 +98,7 @@ const tagTypeLabel = (type: number) => {
 };
 
 const onPageChange = (page: number) => {
-  router.push('/tag/' + route.params.id + '/' + page);
+  router.push(`/tag/${route.params.id}/${page}`);
 };
 
 const onKeyDown = (e: KeyboardEvent) => {

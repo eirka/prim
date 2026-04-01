@@ -1,5 +1,5 @@
-import { createApp } from 'vue';
 import { createPinia } from 'pinia';
+import { createApp } from 'vue';
 import Toast from 'vue-toastification';
 import 'vue-toastification/dist/index.css';
 import App from './App.vue';

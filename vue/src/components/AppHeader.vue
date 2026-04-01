@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';
+import handlers from '@/api/handlers';
+import { usergroupClass } from '@/composables/useUtils';
+import config from '@/config';
 import { useAuthStore } from '@/stores/auth';
 import { useBoardStore } from '@/stores/board';
-import { usergroupClass } from '@/composables/useUtils';
-import handlers from '@/api/handlers';
-import config from '@/config';
 import type { Imageboard } from '@/types';
 import DiscordWidget from './DiscordWidget.vue';
 

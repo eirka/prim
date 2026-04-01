@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref, provide, reactive } from 'vue';
-import drawConfig, { drawPadKey } from './drawConfig';
+import { provide, reactive, ref } from 'vue';
 import DrawCanvas from './DrawCanvas.vue';
 import DrawControls from './DrawControls.vue';
+import drawConfig, { drawPadKey } from './drawConfig';
 
 defineProps<{
   visible: boolean;
@@ -52,7 +52,8 @@ const saveState = (list?: string[], keep?: boolean) => {
 const restoreState = (pop: string[], push: string[]) => {
   if (!pop.length || !ctx.value) return;
   saveState(push, true);
-  const restoreData = pop.pop()!;
+  const restoreData = pop.pop();
+  if (!restoreData) return;
   const img = new Image();
   img.src = restoreData;
   img.onload = () => {

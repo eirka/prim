@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, inject, onMounted, onUnmounted } from 'vue';
+import { inject, onMounted, onUnmounted, ref } from 'vue';
 import drawConfig, { drawPadKey } from './drawConfig';
 
 const drawPad = inject(drawPadKey);

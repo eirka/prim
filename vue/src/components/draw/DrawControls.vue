@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { inject, onMounted, onUnmounted } from 'vue';
-import drawConfig, { drawPadKey } from './drawConfig';
 import DrawPalette from './DrawPalette.vue';
+import drawConfig, { drawPadKey } from './drawConfig';
 
 const drawPad = inject(drawPadKey);
 if (!drawPad) throw new Error('DrawControls must be used inside DrawPad');
@@ -34,7 +34,7 @@ const eraser = () => switchEraser(true);
 // removes the anchor from the DOM.
 const save = () => {
   if (!canvas.value) return;
-  const filename = new Date().getTime() + '.png';
+  const filename = `${Date.now()}.png`;
   const link = document.createElement('a');
   link.href = canvas.value.toDataURL(drawConfig.imageMime);
   link.download = filename;

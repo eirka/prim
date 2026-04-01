@@ -1,7 +1,7 @@
-import config from '@/config';
-import { useAuthStore } from '@/stores/auth';
-import router from '@/router';
 import { useToast } from 'vue-toastification';
+import config from '@/config';
+import router from '@/router';
+import { useAuthStore } from '@/stores/auth';
 
 const BASE = config.api_srv;
 

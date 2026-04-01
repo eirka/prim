@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, inject } from 'vue';
+import { inject, ref } from 'vue';
 import { drawPadKey } from './drawConfig';
 
 const drawPad = inject(drawPadKey);

@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { getThumbSrc } from '@/composables/useUtils';
-import type { PopularResponse, NewestResponse, FavoritedResponse, ThumbnailImage } from '@/types';
+import type { FavoritedResponse, NewestResponse, PopularResponse, ThumbnailImage } from '@/types';
 
 const route = useRoute();
 

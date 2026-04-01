@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import CommentQuotes from './CommentQuotes.vue';
-import CommentFormatter from './CommentFormatter.vue';
 import type { Post } from '@/types';
+import CommentFormatter from './CommentFormatter.vue';
+import CommentQuotes from './CommentQuotes.vue';
 
 const props = defineProps<{
   post: Post;

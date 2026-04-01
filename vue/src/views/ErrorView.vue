@@ -36,7 +36,7 @@ const pageTitle = computed(() => {
   }
 });
 
-document.title = pageTitle.value + ' | ' + config.title;
+document.title = `${pageTitle.value} | ${config.title}`;
 </script>
 
 <template>

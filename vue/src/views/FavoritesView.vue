@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { getThumbSrc } from '@/composables/useUtils';
 import PrimPagination from '@/components/PrimPagination.vue';
-import type { FavoritesResponse, FavoritesDetail } from '@/types';
+import { getThumbSrc } from '@/composables/useUtils';
+import type { FavoritesDetail, FavoritesResponse } from '@/types';
 
 const route = useRoute();
 const router = useRouter();
@@ -20,7 +20,7 @@ const pagination = ref({
 
 const onPageChange = (page: number) => {
   if (page === 1) router.push('/favorites');
-  else router.push('/favorites/' + page);
+  else router.push(`/favorites/${page}`);
 };
 
 const onKeyDown = (e: KeyboardEvent) => {

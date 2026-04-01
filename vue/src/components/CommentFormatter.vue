@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { buildCommentDom } from '@/composables/useCommentDom';
 
 const props = defineProps<{

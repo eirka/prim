@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { describe, it, expect, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 vi.mock('@/config', () => ({
   default: {
@@ -59,13 +59,13 @@ describe('bold pass', () => {
     const container = makeContainer('**hello**');
     const strong = container.querySelector('strong');
     expect(strong).not.toBeNull();
-    expect(strong!.textContent).toBe('hello');
+    expect(strong?.textContent).toBe('hello');
   });
 
   it('preserves surrounding text', () => {
     const container = makeContainer('before **bold** after');
     expect(container.textContent).toBe('before bold after');
-    expect(container.querySelector('strong')!.textContent).toBe('bold');
+    expect(container.querySelector('strong')?.textContent).toBe('bold');
   });
 
   it('handles multiple bold spans', () => {
@@ -82,7 +82,7 @@ describe('italic pass', () => {
     const container = makeContainer('*hello*');
     const em = container.querySelector('em');
     expect(em).not.toBeNull();
-    expect(em!.textContent).toBe('hello');
+    expect(em?.textContent).toBe('hello');
   });
 
   it('does not convert ** to em (bold takes precedence)', () => {
@@ -100,7 +100,7 @@ describe('italic pass', () => {
   it('preserves surrounding text', () => {
     const container = makeContainer('before *italic* after');
     expect(container.textContent).toBe('before italic after');
-    expect(container.querySelector('em')!.textContent).toBe('italic');
+    expect(container.querySelector('em')?.textContent).toBe('italic');
   });
 });
 
@@ -109,9 +109,9 @@ describe('URL pass — links', () => {
     const container = makeContainer('https://example.com');
     const a = container.querySelector('a');
     expect(a).not.toBeNull();
-    expect(a!.getAttribute('href')).toBe('https://example.com');
-    expect(a!.getAttribute('target')).toBe('_blank');
-    expect(a!.getAttribute('rel')).toBe('noopener noreferrer');
+    expect(a?.getAttribute('href')).toBe('https://example.com');
+    expect(a?.getAttribute('target')).toBe('_blank');
+    expect(a?.getAttribute('rel')).toBe('noopener noreferrer');
   });
 
   it('does not linkify private IP addresses (10.x.x.x)', () => {
@@ -131,9 +131,9 @@ describe('URL pass — images', () => {
     const container = makeContainer(url);
     const img = container.querySelector('img.external_image');
     expect(img).not.toBeNull();
-    expect(img!.getAttribute('src')).toBe(url);
+    expect(img?.getAttribute('src')).toBe(url);
     const a = container.querySelector('a');
-    expect(a!.getAttribute('href')).toBe(url);
+    expect(a?.getAttribute('href')).toBe(url);
   });
 
   it('treats .gif URLs as inline images', () => {
@@ -152,21 +152,21 @@ describe('URL pass — youtube', () => {
     const container = makeContainer('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
     const iframe = container.querySelector('iframe');
     expect(iframe).not.toBeNull();
-    expect(iframe!.getAttribute('src')).toBe('https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ');
-    expect(iframe!.getAttribute('allowfullscreen')).not.toBeNull();
+    expect(iframe?.getAttribute('src')).toBe('https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ');
+    expect(iframe?.getAttribute('allowfullscreen')).not.toBeNull();
   });
 
   it('converts youtu.be/ short URL to iframe embed', () => {
     const container = makeContainer('https://youtu.be/dQw4w9WgXcQ');
     const iframe = container.querySelector('iframe');
     expect(iframe).not.toBeNull();
-    expect(iframe!.getAttribute('src')).toBe('https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ');
+    expect(iframe?.getAttribute('src')).toBe('https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ');
   });
 
   it('sandboxes the youtube iframe', () => {
     const container = makeContainer('https://youtu.be/dQw4w9WgXcQ');
     const iframe = container.querySelector('iframe');
-    expect(iframe!.getAttribute('sandbox')).toBe(
+    expect(iframe?.getAttribute('sandbox')).toBe(
       'allow-scripts allow-same-origin allow-presentation allow-popups'
     );
   });
@@ -182,8 +182,8 @@ describe('emoticon pass', () => {
     const container = makeContainer(':smug:');
     const img = container.querySelector('img.emoticon');
     expect(img).not.toBeNull();
-    expect(img!.getAttribute('title')).toBe(':smug:');
-    expect(img!.getAttribute('src')).toBe('https://img.test.com/emoticons/smug.gif');
+    expect(img?.getAttribute('title')).toBe(':smug:');
+    expect(img?.getAttribute('src')).toBe('https://img.test.com/emoticons/smug.gif');
   });
 
   it('leaves an unknown :token: as literal text', () => {
@@ -195,15 +195,15 @@ describe('emoticon pass', () => {
   it('handles a png emoticon correctly', () => {
     const container = makeContainer(':duck:');
     const img = container.querySelector('img.emoticon');
-    expect(img!.getAttribute('src')).toBe('https://img.test.com/emoticons/duck.png');
+    expect(img?.getAttribute('src')).toBe('https://img.test.com/emoticons/duck.png');
   });
 });
 
 describe('mixed content', () => {
   it('applies bold and italic in the same string', () => {
     const container = makeContainer('**bold** and *italic*');
-    expect(container.querySelector('strong')!.textContent).toBe('bold');
-    expect(container.querySelector('em')!.textContent).toBe('italic');
+    expect(container.querySelector('strong')?.textContent).toBe('bold');
+    expect(container.querySelector('em')?.textContent).toBe('italic');
   });
 
   it('preserves text surrounding a URL', () => {
@@ -260,6 +260,6 @@ describe('security', () => {
     expect(container.querySelector('script')).toBeNull();
     const strong = container.querySelector('strong');
     expect(strong).not.toBeNull();
-    expect(strong!.textContent).toContain('<script>');
+    expect(strong?.textContent).toContain('<script>');
   });
 });

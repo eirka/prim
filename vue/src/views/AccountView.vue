@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useAuthStore } from '@/stores/auth';
 import { useToast } from 'vue-toastification';
-import { getAvatar, getFormAction } from '@/composables/useUtils';
-import config from '@/config';
 import handlers from '@/api/handlers';
 import userHandlers from '@/api/userHandlers';
+import { getAvatar, getFormAction } from '@/composables/useUtils';
+import config from '@/config';
+import { useAuthStore } from '@/stores/auth';
 import { getErrorMessage } from '@/types';
 
 const auth = useAuthStore();

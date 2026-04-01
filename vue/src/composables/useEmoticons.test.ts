@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 vi.mock('@/config', () => ({
   default: {
@@ -23,17 +23,17 @@ describe('tokenMap', () => {
   });
 
   it('maps token text to an object with text and image fields', () => {
-    const smug = tokenMap['smug'];
+    const smug = tokenMap.smug;
     expect(smug).toBeDefined();
     expect(smug.text).toBe('smug');
     expect(smug.image).toBe('smug.gif');
   });
 
   it('contains emoticons with png extensions', () => {
-    expect(tokenMap['negative'].image).toBe('negative.png');
-    expect(tokenMap['smugmrgw'].image).toBe('smugmrgw.png');
-    expect(tokenMap['duck'].image).toBe('duck.png');
-    expect(tokenMap['pacha'].image).toBe('pacha.png');
+    expect(tokenMap.negative.image).toBe('negative.png');
+    expect(tokenMap.smugmrgw.image).toBe('smugmrgw.png');
+    expect(tokenMap.duck.image).toBe('duck.png');
+    expect(tokenMap.pacha.image).toBe('pacha.png');
   });
 
   it('uses the token text as the map key', () => {
@@ -43,6 +43,6 @@ describe('tokenMap', () => {
   });
 
   it('returns undefined for unknown tokens', () => {
-    expect(tokenMap['nonexistent']).toBeUndefined();
+    expect(tokenMap.nonexistent).toBeUndefined();
   });
 });

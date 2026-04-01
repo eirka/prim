@@ -1,13 +1,13 @@
 import config from '@/config';
 import router from '@/router';
 
-const imgsrc = config.img_srv + '/src/';
-const thumbsrc = config.img_srv + '/thumb/';
-const avatarsrc = config.img_srv + '/avatars/';
+const imgsrc = `${config.img_srv}/src/`;
+const thumbsrc = `${config.img_srv}/thumb/`;
+const avatarsrc = `${config.img_srv}/avatars/`;
 // Cache-busting query parameter for avatar URLs. Captured once at app load so
 // all avatar requests use the same cache key within a session, but bust browser
 // cache across page refreshes (e.g., after uploading a new avatar).
-const queryDate = new Date().getTime();
+const queryDate = Date.now();
 
 // Module-level mutable state shared across views for the quote reply feature.
 // When a user clicks a quote button on one page, setQuote() stores the reference
@@ -20,7 +20,7 @@ let errorCode: number | null = null;
 
 export function setQuote(quote: number): void {
   if (Number.isFinite(quote)) {
-    commentQuote += '>>' + quote + ' ';
+    commentQuote += `>>${quote} `;
   }
 }
 
@@ -66,7 +66,7 @@ export function getThumbSrc(filename: string | null, source: string | null): str
 
 export function getAvatar(id: number | null): string {
   if (id != null) {
-    return avatarsrc + id + '.png?' + queryDate;
+    return `${avatarsrc + id}.png?${queryDate}`;
   }
   return '';
 }

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import handlers from '@/api/handlers';
-import { usergroupClass, getAvatar, getThumbSrc, formatDate } from '@/composables/useUtils';
+import { formatDate, getAvatar, getThumbSrc, usergroupClass } from '@/composables/useUtils';
 import type { PostResponse } from '@/types';
 import { getErrorMessage } from '@/types';
 

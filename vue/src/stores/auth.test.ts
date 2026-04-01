@@ -1,5 +1,5 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { createPinia, setActivePinia } from 'pinia';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 function createMockStorage(): Storage {
   let store: Record<string, string> = {};
@@ -114,7 +114,7 @@ describe('saveCache()', () => {
     auth.set(42, 'TestUser', true, 'avatar.png', new Date('2024-01-01T00:00:00Z'));
     auth.saveCache();
 
-    const cached = JSON.parse(localStorage.getItem('global.cache')!);
+    const cached = JSON.parse(localStorage.getItem('global.cache') ?? '{}');
     expect(cached.id).toBe(42);
     expect(cached.name).toBe('TestUser');
     expect(cached.isAuthenticated).toBe(true);
@@ -398,7 +398,7 @@ describe('setAuthState()', () => {
     const auth = useAuthStore();
     await auth.setAuthState();
 
-    const cached = JSON.parse(localStorage.getItem('global.whoami')!);
+    const cached = JSON.parse(localStorage.getItem('global.whoami') ?? '{}');
     expect(cached.data.user.name).toBe('Alice');
     expect(cached.timestamp).toBeGreaterThan(0);
   });

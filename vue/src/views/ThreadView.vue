@@ -1,24 +1,24 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { useAuthStore } from '@/stores/auth';
-import { useBoardStore } from '@/stores/board';
-import {
-  usergroupClass,
-  getAvatar,
-  getThumbSrc,
-  getQuote,
-  clearQuote,
-  getFormAction,
-  formatDate,
-} from '@/composables/useUtils';
-import config from '@/config';
 import CommentHandler from '@/components/CommentHandler.vue';
-import PrimPagination from '@/components/PrimPagination.vue';
 import DrawPad from '@/components/draw/DrawPad.vue';
 import PostMod from '@/components/PostMod.vue';
+import PrimPagination from '@/components/PrimPagination.vue';
 import ThreadMod from '@/components/ThreadMod.vue';
-import type { ThreadResponse, Thread } from '@/types';
+import {
+  clearQuote,
+  formatDate,
+  getAvatar,
+  getFormAction,
+  getQuote,
+  getThumbSrc,
+  usergroupClass,
+} from '@/composables/useUtils';
+import config from '@/config';
+import { useAuthStore } from '@/stores/auth';
+import { useBoardStore } from '@/stores/board';
+import type { Thread, ThreadResponse } from '@/types';
 
 const route = useRoute();
 const router = useRouter();
@@ -47,16 +47,16 @@ const pagination = ref({
 
 // Set page title
 if (threadData.value?.title) {
-  document.title = threadData.value.title + ' | ' + config.title;
+  document.title = `${threadData.value.title} | ${config.title}`;
 }
 
 const onPageChange = (page: number) => {
-  router.push('/thread/' + route.params.id + '/' + page);
+  router.push(`/thread/${route.params.id}/${page}`);
 };
 
 const replyQuote = (id: number) => {
   if (typeof quote.value !== 'string') quote.value = '';
-  quote.value += ' >>' + id + ' ';
+  quote.value += ` >>${id} `;
   window.scrollTo(0, 0);
 };
 

@@ -129,7 +129,7 @@ function makeYoutube(videoId: string): HTMLDivElement {
   // youtube-nocookie.com avoids tracking cookies. The sandbox attribute restricts
   // the iframe to scripts and same-origin access, blocking top-level navigation
   // and other potentially dangerous capabilities.
-  iframe.setAttribute('src', 'https://www.youtube-nocookie.com/embed/' + videoId);
+  iframe.setAttribute('src', `https://www.youtube-nocookie.com/embed/${videoId}`);
   iframe.setAttribute('frameborder', '0');
   iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-presentation allow-popups');
   iframe.setAttribute('allow', 'fullscreen; picture-in-picture');
@@ -142,7 +142,7 @@ function makeYoutube(videoId: string): HTMLDivElement {
 function makeEmoticon(token: { text: string; image: string }): HTMLImageElement {
   const img = document.createElement('img');
   img.className = 'emoticon';
-  img.setAttribute('title', ':' + token.text + ':');
+  img.setAttribute('title', `:${token.text}:`);
   img.setAttribute('src', emoticonSrv + token.image);
   return img;
 }
@@ -183,7 +183,7 @@ export function buildCommentDom(container: HTMLElement, text: string): void {
     if (emailRegex.test(url)) {
       const emailMatch = new RegExp(emailRegex.source, emailRegex.flags).exec(url);
       if (emailMatch) {
-        return document.createTextNode(emailMatch[1] + ' at ' + emailMatch[2]);
+        return document.createTextNode(`${emailMatch[1]} at ${emailMatch[2]}`);
       }
     }
 

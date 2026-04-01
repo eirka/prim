@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { useAuthStore } from '@/stores/auth';
 import { useToast } from 'vue-toastification';
+import handlers from '@/api/handlers';
+import modHandlers from '@/api/modHandlers';
+import userHandlers from '@/api/userHandlers';
 import { getImgSrc } from '@/composables/useUtils';
 import config from '@/config';
-import handlers from '@/api/handlers';
-import userHandlers from '@/api/userHandlers';
-import modHandlers from '@/api/modHandlers';
-import type { ImageResponse, ImageDetail, Tag } from '@/types';
+import { useAuthStore } from '@/stores/auth';
+import type { ImageDetail, ImageResponse, Tag } from '@/types';
 import { getErrorMessage } from '@/types';
 
 const route = useRoute();
@@ -28,7 +28,7 @@ const activeIndex = ref(-1);
 
 // Set page title
 if (imageData.value) {
-  document.title = 'Image ' + imageData.value.id + ' | ' + config.title;
+  document.title = `Image ${imageData.value.id} | ${config.title}`;
 }
 
 // Check favorite status
@@ -176,9 +176,9 @@ const onKeyDown = (e: KeyboardEvent) => {
   )
     return;
   if (e.key === 'ArrowLeft' && imageData.value?.prev) {
-    router.push('/image/' + imageData.value.prev);
+    router.push(`/image/${imageData.value.prev}`);
   } else if (e.key === 'ArrowRight' && imageData.value?.next) {
-    router.push('/image/' + imageData.value.next);
+    router.push(`/image/${imageData.value.next}`);
   }
 };
 

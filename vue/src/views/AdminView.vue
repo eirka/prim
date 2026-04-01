@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref, type Component } from 'vue';
-import AdminStatistics from '@/components/admin/AdminStatistics.vue';
+import { type Component, ref } from 'vue';
 import AdminBoardLog from '@/components/admin/AdminBoardLog.vue';
 import AdminModLog from '@/components/admin/AdminModLog.vue';
+import AdminStatistics from '@/components/admin/AdminStatistics.vue';
 
 interface Panel {
   name: string;

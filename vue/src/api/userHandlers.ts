@@ -1,6 +1,6 @@
-import { get, post } from './client';
 import config from '@/config';
-import type { FavoritesResponse, FavoriteStatusResponse, SuccessResponse } from '@/types';
+import type { FavoriteStatusResponse, FavoritesResponse, SuccessResponse } from '@/types';
+import { get, post } from './client';
 
 const ib = config.ib_id;
 

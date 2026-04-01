@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import { Line } from 'vue-chartjs';
 import {
-  Chart as ChartJS,
   CategoryScale,
+  Chart as ChartJS,
+  Legend,
   LinearScale,
-  PointElement,
   LineElement,
+  PointElement,
   Title,
   Tooltip,
-  Legend,
 } from 'chart.js';
+import { onMounted, ref } from 'vue';
+import { Line } from 'vue-chartjs';
 import modHandlers from '@/api/modHandlers';
 import { apiError } from '@/composables/useUtils';
 import type { ApiError } from '@/types';

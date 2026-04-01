@@ -1,22 +1,22 @@
 import { ref } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
-import config from '@/config';
 import handlers from '@/api/handlers';
 import userHandlers from '@/api/userHandlers';
 import { apiError } from '@/composables/useUtils';
+import config from '@/config';
 import { useAuthStore } from '@/stores/auth';
 import type { ApiError } from '@/types';
-import IndexView from '@/views/IndexView.vue';
-import ThreadView from '@/views/ThreadView.vue';
-import DirectoryView from '@/views/DirectoryView.vue';
-import ImageView from '@/views/ImageView.vue';
-import TagsView from '@/views/TagsView.vue';
-import TagView from '@/views/TagView.vue';
-import TrendingView from '@/views/TrendingView.vue';
-import FavoritesView from '@/views/FavoritesView.vue';
 import AccountView from '@/views/AccountView.vue';
 import AdminView from '@/views/AdminView.vue';
+import DirectoryView from '@/views/DirectoryView.vue';
 import ErrorView from '@/views/ErrorView.vue';
+import FavoritesView from '@/views/FavoritesView.vue';
+import ImageView from '@/views/ImageView.vue';
+import IndexView from '@/views/IndexView.vue';
+import TagsView from '@/views/TagsView.vue';
+import TagView from '@/views/TagView.vue';
+import ThreadView from '@/views/ThreadView.vue';
+import TrendingView from '@/views/TrendingView.vue';
 
 // Consumed by the LoadingIndicator component in App.vue to show a spinner
 // during route transitions while data is being fetched.

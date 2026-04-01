@@ -13,8 +13,7 @@ Imageboard frontend for the Pram REST API built with Vue 3.
 - **Chart.js** via vue-chartjs for admin statistics
 - **vue-toastification** for toast notifications
 - **Vitest** for unit testing
-- **Prettier** for code formatting (TS, Vue, SCSS)
-- **ESLint** with typescript-eslint and eslint-plugin-vue for linting
+- **Biome** for formatting and linting (TS, Vue). Note: `noUnusedImports` and `noUnusedVariables` are disabled for `.vue` files because Biome can't analyze template usage yet — re-enable if Biome adds template-aware analysis.
 
 ## Project Layout
 
@@ -68,7 +67,7 @@ vue/src/
   ```
 - **Error narrowing**: Use `getErrorMessage(e)` from `src/types/index.ts` in catch blocks instead of accessing `e.data` directly.
 - **Component typing**: Use generic syntax for props (`defineProps<{ post: Post }>()`) and emits (`defineEmits<{ toggle: [] }>()`).
-- **No non-null assertions on refs**: Prefer null guards (`if (!ctx.value) return`) over `!` assertions. This was a recurring review finding.
+- **No non-null assertions**: Prefer null guards (`if (!ctx.value) return`) over `!` assertions. Enforced by Biome's `noNonNullAssertion` rule.
 - **Template refs**: Type as `ref<HTMLElement | null>(null)` and guard before use.
 - **API response types**: All responses use envelope interfaces in `src/types/index.ts`. Two pagination generics: `PaginatedList<T>` (items is `T[]`) and `PaginatedDetail<T>` (items is `T`).
 - **Auth error handling**: `setAuthState` only destroys the session on 4xx errors. Transient network failures preserve cached state.
@@ -99,10 +98,12 @@ npm run build        # Production build to vue/dist/
 npm run preview      # Preview production build
 npm test             # Run tests with Vitest
 npm run type-check   # Type check with vue-tsc
-npm run format       # Format TS, Vue, SCSS with Prettier
+npm run format       # Format TS and Vue with Biome
 npm run format:check # Check formatting without writing (CI)
-npm run lint         # Lint TS and Vue files with ESLint
+npm run lint         # Lint TS and Vue files with Biome
 npm run lint:fix     # Auto-fix lint issues
+npm run check        # Run both format and lint
+npm run check:fix    # Auto-fix both format and lint issues
 ```
 
 ## API Endpoints

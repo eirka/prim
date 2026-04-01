@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ref, watch, onMounted, onUnmounted } from 'vue';
+import { onMounted, onUnmounted, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { useAuthStore } from '@/stores/auth';
 import handlers from '@/api/handlers';
-import { formatDate } from '@/composables/useUtils';
 import PrimPagination from '@/components/PrimPagination.vue';
+import { formatDate } from '@/composables/useUtils';
+import { useAuthStore } from '@/stores/auth';
 import type { DirectoryResponse, DirectoryThread } from '@/types';
 
 const route = useRoute();
@@ -84,7 +84,7 @@ const searchThreads = () => {
 
 const onPageChange = (page: number) => {
   if (page === 1) router.push('/directory');
-  else router.push('/directory/' + page);
+  else router.push(`/directory/${page}`);
 };
 
 const onKeyDown = (e: KeyboardEvent) => {

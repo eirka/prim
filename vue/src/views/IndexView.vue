@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { useAuthStore } from '@/stores/auth';
-import { useBoardStore } from '@/stores/board';
+import CommentHandler from '@/components/CommentHandler.vue';
+import DrawPad from '@/components/draw/DrawPad.vue';
+import PrimPagination from '@/components/PrimPagination.vue';
 import {
-  usergroupClass,
+  formatDate,
   getAvatar,
+  getFormAction,
   getThumbSrc,
   setQuote,
-  getFormAction,
-  formatDate,
+  usergroupClass,
 } from '@/composables/useUtils';
 import config from '@/config';
-import CommentHandler from '@/components/CommentHandler.vue';
-import PrimPagination from '@/components/PrimPagination.vue';
-import DrawPad from '@/components/draw/DrawPad.vue';
+import { useAuthStore } from '@/stores/auth';
+import { useBoardStore } from '@/stores/board';
 import type { IndexResponse } from '@/types';
 
 const route = useRoute();
@@ -48,13 +48,13 @@ const onPageChange = (page: number) => {
   if (page === 1) {
     router.push('/');
   } else {
-    router.push('/page/' + page);
+    router.push(`/page/${page}`);
   }
 };
 
 const replyQuote = (id: number, thread: number, last: number) => {
   setQuote(id);
-  router.push('/thread/' + thread + '/' + last);
+  router.push(`/thread/${thread}/${last}`);
 };
 
 // Keyboard shortcuts

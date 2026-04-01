@@ -38,5 +38,5 @@ for (const token of tokens) {
   tokenMap[token.text] = token;
 }
 
-export const emoticonSrv = config.img_srv + '/emoticons/';
+export const emoticonSrv = `${config.img_srv}/emoticons/`;
 export { tokenMap };

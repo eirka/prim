@@ -1,11 +1,11 @@
-import { get, post, del } from './client';
 import config from '@/config';
 import type {
-  StatisticsResponse,
   BoardLogResponse,
   ModLogResponse,
+  StatisticsResponse,
   SuccessResponse,
 } from '@/types';
+import { del, get, post } from './client';
 
 const ib = config.ib_id;
 

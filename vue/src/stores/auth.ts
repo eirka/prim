@@ -1,12 +1,12 @@
 import { defineStore } from 'pinia';
-import { ref, computed } from 'vue';
+import { computed, ref } from 'vue';
+import { useToast } from 'vue-toastification';
 import handlers from '@/api/handlers';
 import userHandlers, { clearFavoritesCache } from '@/api/userHandlers';
-import { useBoardStore } from './board';
-import { useToast } from 'vue-toastification';
 import { getAvatar } from '@/composables/useUtils';
 import config from '@/config';
 import type { WhoamiResponse } from '@/types';
+import { useBoardStore } from './board';
 
 // Two separate caches with different strategies:
 // - CACHE_KEY (auth): persists user identity across page loads, no TTL (cleared on logout)
@@ -219,7 +219,7 @@ export const useAuthStore = defineStore('auth', () => {
   const getLastActive = (date: string | Date): boolean => {
     if (!date) return false;
     const d = new Date(date);
-    return !isNaN(d.getTime()) && lastactive.value < d;
+    return !Number.isNaN(d.getTime()) && lastactive.value < d;
   };
 
   return {

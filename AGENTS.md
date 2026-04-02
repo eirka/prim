@@ -17,8 +17,8 @@ npm run format       # Format TS and Vue with Biome
 npm run format:check # Check formatting without writing (CI)
 npm run lint         # Lint TS and Vue files with Biome
 npm run lint:fix     # Auto-fix lint issues
-npm run check        # Run both format and lint
-npm run check:fix    # Auto-fix both format and lint issues
+npm run check        # Run format, lint, and import sorting
+npm run check:fix    # Auto-fix format, lint, and import sorting
 ```
 
 ### Running a Single Test

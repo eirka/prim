@@ -195,15 +195,16 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown));
           <div
             v-for="post in threadData.posts"
             :key="post.id"
-            :id="'reply-' + post.num"
+            :id="`reply-${post.num}`"
             class="thread_row"
           >
             <div v-if="post.thumbnail" class="thread_row_image">
-              <router-link :to="'/image/' + post.img_id">
+              <router-link :to="`/image/${post.img_id}`">
                 <img
                   :src="getThumbSrc(post.thumbnail, post.filename)"
                   :height="post.tn_height"
                   :width="post.tn_width"
+                  alt=""
                 />
               </router-link>
             </div>
@@ -213,7 +214,7 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown));
                   <div v-if="post.group !== 1" class="info_item">
                     <div class="avatar avatar-xsmall">
                       <div class="avatar-inner">
-                        <img :src="getAvatar(post.uid)" />
+                        <img :src="getAvatar(post.uid)" alt="" />
                       </div>
                     </div>
                   </div>
@@ -247,12 +248,13 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown));
             v-for="post in threadData.posts"
             :key="post.id"
             v-show="post.thumbnail"
-            :to="'/image/' + post.img_id"
+            :to="`/image/${post.img_id}`"
           >
             <img
               :src="getThumbSrc(post.thumbnail, post.filename)"
               :height="post.tn_height"
               :width="post.tn_width"
+              alt=""
             />
           </router-link>
         </div>

@@ -196,7 +196,7 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown));
               <li v-if="imageData.prev">
                 <router-link
                   class="fa fa-arrow-left"
-                  :to="'/image/' + imageData.prev"
+                  :to="`/image/${imageData.prev}`"
                 ></router-link>
               </li>
               <li v-if="auth.isAuthenticated">
@@ -204,38 +204,42 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown));
                   :class="starred ? 'fa fa-heart favorited' : 'fa fa-heart-o'"
                   href="#"
                   @click.prevent="addFavorite"
+                  aria-label="Toggle favorite"
                 ></a>
               </li>
               <li>
                 <router-link
                   class="fa fa-list"
-                  :to="'/thread/' + imageData.thread + '/1'"
+                  :to="`/thread/${imageData.thread}/1`"
                 ></router-link>
               </li>
               <li v-if="imageData.next">
                 <router-link
                   class="fa fa-arrow-right"
-                  :to="'/image/' + imageData.next"
+                  :to="`/image/${imageData.next}`"
                 ></router-link>
               </li>
             </ul>
           </div>
         </div>
         <div class="image_box_image">
+          <!-- biome-ignore lint/a11y/useMediaCaption: user-uploaded video, no captions available -->
           <video
             v-if="ext === 'webm'"
             :src="getImgSrc(imageData.filename)"
             :height="imageData.height"
             :width="imageData.width"
+            :aria-label="imageData.filename"
             autoplay
             loop
             controls
           ></video>
-          <a v-else target="_self" :href="getImgSrc(imageData.filename)">
+          <a v-else target="_self" :href="getImgSrc(imageData.filename)" aria-label="View full size image">
             <img
               :src="getImgSrc(imageData.filename)"
               :height="imageData.height"
               :width="imageData.width"
+              :alt="imageData.filename"
             />
           </a>
         </div>
@@ -245,7 +249,7 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown));
               <li v-if="imageData.prev">
                 <router-link
                   class="fa fa-arrow-left"
-                  :to="'/image/' + imageData.prev"
+                  :to="`/image/${imageData.prev}`"
                 ></router-link>
               </li>
               <li v-if="auth.isAuthenticated">
@@ -253,18 +257,19 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown));
                   :class="starred ? 'fa fa-heart favorited' : 'fa fa-heart-o'"
                   href="#"
                   @click.prevent="addFavorite"
+                  aria-label="Toggle favorite"
                 ></a>
               </li>
               <li>
                 <router-link
                   class="fa fa-list"
-                  :to="'/thread/' + imageData.thread + '/1'"
+                  :to="`/thread/${imageData.thread}/1`"
                 ></router-link>
               </li>
               <li v-if="imageData.next">
                 <router-link
                   class="fa fa-arrow-right"
-                  :to="'/image/' + imageData.next"
+                  :to="`/image/${imageData.next}`"
                 ></router-link>
               </li>
             </ul>
@@ -286,7 +291,7 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown));
           <a
             class="tag tag-source"
             target="_blank"
-            :href="'https://iqdb.org/?url=' + encodeURIComponent(getImgSrc(imageData.filename))"
+            :href="`https://iqdb.org/?url=${encodeURIComponent(getImgSrc(imageData.filename))}`"
             >iqdb</a
           >
           <a
@@ -358,7 +363,7 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown));
                 class="tag"
                 :class="tagClass(tag.type)"
                 rel="nofollow"
-                :to="'/tag/' + tag.id + '/1'"
+                :to="`/tag/${tag.id}/1`"
                 >{{ tag.tag }}</router-link
               >
             </div>

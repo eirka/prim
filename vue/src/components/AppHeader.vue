@@ -38,10 +38,10 @@ const isActive = (path: string) => route.path.split('/')[1] === path;
         <div class="nav_menu">
           <ul @mouseenter="menuVisible = true" @mouseleave="menuVisible = false">
             <li>
-              <a href="#"><i class="fa fa-fw fa-bars"></i></a>
+              <a href="#" aria-label="Menu"><i class="fa fa-fw fa-bars"></i></a>
               <ul v-if="menuVisible">
                 <li v-for="ib in imageboards" :key="ib.id">
-                  <a :href="'//' + ib.url">{{ ib.title }}</a>
+                  <a :href="`//${ib.url}`">{{ ib.title }}</a>
                 </li>
               </ul>
             </li>
@@ -76,7 +76,7 @@ const isActive = (path: string) => route.path.split('/')[1] === path;
               <li>
                 <div class="avatar avatar-medium">
                   <div class="avatar-inner">
-                    <a href="#"><img :src="auth.avatar ?? ''" /></a>
+                    <a href="#" aria-label="User profile"><img :src="auth.avatar ?? ''" alt="User avatar" /></a>
                   </div>
                 </div>
                 <ul v-if="userMenuVisible">
@@ -110,7 +110,7 @@ const isActive = (path: string) => route.path.split('/')[1] === path;
         </div>
         <div class="site_logo">
           <router-link to="/"
-            ><img v-if="config.logo" :src="'/assets/logo/' + config.logo"
+            ><img v-if="config.logo" :src="`/assets/logo/${config.logo}`" :alt="config.title"
           /></router-link>
         </div>
       </div>

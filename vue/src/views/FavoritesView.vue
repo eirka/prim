@@ -60,11 +60,12 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown));
         />
       </div>
       <div v-if="data && pagination.totalItems !== 0" class="image_grid">
-        <router-link v-for="image in data.images" :key="image.id" :to="'/image/' + image.id">
+        <router-link v-for="image in data.images" :key="image.id" :to="`/image/${image.id}`">
           <img
             :src="getThumbSrc(image.thumbnail, image.filename)"
             :height="image.tn_height"
             :width="image.tn_width"
+            alt=""
           />
         </router-link>
       </div>

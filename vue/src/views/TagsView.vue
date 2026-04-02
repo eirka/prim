@@ -235,7 +235,7 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown));
                 <i v-if="tag.type === 4" title="Copyright" class="fa fa-copyright"></i>
               </td>
               <td>
-                <router-link :to="'/tag/' + tag.id + '/1'" rel="nofollow">{{
+                <router-link :to="`/tag/${tag.id}/1`" rel="nofollow">{{
                   tag.tag
                 }}</router-link>
               </td>

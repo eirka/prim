@@ -26,10 +26,11 @@ onMounted(async () => {
   <div v-if="quotebox" class="quotebox">
     <div v-if="quotebox.post">
       <div v-if="quotebox.post.thumbnail">
-        <a :href="'/image/' + quotebox.post.img_id">
+        <a :href="`/image/${quotebox.post.img_id}`" aria-label="View image">
           <img
             class="quotebox_image"
             :src="getThumbSrc(quotebox.post.thumbnail, quotebox.post.filename)"
+            alt=""
           />
         </a>
       </div>
@@ -37,7 +38,7 @@ onMounted(async () => {
         <div class="info">
           <div v-if="quotebox.post.group !== 1" class="avatar avatar-xsmall">
             <div class="avatar-inner">
-              <img :src="getAvatar(quotebox.post.uid)" />
+              <img :src="getAvatar(quotebox.post.uid)" alt="" />
             </div>
           </div>
           <span class="post_info" :class="usergroupClass(quotebox.post.group)">{{

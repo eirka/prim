@@ -79,11 +79,11 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown));
 <template>
   <div class="draw-controls">
     <DrawPalette />
-    <button :class="{ active: toolActive(drawConfig.TOOL_PEN) }" @click="pencil">Draw</button>
-    <button :class="{ active: toolActive(drawConfig.TOOL_ERASER) }" @click="eraser">Erase</button>
-    <button @click="undo">Undo</button>
-    <button @click="redo">Redo</button>
-    <button @click="reset">Clear</button>
-    <button @click="save">Save</button>
+    <button type="button" :class="{ active: toolActive(drawConfig.TOOL_PEN) }" @click="pencil">Draw</button>
+    <button type="button" :class="{ active: toolActive(drawConfig.TOOL_ERASER) }" @click="eraser">Erase</button>
+    <button type="button" @click="undo">Undo</button>
+    <button type="button" @click="redo">Redo</button>
+    <button type="button" @click="reset">Clear</button>
+    <button type="button" @click="save">Save</button>
   </div>
 </template>

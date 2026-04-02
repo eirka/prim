@@ -157,7 +157,7 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown));
               </button>
             </div>
             <div class="form-group">
-              <a class="form-control button button-danger" @click.prevent="deleteTag" href="#">
+              <a class="form-control button button-danger" @click.prevent="deleteTag" href="#" aria-label="Delete tag">
                 <i class="fa fa-fw fa-trash-o"></i>
               </a>
             </div>
@@ -174,11 +174,12 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown));
         />
       </div>
       <div v-if="pagination.totalItems !== 0" class="image_grid">
-        <router-link v-for="image in tagData.images" :key="image.id" :to="'/image/' + image.id">
+        <router-link v-for="image in tagData.images" :key="image.id" :to="`/image/${image.id}`">
           <img
             :src="getThumbSrc(image.thumbnail, image.filename)"
             :height="image.tn_height"
             :width="image.tn_width"
+            alt=""
           />
         </router-link>
       </div>

@@ -206,7 +206,7 @@ const updateEmail = async () => {
         <div v-if="whoami.avatar" class="user_avatar">
           <div class="avatar avatar-medium">
             <div class="avatar-inner">
-              <img :src="whoami.avatar" />
+              <img :src="whoami.avatar" alt="User avatar" />
             </div>
           </div>
         </div>
@@ -222,6 +222,7 @@ const updateEmail = async () => {
     <div class="settings_container">
       <div class="settings_menu">
         <button
+          type="button"
           class="button button-block button-primary"
           :class="{ active: activePanel === 'Account' }"
           @click="activePanel = 'Account'"
@@ -229,6 +230,7 @@ const updateEmail = async () => {
           Account
         </button>
         <button
+          type="button"
           class="button button-block button-primary"
           :class="{ active: activePanel === 'Avatar' }"
           @click="activePanel = 'Avatar'"

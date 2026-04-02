@@ -150,10 +150,10 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown));
     </div>
   </div>
   <div class="threads">
-    <div v-for="thread in data" :key="thread.id" :id="'thread-' + thread.id" class="thread">
+    <div v-for="thread in data" :key="thread.id" :id="`thread-${thread.id}`" class="thread">
       <div class="thread_index_header">
         <div class="thread_title">
-          <router-link :to="'/thread/' + thread.id + '/1'">{{ thread.title }}</router-link>
+          <router-link :to="`/thread/${thread.id}/1`">{{ thread.title }}</router-link>
         </div>
         <div class="thread_buttons">
           <div v-if="thread.closed" title="Closed" class="thread_info">
@@ -175,29 +175,30 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown));
           </div>
           <router-link
             class="button button-primary"
-            :to="'/thread/' + thread.id + '/' + thread.pages"
+            :to="`/thread/${thread.id}/${thread.pages}`"
             >Reply</router-link
           >
         </div>
       </div>
       <div class="thread_row_header">
         <div v-if="thread.total - thread.posts.length >= 1" class="thread_row_omit">
-          <router-link :to="'/thread/' + thread.id + '/' + thread.pages">
+          <router-link :to="`/thread/${thread.id}/${thread.pages}`">
             {{
               thread.total - thread.posts.length === 1
                 ? '1 post omitted...'
-                : thread.total - thread.posts.length + ' posts omitted...'
+                : `${thread.total - thread.posts.length} posts omitted...`
             }}
           </router-link>
         </div>
       </div>
       <div v-for="post in thread.posts" :key="post.id" class="index_row">
         <div v-if="post.thumbnail" class="index_row_image">
-          <router-link :to="'/image/' + post.img_id">
+          <router-link :to="`/image/${post.img_id}`">
             <img
               :src="getThumbSrc(post.thumbnail, post.filename)"
               :height="post.tn_height"
               :width="post.tn_width"
+              alt=""
             />
           </router-link>
         </div>
@@ -207,7 +208,7 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown));
               <div v-if="post.group !== 1" class="info_item">
                 <div class="avatar avatar-xsmall">
                   <div class="avatar-inner">
-                    <img :src="getAvatar(post.uid)" />
+                    <img :src="getAvatar(post.uid)" alt="" />
                   </div>
                 </div>
               </div>

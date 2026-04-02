@@ -99,7 +99,7 @@ provide(drawPadKey, {
   <div v-if="visible" class="draw-pad">
     <div class="draw-title">
       <span><em>LineWriter 95</em></span>
-      <a href="#" @click.prevent="emit('toggle')" class="fa fa-times close"></a>
+      <a href="#" @click.prevent="emit('toggle')" class="fa fa-times close" aria-label="Close drawing pad"></a>
     </div>
     <DrawControls v-if="drawConfig.drawControls" />
     <DrawCanvas />

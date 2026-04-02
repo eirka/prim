@@ -138,12 +138,12 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown));
                 <a href="#" @click.prevent="changeSorting('title')">Title</a>
               </th>
               <th style="text-align: center">
-                <a href="#" @click.prevent="changeSorting('postcount')"
+                <a href="#" @click.prevent="changeSorting('postcount')" aria-label="Sort by posts"
                   ><i class="fa fa-fw fa-comment-o" title="Posts"></i
                 ></a>
               </th>
               <th style="text-align: center">
-                <a href="#" @click.prevent="changeSorting('images')"
+                <a href="#" @click.prevent="changeSorting('images')" aria-label="Sort by images"
                   ><i class="fa fa-fw fa-picture-o" title="Images"></i
                 ></a>
               </th>
@@ -157,7 +157,7 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown));
               <td style="width: auto; text-align: left">
                 <i v-if="thread.closed" title="Closed" class="fa fa-lock"></i>
                 <i v-if="thread.sticky" title="Sticky" class="fa fa-thumb-tack"></i>
-                <router-link :to="'/thread/' + thread.id + '/1'" rel="nofollow">{{
+                <router-link :to="`/thread/${thread.id}/1`" rel="nofollow">{{
                   thread.title
                 }}</router-link>
                 <span v-if="auth.getLastActive(thread.last_post)" class="label label-alert"
@@ -165,7 +165,7 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown));
                 >
                 <router-link
                   v-if="thread.pages > 1"
-                  :to="'/thread/' + thread.id + '/' + thread.pages"
+                  :to="`/thread/${thread.id}/${thread.pages}`"
                   title="Last page"
                   class="label lastpage"
                   >last page</router-link

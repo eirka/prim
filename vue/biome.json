@@ -28,10 +28,10 @@
         "noAssignInExpressions": "off"
       },
       "a11y": {
-        "useAltText": "warn",
-        "useAnchorContent": "warn",
-        "useButtonType": "warn",
-        "useMediaCaption": "warn"
+        "useAltText": "error",
+        "useAnchorContent": "error",
+        "useButtonType": "error",
+        "useMediaCaption": "error"
       }
     }
   }

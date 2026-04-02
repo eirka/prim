@@ -25,6 +25,7 @@ const activePanel = ref(panels[0]);
         <button
           v-for="panel in panels"
           :key="panel.name"
+          type="button"
           class="button button-block button-primary"
           :class="{ active: activePanel.name === panel.name }"
           @click="activePanel = panel"

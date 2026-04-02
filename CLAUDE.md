@@ -13,7 +13,7 @@ Imageboard frontend for the Pram REST API built with Vue 3.
 - **Chart.js** via vue-chartjs for admin statistics
 - **vue-toastification** for toast notifications
 - **Vitest** for unit testing
-- **Biome** for formatting and linting (TS, Vue). Note: `noUnusedImports` and `noUnusedVariables` are disabled for `.vue` files because Biome can't analyze template usage yet — re-enable if Biome adds template-aware analysis.
+- **Biome** for formatting and linting (TS, Vue) with `html.experimentalFullSupportEnabled` for template-aware analysis
 
 ## Project Layout
 

@@ -15,6 +15,9 @@
       "semicolons": "always"
     }
   },
+  "html": {
+    "experimentalFullSupportEnabled": true
+  },
   "linter": {
     "rules": {
       "recommended": true,
@@ -23,20 +26,13 @@
       },
       "suspicious": {
         "noAssignInExpressions": "off"
+      },
+      "a11y": {
+        "useAltText": "warn",
+        "useAnchorContent": "warn",
+        "useButtonType": "warn",
+        "useMediaCaption": "warn"
       }
     }
-  },
-  "overrides": [
-    {
-      "includes": ["src/**/*.vue"],
-      "linter": {
-        "rules": {
-          "correctness": {
-            "noUnusedImports": "off",
-            "noUnusedVariables": "off"
-          }
-        }
-      }
-    }
-  ]
+  }
 }

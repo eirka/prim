@@ -17,10 +17,8 @@ Imageboard frontend for the Pram REST API built with Vue 3.
 
 ## Project Layout
 
-All new code is in `vue/`. The legacy AngularJS code remains in `src/` for reference.
-
 ```
-vue/src/
+src/
   config.ts           - Runtime config from window.primConfig
   main.ts             - App bootstrap
   env.d.ts            - Global type declarations (PrimConfig, Window, RouteMeta)
@@ -91,10 +89,9 @@ window.primConfig = {
 ## Commands
 
 ```bash
-cd vue
 npm install
 npm run dev          # Dev server on port 3000
-npm run build        # Production build to vue/dist/
+npm run build        # Production build to dist/
 npm run preview      # Preview production build
 npm test             # Run tests with Vitest
 npm run type-check   # Type check with vue-tsc

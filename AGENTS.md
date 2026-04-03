@@ -2,16 +2,16 @@
 
 ## Project Overview
 
-Imageboard frontend for the Pram REST API built with Vue 3. All new code is in `vue/`. The legacy AngularJS code remains in `src/` for reference only.
+Imageboard frontend for the Pram REST API built with Vue 3.
 
-## Commands (run from `vue/`)
+## Commands
 
 ```bash
 npm run dev          # Dev server on port 3000
-npm run build        # Production build to vue/dist/
+npm run build        # Production build to dist/
 npm run preview      # Preview production build
 npm test             # Run all tests with Vitest
-npm run test:watch   # Watch mode (add -- <file> for single file)
+npx vitest watch     # Watch mode (add <file> for single file)
 npm run type-check   # Type check with vue-tsc
 npm run format       # Format TS and Vue with Biome
 npm run format:check # Check formatting without writing (CI)

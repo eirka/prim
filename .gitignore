@@ -1,8 +1,2 @@
-build
 node_modules
-bower_components
-src/config.codekit
-src/config.rb
-.vscode
-!vue/.vscode
-vue/dist
+dist

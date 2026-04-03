@@ -34,7 +34,6 @@ Frontend for the [Pram](https://github.com/eirka) imageboard API.
 ## Quick Start
 
 ```bash
-cd vue
 npm install
 npm run dev
 ```
@@ -44,18 +43,16 @@ The dev server starts on `http://localhost:3000`.
 ## Tests
 
 ```bash
-cd vue
 npm test
 ```
 
 ## Build
 
 ```bash
-cd vue
 npm run build
 ```
 
-Output goes to `vue/dist/`. Serve the `index.html` and assets with any static file server. The app uses HTML5 history mode, so configure your server to fall back to `index.html` for all routes.
+Output goes to `dist/`. Serve the `index.html` and assets with any static file server. The app uses HTML5 history mode, so configure your server to fall back to `index.html` for all routes.
 
 ## Configuration
 
@@ -86,10 +83,6 @@ The host page must set `window.primConfig` before the app loads:
 ## Authentication
 
 Auth is handled via HTTP-only JWT cookies. The frontend uses `credentials: 'include'` on all API requests and never touches the token directly. On 401 responses the session is cleared and the page reloads; on 403 the user is redirected to the login page.
-
-## Legacy
-
-The original AngularJS 1.7 frontend source is in `src/` for reference. It uses Gulp + Browserify and is no longer maintained.
 
 ## License
 

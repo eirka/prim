@@ -1,65 +1,41 @@
 {
-    "name": "prim",
-    "version": "1.7.10",
-    "description": "AngularJS frontend for Pram API",
-    "dependencies": {
-        "angular": "^1.7.5",
-        "angular-animate": "^1.7.5",
-        "angular-chart.js": "^1",
-        "angular-cookies": "^1.7.5",
-        "angular-hotkeys": "^1.7.0",
-        "angular-resource": "^1.7.5",
-        "angular-route": "^1.7.5",
-        "angular-sanitize": "^1.7.5",
-        "angular-storage": "0.0.15",
-        "angularjs-toaster": "^1.2.1",
-        "angulartics": "^1.6.0",
-        "angulartics-google-analytics": "^0.4.0"
-    },
-    "browser": {
-        "angular": "./node_modules/angular/angular.min.js",
-        "angular-resource": "./node_modules/angular-resource/angular-resource.min.js",
-        "angular-cookies": "./node_modules/angular-cookies/angular-cookies.min.js",
-        "angular-animate": "./node_modules/angular-animate/angular-animate.min.js",
-        "angular-route": "./node_modules/angular-route/angular-route.min.js",
-        "angular-sanitize": "./node_modules/angular-sanitize/angular-sanitize.min.js",
-        "angular-hotkeys": "./node_modules/angular-hotkeys/build/hotkeys.min.js",
-        "angular-storage": "./node_modules/angular-storage/dist/angular-storage.min.js",
-        "angularjs-toaster": "./node_modules/angularjs-toaster/toaster.min.js",
-        "angulartics": "./node_modules/angulartics/dist/angulartics.min.js",
-        "angulartics-google-analytics": "./node_modules/angulartics-google-analytics/dist/angulartics-ga.min.js",
-        "angular-chart.js": "./node_modules/angular-chart.js/dist/angular-chart.min.js"
-    },
-    "devDependencies": {
-        "autoprefixer": "^6.7.7",
-        "browserify": "^16.2.3",
-        "del": "^2.2.0",
-        "gulp": "^4.0.0",
-        "gulp-bump": "^1.0.0",
-        "gulp-concat": "^2.6.0",
-        "gulp-cssnano": "^2.1.1",
-        "gulp-csso": "^2.0.0",
-        "gulp-htmlmin": "^3.0.0",
-        "gulp-if": "^2.0.0",
-        "gulp-ng-annotate": "^2.0.0",
-        "gulp-ng-html2js": "^0.2.2",
-        "gulp-postcss": "^6.1.0",
-        "gulp-rev": "^6.0.1",
-        "gulp-rsync": "0.0.5",
-        "gulp-uglify": "^2.0.0",
-        "gulp-util": "^3.0.7",
-        "run-sequence": "^1.1.5",
-        "vinyl-buffer": "^1.0.0",
-        "vinyl-source-stream": "^2"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/eirka/prim.git"
-    },
-    "author": "eirka",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/eirka/prim/issues"
-    },
-    "homepage": "https://github.com/eirka/prim#readme"
+  "name": "prim",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "styles": "sass --no-source-map --style=compressed ${STYLES_DIR:-../chounyuu/chounyuu-styles}/sass/:${STYLES_DIR:-../chounyuu/chounyuu-styles}/css/",
+    "styles:default": "cp ${STYLES_DIR:-../chounyuu/chounyuu-styles}/css/meta.css public/meta.css",
+    "styles:all": "npm run styles && npm run styles:default",
+    "test": "vitest run",
+    "type-check": "vue-tsc --noEmit",
+    "format": "biome format --write src/",
+    "format:check": "biome format src/",
+    "lint": "biome lint src/",
+    "lint:fix": "biome lint --fix src/",
+    "check": "biome check --enforce-assist=true src/",
+    "check:fix": "biome check --enforce-assist=true --fix src/"
+  },
+  "dependencies": {
+    "chart.js": "^4.4.0",
+    "pinia": "^2.1.0",
+    "vue": "^3.4.0",
+    "vue-chartjs": "^5.3.0",
+    "vue-router": "^4.3.0",
+    "vue-toastification": "^2.0.0-rc.5"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.4.10",
+    "@types/node": "^25.3.1",
+    "@vitejs/plugin-vue": "^5.0.0",
+    "jsdom": "^28.1.0",
+    "sass": "^1.70.0",
+    "typescript": "^5.9.3",
+    "vite": "^5.4.0",
+    "vitest": "^4.0.18",
+    "vue-tsc": "^3.2.5"
+  }
 }

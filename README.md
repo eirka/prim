@@ -38,7 +38,7 @@ npm install
 npm run dev
 ```
 
-The dev server starts on `http://localhost:3000`.
+The dev server starts on `http://127.0.0.1:5173`.
 
 ## Tests
 

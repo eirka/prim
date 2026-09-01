@@ -4,6 +4,8 @@
 
 Imageboard frontend for the Pram REST API built with Vue 3.
 
+Agent notes: Hermes loads only this file (AGENTS.md wins over CLAUDE.md). The `src/` layout tree, the `window.primConfig` shape and the full API endpoint inventory live only in `CLAUDE.md` — read it before locating files or endpoints. The Commands block is triplicated in AGENTS.md, CLAUDE.md and README.md: a command or port change must update all three.
+
 ## Commands
 
 ```bash

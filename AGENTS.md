@@ -7,7 +7,7 @@ Imageboard frontend for the Pram REST API built with Vue 3.
 ## Commands
 
 ```bash
-npm run dev          # Dev server on port 3000
+npm run dev          # Dev server on port 5173 (IPv4 127.0.0.1)
 npm run build        # Production build to dist/
 npm run preview      # Preview production build
 npm test             # Run all tests with Vitest

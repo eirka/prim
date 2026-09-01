@@ -90,7 +90,7 @@ window.primConfig = {
 
 ```bash
 npm install
-npm run dev          # Dev server on port 3000
+npm run dev          # Dev server on port 5173 (IPv4 127.0.0.1)
 npm run build        # Production build to dist/
 npm run preview      # Preview production build
 npm test             # Run tests with Vitest
